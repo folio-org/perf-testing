@@ -1,0 +1,90 @@
+{
+  "containerDefinitions": [
+    {
+        "dependsOn": [
+            {
+                "containerName": "busybox",
+                "condition": "COMPLETE"
+            }
+        ],
+        "volumesFrom": [
+            { 
+                "sourceContainer": "busybox" 
+            }
+        ],
+        "mountPoints": [
+            {
+                "sourceVolume": "docker_sock",
+                "containerPath": "/var/run/docker.sock"
+            },
+            {
+                "sourceVolume": "proc",
+                "containerPath": "/host/proc",
+                "readOnly": true
+            },
+            {
+                "sourceVolume": "talagraf_conf",
+                "containerPath": "/etc/telegraf/"
+            }
+        ],
+        "memory": 64,
+        "image": "telegraf:latest",
+        "essential": true,
+        "name": "telegraf"
+    },
+    {
+        "environment": [
+          {
+            "name": "HOST_PROC",
+            "value": "/host/proc"
+          },
+          {
+            "name": "INFLUX_HOST",
+            "value": ""
+          },
+          {
+            "name": "TELEGRAF_NODE_HOSTNAME",
+            "value": ""
+          }
+        ],
+        "entryPoint": [
+            "sh",
+            "-c"
+          ],
+        "mountPoints": [
+            {
+                "containerPath": "/etc/telegraf/",
+                "sourceVolume": "talagraf_conf"
+            }
+        ],
+        "command": [ 
+            "/bin/sh -c \"export TELEGRAF_HOSTNAME=$(curl -s http://169.254.169.254/latest/meta-data/public-hostname) && cat > /etc/telegraf/telegraf.conf <<EOF \n [agent] \n interval = '10s' \n round_interval = true \n metric_batch_size = 1000 \n metric_buffer_limit = 10000 \n collection_jitter = '0s' \n flush_interval = '10s' \n flush_jitter = '0s' \n precision = '' \nhostname = '${TELEGRAF_NODE_HOSTNAME}' \nomit_hostname = false \n[[outputs.influxdb]] \nurls = ['${INFLUX_HOST}'] \n[[inputs.cpu]] \npercpu = true \ntotalcpu = true \ncollect_cpu_time = false \nreport_active = false \n[[inputs.disk]] \n ignore_fs = ['tmpfs', 'devtmpfs', 'devfs', 'iso9660', 'overlay', 'aufs', 'squashfs'] \n[[inputs.diskio]] \n[[inputs.kernel]] \n[[inputs.mem]] \n[[inputs.processes]] \n[[inputs.swap]] \n [[inputs.system]] \n [[inputs.net]] \n [[inputs.docker]] \""],
+        "memory": 64,
+        "image": "busybox",
+        "essential": false,
+        "name": "busybox"
+      }
+  ],
+  "family": "telegraf-monitoring",
+  "networkMode": "host",
+  "volumes": [
+    {
+        "host": {
+          "sourcePath": "/var/run/docker.sock"
+        },
+        "name": "docker_sock"
+    },
+    {
+        "host": {
+          "sourcePath": "/proc"
+        },
+        "name": "proc"
+    },
+    {
+        "host": {
+          "sourcePath": "/etc/telegraf/"
+        },
+        "name": "talagraf_conf"
+    }
+  ]
+}

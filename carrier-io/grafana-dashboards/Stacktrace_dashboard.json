@@ -1,0 +1,68 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 5,
+  "links": [],
+  "panels": [
+    {
+      "content": "<html>\n<script src=\"https://code.jquery.com/jquery-3.4.1.js\"></script>\n<script type=\"text/javascript\" charset=\"utf8\" src=\"https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js\"></script>\n<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js\"></script>\n\n<style>\n    ul.nested, .megatree {\n        list-style-type: none;\n        padding-inline-start: 15px;\n    }\n    \n    .megatree {\n        margin: 0;\n        padding: 0;\n    }\n    \n    .caret {\n        display: contents;\n        cursor: pointer;\n        -webkit-user-select: none;\n        -moz-user-select: none;\n        -ms-user-select: none;\n        user-select: none;\n        padding: 1px;\n        border-top: 0 px;\n    }\n    \n    .empty::before{\n      content: \"\\2022\";\n      color: white;\n      display: inline-block;\n      margin-right: 15px;\n      border-top: 0px;\n    }\n    \n    .caret::before {\n        content: \"\\25B6\";\n        color: red;\n        display: inline-block;\n        margin-right: 15px;\n        border-top: 0px;\n    }\n    \n    .caret-down::before {\n        -ms-transform: rotate(90deg);\n        / IE 9 /\n        -webkit-transform: rotate(90deg);\n        / Safari /\n        transform: rotate(90deg);\n    }\n    \n    .nested {\n        display: none;\n    }\n    \n    .active {\n        display: block;\n    }\n    </style>\n    <h2>Tree View</h2>\n    <p>A tree view represents a hierarchical view of information, where each item can have a number of subitems.</p>\n    <p>Click on the arrow(s) to open or close the tree branches.</p>\n    \n    <ul id=\"megatree\"></ul>\n\n<script>\n    function getVar(varName, onAllEmpty = true) {\n        var vars = angular.element('dashboard-submenu').injector().get('variableSrv').variables;\n        var result = [];\n        vars.forEach(function (variable) {\n            if (variable.name == varName) {\n                if (variable.options[0].value == \"$__all\" && variable.options[0].selected) {\n                    if (onAllEmpty) { return []; } else {\n                        for (var i = 1; i < variable.options.length; i++) {\n                            result.push(variable.options[i].value);\n                        }\n                        return result\n                    }\n                } else {\n                    variable.options.forEach(function (option) {\n                        if (option.selected) { result.push(option.value); }\n                    });\n                }\n            };\n        });\n\n        return result\n    };\n   \n    var urlParams;\n    (window.onpopstate = function () {\n    var match,\n        pl     = /\\+/g,  // Regex for replacing addition symbol with a space\n        search = /([^&=]+)=?([^&]*)/g,\n        decode = function (s) { return decodeURIComponent(s.replace(pl, \" \")); },\n        query  = window.location.search.substring(1);\n\n    urlParams = {};\n    while (match = search.exec(query))\n       urlParams[decode(match[1])] = decode(match[2]);\n    })();\n\n    function getData() {\n        \n        var method = urlParams['method'].split(\"$\").join(\"\\\\$\")\n        var stack_q = \"select stacktrace from Stacktrace where stacktrace=~/\" + urlParams['class'] + \"/ and stacktrace=~/\" + method + \"/ and time>\" + urlParams['from'] + \"ms and time<\" + urlParams['to'] + \"ms\"\n        $.get(\"/grafana/api/datasources/proxy/5/query\", { q: stack_q, db: \"profiling\", epoch: \"ms\" },\n            function (data, status) {\n                var results = []\n                if (status == 'success') {\n                   var stacks_array = parseRecivedData(data.results[0].series[0].values)\n                   var tree = {}\n                   stacks_array.forEach(stack => {\n                    tree = addChild(tree, stack)\n                   })\n                   console.log(JSON.stringify(tree))\n                   var first_key = Object.keys(tree)[0]\n                   var count = tree[first_key].count\n                   calculate_shares(tree, count, '#FF0000;')\n                   insertChild($(\"#megatree\"), tree)\n                   var toggler = document.getElementsByClassName(\"caret\");\n                    for (i = 0; i < toggler.length; i++) {\n                    toggler[i].addEventListener(\"click\", function() {\n                        this.parentElement.querySelector(\".nested\").classList.toggle(\"active\");\n                        this.classList.toggle(\"caret-down\");\n                    });\n                    }\n                } else {\n                    console.log(\"Error occured during quering data. Check your datasource settings.\")\n                }\n                return results\n            });\n    }\n\n    function calculate_shares(child_node, max_count, color) {\n        var arr = Object.keys(child_node)\n        console.log(arr)\n        if (arr.length > 1) {\n            var count_arr = []\n            for (var i = 0; i < arr.length; i++) {\n                count_arr.push(child_node[arr[i]].count)\n            }\n            var max_index = count_arr.indexOf(Math.max.apply(Math, count_arr))\n            for (var i = 0; i < arr.length; i++) {\n                if (i != max_index) {\n                    child_node[arr[i]].color = '#028003;'\n                } else {\n                    child_node[arr[i]].color = '#FF0000;'\n                }\n            }\n            for (var i = 0; i<arr.length; i++) {\n                if (Object.keys(child_node[arr[i]][\"children\"]).length == 0) {\n\t\t            console.log(\"exit\")\n\t            } else {\n                    var share = (child_node[arr[i]].count/max_count * 100).toFixed(2)\n                    child_node[arr[i]].share = share\n\t\t            calculate_shares(child_node[arr[i]].children, max_count, child_node[arr[i]].color)\n\t            }\t\n            }\n        } else {\n            if (Object.keys(child_node[arr[0]][\"children\"]).length == 0) {\n\t\t            console.log(\"exit\")\n\t            } else {\n                    var share = (child_node[arr[0]].count/max_count * 100).toFixed(2)\n                    child_node[arr[0]].share = share\n                    child_node[arr[0]].color = color\n                    calculate_shares(child_node[arr[0]].children, max_count, child_node[arr[0]].color)\n                }\n        }\n        \n    }\n\n    function parseRecivedData(stacks) {\n        var stacks_array = []\n        var method = urlParams['class'] + \".\" + urlParams['method']\n        stacks.forEach(stack => {\n            var tmp1 = stack[1].split(',')\n            var stac_arr = tmp1.slice(tmp1.indexOf(method), tmp1.length)\n            stacks_array.push(stac_arr)\n        })\n        return stacks_array\n        \n    }\n\n\n    function addChild(obj, arr) {\n\t    var value = arr[0]\n\t    if (! obj.hasOwnProperty(value)) {\n\t\t    obj[value] = {}\n\t\t    obj[value].count = 0\n\t\t    obj[value].children = {}\n\t    }\n\t    arr.shift();\n\t    obj[value].count = obj[value].count + 1;\n\t    if (arr.length > 0){\n\t\t     obj[value].children = addChild(obj[value].children, arr)\n\t    }\t\n\t    return obj\n    }\n\n\n\n    function randomString(){\n    return Math.random().toString(36).substring(10);\n}\n\nfunction insertChild(rootNode, child_node) {\n    Object.keys(child_node).forEach(key => {\n        if (Object.keys(child_node[key][\"children\"]).length == 0) {\n\t\t    rootNode.append(`<li><span class=\"empty\">${key}</span></li>`)\n\t    } else {\n\t\t    var nodeId = randomString();\n            rootNode.append(`<li> <div class=\"caret\"><div style=\"display: inline-block\"><span>${key}</span></div><div style=\"display: inline-block\"> <hr style=\"border: 8px solid ${child_node[key].color}; margin-inline-start: 1em; margin-inline-end: 1em;  margin-block-start: 0em; margin-block-end: 0em; border-radius: 10px; width: ${child_node[key].share}px; float: left;\" /> </div><div style=\"display: inline-block\">${child_node[key].share} %</div></div><ul class=\"nested\" id=\"${nodeId}\"></ul></li>`)\n            insertChild($(`#${nodeId}`), child_node[key].children)\n\t}\t\n    })\n}\n\nvar ul_ids = []\n\ngetData()\n\n</script>\n\n</html>",
+      "datasource": null,
+      "gridPos": {
+        "h": 35,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "mode": "html",
+      "options": {},
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Panel Title",
+      "type": "text"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 20,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "Stacktrace",
+  "uid": "U9JtDPLWz",
+  "version": 17
+}

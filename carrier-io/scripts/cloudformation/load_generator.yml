@@ -1,0 +1,152 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Parameters:
+  ECSCluster:
+    Type: String
+    Description: Specifies the ECS Cluster Name with which the resources would be associated
+    Default: performance-testing
+  IamProfile:
+    Type: String
+    Description: Iam Instance Profile
+    Default: [TBD]
+  SubnetIds:
+    Type: List<AWS::EC2::Subnet::Id>
+    Description: Select at two subnets in your selected VPC. 
+    Default: [TBD]
+  InstanceType:
+    Description: EC2 instance type
+    Type: String
+    ConstraintDescription: Please choose a valid instance type.
+  InstanceAmiId:
+    Description: Image ID for EC2 instance
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id
+  TagName:
+    Type: String
+    Description: TagName
+    Default: carrier-load-generator
+  EcsSecurityGroups:
+    Type: List<AWS::EC2::SecurityGroup::Id>
+    Description: Security Groups
+    Default: [TBD]
+  SpotPrice:
+    Type: String
+    Description: The maximum hourly price to be paid for any Spot Instance launched to fulfill the request
+  ServiceName:
+    Type: String
+    Description: Service Name for carrier
+    Default: carrier-load-generator
+  InstanceAttribute:   
+    Type: String
+    Description: Custom instance attribute 
+    Default: carrier-load-generator 
+  LoadGeneratorsCount:
+    Type: String
+    Description: Quantity of load generators
+  ReportingInstanceHost:
+    Description: EC2 instance type
+    Type: String   
+  LoadGeneratorMemory: 
+    Description: Memory availiable for interceptor
+    Type: String   
+
+Resources:
+  MyCluster:
+    Type: AWS::ECS::Cluster
+    Properties: 
+      ClusterName: !Ref ECSCluster
+  CloudwatchLogsGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Join ['-', ["ECSLogGroup", !Ref "AWS::StackName"]]
+      RetentionInDays: 5
+  taskdefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      RequiresCompatibilities: ['EC2']
+      Family: !Join ['', [!Ref "AWS::StackName", -carrier-interceptor]]
+      ContainerDefinitions:  
+      - Name: carrier-interceptor
+        Memory: 256
+        Essential: 'true'
+        User: root
+        Image: getcarrier/interceptor:1.5
+        MountPoints:
+          - ContainerPath: /var/run/docker.sock
+            SourceVolume: docker_sock
+        Environment:
+          - Name: CPU_CORES
+            Value: 1
+          - Name: REDIS_PASSWORD
+            Value: password
+          - Name: REDIS_HOST
+            Value: !Ref ReportingInstanceHost
+          - Name: RAM_QUOTA
+            Value: !Join ['', [!Ref LoadGeneratorMemory, "g"]] 
+          - Name: CPU_QUOTA
+            Value: 2
+        LogConfiguration:
+          LogDriver: awslogs
+          Options:
+            awslogs-group: !Ref CloudwatchLogsGroup
+            awslogs-region: !Ref AWS::Region
+            awslogs-stream-prefix: -carrier-interceptor 
+      Volumes:
+        - Host:
+            SourcePath: /var/run/docker.sock
+          Name: docker_sock     
+
+  ECSAutoScalingGroup:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      VPCZoneIdentifier: !Ref SubnetIds
+      LaunchConfigurationName: !Ref Instance
+      MinSize: 1
+      MaxSize: 10
+      DesiredCapacity: !Ref LoadGeneratorsCount
+      Tags:
+      - Key: Name
+        Value: !Ref TagName   
+        PropagateAtLaunch: true
+    CreationPolicy:
+      ResourceSignal:
+        Timeout: PT15M
+    UpdatePolicy:
+      AutoScalingReplacingUpdate:
+        WillReplace: true
+
+  Instance:
+    Type: AWS::AutoScaling::LaunchConfiguration
+    Properties:
+      ImageId: !Ref InstanceAmiId
+      AssociatePublicIpAddress: true
+      SecurityGroups: !Ref EcsSecurityGroups
+      SpotPrice: !Ref SpotPrice
+      InstanceType: !Ref InstanceType
+      InstanceMonitoring: true
+      IamInstanceProfile: !Ref IamProfile
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash -xe
+          echo ECS_CLUSTER=${ECSCluster} >> /etc/ecs/ecs.config
+          echo ECS_INSTANCE_ATTRIBUTES={\"instance_name\": \"${InstanceAttribute}\"} >> /etc/ecs/ecs.config
+          yum install -y aws-cfn-bootstrap
+          /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource ECSAutoScalingGroup --region ${AWS::Region}        
+
+  service:
+    Type: AWS::ECS::Service
+    Properties:
+      Cluster: !Ref ECSCluster
+      LaunchType: EC2
+      DesiredCount: !Ref LoadGeneratorsCount
+      TaskDefinition: !Ref taskdefinition
+      ServiceName: !Ref ServiceName  
+      PlacementConstraints: 
+        - Type: memberOf
+          Expression: !Join [' ', [ "attribute:instance_name ==" , !Ref InstanceAttribute]]
+        - Type: distinctInstance
+
+Outputs:
+  ecsservice:
+    Value: !Ref service
+  taskdef:
+    Value: !Ref taskdefinition

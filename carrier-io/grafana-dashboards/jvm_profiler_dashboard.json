@@ -1,0 +1,1175 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 4,
+  "iteration": 1580489163036,
+  "links": [],
+  "panels": [
+    {
+      "columns": [
+        {
+          "text": "Avg",
+          "value": "avg"
+        }
+      ],
+      "datasource": "profiling",
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 42,
+      "options": {},
+      "pageSize": null,
+      "showHeader": true,
+      "sort": {
+        "col": 3,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "Time",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "hidden"
+        },
+        {
+          "alias": "Throughput",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "throughput",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "select count(\"response_time\")/300 as \"throughput\", count(\"response_time\") as \"Count\" from OKAPI_request_breakdown WHERE $timeFilter  group by mod",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Throughput for each mod",
+      "transform": "table",
+      "type": "table"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "profiling",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 40,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_mod",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT percentile(\"response_time\", 95) FROM \"OKAPI_request_breakdown\" WHERE $timeFilter GROUP BY time($aggregation), mod fill(null)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Response times for each mod",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "µs",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 17
+      },
+      "id": 38,
+      "panels": [],
+      "title": "JAVA slowest methods",
+      "type": "row"
+    },
+    {
+      "content": "<html>\n    <div style=\"text-align: center;\">\n            <h1>Slowest method list</h1>\n            <br><h2>You can follow the link and see the detailed stacktrace for each method.</h2>\n            <ul id=\"megalinks\"></ul>\n    </div>\n        \n<script src=\"https://code.jquery.com/jquery-3.4.1.js\"></script>\n<script type=\"text/javascript\" charset=\"utf8\" src=\"https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js\"></script>\n<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js\"></script>\n<script>\n\n    \n    function getVar(varName, onAllEmpty = true) {\n        var vars = angular.element('dashboard-submenu').injector().get('variableSrv').variables;\n        var result = []; vars.forEach(function (variable) {\n            if (variable.name == varName) {\n                if (variable.options[0].value == \"$__all\"\n                    && variable.options[0].selected) {\n                    if (onAllEmpty) { return []; } else {\n                        for (var i = 1; i < variable.options.length; i++) {\n                            result.push(variable.options[i].value);\n                        } return result\n                    }\n                } else {\n                    variable.options.forEach(function (option) { if (option.selected) { result.push(option.value); } });\n                }\n            };\n        }); return result\n    };\n\n    function getData() {\n        var service_name_arr = getVar(\"service_tag\")\n        var service_name = ''\n        if (service_name.length_arr > 1) {\n            service_name_arr.forEach(service => {\n                service_name = service_name + service + \"|\"\n            })\n        } else {\n            service_name = service_name_arr[0]\n        }\n        \n        var stack_q = \"select stacktrace from Stacktrace where service_name=~/^\" + service_name + \"/ and time>\" + ${__from} + \"ms and time<\" + ${__to} + \"ms\"\n        $.get(\"/grafana/api/datasources/proxy/5/query\", { q: stack_q, db: \"profiling\", epoch: \"ms\" },\n            function (data, status) {\n                var results = []\n                if (status == 'success') {\n                    var arr = parseRecivedData(data.results[0].series[0].values)\n                } else {\n                    console.log(\"Error occured during quering data. Check your datasource settings.\")\n                }\n                return results\n            });\n    }\n\n    function parseRecivedData(stacks) {\n        var arr = []\n        stacks.forEach(stack => {\n            var stac_arr = stack[1].split(',')\n            let ind = 0\n            for (let i = stac_arr.length - 1; i>0; i--) {\n                if (!(stac_arr[i].startsWith(\"org.folio\") || stac_arr[i].startsWith(\"io.vertx\") || stac_arr[i].startsWith(\"java\") || stac_arr[i].startsWith(\"io.netty\") )) {\n                    ind = i\n                    break\n                } \n            }\n            \n            stac_arr = stac_arr.slice(ind, stac_arr.length)\n            \n            if (!arr.includes(stac_arr[0])) {\n                arr.push(stac_arr[0])\n            }\n        })\n        var service_name_arr = getVar(\"service_tag\")\n        var service_name = ''\n        if (service_name.length_arr > 1) {\n            service_name_arr.forEach(service => {\n                service_name = service_name + service + \"|\"\n            })\n        } else {\n            service_name = service_name_arr[0]\n        }\n        var get_response_time_query = \"select sum(metricValue) from MethodDuration where metricName='duration.sum' and service_name=~/^\" + service_name + \"/ and time>\" + ${__from} + \"ms and time<\" + ${__to} + \"ms group by method, class\"\n        var methods = []\n        var response_times = []\n        var links = []\n        var link_text = []\n        $.get(\"/grafana/api/datasources/proxy/5/query\", { q: get_response_time_query, db: \"profiling\", epoch: \"ms\" },\n        function (data, status) {\n            var results = []\n            if (status == 'success') {\n                try{\n                    for (let i = 0; i<data.results[0].series.length; i++) {\n                        let path = data.results[0].series[i].tags.class + \".\" + data.results[0].series[i].tags.method\n                        if (arr.includes(path)) {\n                            methods.push(path)\n                            response_times.push(Number(data.results[0].series[i].values[0][1]))\n                        }\n                    }\n                    for (let j = 0; j<10; j++) {\n                        try {\n                            let max_index = response_times.indexOf(Math.max.apply(Math, response_times))\n                            let max_method = methods[max_index]\n                            let max_response_time = response_times[max_index]\n                            methods.splice(max_index, 1) \n                            response_times.splice(max_index, 1)\n\n                            var arr_tmp = max_method.split(\".\")\n                            let method = arr_tmp.pop()\n                            let class_name = ''\n                            for (let z = 0; z<arr_tmp.length; z++) {\n                                if (z==0) {\n                                    class_name = arr_tmp[z]\n                                } else {\n                                    class_name = class_name + \".\" + arr_tmp[z]\n                                }\n                            }\n                            let url = window.location.href\n                            let host = url.substring(0, url.indexOf(\"/\"))\n\n                            let link = host + '/grafana/d/U9JtDPLWz/stacktrace?orgId=1&class=' + class_name + '&method=' + method + '&from=' + ${__from} + '&to=' + ${__to} \n                            links.push(link)\n                            let text = max_method + '; CPU time - ' + max_response_time + \" ms\"\n                            link_text.push(text)\n\n\n\n                        } catch {\n\n                        }\n                    }\n                    var html = ''    \n                    for (let x = 0; x<links.length; x++) {\n                        html = html + '<a href=\"' + links[x] + '\" target=\"_blank\" class=\"stacktrace_link\">' + link_text[x] + '</a> <br>'\n                        console.log(link_text[x] + \" --->  \" + links[x])\n                    }\n\n                    $(\"#megalinks\").append(html)\n                    \n                } catch (e) {\n\n                }\n                    \n            } else {\n                console.log(\"Error occured during quering data. Check your datasource settings.\")\n            }\n            return results\n        });\n        return arr\n        }\n        \n        \n        \n        \n        \n        /*var toggler = document.getElementsByClassName(\"caret\");\n        var i;\n        for (i = 0; i < toggler.length; i++) {\n            toggler[i].addEventListener(\"click\", function () {\n                this.parentElement.querySelector(\".nested\").classList.toggle(\"active\");\n                this.classList.toggle(\"caret-down\");\n            });\n        }*/\n    \n\n    function appendRow(errorDetails) {\n        $('#error-table').DataTable().row.add([errorDetails]).draw()\n    }\n\n    function transformStacktrace(stack_string) {\n        var title = ''\n        var stac_arr = stack_string.split(',')\n        tags = ''\n        closes = ''\n        stac_arr.forEach(stacktrace => {\n            if (title == '') {\n                title = stacktrace\n            }\n            tags += '<li><span class=\"caret\">' + stacktrace + '</span><ul class=\"nested\">'\n            closes += '</li></ul>'\n        })\n\n        return \"<div class=\\\"separator\\\"> <div id=\\\"detail-data\\\"><div id=\\\"title-wrapper\\\" data-title=\\\"\" + title + \"\\\"><ul class=\\\"myUL\\\">\" + tags + closes + \"</ul></div></div></div>\"\n    }\n\n    function formatErrorDetails(str) {\n        str = str.replace(/</g, '&lt');\n        str = str.replace(/>/g, '&gt');\n        return str;\n    }\n    function openPopUp(err_type) {\n        $('#' + err_type).fadeIn(350);\n        $('.err-popup-content-' + err_type).text($('.' + err_type).text());\n    }\n\n    function closePopUp(err_type) {\n        $('#' + err_type).fadeOut(350);\n        $('.err-popup-content-' + err_type).text(\"\");\n    }\n\n\n\n    function generateErrorTable() {\n        emptyErrorTable()\n        var table = $('<table>');\n        table.attr(\"id\", \"error-table\");\n        table.append(generateErrorTableHead());\n        table.append(generateErrorTableBody());\n        $('#errors').append(table);\n        initDataTable(table);\n    }\n\n    function emptyErrorTable() {\n        if ($('#error-table').length > 0) {\n            if ($.fn.DataTable.isDataTable('#error-table')) {\n                $('#error-table').DataTable().destroy();\n            }\n        }\n        $(\"#errors\").empty();\n    }\n\n    function generateErrorTableHead() {\n        var cellNames = [\"Stacktrace\"];\n        tHead = $('<thead>')\n        tHead.attr(\"id\", \"error-table-head\");\n        tRow = $('<tr>');\n        for (var i = 0; i < cellNames.length; i++) {\n            tHeadCell = $('<th>');\n            tHeadCell.attr(\"id\", cellNames[i])\n            tHeadCell.text(cellNames[i])\n            tRow.append(tHeadCell);\n        }\n        tHead.append(tRow);\n        return tHead;\n    }\n\n    function generateErrorTableBody() {\n        var tBody = $('<tbody>');\n        tBody.attr(\"id\", \"error-table-body\");\n        return tBody;\n    }\n\n    function initDataTable(table) {\n        table.DataTable({\n            \"empty\": true,\n            \"lengthMenu\": [],\n            \"order\": [[0, \"desc\"]],\n            \"pagingType\": \"full_numbers\",\n            \"responsive\": true,\n            \"initComplete\": function (settings, json) {\n                console.log('DataTables initialised.');\n            }\n        });\n    }\n\nfunction run() {\n        getData()\n    }\n\n    $(document).ready(function () {\n        run();\n    });\n\n\n//angular.element('grafana-app').injector().get('timeSrv').$rootScope.$on('refresh', function(event, data) { run(); });\n\n</script>\n<style>\n.stacktrace_link:link {\n  color: red;\n  font-size: 30px;\n  text-decoration: none;\n}\n\n.stacktrace_link:visited {\n  font-size: 30px;\n  color: green;\n  text-decoration: none;\n  text-align: center;\n  text-decoration: none;\n  display: inline-block;\n}\n\n.stacktrace_link:hover {\n  font-size: 30px;\n  text-decoration: underline;\n  color: hotpink;\n}\n\n.stacktrace_link:active {\n  font-size: 30px;\n  text-decoration: underline;\n  color: blue;\n}\n</style>\n<div id=\"errors\">\n\n</html>",
+      "datasource": "profiling",
+      "gridPos": {
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 18
+      },
+      "id": 6,
+      "links": [],
+      "mode": "html",
+      "options": {},
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": " select sum(count) from Stacktrace where   stacktrace != '' and stacktrace =~/.*$class.*/ and stacktrace =~/.*$method.*/  and $timeFilter and \"tag\"=~ /^$service_tag$/  group by stack",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "JAVA methods",
+      "type": "text"
+    },
+    {
+      "columns": [],
+      "datasource": "profiling",
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 29
+      },
+      "id": 44,
+      "options": {},
+      "pageSize": null,
+      "showHeader": true,
+      "sort": {
+        "col": 3,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "Time",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "hidden"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "alias": "Total time",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "pattern": "max",
+          "thresholds": [],
+          "type": "number",
+          "unit": "ms"
+        }
+      ],
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT max(metricValue) FROM MethodDuration WHERE \"metricName\"='duration.sum' and service_name=~ /^$service_tag$/ and $timeFilter group by method, class",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "CPU Time",
+      "transform": "table",
+      "type": "table"
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 40
+      },
+      "id": 36,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "profiling",
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 19
+          },
+          "hideTimeOverride": true,
+          "id": 9,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": true,
+            "hideZero": false,
+            "max": true,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 1,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "CpuAndMemory.memoryPools-CodeCache-usageMax",
+              "yaxis": 1
+            },
+            {
+              "alias": "CpuAndMemory.processUuid",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "Total Used",
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "select \"heapMemoryTotalUsed\" from CpuAndMemory where service_name=~ /^$service_tag$/ and  $timeFilter",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            },
+            {
+              "alias": "Total Commited",
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "select \"heapMemoryCommitted\" from CpuAndMemory where service_name=~ /^$service_tag$/ and $timeFilter",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Heap Used",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": null,
+              "format": "decbytes",
+              "label": null,
+              "logBase": 2,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "profiling",
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 19
+          },
+          "hideTimeOverride": true,
+          "id": 27,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": true,
+            "hideZero": false,
+            "max": true,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 1,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "CpuAndMemory.memoryPools-CodeCache-usageMax",
+              "yaxis": 1
+            },
+            {
+              "alias": "CpuAndMemory.processUuid",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "Total Used",
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "select \"nonHeapMemoryTotalUsed\" from CpuAndMemory where service_name=~ /^$service_tag$/ and $timeFilter",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            },
+            {
+              "alias": "Total Commited",
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "select \"nonHeapMemoryCommitted\" from CpuAndMemory where service_name=~ /^$service_tag$/ and  $timeFilter",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Non Heap Used",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": null,
+              "format": "decbytes",
+              "label": null,
+              "logBase": 2,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "profiling",
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 27
+          },
+          "hideTimeOverride": true,
+          "id": 25,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": true,
+            "hideZero": false,
+            "max": true,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 1,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "CpuAndMemory.memoryPools-CodeCache-usageMax",
+              "yaxis": 1
+            },
+            {
+              "alias": "CpuAndMemory.processUuid",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "select \"memoryPools-PSEdenSpace-usageUsed\" as EdenSpace, \"memoryPools-PSSurvivorSpace-usageUsed\" as  SurvivorSpace, \"memoryPools-TenuredGen-usageUsed\" as  TenuredGen from \"CpuAndMemory\"  where  service_name=~ /^$service_tag$/ and  $timeFilter",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Executor Heap Used",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": null,
+              "format": "decbytes",
+              "label": null,
+              "logBase": 2,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "profiling",
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 27
+          },
+          "hideTimeOverride": true,
+          "id": 26,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": true,
+            "hideZero": false,
+            "max": true,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 1,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "CpuAndMemory.memoryPools-CodeCache-usageMax",
+              "yaxis": 1
+            },
+            {
+              "alias": "CpuAndMemory.processUuid",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "select \"memoryPools-CodeCache-usageUsed\" as CodeCache, \"memoryPools-CompressedClassSpace-usageUsed\" as  CompressedClassSpace, \"memoryPools-Metaspace-usageUsed\" as  Metaspace from \"CpuAndMemory\"  where  service_name=~ /^$service_tag$/ and \n $timeFilter",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Executor Non-Heap Used",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": null,
+              "format": "decbytes",
+              "label": null,
+              "logBase": 2,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        }
+      ],
+      "title": "JAVA metrics",
+      "type": "row"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 20,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "text": "okapi",
+          "value": [
+            "okapi"
+          ]
+        },
+        "datasource": "profiling",
+        "definition": "show tag values with key=\"service_name\"",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Service",
+        "multi": true,
+        "name": "service_tag",
+        "options": [],
+        "query": "show tag values with key=\"service_name\"",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 2,
+        "tagValuesQuery": "show tag values with key=\"mod\" where \"request_name\"='$tag'",
+        "tags": [
+          "GET all holdings for instance by ID",
+          "HTTP Request"
+        ],
+        "tagsQuery": "show tag values with key=\"request_name\"",
+        "type": "query",
+        "useTags": true
+      },
+      {
+        "auto": false,
+        "auto_count": 30,
+        "auto_min": "10s",
+        "current": {
+          "text": "10s",
+          "value": "10s"
+        },
+        "hide": 0,
+        "label": "Aggregation",
+        "name": "aggregation",
+        "options": [
+          {
+            "selected": false,
+            "text": "1s",
+            "value": "1s"
+          },
+          {
+            "selected": false,
+            "text": "5s",
+            "value": "5s"
+          },
+          {
+            "selected": true,
+            "text": "10s",
+            "value": "10s"
+          },
+          {
+            "selected": false,
+            "text": "20s",
+            "value": "20s"
+          },
+          {
+            "selected": false,
+            "text": "30s",
+            "value": "30s"
+          },
+          {
+            "selected": false,
+            "text": "1m",
+            "value": "1m"
+          },
+          {
+            "selected": false,
+            "text": "2m",
+            "value": "2m"
+          },
+          {
+            "selected": false,
+            "text": "5m",
+            "value": "5m"
+          },
+          {
+            "selected": false,
+            "text": "10m",
+            "value": "10m"
+          },
+          {
+            "selected": false,
+            "text": "30m",
+            "value": "30m"
+          }
+        ],
+        "query": "1s,5s,10s,20s,30s,1m,2m,5m,10m,30m",
+        "refresh": 2,
+        "skipUrlSync": false,
+        "type": "interval"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "",
+  "title": "Java Profiling Folio",
+  "uid": "b2iP-9hiz",
+  "version": 70
+}
