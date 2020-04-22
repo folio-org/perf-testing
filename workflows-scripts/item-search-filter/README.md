@@ -1,15 +1,19 @@
-Steps to run JMeter script:
-Using GUI:
-Open .jmx file in JMeter IDE and make sure host and credentials are valid and hit the play button
+## Steps to run JMeter script:
+##### Using GUI:
+1. Open .jmx file in JMeter IDE
+2. Change credentials in jmeter-supported-data\credentials.csv 
+_[folio username],[foolio password],[tenantId]_
+3. Change hostname in User Defined Variables
+4. Click to the play button
 
-Using non-GUI:
+##### Using non-GUI:
 Navigate to Apache bin folder and run script.
 For example:
 Workspace/apache-jmeter-5.2.1/bin                                                                                                                                                                                                                            
-▶ sudo ./jmeter.sh -n -t /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/UserSearch.jmx -l /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/result.jtl 
+▶ sudo ./jmeter.sh -n -t /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/users_search.jmx -l /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/result.jtl 
 Password:
 Creating summariser <summary>
-Created the tree successfully using /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/UserSearch.jmx
+Created the tree successfully using /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/users_search.jmx
 Starting standalone test @ Fri Apr 17 14:06:38 EDT 2020 (1587146798332)
 Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445
 summary +     15 in 00:00:23 =    0.7/s Avg:  1482 Min:   160 Max:  1866 Err:     0 (0.00%) Active: 1 Started: 1 Finished: 0
@@ -25,22 +29,20 @@ summary +     12 in 00:00:21 =    0.6/s Avg:  1775 Min:  1676 Max:  1950 Err:   
 summary =     94 in 00:02:43 =    0.6/s Avg:  1724 Min:   160 Max:  1950 Err:     0 (0.00%)
 Tidying up ...    @ Fri Apr 17 14:09:21 EDT 2020 (1587146961403)
 ... end of run
-
-Workspace/apache-jmeter-5.2.1/bin                                                                                                                                                                                                                            
-▶ sudo ./jmeter.sh -n -t /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/InventoryInstanceSearch.jmx -l /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/result.jtl 
+                                                                                                                                                                                                                           
+▶ sudo ./jmeter.sh -n -t /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/inventory_instanceSearch.jmx -l /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/result.jtl 
 Password:
 Creating summariser <summary>
-Created the tree successfully using /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/InventoryInstanceSearch.jmx
+Created the tree successfully using /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/inventory_instanceSearch.jmx
 Starting standalone test @ Fri Apr 17 14:11:42 EDT 2020 (1587147102590)
 Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445
 summary =   1301 in 00:00:11 =  123.7/s Avg:   294 Min:    59 Max:  3905 Err:     0 (0.00%)
 Tidying up ...    @ Fri Apr 17 14:11:53 EDT 2020 (1587147113568)
 ... end of run
-
-Workspace/apache-jmeter-5.2.1/bin                                                                                                                                                                                                                            
-▶ sudo ./jmeter.sh -n -t /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/InventoryItemSearch.jmx -l /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/result.jtl    
+                                                                                                                                                                                                                           
+▶ sudo ./jmeter.sh -n -t /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/inventory_itemSearch.jmx -l /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/result.jtl    
 Creating summariser <summary>
-Created the tree successfully using /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/InventoryItemSearch.jmx
+Created the tree successfully using /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/inventory_itemSearch.jmx
 Starting standalone test @ Fri Apr 17 14:12:13 EDT 2020 (1587147133568)
 Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445
 summary +    836 in 00:00:16 =   51.3/s Avg:   455 Min:    57 Max:  3345 Err:     0 (0.00%) Active: 30 Started: 30 Finished: 0
