@@ -1,3 +1,30 @@
+## Workflow steps:
+##### Workflow for inventory_instanceSearch.jmx
+1 Open Inventory App
+2 Select Instance tab in top left
+3 Select Language drop down and type "spa" for Spanish
+4 Select Language drop down and type "spa" for Spanish AND Select Staff suppress and check "Yes"
+
+##### Workflow for inventory_itemSearch.jmx
+1 Open Inventory App
+2 Select Item tab in top left
+3 Select Item status drop down and check "Available" 
+4 Uncheck "Available"
+5 In same drop down check "In transit"
+6 Uncheck "In transit"
+7 Select "Suppress from discovery" drop down and check "Yes"
+8 Goto items tab and Select Nature of content = Newspaper
+9 Select Effective location (item) dropdown and add following locations with ids
+    "b0237985-87e6-4f9c-b6c2-23ef426f7d03" or "d695b3e4-5bbb-4ab2-b998-6e52cd395d86" or "c9379617-4061-439b-80bd-117abc9f9004" or "e5d578f4-17ce-4c70-b1b5-565f3605e10b" or "f369266a-a209-4e4a-b487-d1acf3ee6857" or "bd90f838-4bc4-4ef0-963b-502210fb5976" or "1d4222af-0994-4f15-bab1-568b2f6d3f40" or "c3dd9997-463b-47e3-958c-2c6fc2775f90" or "38baf4b3-4fe7-47c1-826b-5d35e7b41018"
+
+##### Workflow for users_search.jmx
+1 Open Users App
+2 Select Status dropdown
+3 Check "active" status
+4 Keep scrolling until you see Load More button (behind the scene, a query will be made to backend module by increasing offset)
+5 Do point 4 couple of times (page renders very slow)
+
+
 ## Steps to run JMeter script:
 ##### Using GUI:
 1. Open .jmx file in JMeter IDE
@@ -10,52 +37,9 @@ _[folio username],[foolio password],[tenantId]_
 Navigate to Apache bin folder and run script.
 For example:
 Workspace/apache-jmeter-5.2.1/bin                                                                                                                                                                                                                            
-▶ sudo ./jmeter.sh -n -t /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/users_search.jmx -l /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/result.jtl 
-Password:
-Creating summariser <summary>
-Created the tree successfully using /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/users_search.jmx
-Starting standalone test @ Fri Apr 17 14:06:38 EDT 2020 (1587146798332)
-Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445
-summary +     15 in 00:00:23 =    0.7/s Avg:  1482 Min:   160 Max:  1866 Err:     0 (0.00%) Active: 1 Started: 1 Finished: 0
-summary +     17 in 00:00:30 =    0.6/s Avg:  1765 Min:  1659 Max:  1890 Err:     0 (0.00%) Active: 1 Started: 1 Finished: 0
-summary =     32 in 00:00:53 =    0.6/s Avg:  1632 Min:   160 Max:  1890 Err:     0 (0.00%)
-summary +     17 in 00:00:30 =    0.6/s Avg:  1772 Min:  1669 Max:  1910 Err:     0 (0.00%) Active: 1 Started: 1 Finished: 0
-summary =     49 in 00:01:23 =    0.6/s Avg:  1681 Min:   160 Max:  1910 Err:     0 (0.00%)
-summary +     16 in 00:00:28 =    0.6/s Avg:  1775 Min:  1663 Max:  1936 Err:     0 (0.00%) Active: 1 Started: 1 Finished: 0
-summary =     65 in 00:01:51 =    0.6/s Avg:  1704 Min:   160 Max:  1936 Err:     0 (0.00%)
-summary +     17 in 00:00:30 =    0.6/s Avg:  1765 Min:  1662 Max:  1898 Err:     0 (0.00%) Active: 1 Started: 1 Finished: 0
-summary =     82 in 00:02:21 =    0.6/s Avg:  1716 Min:   160 Max:  1936 Err:     0 (0.00%)
-summary +     12 in 00:00:21 =    0.6/s Avg:  1775 Min:  1676 Max:  1950 Err:     0 (0.00%) Active: 0 Started: 1 Finished: 1
-summary =     94 in 00:02:43 =    0.6/s Avg:  1724 Min:   160 Max:  1950 Err:     0 (0.00%)
-Tidying up ...    @ Fri Apr 17 14:09:21 EDT 2020 (1587146961403)
-... end of run
-                                                                                                                                                                                                                           
-▶ sudo ./jmeter.sh -n -t /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/inventory_instanceSearch.jmx -l /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/result.jtl 
-Password:
-Creating summariser <summary>
-Created the tree successfully using /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/inventory_instanceSearch.jmx
-Starting standalone test @ Fri Apr 17 14:11:42 EDT 2020 (1587147102590)
-Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445
-summary =   1301 in 00:00:11 =  123.7/s Avg:   294 Min:    59 Max:  3905 Err:     0 (0.00%)
-Tidying up ...    @ Fri Apr 17 14:11:53 EDT 2020 (1587147113568)
-... end of run
-                                                                                                                                                                                                                           
-▶ sudo ./jmeter.sh -n -t /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/inventory_itemSearch.jmx -l /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/result.jtl    
-Creating summariser <summary>
-Created the tree successfully using /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/inventory_itemSearch.jmx
-Starting standalone test @ Fri Apr 17 14:12:13 EDT 2020 (1587147133568)
-Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445
-summary +    836 in 00:00:16 =   51.3/s Avg:   455 Min:    57 Max:  3345 Err:     0 (0.00%) Active: 30 Started: 30 Finished: 0
-summary +    105 in 00:00:30 =    3.5/s Avg:  4355 Min:    80 Max: 25807 Err:     0 (0.00%) Active: 30 Started: 30 Finished: 0
-summary =    941 in 00:00:46 =   20.4/s Avg:   890 Min:    57 Max: 25807 Err:     0 (0.00%)
-summary +     40 in 00:00:33 =    1.2/s Avg: 28960 Min: 14288 Max: 54170 Err:     0 (0.00%) Active: 10 Started: 30 Finished: 20
-summary =    981 in 00:01:19 =   12.5/s Avg:  2034 Min:    57 Max: 54170 Err:     0 (0.00%)
-summary +     10 in 00:00:08 =    1.2/s Avg:  9922 Min:  8076 Max: 10884 Err:     0 (0.00%) Active: 0 Started: 30 Finished: 30
-summary =    991 in 00:01:27 =   11.4/s Avg:  2114 Min:    57 Max: 54170 Err:     0 (0.00%)
-Tidying up ...    @ Fri Apr 17 14:13:40 EDT 2020 (1587147220865)
-... end of run
+▶ sudo ./jmeter.sh -n -t /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/users_search.jmx -l /Users/vjavalkar/Workspace/FOLIO/perf-testing/workflows-scripts/item-search-filter/result.jtl
 
-Observations:
+## Observations:
 Queries:
 Get instances by natureOfContentTermIds
 GET /instance-storage/instances?query=(languages="spa" and natureOfContentTermIds="ebbbdef1-00e1-428b-bc11-314dc0705074") sortby title&limit=100&offset=0 
