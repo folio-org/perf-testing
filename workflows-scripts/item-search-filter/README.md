@@ -26,8 +26,15 @@
 5. Do point 4 couple of times (page renders very slow)
 
 ## Modules required to be enabled as a pre-requisite to run JMeter script:
+##### Backend:
 - mod-inventory-storage-19.1.2
 - mod-inventory-14.1.2
+- mod-authtoken-2.4.0
+- mod-permissions-5.9.0
+- okapi-2.35.2
+##### Frontend:
+- folio_inventory-2.0.2
+
 - FOLIO release: FameFlower
 
 ## Steps to run JMeter script:
