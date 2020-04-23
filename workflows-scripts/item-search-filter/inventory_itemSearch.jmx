@@ -19,11 +19,6 @@
             <stringProp name="Argument.value">${__P(HOSTNAME,[okapi-hostname-without-http-protoco])}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="DISTRIBUTION" elementType="Argument">
-            <stringProp name="Argument.name">DISTRIBUTION</stringProp>
-            <stringProp name="Argument.value">${__P(DISTRIBUTION,43-57)}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
           <elementProp name="global_BaseDir" elementType="Argument">
             <stringProp name="Argument.name">global_BaseDir</stringProp>
             <stringProp name="Argument.value">${__BeanShell(import org.apache.jmeter.services.FileServer; FileServer.getFileServer().getBaseDir();)}${__BeanShell(File.separator,)}</stringProp>
@@ -42,11 +37,6 @@
           <elementProp name="duration" elementType="Argument">
             <stringProp name="Argument.name">duration</stringProp>
             <stringProp name="Argument.value">${__P(DURATION,30)}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="thinktime_offset" elementType="Argument">
-            <stringProp name="Argument.name">thinktime_offset</stringProp>
-            <stringProp name="Argument.value">${__P(THINK_OFFSET,0)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="port" elementType="Argument">
