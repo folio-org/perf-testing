@@ -19,7 +19,7 @@ Search request by open status
 - mod-permissions-5.9.0
 - okapi-2.35.2
 ##### Frontend:
-- ui-circulation-2.0.0
+- folio-circulation-2.0.0
 
 - FOLIO release: FameFlower
 

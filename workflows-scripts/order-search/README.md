@@ -43,7 +43,7 @@ Search order by status
 - mod-permissions-5.9.0
 - okapi-2.35.2
 ##### Frontend:
-- ui-orders-2.0.3
+- folio-orders-2.0.3
 
 - FOLIO release: FameFlower
 
