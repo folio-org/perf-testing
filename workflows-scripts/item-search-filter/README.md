@@ -18,6 +18,12 @@
     UC/HP/AANet/Intrnet or UC/HP/ASR/ACASA or UC/HP/ASR/ARCHASR or UC/HP/ASR/ASRHP or UC/HP/ASR/Atk or bUC/HP/ASR/GameASR or UC/HP/ASR/HarpASR or UC/HP/ASR/JRLASR or UC/HP/ASR/LawASR
    These locations are from the PTF perf testing environment (database)
 
+##### Workflow for inventory_saveUUIDsInstance.jmx
+1. Open Inventory App
+2. Select Instance tab in top left
+3. Select Query search in the drop down and type "keyword all "Boston" and source=FOLIO" in search field
+4. Under Actions menu click the option “Save instances UUIDs”
+
 ##### Workflow for users_search.jmx
 1. Open Users App
 2. Select Status dropdown
