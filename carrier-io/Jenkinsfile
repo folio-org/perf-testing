@@ -118,41 +118,41 @@ node {
             deleteDir()
             step([$class: 'WsCleanup'])
             checkout scm
+	    sharedLib = load "shared.groovy"
+            context = sharedLib.getContext()
         }
 	withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', 
 						credentialsId: "jenkins-aws",
 						accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
 						secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-		sshagent(credentials:["${context.sshKeyId}"]) {
-			try {
-				stage("Populate data to db") {
-					if(params.populateDatabase){
-						populateData(params.tenant)
-					}    
-				}
-
-				stage("Configure resources monitoring") {
-					installTelegrafAgent(params.reportingInstanceUrl, params.targetCluster, params.targetEnv)
+		try {
+			stage("Populate data to db") {
+				if(params.populateDatabase){
+					populateData(params.tenant)
 				}    
-
-				stage("Configure load generators") {
-					createStack(params.loadGeneratorsCount, params.instanceType, params.spotPrice, params.reportingInstanceUrl, params.targetRegion, params.lgMemory, params.targetEnv)
-				}    
-
-				stage("Execute tests") {
-					executePerformanceTest(params.users, params.loadGeneratorsCount, params.reportingInstanceUrl, params.galloperPostProccessingTaskId, params.testName, params.testType, params.rampUp, params.duration, params.targetUrl, params.distribution, params.targetEnv, params.lgMemory, params.artifact, params.bucket, params.tenant)
-				}
-
-				stage("Send Notification") {
-					sendNotification(params.testName, params.testType, params.users.toInteger(), params.reportingInstanceUrl, params.emailsList, params.galloperTaskIdForNotifications)
-				}				
-			} catch (Exception err){
-				println err
-			} finally { 
-				stage('Shut down load generators and FOLIO environment'){
-					deleteStack(STACK_NAME, params.targetRegion, params.targetEnv)
-					stopMonitoringTask(params.targetCluster, params.targetEnv)}
 			}
+
+			stage("Configure resources monitoring") {
+				installTelegrafAgent(params.reportingInstanceUrl, params.targetCluster, params.targetEnv)
+			}    
+
+			stage("Configure load generators") {
+				createStack(params.loadGeneratorsCount, params.instanceType, params.spotPrice, params.reportingInstanceUrl, params.targetRegion, params.lgMemory, params.targetEnv)
+			}    
+
+			stage("Execute tests") {
+				executePerformanceTest(params.users, params.loadGeneratorsCount, params.reportingInstanceUrl, params.galloperPostProccessingTaskId, params.testName, params.testType, params.rampUp, params.duration, params.targetUrl, params.distribution, params.targetEnv, params.lgMemory, params.artifact, params.bucket, params.tenant)
+			}
+
+			stage("Send Notification") {
+				sendNotification(params.testName, params.testType, params.users.toInteger(), params.reportingInstanceUrl, params.emailsList, params.galloperTaskIdForNotifications)
+			}				
+		} catch (Exception err){
+			println err
+		} finally { 
+			stage('Shut down load generators and FOLIO environment'){
+				deleteStack(STACK_NAME, params.targetRegion, params.targetEnv)
+			stopMonitoringTask(params.targetCluster, params.targetEnv)}
 		}
 	}
 }
