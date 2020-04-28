@@ -109,7 +109,6 @@ node {
             string(defaultValue: "a6c0ff76-9abb-4021-99c9-78a02152bf1d", description: "Galloper task id for notifications", name: "galloperTaskIdForNotifications"),
             string(defaultValue: "43-57", description: "user flow distribution", name: "distribution"),
             string(defaultValue: "us-east-1", description: "region", name: "targetRegion"),
-            string(defaultValue: "", description: "target environment (e.g., dev/int)", name: "targetEnv"),
             string(defaultValue: "", description: "cluster name to monitor", name: "targetCluster")
         ])
     ])
@@ -118,8 +117,6 @@ node {
             deleteDir()
             step([$class: 'WsCleanup'])
             checkout scm
-	    sharedLib = load "shared.groovy"
-            context = sharedLib.getContext()
         }
 	withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', 
 						credentialsId: "jenkins-aws",
