@@ -2,7 +2,7 @@ STACK_NAME = "performance-testing-load-generators"
 MONITORING_STACK_NAME = "monitoring-performance-testing"
 
 def createStack(String loadGeneratorsCount, String instanceType, String spotPrice, String reportingInstanceUrl, String targetRegion, String lgMemory){
-    sh(script: "aws cloudformation create-stack --stack-name ${STACK_NAME} \
+    sh(script: "aws cloudformation create-stack --debug --stack-name ${STACK_NAME} \
         --region ${targetRegion} \
         --template-body file://${WORKSPACE}/carrier-io/scripts/cloudformation/load_generator.yml \
         --parameters ParameterKey=InstanceType,ParameterValue=${instanceType} \
@@ -65,7 +65,7 @@ node {
             string(defaultValue: "1", description: "Quantity of load generators", name: "loadGeneratorsCount"),
             string(defaultValue: "[TBD]", description: "test name (without the '.jmx' extension", name: "testName"),
             string(defaultValue: "[TBD]", description: "Name of .zip file with tests", name: "artifact"),
-            string(defaultValue: "tests", description: "Galloper bucket with tests artifact", name: "bucket"),
+            string(defaultValue: "[TBD]", description: "Galloper bucket with tests artifact", name: "bucket"),
             string(defaultValue: "t3.medium", description: "Instance type for load generator, all instance types with specs could be found here https://aws.amazon.com/ec2/instance-types", name: "instanceType"),
             string(defaultValue: "0.0125", description: "The maximum hourly price to be paid for any Spot Instance launched to fulfill the request. Default is for t3.medium instance type, more information could be found here https://aws.amazon.com/ec2/spot/pricing", name: "spotPrice"),
             string(defaultValue: "3", description: "Ram memory in GB avaliable per load generator", name: "lgMemory"),
