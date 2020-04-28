@@ -72,8 +72,8 @@ node {
             string(defaultValue: "", description: "FOLIO environment (Okapi URI) against which tests will be executed", name: "targetUrl"),
             string(defaultValue: "", description: "Environment where reporting tools are located", name: "reportingInstanceUrl"),
             string(defaultValue: "", description: """Recipients for email notification in format "user1@mail.com","user2@mail.com","user3@mail.com" """, name: "emailsList"),
-            string(defaultValue: "4912116f-b22e-470c-b263-81ffbe6ce847", description: "Galloper task id for post processing", name: "galloperPostProccessingTaskId"),
-            string(defaultValue: "a6c0ff76-9abb-4021-99c9-78a02152bf1d", description: "Galloper task id for notifications", name: "galloperTaskIdForNotifications"),
+            string(defaultValue: "1df234f8-0319-4a1e-89e1-e3aec78a25dc", description: "Galloper task id for post processing", name: "galloperPostProccessingTaskId"),
+            string(defaultValue: "481d5b9d-fd90-45c6-a38f-0fad1b4d8572", description: "Galloper task id for notifications", name: "galloperTaskIdForNotifications"),
             string(defaultValue: "43-57", description: "user flow distribution", name: "distribution"),
             string(defaultValue: "us-east-1", description: "region", name: "targetRegion"),
             string(defaultValue: "", description: "cluster name to monitor", name: "targetCluster")
@@ -112,6 +112,7 @@ node {
 		} finally { 
 			stage('Shut down load generators and FOLIO environment'){
 				deleteStack(STACK_NAME, params.targetRegion)			
-		}
+			}
+		}	
 	}
 }
