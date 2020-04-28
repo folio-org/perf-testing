@@ -61,22 +61,22 @@ node {
             string(defaultValue: "1", description: "Ramp up, s", name: "rampUp"),
             string(defaultValue: "60", description: "Test duration, s", name: "duration"),
             booleanParam(name: 'populateDatabase', defaultValue: false, description: "Repopulate data to database"),
-            string(defaultValue: "", description: "Tenant", name: "tenant"),
+            string(defaultValue: "[TBD]", description: "Tenant", name: "tenant"),
             string(defaultValue: "1", description: "Quantity of load generators", name: "loadGeneratorsCount"),
-            string(defaultValue: "", description: "test name (without the '.jmx' extension", name: "testName"),
-            string(defaultValue: "", description: "Name of .zip file with tests", name: "artifact"),
+            string(defaultValue: "[TBD]", description: "test name (without the '.jmx' extension", name: "testName"),
+            string(defaultValue: "[TBD]", description: "Name of .zip file with tests", name: "artifact"),
             string(defaultValue: "tests", description: "Galloper bucket with tests artifact", name: "bucket"),
             string(defaultValue: "t3.medium", description: "Instance type for load generator, all instance types with specs could be found here https://aws.amazon.com/ec2/instance-types", name: "instanceType"),
             string(defaultValue: "0.0125", description: "The maximum hourly price to be paid for any Spot Instance launched to fulfill the request. Default is for t3.medium instance type, more information could be found here https://aws.amazon.com/ec2/spot/pricing", name: "spotPrice"),
             string(defaultValue: "3", description: "Ram memory in GB avaliable per load generator", name: "lgMemory"),
-            string(defaultValue: "", description: "FOLIO environment (Okapi URI) against which tests will be executed", name: "targetUrl"),
-            string(defaultValue: "", description: "Environment where reporting tools are located", name: "reportingInstanceUrl"),
-            string(defaultValue: "", description: """Recipients for email notification in format "user1@mail.com","user2@mail.com","user3@mail.com" """, name: "emailsList"),
+            string(defaultValue: "[TBD]", description: "FOLIO environment (Okapi URI) against which tests will be executed", name: "targetUrl"),
+            string(defaultValue: "[TBD]", description: "Environment where reporting tools are located", name: "reportingInstanceUrl"),
+            string(defaultValue: "[TBD]", description: """Recipients for email notification in format "user1@mail.com","user2@mail.com","user3@mail.com" """, name: "emailsList"),
             string(defaultValue: "1df234f8-0319-4a1e-89e1-e3aec78a25dc", description: "Galloper task id for post processing", name: "galloperPostProccessingTaskId"),
             string(defaultValue: "481d5b9d-fd90-45c6-a38f-0fad1b4d8572", description: "Galloper task id for notifications", name: "galloperTaskIdForNotifications"),
             string(defaultValue: "43-57", description: "user flow distribution", name: "distribution"),
             string(defaultValue: "us-east-1", description: "region", name: "targetRegion"),
-            string(defaultValue: "", description: "cluster name to monitor", name: "targetCluster")
+            string(defaultValue: "[TBD]", description: "cluster name to monitor", name: "targetCluster")
         ])
     ])
     
