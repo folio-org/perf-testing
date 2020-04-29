@@ -7,7 +7,7 @@ Parameters:
   IamProfile:
     Type: String
     Description: Iam Instance Profile
-    Default: arn:aws:iam::732722833398:role/codebuild-dev_folio_org-service-role
+    Default: arn:aws:iam::732722833398:instance-profile/carrier-io-role
   SubnetIds:
     Type: List<AWS::EC2::Subnet::Id>
     Description: Select at two subnets in your selected VPC. 
