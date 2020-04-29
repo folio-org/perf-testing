@@ -1,6 +1,6 @@
 ## Workflow steps:
 
-##### Workflow for requests_searchByOpenStatus.jmx
+##### Workflow for orders_orderLinesSearchByStatus.jmx
 
 Search order lines by open status
 
@@ -46,22 +46,6 @@ Search order by status
 - folio-orders-2.0.3
 
 - FOLIO release: FameFlower
-
-## Steps to run JMeter script:
-##### Using GUI:
-1. Open .jmx file in JMeter IDE
-2. Change credentials in jmeter-supported-data\credentials.csv 
-_[folio username],[folio password],[tenantId]_
-3. Change hostname in User Defined Variables
-4. Click to the play button
-
-##### NON GUI mode
-run the command:
-
-jmeter -n -t [path_to_project]/perf-testing/workflows-scripts/request-search/[file_name].jmx -l [path_to_project]/perf-testing/workflows-scripts/request-search/log.jtl
-
-where [path_to_project] - a path to perf-testing project
-	  [file_name] - a jmx file name 
 
 
 
