@@ -1,10 +1,10 @@
 ## Workflow steps:
 
 ##### Steps to generate data:
-1. Open Inventory App -> Instance tab -> select query and type "keyword all "Europe" and source= marc and metadata.updatedDate >2020-04-01" to get around 40 search records
+1. Open Inventory App -> Instance tab -> select query and type for example: "source= marc" to get search records
 2. On top right select "Save Instance UUIDs"
 3. csv file will be downloaded
-4. Rename it to 40-instance-record-ids.csv and place it in data-export/jmeter-supported-data
+4. Rename it and place it in data-export/jmeter-supported-data
 
 ### Overview:
 #### Workflow for dataExport_exportMARCBibRecords.jmx
