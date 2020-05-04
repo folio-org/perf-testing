@@ -16,25 +16,17 @@ After specifying csv file, UI will return. Then, asynchronously POST data-export
 
 ##### Workflow in backend using JMeter: 
 1. `POST data-export/fileDefinitions` 
-request
-  filename and size
-response
- returns filename and metadata
+- request: filename and size
+- response: returns filename and metadata
 2. `POST data-export/fileDefinitions/${fileDefinitionId}/upload`
-request
-  file content as a Stream
-response
-  file attributes json
+- request: file content as a Stream
+- response: file attributes json
 3. `POST data-export/export`
-request
-  file definition and job profile
-response
-  returns 204 on success and asynchronously makes a call to mod-source-record-storage
+- request: file definition and job profile
+- response: returns 204 on success and asynchronously makes a call to mod-source-record-storage
 4. Loop over `GET data-export/jobExecutions?query=id==${jobExecutionId}` endpoint until job status is SUCCESS otherwise return
-request
-  empty
-response
-  job execution details with respective jobExecutionId with status
+- request: empty
+- response: job execution details with respective jobExecutionId with status
 
 To measure slowness, look for Exporting MARC Bib records workflow Transaction average response time in Aggregate Report
 
