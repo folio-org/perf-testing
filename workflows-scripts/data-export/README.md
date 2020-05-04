@@ -15,22 +15,22 @@
 After specifying csv file, UI will return. Then, asynchronously POST data-export/export request will start a task  which calls mod-source-record-storage module
 
 ##### Workflow in backend using JMeter: 
-1. POST data-export/fileDefinitions 
+1. `POST data-export/fileDefinitions` 
 request
   filename and size
 response
  returns filename and metadata
-2. POST data-export/fileDefinitions/${fileDefinitionId}/upload
+2. `POST data-export/fileDefinitions/${fileDefinitionId}/upload`
 request
   file content as a Stream
 response
   file attributes json
-3. POST data-export/export
+3. `POST data-export/export`
 request
   file definition and job profile
 response
   returns 204 on success and asynchronously makes a call to mod-source-record-storage
-4. Loop over GET data-export/jobExecutions?query=id==${jobExecutionId} endpoint until job status is SUCCESS otherwise return
+4. Loop over `GET data-export/jobExecutions?query=id==${jobExecutionId}` endpoint until job status is SUCCESS otherwise return
 request
   empty
 response
