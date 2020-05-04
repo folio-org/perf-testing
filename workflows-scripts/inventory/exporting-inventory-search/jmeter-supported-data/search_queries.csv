@@ -1,0 +1,25 @@
+keyword all "Boston" and source=FOLIO
+keyword all "century"
+keyword all "agency" and source=folio
+keyword all "church"
+keyword all "last"
+keyword all "great" and source=folio
+keyword all "english"
+keyword all "education"
+keyword all "best"
+languages="eng"
+keyword all "no"
+keyword all "bill"
+languages="spa"
+keyword all "a"
+source=FOLIO
+((source=FOLIO) and languages="fre")
+languages="fre"
+keyword all "an"
+keyword all "for"
+keyword all "of"
+keyword all "the"
+keyword all "set"
+keyword all "18"
+keyword all "air"
+keyword all "one"
