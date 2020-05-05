@@ -1,20 +1,18 @@
-## Workflow steps:
-
-##### Steps to generate data:
-1. Open Inventory App -> Instance tab -> select query and type "keyword all "Europe" and source= marc and metadata.updatedDate >2020-04-01" to get around 40 search records
+### Pre-requisite:
+#### Generate data:
+1. Open Inventory App -> Instance tab -> select query and type for example: "source= marc"
 2. On top right select "Save Instance UUIDs"
 3. csv file will be downloaded
-4. Rename it to 40-instance-record-ids.csv and place it in data-export/jmeter-supported-data
+4. Rename it and place it in data-export/jmeter-supported-data
 
-### Overview:
-#### Workflow for dataExport_exportMARCBibRecords.jmx
-##### Workflow in UI:
+#### Workflow steps:
+##### In UI:
 1. Open Data export App
 2. On top left, choose .csv file with record IDS (browse to location where 10-instance-record-ids.csv exists)
 
 After specifying csv file, UI will return. Then, asynchronously POST data-export/export request will start a task  which calls mod-source-record-storage module
 
-##### Workflow in backend using JMeter: 
+To mimics workflow in UI, following calls need to be made to backend in dataExport_exportMARCBibRecords.jmx as below:
 1. POST data-export/fileDefinitions 
 request
   filename and size

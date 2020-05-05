@@ -16,7 +16,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="HOSTNAME" elementType="Argument">
             <stringProp name="Argument.name">HOSTNAME</stringProp>
-            <stringProp name="Argument.value">${__P(HOSTNAME,[okapi-hostname-without-http-protoco])}</stringProp>
+            <stringProp name="Argument.value">${__P(HOSTNAME,[okapi-hostname-without-http-protocol])}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="global_BaseDir" elementType="Argument">
@@ -42,6 +42,11 @@
           <elementProp name="port" elementType="Argument">
             <stringProp name="Argument.name">port</stringProp>
             <stringProp name="Argument.value">${__P(port,443)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="instance_record_uuids_file" elementType="Argument">
+            <stringProp name="Argument.name">instance_record_uuids_file</stringProp>
+            <stringProp name="Argument.value">${__P(instance_record_uuids_file,test-40-cap1.csv)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -205,7 +210,7 @@
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&quot;size&quot;:1,&quot;fileName&quot;:&quot;10-instance-record-ids.csv&quot;}</stringProp>
+                  <stringProp name="Argument.value">{&quot;size&quot;:1,&quot;fileName&quot;:&quot;${instance_record_uuids_file}&quot;}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
@@ -250,7 +255,7 @@
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">${__FileToString(${global_BaseDir}/jmeter-supported-data/10-instance-record-ids.csv,,)}</stringProp>
+                  <stringProp name="Argument.value">${__FileToString(${global_BaseDir}/jmeter-supported-data/${instance_record_uuids_file},,)}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
@@ -399,7 +404,7 @@
             <hashTree/>
           </hashTree>
           <WhileController guiclass="WhileControllerGui" testclass="WhileController" testname="While Controller" enabled="true">
-            <stringProp name="WhileController.condition">${__jexl3((&quot;${jobExecutionStatus}&quot; == &quot;IN_PROGRESS&quot;),)}</stringProp>
+            <stringProp name="WhileController.condition">${__jexl3((&quot;${jobExecutionStatus}&quot; == &quot;IN_PROGRESS&quot; || &quot;${jobExecutionStatus}&quot; == &quot;NEW&quot;),)}</stringProp>
           </WhileController>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET_/data-export/jobExecutions?query=id==${jobExecutionId}" enabled="true">
