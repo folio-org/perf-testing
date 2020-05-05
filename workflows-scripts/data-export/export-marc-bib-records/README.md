@@ -1,13 +1,6 @@
-<<<<<<< HEAD:workflows-scripts/data-export/export-marc-bib-records/README.md
 ### Pre-requisite:
 #### Generate data:
 1. Open Inventory App -> Instance tab -> select query and type for example: "source= marc"
-=======
-## Workflow steps:
-
-##### Steps to generate data:
-1. Open Inventory App -> Instance tab -> select query and type for example: "source= marc" to get search records
->>>>>>> c403f50b6015cd896a61048cbdb0239403da821b:workflows-scripts/data-export/README.md
 2. On top right select "Save Instance UUIDs"
 3. csv file will be downloaded
 4. Rename it and place it in data-export/jmeter-supported-data
@@ -19,7 +12,6 @@
 
 After specifying csv file, UI will return. Then, asynchronously POST data-export/export request will start a task  which calls mod-source-record-storage module
 
-<<<<<<< HEAD:workflows-scripts/data-export/export-marc-bib-records/README.md
 To mimics workflow in UI, following calls need to be made to backend in dataExport_exportMARCBibRecords.jmx as below:
 1. POST data-export/fileDefinitions 
 request
@@ -41,21 +33,6 @@ request
   empty
 response
   job execution details with respective jobExecutionId with status
-=======
-##### Workflow in backend using JMeter: 
-1. `POST data-export/fileDefinitions` 
-- request: filename and size
-- response: returns filename and metadata
-2. `POST data-export/fileDefinitions/${fileDefinitionId}/upload`
-- request: file content as a Stream
-- response: file attributes json
-3. `POST data-export/export`
-- request: file definition and job profile
-- response: returns 204 on success and asynchronously makes a call to mod-source-record-storage
-4. Loop over `GET data-export/jobExecutions?query=id==${jobExecutionId}` endpoint until job status is SUCCESS otherwise return
-- request: empty
-- response: job execution details with respective jobExecutionId with status
->>>>>>> c403f50b6015cd896a61048cbdb0239403da821b:workflows-scripts/data-export/README.md
 
 To measure slowness, look for Exporting MARC Bib records workflow Transaction average response time in Aggregate Report
 
