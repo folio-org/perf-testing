@@ -8,7 +8,7 @@
 #### Workflow steps:
 ##### In UI:
 1. Open Data export App
-2. On top left, choose .csv file with record IDS (browse to location where 10-instance-record-ids.csv exists)
+2. On top left, choose .csv file with record IDS (browse to location where instance-record-ids.csv exists)
 
 After specifying csv file, UI will return. Then, asynchronously POST data-export/export request will start a task  which calls mod-source-record-storage module
 
@@ -35,6 +35,7 @@ response
   job execution details with respective jobExecutionId with status
 
 To measure slowness, look for Exporting MARC Bib records workflow Transaction average response time in Aggregate Report
+
 
 ## Modules required to be enabled as a pre-requisite to run JMeter script:
 ##### Backend:
