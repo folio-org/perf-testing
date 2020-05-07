@@ -1,9 +1,14 @@
 ### Pre-requisite:
 #### Generate data:
+- Approach 1:
 1. Open Inventory App -> Instance tab -> select query and type for example: "source= marc"
 2. On top right select "Save Instance UUIDs"
 3. csv file will be downloaded
 4. Rename it and place it in data-export/jmeter-supported-data
+- Approach 2:
+1. Log into database
+2. Run Postgresql query to generate ids 
+For example ```	SELECT id FROM fs09000000_mod_inventory_storage.instance where jsonb->>'source'='MARC' LIMIT 40;```
 
 #### Workflow steps:
 ##### In UI:
