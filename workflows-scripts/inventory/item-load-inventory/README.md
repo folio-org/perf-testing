@@ -31,3 +31,10 @@ and Management[sponsored by] Section of Economics of Law Practice, American Bar 
 - folio_inventory-2.0.2
 
 - FOLIO release: FameFlower
+
+#Sql queries to get jmeter-supported-data
+- user_barcodes.csv <br/>
+`SELECT CONCAT(id,'.', jsonb->>'barcode') FROM fs09000000_mod_users.users WHERE jsonb->>'barcode' != ''`
+
+- holdings_instances_barcodes.csv <br/>
+`select RH.jsonb->>'instanceId' as InstanceID, I.jsonb->>'holdingsRecordId' as HoldingsRecordID, I.jsonb->>'barcode' as Barcode from fs09000000_mod_inventory_storage.item as I inner join fs09000000_mod_inventory_storage.holdings_record as RH ON I.jsonb->>'holdingsRecordId' = RH.jsonb->>'id' group by I.jsonb->>'holdingsRecordId', RH.jsonb->>'instanceId', I.jsonb->>'barcode'`
