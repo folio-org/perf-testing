@@ -106,13 +106,14 @@ node {
 
 			stage("Send Notification") {
 				sendNotification(params.testName, params.testType, params.users.toInteger(), params.reportingInstanceUrl, params.emailsList, params.galloperTaskIdForNotifications)
-			}				
+			}
+			
+			stage('Shut down load generators and FOLIO environment') {
+			    stopMonitoringTask(params.targetCluster, params.targetEnv)
+			    deleteStack(STACK_NAME, params.targetRegion, params.targetEnv)
+			}			
 		} catch (Exception err){
 			println err
-		} finally { 
-			stage('Shut down load generators and FOLIO environment'){
-				deleteStack(STACK_NAME, params.targetRegion)			
-			}
 		}	
 	}
 }
