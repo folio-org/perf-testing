@@ -43,24 +43,19 @@ The ids of users and the ids of instances have been pulled which don't have requ
 	FROM fs09000000_mod_circulation_storage.request as req GROUP BY jsonb->>'itemId');
 `
 
-- user_ids_to_clean.csv (the set of users' ids to clean requests, they are used for a DB request. 
-They have been created manually using instances_without_requests.csv file in Notepad using replace function with parameters:
-Find What = \n
-Replace with = ',')
-
 - service_points.csv <br/>
 they are received on UI
 
-- postgresql-42.2.14.jar (Database driver for DB request)
+- delete_requests.sql (it is a sql script to clean the requests by users' ids)
 
 ## Thread groups:
-The test contains of 3 thread groups:
+The test contains of 2 thread groups:
 - Login - for identification and authentication, it is executed only 1 time
-- Clean requests - DB request to clean the requests by users' ids.
 - Place an instance-level request - the api test which is tested 
 
 ## Before the test execution:
-need to change JDBC Connection Configuration
-- Database url like `jdbc:postgresql://{host}:{port}/{db_name}`
-- Username
-- Password
+need to clean the requests by users' ids
+
+- copy the file delete_requests.sql from the jmeter-supported-data folder to carrio-io. WinSCP or other applications can be used
+- open carrio-io (using putty or others applications) and run the command
+`psql -h ${host} -d ${database} -U ${username} -a -f delete_requests.sql`
