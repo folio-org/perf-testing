@@ -28,24 +28,39 @@ An example of instance-level request to mod-patron:
 - FOLIO release: FameFlower
 
 #Sql queries from jmeter-supported-data folder
-- users.csv <br/> 
+The ids of users and the ids of instances have been pulled which don't have requests in order to not clean requests which have already existed
+
+- user_ids_without_requests.csv (the users' ids have been cut to 10000 records, that's enough to run a 30-min test with 20 users)<br/> 
 `SELECT us.jsonb->>'id' FROM fs09000000_mod_users.users as us WHERE us.jsonb->>'id' NOT IN (SELECT req.jsonb->>'requesterId'
 	FROM fs09000000_mod_circulation_storage.request as req GROUP BY jsonb->>'requesterId');
 `
 
-- instances_without_requests.csv <br/>
+- instances_without_requests.csv (the instances' ids have been cut to 10000 records, that's enough to run a 30-min test with 20 users)<br/>
 `SELECT distinct inst.id
 	FROM fs09000000_mod_inventory_storage.instance as inst, fs09000000_mod_inventory_storage.holdings_record as hr,
 	fs09000000_mod_inventory_storage.item as it WHERE inst.id=hr.instanceid AND hr.id=it.holdingsrecordid
 	AND it.jsonb->>'id' NOT IN (SELECT req.jsonb->>'itemId'
 	FROM fs09000000_mod_circulation_storage.request as req GROUP BY jsonb->>'itemId');
 `
+
+- user_ids_to_clean.csv (the set of users' ids to clean requests, they are used for a DB request. 
+They have been created manually using instances_without_requests.csv file in Notepad using replace function with parameters:
+Find What = \n
+Replace with = ',')
+
 - service_points.csv <br/>
 they are received on UI
 
-## How does the test work?
-The test contains 4 thread groups:
+- postgresql-42.2.14.jar (Database driver for DB request)
+
+## Thread groups:
+The test contains of 3 thread groups:
 - Login - for identification and authentication, it is executed only 1 time
-- Clean - for cleaning if an user has already created a request for an instance. It is turned off by default(The loop count = 0). To turn on the clean, need to change the loop count
+- Clean requests - DB request to clean the requests by users' ids.
 - Place an instance-level request - the api test which is tested 
-- Delete created requests - for deleting all created requests which have been created by the "Place an instance-level request" thread group. By default, it is turned on. It can be turned off by changing loop count to 0. 
+
+## Before the test execution:
+need to change JDBC Connection Configuration
+- Database url like `jdbc:postgresql://{host}:{port}/{db_name}`
+- Username
+- Password
