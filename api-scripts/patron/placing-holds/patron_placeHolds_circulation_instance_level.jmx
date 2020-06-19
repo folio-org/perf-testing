@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jmeterTestPlan version="1.2" properties="5.0" jmeter="5.2.1">
   <hashTree>
-    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="patron_placeHolds" enabled="true">
-      <stringProp name="TestPlan.comments">Place an instance-level request to mod-patron</stringProp>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="patron_placeHolds_circulation_instance_level" enabled="true">
+      <stringProp name="TestPlan.comments">Place an instance-level request to mod-circulation</stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">true</boolProp>
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" enabled="true">
@@ -240,18 +240,18 @@
           </collectionProp>
         </HeaderManager>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST_/patron/account/userId/instance/instanceID/hold" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST_circulation/requests/instances" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
-  &quot;item&quot;: {&#xd;
-    &quot;instanceId&quot;: &quot;${instanceID}&quot;&#xd;
-  },&#xd;
   &quot;requestDate&quot;: &quot;${__P(requestDate)}&quot;,&#xd;
-  &quot;pickupLocationId&quot;: &quot;${servicePointId}&quot;&#xd;
+  &quot;requesterId&quot;: &quot;${userId}&quot;,&#xd;
+  &quot;instanceId&quot;: &quot;${instanceID}&quot;,&#xd;
+  &quot;requestExpirationDate&quot;: &quot;${__P(requestDate)}&quot;,&#xd;
+  &quot;pickupServicePointId&quot;: &quot;${servicePointId}&quot;&#xd;
 }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
@@ -261,7 +261,7 @@
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/patron/account/${userId}/instance/${instanceID}/hold</stringProp>
+          <stringProp name="HTTPSampler.path">circulation/requests/instances</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -301,7 +301,7 @@ JMeterUtils.setProperty(&quot;requestDate&quot;, checkInDate);
           <hashTree/>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Body Assertion" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="-929715462">&quot;requestId&quot;</stringProp>
+              <stringProp name="1116933">&quot;id&quot;</stringProp>
             </collectionProp>
             <stringProp name="Assertion.custom_message"></stringProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
