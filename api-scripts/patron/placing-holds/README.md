@@ -3,7 +3,7 @@ EDS programmatically calls mod-patron using the API -
 `POST /patron/account/{id}/instance/{instanceId}/hold`
 
 An example of instance-level request to mod-patron:
-
+`POST /patron/account/{id}/instance/{instanceId}/hold`
 `{
     "item": {
 	    "instanceId": "c2063f7c-245a-4c24-b643-67fea831ebcc"
@@ -39,7 +39,7 @@ An example of item-level request to mod-ciculation:
 
 ## Modules required to be enabled as a pre-requisite to run JMeter script:
 ##### Backend:
-- mod-patron-4.2.0-SNAPSHOT
+- mod-patron-4.1.0
 - mod-circulation-18.0.9
 - mod-circulation-storage-11.0.0
 - mod-inventory-storage-19.1.2
