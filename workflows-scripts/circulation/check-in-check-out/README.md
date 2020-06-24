@@ -1,7 +1,7 @@
-##Artifacts and usage
+## Artifacts and usage
 This package contains scripts to preload the database with loans and 
 requests and to restore the database after running the test, as well as scripts used during test execution.
-##Scripts
+## Scripts
 ### Runtime script
 - BranchSelectorRandomizerScript.gvy: This script is used in the test. It randomizes the check in and check out requests based on a predefined percentage of checking-in or -out.
 ### Non-Runtime scripts
@@ -10,7 +10,7 @@ requests and to restore the database after running the test, as well as scripts 
 
 These two scripts are to be run manually on the box that could connect to the database. 
   
-##jmeter-supported-data
+## JMeter-supported-data
 ### Runtime Data
 The following data files are needed to support the Jmeter script during its execution.
 - Available.csv: a list barcodes that have Available status
