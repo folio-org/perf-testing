@@ -84,16 +84,18 @@ The ids of users and the ids of instances have been pulled which don't have requ
 they are received on UI
 
 #Sql query from script folder
-- delete_requests.sql (it is a sql script to clean the requests by users' ids)
+- requests_db_restore.sql (it is a sql script to delete all requests that were made during the test run and set all items (that were affected by the run) statuses back to Available)
+- circ-data-load.sh (it is a script to add requests and updates the items in requests to certain statuses.)
 
 ## Thread groups:
 The test contains of 2 thread groups:
 - Login - for identification and authentication, it is executed only 1 time
 - Place an instance-level request - the api test which is tested 
 
-## Before the test execution:
-need to clean the requests by users' ids
+## The test execution steps:
 
-- copy the file delete_requests.sql from the jmeter-supported-data folder to carrio-io. WinSCP or other applications can be used
-- open carrio-io (using putty or others applications) and run the command
-`psql -h ${host} -d ${database} -U ${username} -a -f delete_requests.sql`
+1. Assume that the database starts out with 0 requests, 0 loans, and all items are Available
+2. Run one of the tests: patronPlaceHolds.jmx, patron_placeHolds_circulation_instance_level.jmx or patron_placeHolds_circultion_item_level.jmx
+3. Delete all requests that were made during the test run and set all items (that were affected by the run) statuses back to Available
+(Run the script requests_db_restore.sql)
+5. Run the script to add requests and updates the items in requests to certain statuses. (circ-data-load.sh)

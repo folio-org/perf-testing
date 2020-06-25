@@ -26,17 +26,17 @@
           </elementProp>
           <elementProp name="global_vusers" elementType="Argument">
             <stringProp name="Argument.name">global_vusers</stringProp>
-            <stringProp name="Argument.value">${__P(VUSERS,1)}</stringProp>
+            <stringProp name="Argument.value">${__P(VUSERS,8)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="global_rampup" elementType="Argument">
             <stringProp name="Argument.name">global_rampup</stringProp>
-            <stringProp name="Argument.value">${__P(RAMP_UP,1)}</stringProp>
+            <stringProp name="Argument.value">${__P(RAMP_UP,80)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="duration" elementType="Argument">
             <stringProp name="Argument.name">duration</stringProp>
-            <stringProp name="Argument.value">${__P(DURATION,180)}</stringProp>
+            <stringProp name="Argument.value">${__P(DURATION,1800)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="port" elementType="Argument">
@@ -249,7 +249,7 @@
                 <stringProp name="Argument.value">{&#xd;
   &quot;requestDate&quot;: &quot;${__P(requestDate)}&quot;,&#xd;
   &quot;requesterId&quot;: &quot;${userId}&quot;,&#xd;
-  &quot;requestType&quot;: &quot;Hold&quot;,&#xd;
+  &quot;requestType&quot;: &quot;Page&quot;,&#xd;
   &quot;fulfilmentPreference&quot;: &quot;Hold Shelf&quot;,&#xd;
   &quot;itemId&quot;: &quot;${itemId}&quot;,&#xd;
   &quot;requestExpirationDate&quot;: &quot;${__P(requestDate)}&quot;,&#xd;
