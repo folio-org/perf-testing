@@ -1,10 +1,17 @@
-## Artifacts and usage
+## Test Execution Steps
+1. Make sure that the DB is clean by running checkin-checkout-db-restore.sql
+2. Add seed data to mimic a database that already has loans and requests by running circ-data-load.sh
+3. Run the test
+(On carrier-io Jenkins job, specify the test name as "folio")
+4. Clean up the DB afterward by running checkin-checkout-db-restore.sql to restore the database state.
+
+## Artifacts and Usage
 This package contains scripts to preload the database with loans and 
 requests and to restore the database after running the test, as well as scripts used during test execution.
 ## Scripts
-### Runtime script
+### Runtime Script
 - BranchSelectorRandomizerScript.gvy: This script is used in the test. It randomizes the check in and check out requests based on a predefined percentage of checking-in or -out.
-### Non-Runtime scripts
+### Non-Runtime Scripts
 - circ-data-load.sh: loads a 5000+ loans and 3000+ requests to mimic an inventory that has loans and requests. The data should be in the same directory as the script. In the github repo, data is in the circulation-seed-data.zip file.
 - checkin-checkout-db-restore.sql: restores the DB to its original state. This script should be run after each test run to ensure that subsequent test runs have the same starting point.  This script truncates all loans and requests and their associated tables, and also restores all the inventory items' status to "Available".
 These two scripts are to be run manually on the box that could connect to the database. 
@@ -40,9 +47,13 @@ The following data files are needed to support the Jmeter script during its exec
 ### Non-runtime Data
 - circulation-seed-data.zip: This zip file is used by the circ-data-load.sh script. It contains seed data for requests, loans, and related loans/requests data. It needs to be unpacked and the files are placed in the same directory as the circ-data-load.sh script.
 
-## Test Execution Steps
-1. Make sure that the DB is clean by running checkin-checkout-db-restore.sql
-2. Add seed data to mimic a database that already has loans and requests by running circ-data-load.sh
-3. Run the test
-(On carrier-io Jenkins job, specify the test name as "folio")
-4. Clean up the DB afterward by running checkin-checkout-db-restore.sql to restore the database state.
+## Relevant Modules Versions (Fameflower release)
+- mod-circulation-18.0.9
+- mod-circulation-storage-11.0.0
+- mod-inventory-14.1.3
+- mod-inventory-storage-19.1.2
+- mod-feesfines-15.7.2
+- mod-authtoken-2.4.0
+- folio_checkin-2.0.1
+- folio_checkout-3.0.2
+- folio_circulation-2.0.0
