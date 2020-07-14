@@ -29,11 +29,11 @@ To run the data load script:
      "port":""
  }`
 5. Save it with the name "db.conf"
-6. Execute the script as follows: ./circ-data-load.sh db.conf <tenant-ID>
+6. Execute the script as follows: ./circ-data-load.sh db.conf \<tenant-ID\>
 
 To run the database restore script:
 1. Go to an AWS EC2 jump box that's in the same environment as that DB.
-2. Execute > psql -f checkin-checkout-db-restore.sql -a --echo-all -h <database-host-name> -U <db-username> -d <db-name>
+2. Execute > psql -f checkin-checkout-db-restore.sql -a --echo-all -h \<database-host-name\> -U \<db-username\> -d \<db-name\>
 3. Enter password when prompted
   
 ## JMeter-supported-data
