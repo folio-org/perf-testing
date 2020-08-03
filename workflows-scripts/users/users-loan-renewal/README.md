@@ -30,7 +30,7 @@ As per requirements in JIRA, script will run against
 - checkin-checkout-db-restore.sql:
 This is the same script from check-in-check-out. It restores the DB to its original state. This script should be run after each test run to ensure that subsequent test runs have the same starting point. This script truncates all loans and requests and their associated tables, and also restores all the inventory items' status to "Available".
 
-`psql -h gcp1-db-01.c5cqgppfbl8c.us-east-1.rds.amazonaws.com -d folio -U folio -f checkin-checkout-db-restore.sql -a --echo-all`
+`psql checkin-checkout-db-restore.sql -a --echo-all`
 
 - Create open loans for user:
-`psql -h gcp1-db-01.c5cqgppfbl8c.us-east-1.rds.amazonaws.com -d folio -U folio -a -c "\copy fs09000000_mod_circulation_storage.loan(id, jsonb) FROM loans_5.tsv DELIMITER E'\t'"`
+`"\copy fs09000000_mod_circulation_storage.loan(id, jsonb) FROM loans_5.tsv DELIMITER E'\t'"`
