@@ -5,14 +5,16 @@ There is also a scripts folder to hold any script to be run at runtime or pre/po
 as necessary.
 
 ## Workflow steps
-##### Workflow for xyz.jmx
+##### Workflow for appName_workflowName.jmx
 Describe the workflow that this test models and necessary information about using this JMX file
 1. 
 2. 
 3. 
 
-
 ## Modules required to be enabled as a pre-requisite to run JMeter script
+
+FOLIO release: [e.g., Goldenrod]
+
 ##### Backend:
 Back-end modules and version numbers. e.g.:
 - mod-circulation-19.0.9
