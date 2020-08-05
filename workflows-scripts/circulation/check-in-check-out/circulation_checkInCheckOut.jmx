@@ -122,7 +122,7 @@
         <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC_Get_login_page" enabled="false">
           <collectionProp name="ModuleController.node_path">
             <stringProp name="764597751">Test Plan</stringProp>
-            <stringProp name="97613097">folio</stringProp>
+            <stringProp name="637030939">circulation_checkInCheckOut</stringProp>
             <stringProp name="-1998062128">User-flow</stringProp>
             <stringProp name="325396046">Get_login_page</stringProp>
           </collectionProp>
@@ -131,7 +131,7 @@
         <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC_Authorize" enabled="true">
           <collectionProp name="ModuleController.node_path">
             <stringProp name="764597751">Test Plan</stringProp>
-            <stringProp name="97613097">folio</stringProp>
+            <stringProp name="637030939">circulation_checkInCheckOut</stringProp>
             <stringProp name="-1998062128">User-flow</stringProp>
             <stringProp name="2065982184">Authorize_simple</stringProp>
           </collectionProp>
@@ -3130,6 +3130,43 @@ switch (itemOrder){
               <responseData>true</responseData>
               <samplerData>false</samplerData>
               <xml>true</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
               <fieldNames>true</fieldNames>
               <responseHeaders>false</responseHeaders>
               <requestHeaders>false</requestHeaders>
