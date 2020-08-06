@@ -1,11 +1,12 @@
 ## Workflow steps:
-##### Workflow for users_loan-renewal-by-barcode.jmx
+##### Workflow for users_loanRenewals.jmx
 1. Get all User's userBarcode
 2. For each user, get all open loans
 3. Iterate over all open loans
 4. Renew all loans by barcode
 
-- FOLIO release: Goldenrod
+##### FOLIO release:
+- Goldenrod
 
 ## Modules required to be enabled as a pre-requisite to run JMeter script:
 ##### Backend:
