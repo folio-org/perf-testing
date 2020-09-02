@@ -61,7 +61,7 @@ node {
 		} catch (Exception err){
 			println err
 		} finally { 
-			}
+
 		}	
 	}
 }
