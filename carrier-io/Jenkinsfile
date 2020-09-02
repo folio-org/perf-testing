@@ -3,7 +3,7 @@ def executePerformanceTest(String users, String loadGeneratorsCount, String repo
     sh "pwd"
     sh "ls -l workflows-scripts"
     sh "docker pull getcarrier/perfmeter:latest && docker run -t --rm -u 0:0 \
-        -v ${PWD}:/mnt/jmeter \
+        -v $(pwd):/mnt/jmeter \
         -w /mnt/jmeter \
         -e build_id=build_ptf_${BUILD_ID} \
         -e GALLOPER_WEB_HOOK=http://${reportingInstanceUrl}/task/${galloperPostProccessingTaskId} \
