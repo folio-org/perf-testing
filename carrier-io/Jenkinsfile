@@ -1,6 +1,6 @@
 def executePerformanceTest(String users, String loadGeneratorsCount, String reportingInstanceUrl, String galloperPostProccessingTaskId, String testName, String testType, String rampUp, String duration, String targetUrl, String distribution, String lgMemory, String artifact, String bucket, String tenant){
     def usersCount = Math.round((params.users.toInteger() / params.loadGeneratorsCount.toInteger()).floatValue())
-    sh "docker pull getcarrier/perfmeter:latest && docker run -t --rm \
+    sh "docker pull getcarrier/perfmeter:latest && docker run -t --rm -u 0:0 \
         -e build_id=build_ptf_${BUILD_ID} \
         -e GALLOPER_WEB_HOOK=http://${reportingInstanceUrl}/task/${galloperPostProccessingTaskId} \
         -e JVM_ARGS='-Xmx${lgMemory}g' \
