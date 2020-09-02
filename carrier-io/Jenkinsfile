@@ -4,6 +4,7 @@ def executePerformanceTest(String users, String loadGeneratorsCount, String repo
     sh "ls -l workflows-scripts"
     sh "docker pull getcarrier/perfmeter:latest && docker run -t --rm -u 0:0 \
         -v ${WORKSPACE}:/mnt/jmeter \
+        -v ${WORKSPACE}/reports:/tmp/reports \
         -e build_id=build_ptf_${BUILD_ID} \
         -e GALLOPER_WEB_HOOK=http://${reportingInstanceUrl}/task/${galloperPostProccessingTaskId} \
         -e JVM_ARGS='-Xmx${lgMemory}g' \
@@ -64,7 +65,7 @@ node {
 		} catch (Exception err){
 			println err
 		} finally { 
-
+            perfReport 'reports/*.jtl'
 		}	
 	}
 }
