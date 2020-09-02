@@ -1,6 +1,7 @@
 DISTRIBUTION=43-57
-influx.port=8086
 influx.host=ec2-54-87-82-65.compute-1.amazonaws.com
+influx.port=8086
+influx.db=jmeter
 DURATION=30
 VUSERS=8
 RAMP_UP=80
