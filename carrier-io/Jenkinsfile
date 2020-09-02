@@ -1,48 +1,12 @@
-STACK_NAME = "performance-testing-load-generators"
-MONITORING_STACK_NAME = "monitoring-performance-testing"
-
-def createStack(String loadGeneratorsCount, String instanceType, String spotPrice, String reportingInstanceUrl, String targetRegion, String lgMemory){
-    sh(script: "aws cloudformation create-stack --debug --stack-name ${STACK_NAME} \
-        --region ${targetRegion} \
-        --template-body file://${WORKSPACE}/carrier-io/scripts/cloudformation/load_generator.yml \
-        --parameters ParameterKey=InstanceType,ParameterValue=${instanceType} \
-        ParameterKey=SpotPrice,ParameterValue=${spotPrice} \
-        ParameterKey=LoadGeneratorsCount,ParameterValue=${loadGeneratorsCount} \
-        ParameterKey=ReportingInstanceHost,ParameterValue=${reportingInstanceUrl} \
-        ParameterKey=LoadGeneratorMemory,ParameterValue=${lgMemory}")
-    sh(script: "aws cloudformation wait stack-create-complete --stack-name ${STACK_NAME} --region ${targetRegion}")
-} 
-
-def populateData(String tenant){
-    sh(script: "unzip [TBD - dataset zip]")
-    sh(script: "apt-get install uuid-runtime")
-    sh(script: "apt-get install -y postgresql postgresql-contrib")
-    sh(script: "apt-get install -y jq")
-    sh(script: "[TBD]")
-}
-
-def deleteStack(String stackName, String targetRegion){
-    sh(script: "aws cloudformation delete-stack --stack-name ${stackName} --region ${targetRegion}")
-    sh(script: "aws cloudformation wait stack-delete-complete --stack-name ${stackName} --region ${targetRegion}")
-}
-
 def executePerformanceTest(String users, String loadGeneratorsCount, String reportingInstanceUrl, String galloperPostProccessingTaskId, String testName, String testType, String rampUp, String duration, String targetUrl, String distribution, String lgMemory, String artifact, String bucket, String tenant){
     def usersCount = Math.round((params.users.toInteger() / params.loadGeneratorsCount.toInteger()).floatValue())
-    sh "docker pull getcarrier/control_tower:1.5 && docker run -t --rm \
-        -e REDIS_HOST=${reportingInstanceUrl} \
-        -e loki_host=http://${reportingInstanceUrl} \
-        -e loki_port=3100 \
+    sh "docker run -t --rm \
         -e build_id=build_${JOB_NAME}_${BUILD_ID} \
         -e GALLOPER_WEB_HOOK=http://${reportingInstanceUrl}/task/${galloperPostProccessingTaskId} \
-        -e galloper_url=http://${reportingInstanceUrl} \
-        -e bucket=${bucket} \
         -e JVM_ARGS='-Xmx${lgMemory}g' \
-        -e DURATION=${duration} \
         -e additional_files='{\"tests/InfluxBackendListenerClient-1.1.jar\": \"/jmeter/apache-jmeter-5.0/lib/ext/InfluxBackendListenerClient.jar\"}' \
-        -e artifact=${artifact} 
-        getcarrier/control_tower:1.5 \
-        -c getcarrier/perfmeter:1.5 -e '{\"cmd\": \"-n -t /mnt/jmeter/${testName}.jmx -JDISTRIBUTION=${distribution} -Jtenant=${tenant} -Jtest_name=${testName} -Jtest.type=${testType} -JVUSERS=${usersCount} -JHOSTNAME=${targetUrl} -JRAMP_UP=${rampUp} -JDURATION=${duration} -Jinflux.host=${reportingInstanceUrl} \"}' -r 1 -t perfmeter -q ${loadGeneratorsCount} \
-        -n supertestjob"  
+        getcarrier/perfmeter:latest \
+            -n -t workflows-scripts/circulation/check-in/circulation_checkIn.jmx"  
 }
 
 def sendNotification(String testName, String testType, int users, String reportingInstanceUrl, String emailsList, String galloperTaskIdForNotifications){
@@ -91,23 +55,9 @@ node {
 						accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
 						secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
 		try {
-			stage("Populate data to db") {
-				if(params.populateDatabase){
-					populateData(params.tenant)
-				}    
-			}
-			
-			stage("Configure load generators") {
-				createStack(params.loadGeneratorsCount, params.instanceType, params.spotPrice, params.reportingInstanceUrl, params.targetRegion, params.lgMemory)
-			}    
-
 			stage("Execute tests") {
 				executePerformanceTest(params.users, params.loadGeneratorsCount, params.reportingInstanceUrl, params.galloperPostProccessingTaskId, params.testName, params.testType, params.rampUp, params.duration, params.targetUrl, params.distribution, params.lgMemory, params.artifact, params.bucket, params.tenant)
 			}
-
-			stage("Send Notification") {
-				sendNotification(params.testName, params.testType, params.users.toInteger(), params.reportingInstanceUrl, params.emailsList, params.galloperTaskIdForNotifications)
-			}				
 		} catch (Exception err){
 			println err
 		} finally { 
