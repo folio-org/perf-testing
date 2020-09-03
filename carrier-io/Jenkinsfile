@@ -48,12 +48,9 @@ node {
     ])
     
 	stage("Checkout") {
-            sh "docker pull busybox && docker run -t --rm -u 0:0 \
-                -v ${WORKSPACE}/reports:/tmp/reports \
-                busybox rm -rf /tmp/reports/*"
-            deleteDir()
-            step([$class: 'WsCleanup'])
-            checkout scm
+        deleteDir()
+        step([$class: 'WsCleanup'])
+        checkout scm
         }
 	withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', 
 						credentialsId: "jenkins-aws",
