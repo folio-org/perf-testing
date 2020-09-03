@@ -2,13 +2,12 @@ def executePerformanceTest(String users, String loadGeneratorsCount, String repo
     def usersCount = Math.round((params.users.toInteger() / params.loadGeneratorsCount.toInteger()).floatValue())
     sh "docker pull getcarrier/perfmeter:latest && docker run -t --rm \
         -v ${WORKSPACE}:/mnt/jmeter \
-        -v ${WORKSPACE}/reports:/tmp/reports \
         -e build_id=build_ptf_${BUILD_ID} \
         -e GALLOPER_WEB_HOOK=http://${reportingInstanceUrl}/task/${galloperPostProccessingTaskId} \
         -e JVM_ARGS='-Xmx${lgMemory}g' \
         -e additional_files='{\"tests/InfluxBackendListenerClient-1.1.jar\": \"/jmeter/apache-jmeter-5.0/lib/ext/InfluxBackendListenerClient.jar\"}' \
         getcarrier/perfmeter:latest \
-            -n -t /mnt/jmeter/workflows-scripts/circulation/check-in/circulation_checkIn.jmx -q /mnt/jmeter/carrier-io/parameters.txt -l /mnt/jmeter/log.jtl"
+            -n -t /mnt/jmeter/workflows-scripts/circulation/check-in/circulation_checkIn.jmx -q /mnt/jmeter/carrier-io/parameters.txt"
 }
 
 def sendNotification(String testName, String testType, int users, String reportingInstanceUrl, String emailsList, String galloperTaskIdForNotifications){
