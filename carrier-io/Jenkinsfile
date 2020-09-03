@@ -16,7 +16,9 @@ def sendNotification(String testName, String testType, int users, String reporti
 
 def printJmx(){
     final files = findFiles(glob: 'workflows-scripts/**/*.jmx')
-    print files
+    for (def i=0; i<files.length; i++) {
+        print ${files[i].path}
+    }
 }
 
 node {
