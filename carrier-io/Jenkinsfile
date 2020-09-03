@@ -48,10 +48,9 @@ node {
     ])
     
 	stage("Checkout") {
-            sh "docker pull ubuntu && docker run -t --rm -u 0:0 \
+            sh "docker pull busybox && docker run -t --rm -u 0:0 \
                 -v ${WORKSPACE}/reports:/tmp/reports \
-                ubuntu rm -rf /tmp/reports/*
-            "
+                busybox rm -rf /tmp/reports/*"
             deleteDir()
             step([$class: 'WsCleanup'])
             checkout scm
