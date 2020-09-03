@@ -14,6 +14,12 @@ def sendNotification(String testName, String testType, int users, String reporti
     sh(script: """curl -XPOST -H "Content-Type: application/json" -d '{"notification_type": "api","test": "${testName}", "test_type": "${testType}", "users": ${users}, "influx_host": "${reportingInstanceUrl}", "smpt_user": "folio.email.notifications@gmail.com","smpt_password": "dPwbI9CYw5M5bjU6", "user_list": [${emailsList}]}' http://${reportingInstanceUrl}/task/${galloperTaskIdForNotifications}""")
 }
 
+def printJmx(){
+    def finder = new FileNameFinder()
+    def files = finder.getFileNames '${WORKSPACE}/workflows-scripts', '**/*.jmx'
+    print files
+}
+
 node {
 
     properties([
@@ -57,6 +63,7 @@ node {
 						secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
 		try {
 			stage("Execute tests") {
+                printJmx()
 				executePerformanceTest(params.users, params.loadGeneratorsCount, params.reportingInstanceUrl, params.galloperPostProccessingTaskId, params.testName, params.testType, params.rampUp, params.duration, params.targetUrl, params.distribution, params.lgMemory, params.artifact, params.bucket, params.tenant)
 			}
 		} catch (Exception err){
