@@ -15,8 +15,7 @@ def sendNotification(String testName, String testType, int users, String reporti
 }
 
 def printJmx(){
-    def finder = new FileNameFinder()
-    def files = finder.getFileNames '${WORKSPACE}/workflows-scripts', '**/*.jmx'
+    final files = findFiles(glob: 'workflows-scripts/**/*.jmx')
     print files
 }
 
