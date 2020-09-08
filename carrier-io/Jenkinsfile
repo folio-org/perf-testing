@@ -2,7 +2,7 @@ STACK_NAME = "performance-testing-load-generators"
 MONITORING_STACK_NAME = "monitoring-performance-testing"
 
 def createStack(String loadGeneratorsCount, String instanceType, String spotPrice, String reportingInstanceUrl, String targetRegion, String lgMemory){
-    sh(script: "aws cloudformation create-stack --stack-name ${STACK_NAME} \
+    sh(script: "aws cloudformation create-stack --debug --stack-name ${STACK_NAME} \
         --region ${targetRegion} \
         --template-body file://${WORKSPACE}/carrier-io/scripts/cloudformation/load_generator.yml \
         --parameters ParameterKey=InstanceType,ParameterValue=${instanceType} \
