@@ -60,7 +60,7 @@ def executePerformanceTest(String users, String loadGeneratorsCount, String repo
                 -e artifact=${artifact} \
                 getcarrier/control_tower:latest \
                     -c getcarrier/perfmeter:latest \
-                    -e '{\"cmd\": \"-n -t /mnt/jmeter/${files[i].path}  -q /mnt/jmeter/carrier-io/parameters.txt\"}' \                
+                    -e '{\"cmd\": \"-n -t /mnt/jmeter/${files[i].path} -q /mnt/jmeter/carrier-io/parameters.txt\"}' \
                     -r 1 -t perfmeter -q ${loadGeneratorsCount} -n performance_test_job"
         }
 
