@@ -7,11 +7,11 @@ Parameters:
   IamProfile:
     Type: String
     Description: Iam Instance Profile
-    Default: [TBD]
+    Default: arn:aws:iam::732722833398:instance-profile/carrier-io-role
   SubnetIds:
     Type: List<AWS::EC2::Subnet::Id>
     Description: Select at two subnets in your selected VPC. 
-    Default: [TBD]
+    Default: subnet-4406021d,subnet-8b538ab6
   InstanceType:
     Description: EC2 instance type
     Type: String
@@ -27,7 +27,7 @@ Parameters:
   EcsSecurityGroups:
     Type: List<AWS::EC2::SecurityGroup::Id>
     Description: Security Groups
-    Default: [TBD]
+    Default: sg-0d8e3a3db4837ee39,sg-847baffb,sg-246f4b5a
   SpotPrice:
     Type: String
     Description: The maximum hourly price to be paid for any Spot Instance launched to fulfill the request
