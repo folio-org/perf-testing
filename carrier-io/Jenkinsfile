@@ -1,3 +1,31 @@
+STACK_NAME = "performance-testing-load-generators"
+MONITORING_STACK_NAME = "monitoring-performance-testing"
+
+def createStack(String loadGeneratorsCount, String instanceType, String spotPrice, String reportingInstanceUrl, String targetRegion, String lgMemory, String targetEnv){
+    sh(script: "aws cloudformation --profile ${targetEnv} create-stack --stack-name ${STACK_NAME} \
+        --region ${targetRegion} \
+        --template-body file://${WORKSPACE}/carrier-io/scripts/cloudformation/load_generator.yml \
+        --parameters ParameterKey=InstanceType,ParameterValue=${instanceType} \
+        ParameterKey=SpotPrice,ParameterValue=${spotPrice} \
+        ParameterKey=LoadGeneratorsCount,ParameterValue=${loadGeneratorsCount} \
+        ParameterKey=ReportingInstanceHost,ParameterValue=${reportingInstanceUrl} \
+        ParameterKey=LoadGeneratorMemory,ParameterValue=${lgMemory}")
+    sh(script: "aws cloudformation --profile ${targetEnv} wait stack-create-complete --stack-name ${STACK_NAME} --region ${targetRegion}")
+} 
+
+def populateData(String tenant){
+    sh(script: "unzip [TBD - dataset zip]")
+    sh(script: "apt-get install uuid-runtime")
+    sh(script: "apt-get install -y postgresql postgresql-contrib")
+    sh(script: "apt-get install -y jq")
+    sh(script: "[TBD]")
+}
+
+def deleteStack(String stackName, String targetRegion, String targetEnv){
+    sh(script: "aws cloudformation --profile ${targetEnv} delete-stack --stack-name ${stackName} --region ${targetRegion}")
+    sh(script: "aws cloudformation --profile ${targetEnv} wait stack-delete-complete --stack-name ${stackName} --region ${targetRegion}")
+}
+
 def executePerformanceTest(String users, String loadGeneratorsCount, String reportingInstanceUrl, String galloperPostProccessingTaskId, String testName, String testType, String rampUp, String duration, String targetUrl, String distribution, String lgMemory, String artifact, String bucket, String tenant){
     def usersCount = Math.round((params.users.toInteger() / params.loadGeneratorsCount.toInteger()).floatValue())
     final files = findFiles(glob: 'workflows-scripts/**/*.jmx')
@@ -10,6 +38,39 @@ def executePerformanceTest(String users, String loadGeneratorsCount, String repo
             -e additional_files='{\"tests/InfluxBackendListenerClient-1.1.jar\": \"/jmeter/apache-jmeter-5.0/lib/ext/InfluxBackendListenerClient.jar\"}' \
             getcarrier/perfmeter:latest \
                 -n -t /mnt/jmeter/${files[i].path} -q /mnt/jmeter/carrier-io/parameters.txt"
+    }
+}
+
+def getInstancesCount(String targetCluster, String targetEnv){
+    def allInstances = sh([
+        script: "aws ecs list-container-instances --cluster ${targetCluster} --profile ${targetEnv} | jq [.containerInstanceArns[]]",
+        returnStdout: true
+    ]);
+    allInstances = Eval.me(allInstances)
+    return allInstances;
+}
+
+def installTelegrafAgent(String reportingInstanceUrl, String targetCluster, String targetEnv){
+    def allInstances = getInstancesCount(targetCluster, targetEnv)
+    for(i=1; i <= allInstances.size(); i++){
+        def nodeName = targetCluster + '-node-' + i;
+        sh(script: "aws ecs register-task-definition --profile ${targetEnv} --cli-input-json file://${WORKSPACE}/carrier-io/scripts/cloudformation/telegraf.json")
+        sh(script: """aws ecs start-task --profile ${targetEnv} --cluster ${targetCluster} \
+            --overrides '{ "containerOverrides": [ { "name": "busybox", "environment": [ { "name": "INFLUX_HOST", "value": "http://${reportingInstanceUrl}:8086" }, { "name": "TELEGRAF_NODE_HOSTNAME", "value": "${nodeName}" } ] } ] }' \
+            --task-definition telegraf-monitoring --container-instances ${allInstances[i-1]}""")
+    }
+}
+
+def stopMonitoringTask(String targetCluster, String targetEnv){
+    def taskArns = sh([
+        script: "aws ecs list-tasks --profile ${targetEnv} --cluster ${targetCluster} --family telegraf-monitoring | jq [.taskArns[]]",
+        returnStdout: true
+    ]);
+    taskArns = Eval.me(taskArns)
+    if(taskArns != null){
+        for(int i=0; i<taskArns.size(); i++){
+            sh(script: "aws ecs stop-task --profile ${targetEnv} --cluster ${targetCluster} --task ${taskArns[i]}")
+        }
     }
 }
 
@@ -49,23 +110,42 @@ node {
         ])
     ])
     
-	stage("Checkout") {
-        deleteDir()
-        step([$class: 'WsCleanup'])
-        checkout scm
+    try {
+
+	    stage("Checkout") {
+            deleteDir()
+            step([$class: 'WsCleanup'])
+            checkout scm
         }
-	withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', 
-						credentialsId: "jenkins-aws",
-						accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
-						secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-		try {
-			stage("Execute tests") {
-				executePerformanceTest(params.users, params.loadGeneratorsCount, params.reportingInstanceUrl, params.galloperPostProccessingTaskId, params.testName, params.testType, params.rampUp, params.duration, params.targetUrl, params.distribution, params.lgMemory, params.artifact, params.bucket, params.tenant)
-			}
-		} catch (Exception err){
-			println err
-		} finally { 
-            //perfReport 'reports/*.jtl'
-		}	
+
+        /*stage("Populate data to db") {
+            if(params.populateDatabase){
+                populateData(params.tenant)
+            }    
+        }
+
+        stage("Configure resources monitoring") {
+            installTelegrafAgent(params.reportingInstanceUrl, params.targetCluster, params.targetEnv)
+        }*/
+
+        stage("Configure load generators") {
+            createStack(params.loadGeneratorsCount, params.instanceType, params.spotPrice, params.reportingInstanceUrl, params.targetRegion, params.lgMemory, params.targetEnv)
+        }    
+
+        stage("Execute tests") {
+            executePerformanceTest(params.users, params.loadGeneratorsCount, params.reportingInstanceUrl, params.galloperPostProccessingTaskId, params.testName, params.testType, params.rampUp, params.duration, params.targetUrl, params.distribution, params.targetEnv, params.lgMemory, params.artifact, params.bucket, params.tenant)
+        }
+
+        stage("Send Notification") {
+            sendNotification(params.testName, params.testType, params.users.toInteger(), params.reportingInstanceUrl, params.emailsList, params.galloperTaskIdForNotifications)
+        }
+		
+    } catch (Exception err){
+		println err
+	} finally { 
+        stage('Shut down load generators and FOLIO environment'){
+            deleteStack(STACK_NAME, params.targetRegion, params.targetEnv)
+            stopMonitoringTask(params.targetCluster, params.targetEnv)
+        }
 	}
 }
