@@ -45,7 +45,7 @@ def executePerformanceTest(String users, String loadGeneratorsCount, String repo
                 -n -t /mnt/jmeter/${files[i].path} -q /mnt/jmeter/carrier-io/parameters.txt" */
         
         withCredentials([string(credentialsId: 'perf_redis_password_u51', variable: 'redisPassword')]) {
-            sh "docker pull getcarrier/control_tower:1.5 && docker run -t --rm \
+            sh "docker pull getcarrier/control_tower:latest && docker run -t --rm \
                 -e REDIS_HOST=${reportingInstanceUrl} \
                 -e REDIS_PASSWORD=${redisPassword} \
                 -e loki_host=http://${reportingInstanceUrl} \
@@ -57,9 +57,9 @@ def executePerformanceTest(String users, String loadGeneratorsCount, String repo
                 -e JVM_ARGS='-Xmx${lgMemory}g' \
                 -e DURATION=${duration} \
                 -e additional_files='{\"tests/InfluxBackendListenerClient-1.1.jar\": \"/jmeter/apache-jmeter-5.0/lib/ext/InfluxBackendListenerClient.jar\"}' \
-                -e artifact=${artifact} getcarrier/control_tower:1.5 \
-                -c getcarrier/perfmeter:1.5 -e '{\"cmd\": \"-n -t /mnt/jmeter/${testName}.jmx -JDISTRIBUTION=${distribution} -Jtenant=${tenant} -Jtest_name=${testName} -Jtest.type=${testType} -Jenv.type=${targetEnv} -JVUSERS=${usersCount} -JHOSTNAME=${targetUrl} -JRAMP_UP=${rampUp} -JDURATION=${duration} -Jinflux.host=${reportingInstanceUrl} \"}' -r 1 -t perfmeter -q ${loadGeneratorsCount} \
-                -n supertestjob"  
+                -e artifact=${artifact} getcarrier/control_tower:latest \
+                -c getcarrier/perfmeter:latest -e '{\"cmd\": \"-n -t /mnt/jmeter/${testName}.jmx -JDISTRIBUTION=${distribution} -Jtenant=${tenant} -Jtest_name=${testName} -Jtest.type=${testType} -Jenv.type=${targetEnv} -JVUSERS=${usersCount} -JHOSTNAME=${targetUrl} -JRAMP_UP=${rampUp} -JDURATION=${duration} -Jinflux.host=${reportingInstanceUrl} \"}' -r 1 -t perfmeter -q ${loadGeneratorsCount} \
+                -n performance_testjob"  
         }
 
         break; // remove to run all tests
@@ -174,13 +174,13 @@ node {
 
     } catch (Exception err){
         stage('Shut down load generators and FOLIO environment'){
-            stopMonitoringTask(params.targetCluster)
+            //stopMonitoringTask(params.targetCluster)
             deleteStack(STACK_NAME, params.targetRegion)
         }
 		println err
 	} finally { 
         stage('Shut down load generators and FOLIO environment'){
-            stopMonitoringTask(params.targetCluster)
+            //stopMonitoringTask(params.targetCluster)
             deleteStack(STACK_NAME, params.targetRegion)
         }
 	}

@@ -72,7 +72,7 @@ Resources:
         Memory: 256
         Essential: 'true'
         User: root
-        Image: getcarrier/interceptor:1.5
+        Image: getcarrier/interceptor:latest
         MountPoints:
           - ContainerPath: /var/run/docker.sock
             SourceVolume: docker_sock
