@@ -60,17 +60,8 @@ def executePerformanceTest(String users, String loadGeneratorsCount, String repo
                 -e artifact=${artifact} \
                 getcarrier/control_tower:latest \
                 -c getcarrier/perfmeter:latest \
-                -e '{\"cmd\": \"-n -t /mnt/jmeter/${files[i].path}\", \
-                    \"DISTRIBUTION\": \"${distribution}\", \
-                    \"tenant\": \"${tenant}\", \
-                    \"test_name\": \"${testName}\", \
-                    \"test.type\": \"${testType}\", \
-                    \"VUSERS\": \"${usersCount}\", \
-                    \"HOSTNAME\": \"${targetUrl}\", \
-                    \"RAMP_UP\": \"${rampUp}\", \
-                    \"DURATION\": \"${duration}\", \
-                    \"influx.host\": \"${reportingInstanceUrl}\"}' \
-                -r 1 -t perfmeter -q ${loadGeneratorsCount} -n performance_testjob"
+                -e '{\"cmd\": \"-n -t /mnt/jmeter/${files[i].path}\"}' \
+                -r 1 -t perfmeter -q ${loadGeneratorsCount} -n performance_test_job"
         }
 
         break; // remove to run all tests
