@@ -57,9 +57,20 @@ def executePerformanceTest(String users, String loadGeneratorsCount, String repo
                 -e JVM_ARGS='-Xmx${lgMemory}g' \
                 -e DURATION=${duration} \
                 -e additional_files='{\"tests/InfluxBackendListenerClient-1.1.jar\": \"/jmeter/apache-jmeter-5.0/lib/ext/InfluxBackendListenerClient.jar\"}' \
-                -e artifact=${artifact} getcarrier/control_tower:latest \
-                -c getcarrier/perfmeter:latest -e '{\"cmd\": \"-n -t /mnt/jmeter/${files[i].path} -JDISTRIBUTION=${distribution} -Jtenant=${tenant} -Jtest_name=${testName} -Jtest.type=${testType} -JVUSERS=${usersCount} -JHOSTNAME=${targetUrl} -JRAMP_UP=${rampUp} -JDURATION=${duration} -Jinflux.host=${reportingInstanceUrl} \"}' -r 1 -t perfmeter -q ${loadGeneratorsCount} \
-                -n performance_testjob"  
+                -e artifact=${artifact} \
+                getcarrier/control_tower:latest \
+                -c getcarrier/perfmeter:latest \
+                -e '{\"cmd\": \"-n -t /mnt/jmeter/${files[i].path}\", \
+                    \"DISTRIBUTION\": \"${distribution}\", \
+                    \"tenant\": \"${tenant}\", \
+                    \"test_name\": \"${testName}\", \
+                    \"test.type\": \"${testType}\", \
+                    \"VUSERS\": \"${usersCount}\", \
+                    \"HOSTNAME\": \"${targetUrl}\", \
+                    \"RAMP_UP\": \"${rampUp}\", \
+                    \"DURATION\": \"${duration}\", \
+                    \"influx.host\": \"${reportingInstanceUrl}\"}' \
+                -r 1 -t perfmeter -q ${loadGeneratorsCount} -n performance_testjob"
         }
 
         break; // remove to run all tests
