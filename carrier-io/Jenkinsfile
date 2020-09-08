@@ -106,40 +106,48 @@ node {
             string(defaultValue: "481d5b9d-fd90-45c6-a38f-0fad1b4d8572", description: "Galloper task id for notifications", name: "galloperTaskIdForNotifications"),
             string(defaultValue: "43-57", description: "user flow distribution", name: "distribution"),
             string(defaultValue: "us-east-1", description: "region", name: "targetRegion"),
+            string(defaultValue: "dev", description: "target environment (e.g., dev/int)", name: "targetEnv"),
             string(defaultValue: "gcp1-pvt", description: "cluster name to monitor", name: "targetCluster")
         ])
     ])
     
     try {
 
-	    stage("Checkout") {
-            deleteDir()
-            step([$class: 'WsCleanup'])
-            checkout scm
-        }
+        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', 
+                            credentialsId: "jenkins-aws",
+                            accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
+                            secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
 
-        /*stage("Populate data to db") {
-            if(params.populateDatabase){
-                populateData(params.tenant)
+
+            stage("Checkout") {
+                deleteDir()
+                step([$class: 'WsCleanup'])
+                checkout scm
+            }
+
+            /*stage("Populate data to db") {
+                if(params.populateDatabase){
+                    populateData(params.tenant)
+                }    
+            }
+
+            stage("Configure resources monitoring") {
+                installTelegrafAgent(params.reportingInstanceUrl, params.targetCluster, params.targetEnv)
+            }*/
+
+            stage("Configure load generators") {
+                createStack(params.loadGeneratorsCount, params.instanceType, params.spotPrice, params.reportingInstanceUrl, params.targetRegion, params.lgMemory, params.targetEnv)
             }    
+
+            stage("Execute tests") {
+                executePerformanceTest(params.users, params.loadGeneratorsCount, params.reportingInstanceUrl, params.galloperPostProccessingTaskId, params.testName, params.testType, params.rampUp, params.duration, params.targetUrl, params.distribution, params.targetEnv, params.lgMemory, params.artifact, params.bucket, params.tenant)
+            }
+
+            stage("Send Notification") {
+                sendNotification(params.testName, params.testType, params.users.toInteger(), params.reportingInstanceUrl, params.emailsList, params.galloperTaskIdForNotifications)
+            }
         }
 
-        stage("Configure resources monitoring") {
-            installTelegrafAgent(params.reportingInstanceUrl, params.targetCluster, params.targetEnv)
-        }*/
-
-        stage("Configure load generators") {
-            createStack(params.loadGeneratorsCount, params.instanceType, params.spotPrice, params.reportingInstanceUrl, params.targetRegion, params.lgMemory, params.targetEnv)
-        }    
-
-        stage("Execute tests") {
-            executePerformanceTest(params.users, params.loadGeneratorsCount, params.reportingInstanceUrl, params.galloperPostProccessingTaskId, params.testName, params.testType, params.rampUp, params.duration, params.targetUrl, params.distribution, params.targetEnv, params.lgMemory, params.artifact, params.bucket, params.tenant)
-        }
-
-        stage("Send Notification") {
-            sendNotification(params.testName, params.testType, params.users.toInteger(), params.reportingInstanceUrl, params.emailsList, params.galloperTaskIdForNotifications)
-        }
-		
     } catch (Exception err){
 		println err
 	} finally { 
