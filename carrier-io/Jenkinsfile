@@ -151,6 +151,7 @@ node {
         stage('Shut down load generators and FOLIO environment'){
             deleteStack(STACK_NAME, params.targetRegion)
             stopMonitoringTask(params.targetCluster)
+        }
 		println err
 	} finally { 
         stage('Shut down load generators and FOLIO environment'){
