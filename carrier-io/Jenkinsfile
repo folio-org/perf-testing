@@ -2,20 +2,20 @@ STACK_NAME = "performance-testing-load-generators"
 MONITORING_STACK_NAME = "monitoring-performance-testing"
 
 def createStack(String loadGeneratorsCount, String instanceType, String spotPrice, String reportingInstanceUrl, String targetRegion, String lgMemory){
-    withCredentials([string(credentialsId: 'perf_redis_password_u51', variable: 'SECRET')]) {
-        def redisPassword = ${SECRET}
-    }
+    withCredentials([string(credentialsId: 'perf_redis_password_u51', variable: 'redisPassword')]) {
 
-    sh(script: "aws cloudformation create-stack --stack-name ${STACK_NAME} \
-        --region ${targetRegion} \
-        --template-body file://${WORKSPACE}/carrier-io/scripts/cloudformation/load_generator.yml \
-        --parameters ParameterKey=InstanceType,ParameterValue=${instanceType} \
-        ParameterKey=SpotPrice,ParameterValue=${spotPrice} \
-        ParameterKey=LoadGeneratorsCount,ParameterValue=${loadGeneratorsCount} \
-        ParameterKey=ReportingInstanceHost,ParameterValue=${reportingInstanceUrl} \
-        ParameterKey=LoadGeneratorMemory,ParameterValue=${lgMemory} \
-        ParameterKey=RedisPassword,ParameterValue=${redisPassword}")
-    sh(script: "aws cloudformation wait stack-create-complete --stack-name ${STACK_NAME} --region ${targetRegion}")
+        sh(script: "aws cloudformation create-stack --stack-name ${STACK_NAME} \
+            --region ${targetRegion} \
+            --template-body file://${WORKSPACE}/carrier-io/scripts/cloudformation/load_generator.yml \
+            --parameters ParameterKey=InstanceType,ParameterValue=${instanceType} \
+            ParameterKey=SpotPrice,ParameterValue=${spotPrice} \
+            ParameterKey=LoadGeneratorsCount,ParameterValue=${loadGeneratorsCount} \
+            ParameterKey=ReportingInstanceHost,ParameterValue=${reportingInstanceUrl} \
+            ParameterKey=LoadGeneratorMemory,ParameterValue=${lgMemory} \
+            ParameterKey=RedisPassword,ParameterValue=${redisPassword}")
+        sh(script: "aws cloudformation wait stack-create-complete --stack-name ${STACK_NAME} --region ${targetRegion}")
+    
+    }
 } 
 
 def populateData(String tenant){
