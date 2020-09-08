@@ -2,14 +2,19 @@ STACK_NAME = "performance-testing-load-generators"
 MONITORING_STACK_NAME = "monitoring-performance-testing"
 
 def createStack(String loadGeneratorsCount, String instanceType, String spotPrice, String reportingInstanceUrl, String targetRegion, String lgMemory){
-    sh(script: "aws cloudformation create-stack --debug --stack-name ${STACK_NAME} \
+    withCredentials([string(credentialsId: 'perf_redis_password_u51', variable: 'SECRET')]) {
+        def redisPassword = ${SECRET}
+    }
+
+    sh(script: "aws cloudformation create-stack --stack-name ${STACK_NAME} \
         --region ${targetRegion} \
         --template-body file://${WORKSPACE}/carrier-io/scripts/cloudformation/load_generator.yml \
         --parameters ParameterKey=InstanceType,ParameterValue=${instanceType} \
         ParameterKey=SpotPrice,ParameterValue=${spotPrice} \
         ParameterKey=LoadGeneratorsCount,ParameterValue=${loadGeneratorsCount} \
         ParameterKey=ReportingInstanceHost,ParameterValue=${reportingInstanceUrl} \
-        ParameterKey=LoadGeneratorMemory,ParameterValue=${lgMemory}")
+        ParameterKey=LoadGeneratorMemory,ParameterValue=${lgMemory} \
+        ParameterKey=RedisPassword,ParameterValue=${redisPassword}")
     sh(script: "aws cloudformation wait stack-create-complete --stack-name ${STACK_NAME} --region ${targetRegion}")
 } 
 
@@ -38,6 +43,7 @@ def executePerformanceTest(String users, String loadGeneratorsCount, String repo
             -e additional_files='{\"tests/InfluxBackendListenerClient-1.1.jar\": \"/jmeter/apache-jmeter-5.0/lib/ext/InfluxBackendListenerClient.jar\"}' \
             getcarrier/perfmeter:latest \
                 -n -t /mnt/jmeter/${files[i].path} -q /mnt/jmeter/carrier-io/parameters.txt"
+        break; // remove to run all tests
     }
 }
 
@@ -149,14 +155,14 @@ node {
 
     } catch (Exception err){
         stage('Shut down load generators and FOLIO environment'){
-            deleteStack(STACK_NAME, params.targetRegion)
             stopMonitoringTask(params.targetCluster)
+            deleteStack(STACK_NAME, params.targetRegion)
         }
 		println err
 	} finally { 
         stage('Shut down load generators and FOLIO environment'){
-            deleteStack(STACK_NAME, params.targetRegion)
             stopMonitoringTask(params.targetCluster)
+            deleteStack(STACK_NAME, params.targetRegion)
         }
 	}
 }

@@ -45,6 +45,9 @@ Parameters:
   ReportingInstanceHost:
     Description: EC2 instance type
     Type: String   
+  RedisPassword:
+    Description: Redis password
+    Type: String   
   LoadGeneratorMemory: 
     Description: Memory availiable for interceptor
     Type: String   
@@ -77,7 +80,7 @@ Resources:
           - Name: CPU_CORES
             Value: 1
           - Name: REDIS_PASSWORD
-            Value: password
+            Value: !Ref RedisPassword
           - Name: REDIS_HOST
             Value: !Ref ReportingInstanceHost
           - Name: RAM_QUOTA
