@@ -45,32 +45,34 @@ def executePerformanceTest(String users, String loadGeneratorsCount, String repo
                 -n -t /mnt/jmeter/${files[i].path} -q /mnt/jmeter/carrier-io/parameters.txt" */
         
         withCredentials([string(credentialsId: 'perf_redis_password_u51', variable: 'redisPassword')]) {
-            sh "docker pull getcarrier/control_tower:latest && docker run -t --rm \
-                -e REDIS_HOST=${reportingInstanceUrl} \
-                -e REDIS_PASSWORD=${redisPassword} \
-                -e loki_host=http://${reportingInstanceUrl} \
-                -e loki_port=3100 \
-                -e build_id=build_${JOB_NAME}_${BUILD_ID} \
-                -e GALLOPER_WEB_HOOK=http://${reportingInstanceUrl}/task/${galloperPostProccessingTaskId} \
-                -e galloper_url=http://${reportingInstanceUrl} \
-                -e bucket=${bucket} \
-                -e JVM_ARGS='-Xmx${lgMemory}g' \
-                -e DURATION=${duration} \
-                -e additional_files='{\"tests/InfluxBackendListenerClient-1.1.jar\": \"/jmeter/apache-jmeter-5.0/lib/ext/InfluxBackendListenerClient.jar\"}' \
-                -e artifact=${artifact} \
-                getcarrier/control_tower:latest \
-                    -c getcarrier/perfmeter:latest \
-                -e '{\"cmd\": \"-n -t /mnt/jmeter/${testName}.jmx\", \
-                    \"DISTRIBUTION\": \"${distribution}\", \
-                    \"tenant\": \"${tenant}\", \
-                    \"test_name\": \"${testName}\", \
-                    \"test.type\": \"${testType}\", \
-                    \"VUSERS\": \"${usersCount}\", \
-                    \"HOSTNAME\": \"${targetUrl}\", \
-                    \"RAMP_UP\": \"${rampUp}\", \
-                    \"DURATION\": \"${duration}\", \
-                    \"influx.host\": \"${reportingInstanceUrl}\"}' \
-                    -r 1 -t perfmeter -q ${loadGeneratorsCount} -n performance_test_job"
+            withCredentials([string(credentialsId: 'perf_carrier_io_token_u51', variable: 'carrierToken')]) {
+                sh "docker pull getcarrier/control_tower:latest && docker run -t --rm \
+                    -e REDIS_HOST=${reportingInstanceUrl} \
+                    -e REDIS_PASSWORD=${redisPassword} \
+                    -e loki_host=http://${reportingInstanceUrl} \
+                    -e loki_port=3100 \
+                    -e build_id=build_${JOB_NAME}_${BUILD_ID} \
+                    -e GALLOPER_WEB_HOOK=http://${reportingInstanceUrl}/task/${galloperPostProccessingTaskId} \
+                    -e galloper_url=http://${reportingInstanceUrl} \
+                    -e token=${carrierToken} \
+                    -e bucket=${bucket} \
+                    -e JVM_ARGS='-Xmx${lgMemory}g' \
+                    -e DURATION=${duration} \
+                    -e artifact=${artifact} \
+                    getcarrier/control_tower:latest \
+                        -c getcarrier/perfmeter:latest \
+                    -e '{\"cmd\": \"-n -t /mnt/jmeter/${testName}.jmx\", \
+                        \"DISTRIBUTION\": \"${distribution}\", \
+                        \"tenant\": \"${tenant}\", \
+                        \"test_name\": \"${testName}\", \
+                        \"test.type\": \"${testType}\", \
+                        \"VUSERS\": \"${usersCount}\", \
+                        \"HOSTNAME\": \"${targetUrl}\", \
+                        \"RAMP_UP\": \"${rampUp}\", \
+                        \"DURATION\": \"${duration}\", \
+                        \"influx.host\": \"${reportingInstanceUrl}\"}' \
+                        -r 1 -t perfmeter -q ${loadGeneratorsCount} -n performance_test_job"
+            }
         }
 
         break; // remove to run all tests
