@@ -35,6 +35,8 @@ def executePerformanceTest(String users, String loadGeneratorsCount, String repo
     def usersCount = Math.round((params.users.toInteger() / params.loadGeneratorsCount.toInteger()).floatValue())
     final files = findFiles(glob: 'workflows-scripts/**/*.jmx')
     for (def i=0; i<files.length; i++) {
+        archiveArtifacts artifacts: '${files[i].path}/*'
+
         /*sh "docker pull getcarrier/perfmeter:latest && docker run -t --rm -u 0:0 \
             -v ${WORKSPACE}:/mnt/jmeter \
             -e build_id=build_${JOB_NAME}_${BUILD_ID} \
