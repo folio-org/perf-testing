@@ -35,7 +35,9 @@ def executePerformanceTest(String users, String loadGeneratorsCount, String repo
     def usersCount = Math.round((params.users.toInteger() / params.loadGeneratorsCount.toInteger()).floatValue())
     final files = findFiles(glob: 'workflows-scripts/**/*.jmx')
     for (def i=0; i<files.length; i++) {
-        //archiveArtifacts artifacts: '${files[i].path}/*'
+        zip zipFile: '${files[i].name}.zip', archive: true, dir: '${files[i].directory}'
+        //archiveArtifacts artifacts: '${files[i].directory}/*'
+        //httpRequest httpMode: 'POST', requestBody: mdBody, url: "http://${okapiIp}:9130/_/proxy/modules?check=false"
 
         /*sh "docker pull getcarrier/perfmeter:latest && docker run -t --rm -u 0:0 \
             -v ${WORKSPACE}:/mnt/jmeter \
@@ -46,7 +48,7 @@ def executePerformanceTest(String users, String loadGeneratorsCount, String repo
             getcarrier/perfmeter:latest \
                 -n -t /mnt/jmeter/${files[i].path} -q /mnt/jmeter/carrier-io/parameters.txt" */
         
-        withCredentials([string(credentialsId: 'perf_redis_password_u51', variable: 'redisPassword')]) {
+/*        withCredentials([string(credentialsId: 'perf_redis_password_u51', variable: 'redisPassword')]) {
             withCredentials([string(credentialsId: 'perf_carrier_io_token_u51', variable: 'carrierToken')]) {
                 sh "docker pull getcarrier/control_tower:latest && docker run -t --rm \
                     -e REDIS_HOST=${reportingInstanceUrl} \
@@ -76,7 +78,7 @@ def executePerformanceTest(String users, String loadGeneratorsCount, String repo
                         -r 1 -t perfmeter -q ${loadGeneratorsCount} -n performance_test_job"
             }
         }
-
+*/
         break; // remove to run all tests
     }
 }
