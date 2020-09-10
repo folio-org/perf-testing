@@ -38,12 +38,12 @@ def executePerformanceTest(String users, String loadGeneratorsCount, String repo
         //echo "${files[i].name}"
         //echo "${files[i].path.minus(files[i].name)}"
         //echo "${files[i].path}"
-        def test_name = ${files[i].name.minus('.jmx')}
-        def path_and_name = ${files[i].path.minus('.jmx')}
-        def parent_folder = ${files[i].path.minus(files[i].name)}
-        echo test_name
-        echo path_and_name
-        echo parent_folder
+        def test_name = "${files[i].name.minus('.jmx')}"
+        def path_and_name = "${files[i].path.minus('.jmx')}"
+        def parent_folder = "${files[i].path.minus(files[i].name)}"
+        //echo test_name
+        //echo path_and_name
+        //echo parent_folder
         zip zipFile: "${test_name}.zip", archive: true, dir: "${parent_folder}"
         //httpRequest httpMode: 'POST', uploadFile: "${path_and_name}.zip", url: "http://${reportingInstanceUrl}/api/v1/artifacts/${projectId}/${bucket}/${files[i].name}.zip"
 
@@ -128,6 +128,13 @@ def sendNotification(String testName, String testType, int users, String reporti
     sh(script: """curl -XPOST -H "Content-Type: application/json" -d '{"notification_type": "api","test": "${testName}", "test_type": "${testType}", "users": ${users}, "influx_host": "${reportingInstanceUrl}", "smpt_user": "folio.email.notifications@gmail.com","smpt_password": "dPwbI9CYw5M5bjU6", "user_list": [${emailsList}]}' http://${reportingInstanceUrl}/task/${galloperTaskIdForNotifications}""")
 }
 
+def closeEnvironment(){
+    stage('Shut down load generators and FOLIO environment'){
+        //stopMonitoringTask(params.targetCluster)
+        deleteStack(STACK_NAME, params.targetRegion)
+    }
+}
+
 node {
 
     properties([
@@ -199,15 +206,9 @@ node {
         }
 
     } catch (Exception err){
-        stage('Shut down load generators and FOLIO environment'){
-            //stopMonitoringTask(params.targetCluster)
-            deleteStack(STACK_NAME, params.targetRegion)
-        }
 		println err
+        closeEnvironment()
 	} finally { 
-        stage('Shut down load generators and FOLIO environment'){
-            //stopMonitoringTask(params.targetCluster)
-            deleteStack(STACK_NAME, params.targetRegion)
-        }
+        closeEnvironment()
 	}
 }
