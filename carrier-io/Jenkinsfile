@@ -38,12 +38,11 @@ def executePerformanceTest(String users, String loadGeneratorsCount, String repo
         //echo "${files[i].name}"
         //echo "${files[i].path.minus(files[i].name)}"
         //echo "${files[i].path}"
-        //def test_name = ${files[i].name.minus('.jmx')}
-        //def parent_folder = ${files[i].path.minus(files[i].name)}
-        echo "${files[i].name.minus('.jmx')}"
-        echo "${files[i].path.minus(files[i].name)}"
-        zip zipFile: "${files[i].name.minus('.jmx')}.zip", archive: true, dir: "${files[i].path.minus(files[i].name)}"
-        //archiveArtifacts artifacts: '${files[i].directory}/*'
+        def test_name = ${files[i].name.minus('.jmx')}
+        def parent_folder = ${files[i].path.minus(files[i].name)}
+        echo "${test_name}"
+        echo "${parent_folder}"
+        zip zipFile: "${test_name}.zip", archive: true, dir: "${files[i].path.minus(files[i].name)}"
         //httpRequest httpMode: 'POST', uploadFile: "<filePath>", url: "http://${reportingInstanceUrl}/api/v1/artifacts/${projectId}/${bucket}/${files[i].name}.zip"
 
         /*sh "docker pull getcarrier/perfmeter:latest && docker run -t --rm -u 0:0 \
@@ -141,6 +140,7 @@ node {
             string(defaultValue: "30", description: "Test duration, s", name: "duration"),
             booleanParam(name: 'populateDatabase', defaultValue: false, description: "Repopulate data to database"),
             string(defaultValue: "fs09000000", description: "Tenant", name: "tenant"),
+            string(defaultValue: "1", description: "Project ID in Carrier.IO", name: "projectId"),
             string(defaultValue: "1", description: "Quantity of load generators", name: "loadGeneratorsCount"),
             string(defaultValue: "circulation_checkInCheckOut", description: "test name (without the '.jmx' extension", name: "testName"),
             string(defaultValue: "circulation_checkInCheckOut.zip", description: "Name of .zip file with tests", name: "artifact"),
