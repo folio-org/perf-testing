@@ -35,11 +35,11 @@ def executePerformanceTest(String users, String loadGeneratorsCount, String repo
     def usersCount = Math.round((params.users.toInteger() / params.loadGeneratorsCount.toInteger()).floatValue())
     final files = findFiles(glob: 'workflows-scripts/**/*.jmx')
     for (def i=0; i<files.length; i++) {
-        def testName = "${files[i].name.minus('.jmx')}"
+        def test_Name = "${files[i].name.minus('.jmx')}"
         def pathAndName = "${files[i].path.minus('.jmx')}"
         def parentFolder = "${files[i].path.minus(files[i].name)}"
-        zip zipFile: "${testName}.zip", archive: true, dir: "${parentFolder}"
-        httpRequest httpMode: 'POST', uploadFile: "${pathAndName}.zip", customHeaders: [[name: 'Authorization', value: 'bearer' + ${carrierToken}]], url: "http://${reportingInstanceUrl}/api/v1/artifacts/${projectId}/${bucket}/${testName}.zip"
+        zip zipFile: "${test_Name}.zip", archive: true, dir: "${parentFolder}"
+        httpRequest httpMode: 'POST', uploadFile: "${pathAndName}.zip", customHeaders: [[name: 'Authorization', value: 'bearer' + ${carrierToken}]], url: "http://${reportingInstanceUrl}/api/v1/artifacts/${projectId}/${bucket}/${test_Name}.zip"
 
         /*sh "docker pull getcarrier/perfmeter:latest && docker run -t --rm -u 0:0 \
             -v ${WORKSPACE}:/mnt/jmeter \
@@ -145,7 +145,7 @@ node {
             string(defaultValue: "fs09000000", description: "Tenant", name: "tenant"),
             string(defaultValue: "1", description: "Project ID in Carrier.IO", name: "projectId"),
             string(defaultValue: "1", description: "Quantity of load generators", name: "loadGeneratorsCount"),
-            //string(defaultValue: "circulation_checkInCheckOut", description: "test name (without the '.jmx' extension", name: "testName"),
+            string(defaultValue: "circulation_checkInCheckOut", description: "test name (without the '.jmx' extension", name: "testName"),
             string(defaultValue: "circulation_checkInCheckOut.zip", description: "Name of .zip file with tests", name: "artifact"),
             string(defaultValue: "circulation", description: "Galloper bucket with tests artifact", name: "bucket"),
             string(defaultValue: "t3.medium", description: "Instance type for load generator, all instance types with specs could be found here https://aws.amazon.com/ec2/instance-types", name: "instanceType"),
