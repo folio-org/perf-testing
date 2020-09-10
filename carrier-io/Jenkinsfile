@@ -42,7 +42,7 @@ def executePerformanceTest(String users, String loadGeneratorsCount, String repo
         withCredentials([string(credentialsId: 'perf_carrier_io_token_u51', variable: 'carrierToken')]) {
           //httpRequest httpMode: 'POST', uploadFile: "${pathAndName}.zip", customHeaders: [[name: 'Authorization', value: 'bearer ${carrierToken}']], url: "http://${reportingInstanceUrl}/api/v1/artifacts/${projectId}/${bucket}/${test_Name}.zip"
           sh "curl -w '\n' -X POST -D - http://${reportingInstanceUrl}/api/v1/artifacts/${projectId}/${bucket}/${test_Name}.zip \
-                -H 'Authorization: bearer ${carrierToken}'
+                -H 'Authorization: bearer ${carrierToken}' \
                 -F 'file=@${pathAndName}.zip'"
         }
          
