@@ -145,7 +145,7 @@ node {
             string(defaultValue: "fs09000000", description: "Tenant", name: "tenant"),
             string(defaultValue: "1", description: "Project ID in Carrier.IO", name: "projectId"),
             string(defaultValue: "1", description: "Quantity of load generators", name: "loadGeneratorsCount"),
-            string(defaultValue: "circulation_checkInCheckOut", description: "test name (without the '.jmx' extension", name: "testName"),
+            //string(defaultValue: "circulation_checkInCheckOut", description: "test name (without the '.jmx' extension", name: "testName"),
             string(defaultValue: "circulation_checkInCheckOut.zip", description: "Name of .zip file with tests", name: "artifact"),
             string(defaultValue: "circulation", description: "Galloper bucket with tests artifact", name: "bucket"),
             string(defaultValue: "t3.medium", description: "Instance type for load generator, all instance types with specs could be found here https://aws.amazon.com/ec2/instance-types", name: "instanceType"),
