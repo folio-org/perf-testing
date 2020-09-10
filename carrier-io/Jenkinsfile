@@ -42,9 +42,9 @@ def executePerformanceTest(String users, String loadGeneratorsCount, String repo
         //def parent_folder = ${files[i].path.minus(files[i].name)}
         echo "${files[i].name.minus('.jmx')}"
         echo "${files[i].path.minus(files[i].name)}"
-        //zip zipFile: '${test_name}.zip', archive: true, dir: '${parent_folder}'
+        zip zipFile: '${files[i].name.minus('.jmx')}.zip', archive: true, dir: '${files[i].path.minus(files[i].name)}'
         //archiveArtifacts artifacts: '${files[i].directory}/*'
-        //httpRequest httpMode: 'POST', requestBody: mdBody, url: "http://${reportingInstanceUrl}/api/v1/artifacts/${projectId}/${bucket}/${files[i].name}.zip"
+        //httpRequest httpMode: 'POST', uploadFile: "<filePath>", url: "http://${reportingInstanceUrl}/api/v1/artifacts/${projectId}/${bucket}/${files[i].name}.zip"
 
         /*sh "docker pull getcarrier/perfmeter:latest && docker run -t --rm -u 0:0 \
             -v ${WORKSPACE}:/mnt/jmeter \
