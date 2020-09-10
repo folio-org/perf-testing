@@ -31,33 +31,33 @@ def deleteStack(String stackName, String targetRegion){
     sh(script: "aws cloudformation wait stack-delete-complete --stack-name ${stackName} --region ${targetRegion}")
 }
 
-def executePerformanceTest(String users, String loadGeneratorsCount, String reportingInstanceUrl, String galloperPostProccessingTaskId, String testName, String testType, String rampUp, String duration, String targetUrl, String distribution, String lgMemory, String artifact, String bucket, String tenant){
+def executePerformanceTest(String users, String loadGeneratorsCount, String reportingInstanceUrl, String galloperPostProccessingTaskId, String testType, String rampUp, String duration, String targetUrl, String distribution, String lgMemory, String bucket, String tenant){
     def usersCount = Math.round((params.users.toInteger() / params.loadGeneratorsCount.toInteger()).floatValue())
     final files = findFiles(glob: 'workflows-scripts/**/*.jmx')
     for (def i=0; i<files.length; i++) {
-        def test_Name = "${files[i].name.minus('.jmx')}"
+        
+        def testName = "${files[i].name.minus('.jmx')}"
         def pathAndName = "${files[i].path.minus('.jmx')}"
         def parentFolder = "${files[i].path.minus(files[i].name)}"
-        zip zipFile: "${pathAndName}.zip", archive: false, dir: "${parentFolder}"
-        withCredentials([string(credentialsId: 'perf_carrier_io_token_u51', variable: 'carrierToken')]) {
-          //httpRequest httpMode: 'POST', uploadFile: "${pathAndName}.zip", customHeaders: [[name: 'Authorization', value: 'bearer ${carrierToken}']], url: "http://${reportingInstanceUrl}/api/v1/artifacts/${projectId}/${bucket}/${test_Name}.zip"
-          sh "curl -w '\n' -X POST -D - http://${reportingInstanceUrl}/api/v1/artifacts/${projectId}/${bucket}/${test_Name}.zip \
-                -H 'Authorization: bearer ${carrierToken}' \
-                -F 'file=@${pathAndName}.zip'"
-        }
-         
+        def artifact = "${testName}.zip"
 
-        /*sh "docker pull getcarrier/perfmeter:latest && docker run -t --rm -u 0:0 \
-            -v ${WORKSPACE}:/mnt/jmeter \
-            -e build_id=build_${JOB_NAME}_${BUILD_ID} \
-            -e GALLOPER_WEB_HOOK=http://${reportingInstanceUrl}/task/${galloperPostProccessingTaskId} \
-            -e JVM_ARGS='-Xmx${lgMemory}g' \
-            -e additional_files='{\"tests/InfluxBackendListenerClient-1.1.jar\": \"/jmeter/apache-jmeter-5.0/lib/ext/InfluxBackendListenerClient.jar\"}' \
-            getcarrier/perfmeter:latest \
-                -n -t /mnt/jmeter/${files[i].path} -q /mnt/jmeter/carrier-io/parameters.txt" */
+        zip zipFile: "${artifact}", archive: false, dir: "${parentFolder}"
+        withCredentials([string(credentialsId: 'perf_carrier_io_token_u51', variable: 'carrierToken')]) {
+            //httpRequest httpMode: 'POST', uploadFile: "${pathAndName}.zip", customHeaders: [[name: 'Authorization', value: 'bearer ${carrierToken}']], url: "http://${reportingInstanceUrl}/api/v1/artifacts/${projectId}/${bucket}/${test_Name}.zip"
+            sh "curl -L -w '\n' -X POST -D - http://${reportingInstanceUrl}/api/v1/artifacts/${projectId}/${bucket}/${artifact} \
+                -H 'Authorization: bearer ${carrierToken}' \
+                -F 'file=@${artifact}'"
+
+            /*sh "docker pull getcarrier/perfmeter:latest && docker run -t --rm -u 0:0 \
+                -v ${WORKSPACE}:/mnt/jmeter \
+                -e build_id=build_${JOB_NAME}_${BUILD_ID} \
+                -e GALLOPER_WEB_HOOK=http://${reportingInstanceUrl}/task/${galloperPostProccessingTaskId} \
+                -e JVM_ARGS='-Xmx${lgMemory}g' \
+                -e additional_files='{\"tests/InfluxBackendListenerClient-1.1.jar\": \"/jmeter/apache-jmeter-5.0/lib/ext/InfluxBackendListenerClient.jar\"}' \
+                getcarrier/perfmeter:latest \
+                    -n -t /mnt/jmeter/${files[i].path} -q /mnt/jmeter/carrier-io/parameters.txt" */
         
-/*        withCredentials([string(credentialsId: 'perf_redis_password_u51', variable: 'redisPassword')]) {
-            withCredentials([string(credentialsId: 'perf_carrier_io_token_u51', variable: 'carrierToken')]) {
+            withCredentials([string(credentialsId: 'perf_redis_password_u51', variable: 'redisPassword')]) {
                 sh "docker pull getcarrier/control_tower:latest && docker run -t --rm \
                     -e REDIS_HOST=${reportingInstanceUrl} \
                     -e REDIS_PASSWORD=${redisPassword} \
@@ -86,7 +86,6 @@ def executePerformanceTest(String users, String loadGeneratorsCount, String repo
                         -r 1 -t perfmeter -q ${loadGeneratorsCount} -n performance_test_job"
             }
         }
-*/
         break; // remove to run all tests
     }
 }
@@ -151,9 +150,7 @@ node {
             string(defaultValue: "fs09000000", description: "Tenant", name: "tenant"),
             string(defaultValue: "1", description: "Project ID in Carrier.IO", name: "projectId"),
             string(defaultValue: "1", description: "Quantity of load generators", name: "loadGeneratorsCount"),
-            string(defaultValue: "circulation_checkInCheckOut", description: "test name (without the '.jmx' extension", name: "testName"),
-            string(defaultValue: "circulation_checkInCheckOut.zip", description: "Name of .zip file with tests", name: "artifact"),
-            string(defaultValue: "circulation", description: "Galloper bucket with tests artifact", name: "bucket"),
+            string(defaultValue: "jmeter", description: "Galloper bucket with tests artifact", name: "bucket"),
             string(defaultValue: "t3.medium", description: "Instance type for load generator, all instance types with specs could be found here https://aws.amazon.com/ec2/instance-types", name: "instanceType"),
             string(defaultValue: "0.0125", description: "The maximum hourly price to be paid for any Spot Instance launched to fulfill the request. Default is for t3.medium instance type, more information could be found here https://aws.amazon.com/ec2/spot/pricing", name: "spotPrice"),
             string(defaultValue: "3", description: "Ram memory in GB avaliable per load generator", name: "lgMemory"),
@@ -197,12 +194,12 @@ node {
             }    
 
             stage("Execute tests") {
-                executePerformanceTest(params.users, params.loadGeneratorsCount, params.reportingInstanceUrl, params.galloperPostProccessingTaskId, params.testName, params.testType, params.rampUp, params.duration, params.targetUrl, params.distribution, params.lgMemory, params.artifact, params.bucket, params.tenant)
+                executePerformanceTest(params.users, params.loadGeneratorsCount, params.reportingInstanceUrl, params.galloperPostProccessingTaskId, params.testType, params.rampUp, params.duration, params.targetUrl, params.distribution, params.lgMemory, params.bucket, params.tenant)
             }
 
-            stage("Send Notification") {
-                sendNotification(params.testName, params.testType, params.users.toInteger(), params.reportingInstanceUrl, params.emailsList, params.galloperTaskIdForNotifications)
-            }
+            //stage("Send Notification") {
+            //    sendNotification(params.testName, params.testType, params.users.toInteger(), params.reportingInstanceUrl, params.emailsList, params.galloperTaskIdForNotifications)
+            //}
         }
 
     } catch (Exception err){
