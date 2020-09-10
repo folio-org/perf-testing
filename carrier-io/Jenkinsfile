@@ -35,17 +35,11 @@ def executePerformanceTest(String users, String loadGeneratorsCount, String repo
     def usersCount = Math.round((params.users.toInteger() / params.loadGeneratorsCount.toInteger()).floatValue())
     final files = findFiles(glob: 'workflows-scripts/**/*.jmx')
     for (def i=0; i<files.length; i++) {
-        //echo "${files[i].name}"
-        //echo "${files[i].path.minus(files[i].name)}"
-        //echo "${files[i].path}"
-        def test_name = "${files[i].name.minus('.jmx')}"
-        def path_and_name = "${files[i].path.minus('.jmx')}"
-        def parent_folder = "${files[i].path.minus(files[i].name)}"
-        //echo test_name
-        //echo path_and_name
-        //echo parent_folder
-        zip zipFile: "${test_name}.zip", archive: true, dir: "${parent_folder}"
-        //httpRequest httpMode: 'POST', uploadFile: "${path_and_name}.zip", url: "http://${reportingInstanceUrl}/api/v1/artifacts/${projectId}/${bucket}/${files[i].name}.zip"
+        def testName = "${files[i].name.minus('.jmx')}"
+        def pathAndName = "${files[i].path.minus('.jmx')}"
+        def parentFolder = "${files[i].path.minus(files[i].name)}"
+        zip zipFile: "${testName}.zip", archive: true, dir: "${parentFolder}"
+        httpRequest httpMode: 'POST', uploadFile: "${pathAndName}.zip", customHeaders: [[name: 'Authorization', value: 'bearer' + ${carrierToken}]], url: "http://${reportingInstanceUrl}/api/v1/artifacts/${projectId}/${bucket}/${testName}.zip"
 
         /*sh "docker pull getcarrier/perfmeter:latest && docker run -t --rm -u 0:0 \
             -v ${WORKSPACE}:/mnt/jmeter \
@@ -207,7 +201,6 @@ node {
 
     } catch (Exception err){
 		println err
-        closeEnvironment()
 	} finally { 
         closeEnvironment()
 	}
