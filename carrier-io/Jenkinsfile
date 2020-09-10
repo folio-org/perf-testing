@@ -35,9 +35,12 @@ def executePerformanceTest(String users, String loadGeneratorsCount, String repo
     def usersCount = Math.round((params.users.toInteger() / params.loadGeneratorsCount.toInteger()).floatValue())
     final files = findFiles(glob: 'workflows-scripts/**/*.jmx')
     for (def i=0; i<files.length; i++) {
-        zip zipFile: '${files[i].name}.zip', archive: true, dir: '${files[i].directory}'
+        echo "${files[i].name}"
+        echo "${files[i].directory}"
+        echo "${files[i].path}"
+        //zip zipFile: '${files[i].name}.zip', archive: true, dir: '${files[i].directory}'
         //archiveArtifacts artifacts: '${files[i].directory}/*'
-        //httpRequest httpMode: 'POST', requestBody: mdBody, url: "http://${okapiIp}:9130/_/proxy/modules?check=false"
+        //httpRequest httpMode: 'POST', requestBody: mdBody, url: "http://${reportingInstanceUrl}/api/v1/artifacts/${projectId}/${bucket}/${files[i].name}.zip"
 
         /*sh "docker pull getcarrier/perfmeter:latest && docker run -t --rm -u 0:0 \
             -v ${WORKSPACE}:/mnt/jmeter \
