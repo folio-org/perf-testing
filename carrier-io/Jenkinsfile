@@ -36,7 +36,7 @@ def executePerformanceTest(String users, String loadGeneratorsCount, String repo
     final files = findFiles(glob: 'workflows-scripts/**/*.jmx')
     for (def i=0; i<files.length; i++) {
         echo "${files[i].name}"
-        echo "${files[i].path.minus(files[i].name}"
+        echo "${files[i].path.minus(files[i].name)}"
         echo "${files[i].path}"
         //zip zipFile: '${files[i].name}.zip', archive: true, dir: '${files[i].directory}'
         //archiveArtifacts artifacts: '${files[i].directory}/*'
