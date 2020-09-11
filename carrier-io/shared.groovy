@@ -79,7 +79,7 @@ def executePerformanceTest(ctx){
                             \"RAMP_UP\": \"${props.rampUp}\", \
                             \"duration\": \"${props.duration}\", \
                             \"influx.host\": \"${props.reportingInstanceUrl}\"}' \
-                        -r 1 -t perfmeter -q ${loadGeneratorsCount} -n performance_test_job"
+                        -r 1 -t perfmeter -q ${props.loadGeneratorsCount} -n performance_test_job"
             }
         }
         break; // remove to run all tests
