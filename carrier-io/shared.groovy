@@ -125,7 +125,7 @@ def stopMonitoringTask(ctx){
 
 def getContext() {
   
-    def ctx = readProperties file: 'system.properties'
+    def ctx = readProperties file: 'carrier-io/system.properties'
     
     return ctx
 

@@ -57,7 +57,7 @@ node {
             }
 
             stage("Configure resources monitoring") {
-                installTelegrafAgent(params.reportingInstanceUrl, params.targetCluster)
+                installTelegrafAgent(context)
             }*/
 
             stage("Configure load generators") {
@@ -69,7 +69,7 @@ node {
             }
 
             //stage("Send Notification") {
-            //    sendNotification(params.testName, params.testType, params.users.toInteger(), params.reportingInstanceUrl, params.emailsList, params.galloperTaskIdForNotifications)
+            //    sendNotification(context)
             //}
         }
 
