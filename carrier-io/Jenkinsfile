@@ -1,19 +1,20 @@
 STACK_NAME = "performance-testing-load-generators"
 MONITORING_STACK_NAME = "monitoring-performance-testing"
 
-def createStack(String loadGeneratorsCount, String instanceType, String spotPrice, String reportingInstanceUrl, String targetRegion, String lgMemory){
+
+def createStack(ctx){
     withCredentials([string(credentialsId: 'perf_redis_password_u51', variable: 'redisPassword')]) {
 
         sh(script: "aws cloudformation create-stack --stack-name ${STACK_NAME} \
             --region ${targetRegion} \
             --template-body file://${WORKSPACE}/carrier-io/scripts/cloudformation/load_generator.yml \
-            --parameters ParameterKey=InstanceType,ParameterValue=${instanceType} \
-            ParameterKey=SpotPrice,ParameterValue=${spotPrice} \
-            ParameterKey=LoadGeneratorsCount,ParameterValue=${loadGeneratorsCount} \
-            ParameterKey=ReportingInstanceHost,ParameterValue=${reportingInstanceUrl} \
-            ParameterKey=LoadGeneratorMemory,ParameterValue=${lgMemory} \
+            --parameters ParameterKey=InstanceType,ParameterValue=${ctx.instanceType} \
+            ParameterKey=SpotPrice,ParameterValue=${ctx.spotPrice} \
+            ParameterKey=LoadGeneratorsCount,ParameterValue=${ctx.loadGeneratorsCount} \
+            ParameterKey=ReportingInstanceHost,ParameterValue=${ctx.reportingInstanceUrl} \
+            ParameterKey=LoadGeneratorMemory,ParameterValue=${ctx.lgMemory} \
             ParameterKey=RedisPassword,ParameterValue=${redisPassword}")
-        sh(script: "aws cloudformation wait stack-create-complete --stack-name ${STACK_NAME} --region ${targetRegion}")
+        sh(script: "aws cloudformation wait stack-create-complete --stack-name ${STACK_NAME} --region ${ctx.targetRegion}")
     
     }
 } 
@@ -26,58 +27,60 @@ def populateData(String tenant){
     sh(script: "[TBD]")
 }
 
-def deleteStack(String stackName, String targetRegion){
-    sh(script: "aws cloudformation delete-stack --stack-name ${stackName} --region ${targetRegion}")
-    sh(script: "aws cloudformation wait stack-delete-complete --stack-name ${stackName} --region ${targetRegion}")
+def deleteStack(ctx){
+    sh(script: "aws cloudformation delete-stack --stack-name ${stackName} --region ${ctx.targetRegion}")
+    sh(script: "aws cloudformation wait stack-delete-complete --stack-name ${stackName} --region ${ctx.targetRegion}")
 }
 
-def executePerformanceTest(String users, String loadGeneratorsCount, String reportingInstanceUrl, String galloperPostProccessingTaskId, String testType, String rampUp, String duration, String targetUrl, String distribution, String lgMemory, String bucket, String tenant){
-    def usersCount = Math.round((params.users.toInteger() / params.loadGeneratorsCount.toInteger()).floatValue())
+def executePerformanceTest(ctx){
+    def usersCount = Math.round((ctx.users.toInteger() / ctx.loadGeneratorsCount.toInteger()).floatValue())
     final files = findFiles(glob: 'workflows-scripts/**/*.jmx')
     for (def i=0; i<files.length; i++) {
         
-        def testName = "${files[i].name.minus('.jmx')}"
-        def pathAndName = "${files[i].path.minus('.jmx')}"
-        def parentFolder = "${files[i].path.minus(files[i].name)}"
-        def artifact = "${testName}.zip"
+        def testName        = "${files[i].name.minus('.jmx')}"
+        def pathAndName     = "${files[i].path.minus('.jmx')}"
+        def parentFolder    = "${files[i].path.minus(files[i].name)}"
+        def artifact        = "${testName}.zip"
 
         zip zipFile: "${artifact}", archive: false, dir: "${parentFolder}"
+
+        // Read properties
+        def ctx = readProperties interpolate: true, defaults: ctx, file: '${pathAndName}.properties'
+
         withCredentials([string(credentialsId: 'perf_carrier_io_token_u51', variable: 'carrierToken')]) {
             //httpRequest httpMode: 'POST', uploadFile: "${pathAndName}.zip", customHeaders: [[name: 'Authorization', value: 'bearer ${carrierToken}']], url: "http://${reportingInstanceUrl}/api/v1/artifacts/${projectId}/${bucket}/${test_Name}.zip"
-            sh "curl -L -w '\n' -X POST -D - http://${reportingInstanceUrl}/api/v1/artifacts/${projectId}/${bucket}/${artifact} \
+            sh "curl -L -w '\n' -X POST -D - http://${ctx.reportingInstanceUrl}/api/v1/artifacts/${ctx.projectId}/${ctx.bucket}/${ctx.artifact} \
                 -H 'Authorization: bearer ${carrierToken}' \
                 -F 'file=@${artifact}'"
 
             withCredentials([string(credentialsId: 'perf_redis_password_u51', variable: 'redisPassword')]) {
                 sh "docker pull getcarrier/control_tower:latest && docker run -t --rm \
-                    -e REDIS_HOST=${reportingInstanceUrl} \
+                    -e REDIS_HOST=${ctx.reportingInstanceUrl} \
                     -e REDIS_PASSWORD=${redisPassword} \
-                    -e loki_host=http://${reportingInstanceUrl} \
+                    -e loki_host=http://${ctx.reportingInstanceUrl} \
                     -e loki_port=3100 \
                     -e build_id=build_${JOB_NAME}_${BUILD_ID} \
-                    -e GALLOPER_WEB_HOOK=http://${reportingInstanceUrl}/task/${galloperPostProccessingTaskId} \
-                    -e galloper_url=http://${reportingInstanceUrl} \
-                    -e token=${carrierToken} \
-                    -e bucket=${bucket} \
-                    -e JVM_ARGS='-Xmx${lgMemory}g' \
-                    -e DURATION=${duration} \
+                    -e galloper_url=http://${ctx.reportingInstanceUrl} \
+                    -e token=${ctx.carrierToken} \
+                    -e bucket=${ctx.bucket} \
+                    -e JVM_ARGS='-Xmx${ctx.lgMemory}g' \
+                    -e DURATION=${ctx.duration} \
                     -e artifact=${artifact} \
                     getcarrier/control_tower:latest \
                         -c getcarrier/perfmeter:latest \
-                    -e '{\"cmd\": \"-n -t /mnt/jmeter/${testName}.jmx\", \
-                        \"DISTRIBUTION\": \"${distribution}\", \
-                        \"tenant\": \"${tenant}\", \
-                        \"test_name\": \"${testName}\", \
-                        \"test.type\": \"${testType}\", \
-                        \"VUSERS\": \"${usersCount}\", \
-                        \"HOSTNAME\": \"${targetUrl}\", \
-                        \"RAMP_UP\": \"${rampUp}\", \
-                        \"DURATION\": \"${duration}\", \
-                        \"influx.host\": \"${reportingInstanceUrl}\"}' \
+                        -e '{\"cmd\": \"-n -t /mnt/jmeter/${testName}.jmx\", \
+                            \"tenant\": \"${ctx.tenant}\", \
+                            \"test_name\": \"${testName}\", \
+                            \"test.type\": \"${ctx.testType}\", \
+                            \"VUSERS\": \"${usersCount}\", \
+                            \"HOSTNAME\": \"${ctx.targetUrl}\", \
+                            \"RAMP_UP\": \"${ctx.rampUp}\", \
+                            \"DURATION\": \"${ctx.duration}\", \
+                            \"influx.host\": \"${ctx.reportingInstanceUrl}\"}' \
                         -r 1 -t perfmeter -q ${loadGeneratorsCount} -n performance_test_job"
             }
         }
-        //break; // remove to run all tests
+        break; // remove to run all tests
     }
 }
 
@@ -90,39 +93,40 @@ def getInstancesCount(String targetCluster){
     return allInstances;
 }
 
-def installTelegrafAgent(String reportingInstanceUrl, String targetCluster){
-    def allInstances = getInstancesCount(targetCluster)
+def installTelegrafAgent(ctx){
+    def allInstances = getInstancesCount(ctx.targetCluster)
     for(i=1; i <= allInstances.size(); i++){
         def nodeName = targetCluster + '-node-' + i;
         sh(script: "aws ecs register-task-definition --cli-input-json file://${WORKSPACE}/carrier-io/scripts/cloudformation/telegraf.json")
-        sh(script: """aws ecs start-task --cluster ${targetCluster} \
-            --overrides '{ "containerOverrides": [ { "name": "busybox", "environment": [ { "name": "INFLUX_HOST", "value": "http://${reportingInstanceUrl}:8086" }, { "name": "TELEGRAF_NODE_HOSTNAME", "value": "${nodeName}" } ] } ] }' \
+        sh(script: """aws ecs start-task --cluster ${ctx.targetCluster} \
+            --overrides '{ "containerOverrides": [ { "name": "busybox", "environment": [ { "name": "INFLUX_HOST", "value": "http://${ctx.reportingInstanceUrl}:8086" }, { "name": "TELEGRAF_NODE_HOSTNAME", "value": "${nodeName}" } ] } ] }' \
             --task-definition telegraf-monitoring --container-instances ${allInstances[i-1]}""")
     }
 }
 
-def stopMonitoringTask(String targetCluster){
+def stopMonitoringTask(ctx){
     def taskArns = sh([
-        script: "aws ecs list-tasks --cluster ${targetCluster} --family telegraf-monitoring | jq [.taskArns[]]",
+        script: "aws ecs list-tasks --cluster ${ctx.targetCluster} --family telegraf-monitoring | jq [.taskArns[]]",
         returnStdout: true
     ]);
     taskArns = Eval.me(taskArns)
     if(taskArns != null){
         for(int i=0; i<taskArns.size(); i++){
-            sh(script: "aws ecs stop-task --cluster ${targetCluster} --task ${taskArns[i]}")
+            sh(script: "aws ecs stop-task --cluster ${ctx.targetCluster} --task ${taskArns[i]}")
         }
     }
 }
 
-def sendNotification(String testName, String testType, int users, String reportingInstanceUrl, String emailsList, String galloperTaskIdForNotifications){
-    sh(script: """curl -XPOST -H "Content-Type: application/json" -d '{"notification_type": "api","test": "${testName}", "test_type": "${testType}", "users": ${users}, "influx_host": "${reportingInstanceUrl}", "smpt_user": "folio.email.notifications@gmail.com","smpt_password": "dPwbI9CYw5M5bjU6", "user_list": [${emailsList}]}' http://${reportingInstanceUrl}/task/${galloperTaskIdForNotifications}""")
-}
+//def sendNotification(String testName, String testType, int users, String reportingInstanceUrl, String emailsList, String galloperTaskIdForNotifications){
+//    sh(script: """curl -XPOST -H "Content-Type: application/json" -d '{"notification_type": "api","test": "${testName}", "test_type": "${testType}", "users": ${users}, "influx_host": "${reportingInstanceUrl}", "smpt_user": "folio.email.notifications@gmail.com","smpt_password": "dPwbI9CYw5M5bjU6", "user_list": [${emailsList}]}' http://${reportingInstanceUrl}/task/${galloperTaskIdForNotifications}""")
+//}
 
-def closeEnvironment(){
-    stage('Shut down load generators and FOLIO environment'){
-        //stopMonitoringTask(params.targetCluster)
-        deleteStack(STACK_NAME, params.targetRegion)
-    }
+def getContext() {
+  
+    def ctx = readProperties file: 'system.properties'
+    
+    return ctx
+
 }
 
 node {
@@ -132,30 +136,32 @@ node {
         [$class  : 'BuildDiscarderProperty',
         strategy: [$class: 'LogRotator', numToKeepStr: '30']],
         disableConcurrentBuilds(), 
-        parameters([
-            choice(choices: "baseline\ncapacity\nfix_load\nlongevity", description: "Test type", name: "testType"),
-            string(defaultValue: "8", description: "vUsers count for test execution", name: "users"),
-            string(defaultValue: "80", description: "Ramp up, s", name: "rampUp"),
-            string(defaultValue: "30", description: "Test duration, s", name: "duration"),
-            booleanParam(name: 'populateDatabase', defaultValue: false, description: "Repopulate data to database"),
-            string(defaultValue: "fs09000000", description: "Tenant", name: "tenant"),
-            string(defaultValue: "1", description: "Project ID in Carrier.IO", name: "projectId"),
-            string(defaultValue: "1", description: "Quantity of load generators", name: "loadGeneratorsCount"),
-            string(defaultValue: "jmeter", description: "Galloper bucket with tests artifact", name: "bucket"),
-            string(defaultValue: "t3.medium", description: "Instance type for load generator, all instance types with specs could be found here https://aws.amazon.com/ec2/instance-types", name: "instanceType"),
-            string(defaultValue: "0.0125", description: "The maximum hourly price to be paid for any Spot Instance launched to fulfill the request. Default is for t3.medium instance type, more information could be found here https://aws.amazon.com/ec2/spot/pricing", name: "spotPrice"),
-            string(defaultValue: "3", description: "Ram memory in GB avaliable per load generator", name: "lgMemory"),
-            string(defaultValue: "okapi-gcp1-us-east-1.int.aws.folio.org", description: "FOLIO environment (Okapi URI) against which tests will be executed", name: "targetUrl"),
-            string(defaultValue: "ec2-54-87-82-65.compute-1.amazonaws.com", description: "Environment where reporting tools are located", name: "reportingInstanceUrl"),
-            string(defaultValue: "", description: """Recipients for email notification in format "user1@mail.com","user2@mail.com","user3@mail.com" """, name: "emailsList"),
-            string(defaultValue: "7e28f971-6499-4799-b42c-fd1a6bb8f585", description: "Galloper task id for post processing", name: "galloperPostProccessingTaskId"),
-            string(defaultValue: "481d5b9d-fd90-45c6-a38f-0fad1b4d8572", description: "Galloper task id for notifications", name: "galloperTaskIdForNotifications"),
-            string(defaultValue: "43-57", description: "user flow distribution", name: "distribution"),
-            string(defaultValue: "us-east-1", description: "region", name: "targetRegion"),
-            string(defaultValue: "gcp1-pvt", description: "cluster name to monitor", name: "targetCluster")
-        ])
+        //parameters([
+        //    choice(choices: "baseline\ncapacity\nfix_load\nlongevity", description: "Test type", name: "testType"),
+        //    string(defaultValue: "8", description: "vUsers count for test execution", name: "users"),
+        //    string(defaultValue: "80", description: "Ramp up, s", name: "rampUp"),
+        //    string(defaultValue: "30", description: "Test duration, s", name: "duration"),
+        //    booleanParam(name: 'populateDatabase', defaultValue: false, description: "Repopulate data to database"),
+        //    string(defaultValue: "fs09000000", description: "Tenant", name: "tenant"),
+        //    string(defaultValue: "1", description: "Project ID in Carrier.IO", name: "projectId"),
+        //    string(defaultValue: "1", description: "Quantity of load generators", name: "loadGeneratorsCount"),
+        //    string(defaultValue: "jmeter", description: "Galloper bucket with tests artifact", name: "bucket"),
+        //    string(defaultValue: "t3.medium", description: "Instance type for load generator, all instance types with specs could be found here https://aws.amazon.com/ec2/instance-types", name: "instanceType"),
+        //    string(defaultValue: "0.0125", description: "The maximum hourly price to be paid for any Spot Instance launched to fulfill the request. Default is for t3.medium instance type, more information could be found here https://aws.amazon.com/ec2/spot/pricing", name: "spotPrice"),
+        //    string(defaultValue: "3", description: "Ram memory in GB avaliable per load generator", name: "lgMemory"),
+        //    string(defaultValue: "okapi-gcp1-us-east-1.int.aws.folio.org", description: "FOLIO environment (Okapi URI) against which tests will be executed", name: "targetUrl"),
+        //    string(defaultValue: "ec2-54-87-82-65.compute-1.amazonaws.com", description: "Environment where reporting tools are located", name: "reportingInstanceUrl"),
+        //    string(defaultValue: "", description: """Recipients for email notification in format "user1@mail.com","user2@mail.com","user3@mail.com" """, name: "emailsList"),
+        //    string(defaultValue: "7e28f971-6499-4799-b42c-fd1a6bb8f585", description: "Galloper task id for post processing", name: "galloperPostProccessingTaskId"),
+        //    string(defaultValue: "481d5b9d-fd90-45c6-a38f-0fad1b4d8572", description: "Galloper task id for notifications", name: "galloperTaskIdForNotifications"),
+        //    string(defaultValue: "43-57", description: "user flow distribution", name: "distribution"),
+        //    string(defaultValue: "us-east-1", description: "region", name: "targetRegion"),
+        //    string(defaultValue: "gcp1-pvt", description: "cluster name to monitor", name: "targetCluster")
+       // ])
     ])
-    
+
+    def context
+
     try {
 
         withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', 
@@ -168,6 +174,7 @@ node {
                 deleteDir()
                 step([$class: 'WsCleanup'])
                 checkout scm
+                context = getContext()
             }
 
             /*stage("Populate data to db") {
@@ -181,11 +188,11 @@ node {
             }*/
 
             stage("Configure load generators") {
-                createStack(params.loadGeneratorsCount, params.instanceType, params.spotPrice, params.reportingInstanceUrl, params.targetRegion, params.lgMemory)
+                createStack(context)
             }    
 
             stage("Execute tests") {
-                executePerformanceTest(params.users, params.loadGeneratorsCount, params.reportingInstanceUrl, params.galloperPostProccessingTaskId, params.testType, params.rampUp, params.duration, params.targetUrl, params.distribution, params.lgMemory, params.bucket, params.tenant)
+                executePerformanceTest(context)
             }
 
             //stage("Send Notification") {
@@ -196,6 +203,9 @@ node {
     } catch (Exception err){
 		println err
 	} finally { 
-        closeEnvironment()
+        stage('Shut down load generators and FOLIO environment'){
+            //stopMonitoringTask(context)
+            deleteStack(context)
+        }
 	}
 }
