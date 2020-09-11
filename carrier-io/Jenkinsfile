@@ -27,7 +27,6 @@ properties([
     //    string(defaultValue: "us-east-1", description: "region", name: "targetRegion"),
     //    string(defaultValue: "gcp1-pvt", description: "cluster name to monitor", name: "targetCluster")
         booleanParam(name: 'sendReport', defaultValue: false, description: "Send report to standart channel"),
-        string(defaultValue: "", description: "List of tests to be included", name: "includeTestsList"),
         string(defaultValue: "", description: "List of tests to be excluded", name: "excludeTestsList")
     ])
 ])
@@ -68,7 +67,7 @@ node {
             }    
 
             stage("Execute tests") {
-                sharedLib.executePerformanceTest(context)
+                sharedLib.executePerformanceTest(context, params.excludeTestsList)
             }
 
             //stage("Send Notification") {

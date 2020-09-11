@@ -36,8 +36,8 @@ def deleteStack(ctx){
     sh(script: "aws cloudformation wait stack-delete-complete --stack-name ${ctx.stackName} --region ${ctx.targetRegion}")
 }
 
-def executePerformanceTest(ctx){
-    def usersCount = Math.round((ctx.users.toInteger() / ctx.loadGeneratorsCount.toInteger()).floatValue())
+def executePerformanceTest(ctx, String excludeTestsList){
+    
     final files = findFiles(glob: 'workflows-scripts/**/*.jmx')
     for (def i=0; i<files.length; i++) {
         
@@ -49,6 +49,8 @@ def executePerformanceTest(ctx){
 
         // Read properties
         def props = readProperties defaults: ctx, file: propertiesFile
+        def usersCount = Math.round((props.users.toInteger() / props.loadGeneratorsCount.toInteger()).floatValue())
+        
         withCredentials([string(credentialsId: 'perf_carrier_io_token_u51', variable: 'carrierToken')]) {
             if (props.updateArtifact) {
                 zip zipFile: "${artifact}", archive: false, dir: "${parentFolder}"
