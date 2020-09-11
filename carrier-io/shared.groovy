@@ -36,9 +36,9 @@ def deleteStack(ctx){
     sh(script: "aws cloudformation wait stack-delete-complete --stack-name ${ctx.stackName} --region ${ctx.targetRegion}")
 }
 
-def executePerformanceTest(ctx, String excludeTestsList){
+def executePerformanceTest(ctx, String excludeTestsList, String emailsList){
     
-    final files = findFiles(glob: 'workflows-scripts/**/*.jmx')
+    final files = findFiles(glob: 'workflows-scripts/**/*.jmx', excludes: excludeTestsList)
     for (def i=0; i<files.length; i++) {
         
         def testName        = "${files[i].name.minus('.jmx')}"
@@ -50,7 +50,7 @@ def executePerformanceTest(ctx, String excludeTestsList){
         // Read properties
         def props = readProperties defaults: ctx, file: propertiesFile
         def usersCount = Math.round((props.users.toInteger() / props.loadGeneratorsCount.toInteger()).floatValue())
-        
+
         withCredentials([string(credentialsId: 'perf_carrier_io_token_u51', variable: 'carrierToken')]) {
             if (props.updateArtifact) {
                 zip zipFile: "${artifact}", archive: false, dir: "${parentFolder}"
@@ -88,6 +88,9 @@ def executePerformanceTest(ctx, String excludeTestsList){
                         -r 1 -t perfmeter -q ${props.loadGeneratorsCount} -n performance_test_job"
             }
         }
+        
+        sendNotification(props, emailsList)
+
         break; // remove to run all tests
     }
 }
@@ -125,9 +128,11 @@ def stopMonitoringTask(ctx){
     }
 }
 
-//def sendNotification(String testName, String testType, int users, String reportingInstanceUrl, String emailsList, String galloperTaskIdForNotifications){
-//    sh(script: """curl -XPOST -H "Content-Type: application/json" -d '{"notification_type": "api","test": "${testName}", "test_type": "${testType}", "users": ${users}, "influx_host": "${reportingInstanceUrl}", "smpt_user": "folio.email.notifications@gmail.com","smpt_password": "dPwbI9CYw5M5bjU6", "user_list": [${emailsList}]}' http://${reportingInstanceUrl}/task/${galloperTaskIdForNotifications}""")
-//}
+def sendNotification(ctx, String emailsList){
+    withCredentials([string(credentialsId: 'perf_email_smtp_password_u51', variable: 'emailPassword')]) {
+        sh(script: """curl -XPOST -H "Content-Type: application/json" -d '{"notification_type": "api","test": "${ctx.testName}", "test_type": "${ctx.testType}", "users": ${ctx.users}, "influx_host": "${ctx.reportingInstanceUrl}", "smpt_user": "folio.email.notifications@gmail.com","smpt_password": ${emailPassword}, "user_list": [${emailsList}]}' http://${ctx.reportingInstanceUrl}/task/${ctx.galloperTaskIdForNotifications}""")
+    }
+}
 
 def getContext() {
   
