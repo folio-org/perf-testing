@@ -1,12 +1,15 @@
 #!groovy
 
-STACK_NAME = "performance-testing-load-generators"
-MONITORING_STACK_NAME = "monitoring-performance-testing"
-
 def createStack(ctx){
+    
+    if (stackExists(ctx)) {
+        echo "Skip creating ${ctx.stack_name}"
+    return;
+    }
+
     withCredentials([string(credentialsId: 'perf_redis_password_u51', variable: 'redisPassword')]) {
 
-        sh(script: "aws cloudformation create-stack --stack-name ${STACK_NAME} \
+        sh(script: "aws cloudformation create-stack --stack-name ${ctx.stack_name} \
             --region ${ctx.targetRegion} \
             --template-body file://${WORKSPACE}/carrier-io/scripts/cloudformation/load_generator.yml \
             --parameters ParameterKey=InstanceType,ParameterValue=${ctx.instanceType} \
@@ -15,7 +18,7 @@ def createStack(ctx){
             ParameterKey=ReportingInstanceHost,ParameterValue=${ctx.reportingInstanceUrl} \
             ParameterKey=LoadGeneratorMemory,ParameterValue=${ctx.lgMemory} \
             ParameterKey=RedisPassword,ParameterValue=${redisPassword}")
-        sh(script: "aws cloudformation wait stack-create-complete --stack-name ${STACK_NAME} --region ${ctx.targetRegion}")
+        sh(script: "aws cloudformation wait stack-create-complete --stack-name ${ctx.stack_name} --region ${ctx.targetRegion}")
     
     }
 } 
@@ -129,6 +132,16 @@ def getContext() {
     
     return ctx
 
+}
+
+// test if stack exists
+def stackExists(ctx) {
+  try {
+    sh("aws --output json cloudformation describe-stacks --stack-name ${ctx.stack_name}")
+    return true;
+  } catch (e) {
+    return false;
+  }
 }
 
 return this
