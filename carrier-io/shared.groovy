@@ -47,16 +47,16 @@ def executePerformanceTest(ctx){
         def artifact        = "${testName}.zip"
         def propertiesFile  = "${files[i].path.minus(files[i].name)}/test.properties"
 
-        zip zipFile: "${artifact}", archive: false, dir: "${parentFolder}"
-
         // Read properties
-        def props = readProperties interpolate: true, defaults: ctx, file: propertiesFile
-
+        def props = readProperties defaults: ctx, file: propertiesFile
         withCredentials([string(credentialsId: 'perf_carrier_io_token_u51', variable: 'carrierToken')]) {
-            //httpRequest httpMode: 'POST', uploadFile: "${pathAndName}.zip", customHeaders: [[name: 'Authorization', value: 'bearer ${carrierToken}']], url: "http://${reportingInstanceUrl}/api/v1/artifacts/${projectId}/${bucket}/${test_Name}.zip"
-            sh "curl -L -w '\n' -X POST -D - http://${props.reportingInstanceUrl}/api/v1/artifacts/${props.projectId}/${props.bucket}/${props.artifact} \
-                -H 'Authorization: bearer ${carrierToken}' \
-                -F 'file=@${artifact}'"
+            if (props.updateArtifact) {
+                zip zipFile: "${artifact}", archive: false, dir: "${parentFolder}"
+                //httpRequest httpMode: 'POST', uploadFile: "${pathAndName}.zip", customHeaders: [[name: 'Authorization', value: 'bearer ${carrierToken}']], url: "http://${reportingInstanceUrl}/api/v1/artifacts/${projectId}/${bucket}/${test_Name}.zip"
+                sh "curl -L -w '\n' -X POST -D - http://${props.reportingInstanceUrl}/api/v1/artifacts/${props.projectId}/${props.bucket}/${props.artifact} \
+                    -H 'Authorization: bearer ${carrierToken}' \
+                    -F 'file=@${artifact}'"
+            }
 
             withCredentials([string(credentialsId: 'perf_redis_password_u51', variable: 'redisPassword')]) {
                 sh "docker pull getcarrier/control_tower:latest && docker run -t --rm \
