@@ -1,3 +1,5 @@
+#!groovy
+
 STACK_NAME = "performance-testing-load-generators"
 MONITORING_STACK_NAME = "monitoring-performance-testing"
 
