@@ -3,7 +3,6 @@
 STACK_NAME = "performance-testing-load-generators"
 MONITORING_STACK_NAME = "monitoring-performance-testing"
 
-
 def createStack(ctx){
     withCredentials([string(credentialsId: 'perf_redis_password_u51', variable: 'redisPassword')]) {
 
@@ -131,3 +130,5 @@ def getContext() {
     return ctx
 
 }
+
+return this
