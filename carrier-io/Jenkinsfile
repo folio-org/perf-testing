@@ -52,24 +52,24 @@ node {
 
             /*stage("Populate data to db") {
                 if(params.populateDatabase){
-                    populateData(params.tenant)
+                    sharedLib.populateData(params.tenant)
                 }    
             }
 
             stage("Configure resources monitoring") {
-                installTelegrafAgent(context)
+                sharedLib.installTelegrafAgent(context)
             }*/
 
             stage("Configure load generators") {
-                createStack(context)
+                sharedLib.createStack(context)
             }    
 
             stage("Execute tests") {
-                executePerformanceTest(context)
+                sharedLib.executePerformanceTest(context)
             }
 
             //stage("Send Notification") {
-            //    sendNotification(context)
+            //    sharedLib.sendNotification(context)
             //}
         }
 
@@ -78,7 +78,7 @@ node {
 	} finally { 
         stage('Shut down load generators and FOLIO environment'){
             //stopMonitoringTask(context)
-            deleteStack(context)
+            sharedLib.deleteStack(context)
         }
 	}
 }

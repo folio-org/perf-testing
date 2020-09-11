@@ -126,7 +126,7 @@ def stopMonitoringTask(ctx){
 def getContext() {
   
     def ctx = readProperties file: 'carrier-io/system.properties'
-    echo ctx.reportingInstanceUrl
+    
     return ctx
 
 }
