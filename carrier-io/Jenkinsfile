@@ -45,7 +45,7 @@ node {
                 deleteDir()
                 step([$class: 'WsCleanup'])
                 checkout scm
-                sharedLib = load "shared.groovy"
+                sharedLib = load "carrier-io/shared.groovy"
                 context = sharedLib.getContext()
             }
 
