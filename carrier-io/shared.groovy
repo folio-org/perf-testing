@@ -3,13 +3,13 @@
 def createStack(ctx){
     
     if (stackExists(ctx)) {
-        echo "Skip creating ${ctx.stack_name}"
+        echo "Skip creating ${ctx.stackName}"
     return;
     }
 
     withCredentials([string(credentialsId: 'perf_redis_password_u51', variable: 'redisPassword')]) {
 
-        sh(script: "aws cloudformation create-stack --stack-name ${ctx.stack_name} \
+        sh(script: "aws cloudformation create-stack --stack-name ${ctx.stackName} \
             --region ${ctx.targetRegion} \
             --template-body file://${WORKSPACE}/carrier-io/scripts/cloudformation/load_generator.yml \
             --parameters ParameterKey=InstanceType,ParameterValue=${ctx.instanceType} \
@@ -18,7 +18,7 @@ def createStack(ctx){
             ParameterKey=ReportingInstanceHost,ParameterValue=${ctx.reportingInstanceUrl} \
             ParameterKey=LoadGeneratorMemory,ParameterValue=${ctx.lgMemory} \
             ParameterKey=RedisPassword,ParameterValue=${redisPassword}")
-        sh(script: "aws cloudformation wait stack-create-complete --stack-name ${ctx.stack_name} --region ${ctx.targetRegion}")
+        sh(script: "aws cloudformation wait stack-create-complete --stack-name ${ctx.stackName} --region ${ctx.targetRegion}")
     
     }
 } 
@@ -32,8 +32,8 @@ def populateData(String tenant){
 }
 
 def deleteStack(ctx){
-    sh(script: "aws cloudformation delete-stack --stack-name ${stackName} --region ${ctx.targetRegion}")
-    sh(script: "aws cloudformation wait stack-delete-complete --stack-name ${stackName} --region ${ctx.targetRegion}")
+    sh(script: "aws cloudformation delete-stack --stack-name ${ctx.stackName} --region ${ctx.targetRegion}")
+    sh(script: "aws cloudformation wait stack-delete-complete --stack-name ${ctx.stackName} --region ${ctx.targetRegion}")
 }
 
 def executePerformanceTest(ctx){
@@ -49,7 +49,7 @@ def executePerformanceTest(ctx){
         zip zipFile: "${artifact}", archive: false, dir: "${parentFolder}"
 
         // Read properties
-        def props = readProperties interpolate: true, defaults: ctx, file: '${pathAndName}.properties'
+        def props = readProperties interpolate: true, defaults: ctx, file: '${parentFolder}/test.properties'
 
         withCredentials([string(credentialsId: 'perf_carrier_io_token_u51', variable: 'carrierToken')]) {
             //httpRequest httpMode: 'POST', uploadFile: "${pathAndName}.zip", customHeaders: [[name: 'Authorization', value: 'bearer ${carrierToken}']], url: "http://${reportingInstanceUrl}/api/v1/artifacts/${projectId}/${bucket}/${test_Name}.zip"
@@ -137,7 +137,7 @@ def getContext() {
 // test if stack exists
 def stackExists(ctx) {
   try {
-    sh("aws --output json cloudformation describe-stacks --stack-name ${ctx.stack_name}")
+    sh("aws --output json cloudformation describe-stacks --stack-name ${ctx.stackName}")
     return true;
   } catch (e) {
     return false;
