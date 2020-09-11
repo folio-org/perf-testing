@@ -45,38 +45,39 @@ def executePerformanceTest(ctx){
         zip zipFile: "${artifact}", archive: false, dir: "${parentFolder}"
 
         // Read properties
-        def ctx = readProperties interpolate: true, defaults: ctx, file: '${pathAndName}.properties'
+        def props = readProperties interpolate: true, defaults: ctx, file: '${pathAndName}.properties'
 
         withCredentials([string(credentialsId: 'perf_carrier_io_token_u51', variable: 'carrierToken')]) {
             //httpRequest httpMode: 'POST', uploadFile: "${pathAndName}.zip", customHeaders: [[name: 'Authorization', value: 'bearer ${carrierToken}']], url: "http://${reportingInstanceUrl}/api/v1/artifacts/${projectId}/${bucket}/${test_Name}.zip"
-            sh "curl -L -w '\n' -X POST -D - http://${ctx.reportingInstanceUrl}/api/v1/artifacts/${ctx.projectId}/${ctx.bucket}/${ctx.artifact} \
+            sh "curl -L -w '\n' -X POST -D - http://${props.reportingInstanceUrl}/api/v1/artifacts/${props.projectId}/${props.bucket}/${props.artifact} \
                 -H 'Authorization: bearer ${carrierToken}' \
                 -F 'file=@${artifact}'"
 
             withCredentials([string(credentialsId: 'perf_redis_password_u51', variable: 'redisPassword')]) {
                 sh "docker pull getcarrier/control_tower:latest && docker run -t --rm \
-                    -e REDIS_HOST=${ctx.reportingInstanceUrl} \
+                    -e REDIS_HOST=${props.reportingInstanceUrl} \
                     -e REDIS_PASSWORD=${redisPassword} \
-                    -e loki_host=http://${ctx.reportingInstanceUrl} \
+                    -e loki_host=http://${props.reportingInstanceUrl} \
                     -e loki_port=3100 \
                     -e build_id=build_${JOB_NAME}_${BUILD_ID} \
-                    -e galloper_url=http://${ctx.reportingInstanceUrl} \
-                    -e token=${ctx.carrierToken} \
-                    -e bucket=${ctx.bucket} \
-                    -e JVM_ARGS='-Xmx${ctx.lgMemory}g' \
-                    -e DURATION=${ctx.duration} \
+                    -e galloper_url=http://${props.reportingInstanceUrl} \
+                    -e token=${props.carrierToken} \
+                    -e bucket=${props.bucket} \
+                    -e JVM_ARGS='-Xmx${props.lgMemory}g' \
+                    -e duration=${props.duration} \
                     -e artifact=${artifact} \
                     getcarrier/control_tower:latest \
                         -c getcarrier/perfmeter:latest \
                         -e '{\"cmd\": \"-n -t /mnt/jmeter/${testName}.jmx\", \
-                            \"tenant\": \"${ctx.tenant}\", \
+                            \"distribution\": \"${props.distribution}\", \
+                            \"tenant\": \"${props.tenant}\", \
                             \"test_name\": \"${testName}\", \
-                            \"test.type\": \"${ctx.testType}\", \
-                            \"VUSERS\": \"${usersCount}\", \
-                            \"HOSTNAME\": \"${ctx.targetUrl}\", \
-                            \"RAMP_UP\": \"${ctx.rampUp}\", \
-                            \"DURATION\": \"${ctx.duration}\", \
-                            \"influx.host\": \"${ctx.reportingInstanceUrl}\"}' \
+                            \"test.type\": \"${props.testType}\", \
+                            \"vusers\": \"${usersCount}\", \
+                            \"HOSTNAME\": \"${props.targetUrl}\", \
+                            \"RAMP_UP\": \"${props.rampUp}\", \
+                            \"duration\": \"${props.duration}\", \
+                            \"influx.host\": \"${props.reportingInstanceUrl}\"}' \
                         -r 1 -t perfmeter -q ${loadGeneratorsCount} -n performance_test_job"
             }
         }
