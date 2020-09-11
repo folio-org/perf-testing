@@ -62,22 +62,22 @@ def executePerformanceTest(ctx){
                     -e loki_port=3100 \
                     -e build_id=build_${JOB_NAME}_${BUILD_ID} \
                     -e galloper_url=http://${props.reportingInstanceUrl} \
-                    -e token=${props.carrierToken} \
+                    -e token=${carrierToken} \
                     -e bucket=${props.bucket} \
                     -e JVM_ARGS='-Xmx${props.lgMemory}g' \
-                    -e duration=${props.duration} \
+                    -e DURATION=${props.duration} \
                     -e artifact=${artifact} \
                     getcarrier/control_tower:latest \
                         -c getcarrier/perfmeter:latest \
                         -e '{\"cmd\": \"-n -t /mnt/jmeter/${testName}.jmx\", \
-                            \"distribution\": \"${props.distribution}\", \
+                            \"DISTRIBUTION\": \"${props.distribution}\", \
                             \"tenant\": \"${props.tenant}\", \
                             \"test_name\": \"${testName}\", \
                             \"test.type\": \"${props.testType}\", \
-                            \"vusers\": \"${usersCount}\", \
+                            \"VUSERS\": \"${usersCount}\", \
                             \"HOSTNAME\": \"${props.targetUrl}\", \
                             \"RAMP_UP\": \"${props.rampUp}\", \
-                            \"duration\": \"${props.duration}\", \
+                            \"DURATION\": \"${props.duration}\", \
                             \"influx.host\": \"${props.reportingInstanceUrl}\"}' \
                         -r 1 -t perfmeter -q ${props.loadGeneratorsCount} -n performance_test_job"
             }
