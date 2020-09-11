@@ -7,7 +7,7 @@ def createStack(ctx){
     withCredentials([string(credentialsId: 'perf_redis_password_u51', variable: 'redisPassword')]) {
 
         sh(script: "aws cloudformation create-stack --stack-name ${STACK_NAME} \
-            --region ${targetRegion} \
+            --region ${ctx.targetRegion} \
             --template-body file://${WORKSPACE}/carrier-io/scripts/cloudformation/load_generator.yml \
             --parameters ParameterKey=InstanceType,ParameterValue=${ctx.instanceType} \
             ParameterKey=SpotPrice,ParameterValue=${ctx.spotPrice} \
@@ -126,7 +126,7 @@ def stopMonitoringTask(ctx){
 def getContext() {
   
     def ctx = readProperties file: 'carrier-io/system.properties'
-    
+    echo ctx.reportingInstanceUrl
     return ctx
 
 }
