@@ -89,7 +89,7 @@ def executePerformanceTest(ctx, String excludeTestsList, String emailsList){
             }
         }
         
-        sendNotification(props, emailsList)
+        sendNotification(props, testName, usersCount, emailsList)
 
         break; // remove to run all tests
     }
@@ -128,9 +128,9 @@ def stopMonitoringTask(ctx){
     }
 }
 
-def sendNotification(ctx, String emailsList){
+def sendNotification(ctx, String testName, String usersCount, String emailsList){
     withCredentials([string(credentialsId: 'perf_email_smtp_password_u51', variable: 'emailPassword')]) {
-        sh(script: """curl -XPOST -H "Content-Type: application/json" -d '{"notification_type": "api","test": "${ctx.testName}", "test_type": "${ctx.testType}", "users": ${ctx.users}, "influx_host": "${ctx.reportingInstanceUrl}", "smpt_user": "folio.email.notifications@gmail.com","smpt_password": ${emailPassword}, "user_list": [${emailsList}]}' http://${ctx.reportingInstanceUrl}/task/${ctx.galloperTaskIdForNotifications}""")
+        sh(script: """curl -L -X POST -H "Content-Type: application/json" -d '{"notification_type": "api","test": "${testName}", "test_type": "${ctx.testType}", "users": ${usersCount}, "influx_host": "${ctx.reportingInstanceUrl}", "smtp_user": "folio.email.notifications@gmail.com","smtp_password": "${emailPassword}", "user_list": "${emailsList}"}' ${ctx.notificationsWebHook}""")
     }
 }
 
