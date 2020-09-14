@@ -121,16 +121,10 @@ def stopMonitoringTask(ctx){
     }
 }
 
-def stopAllTasks(ctx){
-    def taskArns = sh([
-        script: "aws ecs list-container-instances --cluster ${ctx.targetCluster} | jq [.containerInstanceArns[]]",
-        returnStdout: true
-    ]);
-    taskArns = Eval.me(taskArns)
-    if(taskArns != null){
-        for(int i=0; i<taskArns.size(); i++){
-            sh(script: "aws ecs deregister-container-instance --cluster ${ctx.targetCluster} --container-instance ${taskArns[i]} --force")
-        }
+def stopAllInstances(ctx){
+    def allInstances = getInstancesCount(ctx.targetCluster)
+    for(i=1; i <= allInstances.size(); i++){
+        sh(script: "aws ecs deregister-container-instance --cluster ${ctx.targetCluster} --container-instance ${allInstances[i]} --force")
     }
 }
 
