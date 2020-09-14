@@ -123,13 +123,13 @@ def stopMonitoringTask(ctx){
 
 def stopAllTasks(ctx){
     def taskArns = sh([
-        script: "aws ecs list-tasks --cluster ${ctx.targetCluster} | jq [.taskArns[]]",
+        script: "aws ecs list-container-instances --cluster ${ctx.targetCluster} | jq [.containerInstanceArns[]]",
         returnStdout: true
     ]);
     taskArns = Eval.me(taskArns)
     if(taskArns != null){
         for(int i=0; i<taskArns.size(); i++){
-            sh(script: "aws ecs stop-task --cluster ${ctx.targetCluster} --task ${taskArns[i]}")
+            sh(script: "aws ecs deregister-container-instance --cluster ${ctx.targetCluster} --container-instance ${taskArns[i]} --force")
         }
     }
 }
