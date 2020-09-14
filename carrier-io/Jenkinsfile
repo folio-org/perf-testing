@@ -16,12 +16,12 @@ def context
 
 node {
 
-    try {
+    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', 
+                        credentialsId: "jenkins-aws",
+                        accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
+                        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
 
-        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', 
-                            credentialsId: "jenkins-aws",
-                            accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
-                            secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+        try {
 
 
             stage("Checkout") {
@@ -50,14 +50,14 @@ node {
                 sharedLib.executePerformanceTest(context, params.excludeTestsList, params.emailsList)
             }
 
+        } catch (Exception err){
+            println err
+        } finally { 
+            stage('Shut down load generators and FOLIO environment'){
+                sharedLib.stopAllInstances(context)
+                sharedLib.deleteStack(context)
+            }
         }
+    }
 
-    } catch (Exception err){
-		println err
-	} finally { 
-        stage('Shut down load generators and FOLIO environment'){
-            sharedLib.stopAllInstances(context)
-            sharedLib.deleteStack(context)
-        }
-	}
 }
