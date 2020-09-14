@@ -68,7 +68,6 @@ def executePerformanceTest(ctx, String excludeTestsList, String emailsList){
                     -e loki_port=3100 \
                     -e build_id=build_${JOB_NAME}_${BUILD_ID} \
                     -e galloper_url=http://${props.reportingInstanceUrl} \
-                    -e results_bucket=\"reports\" \
                     -e token=${carrierToken} \
                     -e bucket=${props.bucket} \
                     -e JVM_ARGS='-Xmx${props.lgMemory}g' \
