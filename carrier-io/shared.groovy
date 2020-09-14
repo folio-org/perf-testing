@@ -2,10 +2,10 @@
 
 def createStack(ctx){
     
-    //if (stackExists(ctx)) {
-    //    echo "Skip creating ${ctx.stackName}"
-    //return;
-    //}
+    if (stackExists(ctx)) {
+        echo "Skip creating ${ctx.stackName}"
+        return;
+    }
 
     withCredentials([string(credentialsId: 'perf_redis_password_u51', variable: 'redisPassword')]) {
 
