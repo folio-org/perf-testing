@@ -23,7 +23,6 @@ node {
 
         try {
 
-
             stage("Checkout") {
                 deleteDir()
                 step([$class: 'WsCleanup'])

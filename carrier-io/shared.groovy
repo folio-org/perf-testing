@@ -123,7 +123,7 @@ def stopMonitoringTask(ctx){
 
 def stopAllInstances(ctx){
     def allInstances = getInstancesCount(ctx.targetCluster)
-    for(i=1; i <= allInstances.size(); i++){
+    for(i=0; i<allInstances.size(); i++){
         sh(script: "aws ecs deregister-container-instance --cluster ${ctx.targetCluster} --container-instance ${allInstances[i]} --force")
     }
 }
