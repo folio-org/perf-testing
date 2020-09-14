@@ -123,7 +123,7 @@ def stopMonitoringTask(ctx){
 
 def stopAllTasks(ctx){
     def taskArns = sh([
-        script: "aws ecs list-tasks --cluster ${ctx.targetCluster} | jq -r [.taskArns[]]",
+        script: "aws ecs list-tasks --cluster ${ctx.targetCluster} | jq [.taskArns[]]",
         returnStdout: true
     ]);
     taskArns = Eval.me(taskArns)
