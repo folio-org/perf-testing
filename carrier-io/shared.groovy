@@ -13,6 +13,7 @@ def createStack(ctx){
             --region ${ctx.targetRegion} \
             --template-body file://${WORKSPACE}/carrier-io/scripts/cloudformation/load_generator.yml \
             --parameters ParameterKey=InstanceType,ParameterValue=${ctx.instanceType} \
+            ParameterKey=ECSCluster,ParameterValue=${ctx.targetCluster} \
             ParameterKey=SpotPrice,ParameterValue=${ctx.spotPrice} \
             ParameterKey=LoadGeneratorsCount,ParameterValue=${ctx.loadGeneratorsCount} \
             ParameterKey=ReportingInstanceHost,ParameterValue=${ctx.reportingInstanceUrl} \
