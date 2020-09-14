@@ -41,7 +41,7 @@ def executePerformanceTest(ctx, String excludeTestsList, String emailsList){
     
     final files = findFiles(glob: 'workflows-scripts/**/*.jmx', excludes: excludeTestsList)
     for (def i=0; i<files.length; i++) {
-        
+        break;
         def testName        = "${files[i].name.minus('.jmx')}"
         def pathAndName     = "${files[i].path.minus('.jmx')}"
         def parentFolder    = "${files[i].path.minus(files[i].name)}"
