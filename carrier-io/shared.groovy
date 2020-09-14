@@ -45,14 +45,14 @@ def executePerformanceTest(ctx, String excludeTestsList, String emailsList){
         def pathAndName     = "${files[i].path.minus('.jmx')}"
         def parentFolder    = "${files[i].path.minus(files[i].name)}"
         def artifact        = "${testName}.zip"
-        def propertiesFile  = "${files[i].path.minus(files[i].name)}/test.properties"
+        def propertiesFile  = "${parentFolder}/test.properties"
 
         // Read properties
         def props = readProperties defaults: ctx, file: propertiesFile
         def usersCount = Math.round((props.users.toInteger() / props.loadGeneratorsCount.toInteger()).floatValue())
 
         withCredentials([string(credentialsId: 'perf_carrier_io_token_u51', variable: 'carrierToken')]) {
-            if (props.updateArtifact) {
+            if (props.uploadArtifact) {
                 zip zipFile: "${artifact}", archive: false, dir: "${parentFolder}"
                 //httpRequest httpMode: 'POST', uploadFile: "${pathAndName}.zip", customHeaders: [[name: 'Authorization', value: 'bearer ${carrierToken}']], url: "http://${reportingInstanceUrl}/api/v1/artifacts/${projectId}/${bucket}/${test_Name}.zip"
                 sh "curl -L -w '\n' -X POST -D - http://${props.reportingInstanceUrl}/api/v1/artifacts/${props.projectId}/${props.bucket}/${props.artifact} \
