@@ -83,7 +83,7 @@ def executePerformanceTest(ctx, String excludeTestsList, String emailsList){
         
         //sendNotification(props, testName, usersCount, emailsList)
 
-        break; // remove to run all tests
+        //break; // remove to run all tests
     }
 }
 
