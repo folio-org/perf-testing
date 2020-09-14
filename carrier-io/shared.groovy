@@ -2,10 +2,10 @@
 
 def createStack(ctx){
     
-    if (stackExists(ctx)) {
-        echo "Skip creating ${ctx.stackName}"
-    return;
-    }
+    //if (stackExists(ctx)) {
+    //    echo "Skip creating ${ctx.stackName}"
+    //return;
+    //}
 
     withCredentials([string(credentialsId: 'perf_redis_password_u51', variable: 'redisPassword')]) {
 
@@ -83,7 +83,7 @@ def executePerformanceTest(ctx, String excludeTestsList, String emailsList){
         
         //sendNotification(props, testName, usersCount, emailsList)
 
-        //break; // remove to run all tests
+        break; // remove to run all tests
     }
 }
 
@@ -110,6 +110,19 @@ def installTelegrafAgent(ctx){
 def stopMonitoringTask(ctx){
     def taskArns = sh([
         script: "aws ecs list-tasks --cluster ${ctx.targetCluster} --family telegraf-monitoring | jq [.taskArns[]]",
+        returnStdout: true
+    ]);
+    taskArns = Eval.me(taskArns)
+    if(taskArns != null){
+        for(int i=0; i<taskArns.size(); i++){
+            sh(script: "aws ecs stop-task --cluster ${ctx.targetCluster} --task ${taskArns[i]}")
+        }
+    }
+}
+
+def stopAllTasks(ctx){
+    def taskArns = sh([
+        script: "aws ecs list-tasks --cluster ${ctx.targetCluster} | jq [.taskArns[]]",
         returnStdout: true
     ]);
     taskArns = Eval.me(taskArns)

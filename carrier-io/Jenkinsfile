@@ -75,7 +75,7 @@ node {
 		println err
 	} finally { 
         stage('Shut down load generators and FOLIO environment'){
-            //stopMonitoringTask(context)
+            stopAllTasks(context)
             sharedLib.deleteStack(context)
         }
 	}
