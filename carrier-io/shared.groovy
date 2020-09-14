@@ -147,7 +147,7 @@ def getContext() {
 // test if stack exists
 def stackExists(ctx) {
   try {
-    sh("aws --output json cloudformation describe-stacks --stack-name ${ctx.stackName} > /dev/nul")
+    sh("aws --output json cloudformation describe-stacks --stack-name ${ctx.stackName} > aws.output")
     return true;
   } catch (e) {
     return false;
