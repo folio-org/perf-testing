@@ -70,6 +70,7 @@ def executePerformanceTest(ctx, String excludeTestsList, String emailsList){
                     -e galloper_url=http://${props.reportingInstanceUrl} \
                     -e token=${carrierToken} \
                     -e bucket=${props.bucket} \
+                    -e project_id=${props.projectId} \
                     -e JVM_ARGS='-Xmx${props.lgMemory}g' \
                     -e DURATION=${props.duration} \
                     -e artifact=${artifact} \
