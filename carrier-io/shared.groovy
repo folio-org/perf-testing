@@ -71,23 +71,22 @@ def executePerformanceTest(ctx, String excludeTestsList, String emailsList){
                     -e token=${carrierToken} \
                     -e bucket=${props.bucket} \
                     -e project_id=${props.projectId} \
-                    -e additional_files='{\"jmeter/InfluxBackendListenerClient.jar\": \"/jmeter/apache-jmeter-5.0/lib/ext/InfluxBackendListenerClient.jar\"}' \
                     -e JVM_ARGS='-Xmx${props.lgMemory}g' \
                     -e DURATION=${props.duration} \
                     -e artifact=${artifact} \
                     getcarrier/control_tower:latest \
                         -c getcarrier/perfmeter:latest \
                         -e '{\"cmd\": \"-n -t /mnt/jmeter/${testName}.jmx\", \
-                            \"DISTRIBUTION\": \"${props.distribution}\", \
-                            \"tenant\": \"${props.tenant}\", \
-                            \"test_name\": \"${testName}\", \
-                            \"test.type\": \"${props.testType}\", \
-                            \"env.type\": \"${props.envType}\", \
-                            \"VUSERS\": \"${usersCount}\", \
-                            \"HOSTNAME\": \"${props.targetUrl}\", \
-                            \"RAMP_UP\": \"${props.rampUp}\", \
-                            \"DURATION\": \"${props.duration}\", \
-                            \"influx.host\": \"${props.reportingInstanceUrl}\"}' \
+                            \"-Jtest_name\": \"${testName}\", \
+                            \"-JDISTRIBUTION\": \"${props.distribution}\", \
+                            \"-Jtenant\": \"${props.tenant}\", \
+                            \"-Jtest.type\": \"${props.testType}\", \
+                            \"-Jenv.type\": \"${props.envType}\", \
+                            \"-JVUSERS\": \"${usersCount}\", \
+                            \"-JHOSTNAME\": \"${props.targetUrl}\", \
+                            \"-JRAMP_UP\": \"${props.rampUp}\", \
+                            \"-JDURATION\": \"${props.duration}\", \
+                            \"-Jinflux.host\": \"${props.reportingInstanceUrl}\"}' \
                         -r 1 -t perfmeter -q ${props.loadGeneratorsCount} -n performance_test_job"
             }
         }
