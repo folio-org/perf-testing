@@ -68,6 +68,8 @@ def executePerformanceTest(ctx, String excludeTestsList, String emailsList){
                     -e loki_port=3100 \
                     -e build_id=build_${JOB_NAME}_${BUILD_ID} \
                     -e galloper_url=http://${props.reportingInstanceUrl} \
+                    -e results_bucket=\"reports\" \
+                    -e additional_files='{\"jmeter/InfluxBackendListenerClient-1.1.jar\": \"/jmeter/apache-jmeter-5.0/lib/ext/InfluxBackendListenerClient.jar\"}' \
                     -e token=${carrierToken} \
                     -e bucket=${props.bucket} \
                     -e JVM_ARGS='-Xmx${props.lgMemory}g' \
@@ -91,7 +93,7 @@ def executePerformanceTest(ctx, String excludeTestsList, String emailsList){
         
         //sendNotification(props, testName, usersCount, emailsList)
 
-        //break; // remove to run all tests
+        break; // remove to run all tests
     }
 }
 
