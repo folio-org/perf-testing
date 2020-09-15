@@ -20,7 +20,6 @@ def createStack(ctx){
             ParameterKey=LoadGeneratorMemory,ParameterValue=${ctx.lgMemory} \
             ParameterKey=RedisPassword,ParameterValue=${redisPassword}")
         sh(script: "aws cloudformation wait stack-create-complete --stack-name ${ctx.stackName} --region ${ctx.targetRegion}")
-    
     }
 } 
 
@@ -90,7 +89,7 @@ def executePerformanceTest(ctx, String excludeTestsList, String emailsList){
 
 def getInstancesCount(String targetCluster){
     def allInstances = sh([
-        script: "aws ecs list-container-instances --cluster ${targetCluster} | jq [.containerInstanceArns[]]",
+        script: "aws ecs list-container-instances --cluster ${targetCluster} --region ${ctx.targetRegion} | jq [.containerInstanceArns[]]",
         returnStdout: true
     ]);
     allInstances = Eval.me(allInstances)
@@ -124,7 +123,7 @@ def stopMonitoringTask(ctx){
 def stopAllInstances(ctx){
     def allInstances = getInstancesCount(ctx.targetCluster)
     for(i=0; i<allInstances.size(); i++){
-        sh(script: "aws ecs deregister-container-instance --cluster ${ctx.targetCluster} --container-instance ${allInstances[i]} --force")
+        sh(script: "aws ecs deregister-container-instance --cluster ${ctx.targetCluster} --region ${ctx.targetRegion} --container-instance ${allInstances[i]} --force")
     }
 }
 
@@ -144,12 +143,12 @@ def getContext() {
 
 // test if stack exists
 def stackExists(ctx) {
-  try {
-    sh("aws --output json cloudformation describe-stacks --stack-name ${ctx.stackName} > aws.output")
-    return true;
-  } catch (e) {
-    return false;
-  }
+    try {
+        sh("aws --output json cloudformation describe-stacks --stack-name ${ctx.stackName} > aws.output")
+        return true;
+    } catch (e) {
+        return false;
+    }
 }
 
 return this
