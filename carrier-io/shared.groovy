@@ -88,6 +88,7 @@ def executePerformanceTest(ctx, String excludeTestsList, String emailsList){
 }
 
 def getInstancesCount(String targetCluster, String targetRegion){
+    sh(script: "aws ecs list-container-instances --cluster ${targetCluster} --region ${targetRegion}")
     def allInstances = sh([
         script: "aws ecs list-container-instances --cluster ${targetCluster} --region ${targetRegion} | jq [.containerInstanceArns[]]",
         returnStdout: true
