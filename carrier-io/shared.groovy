@@ -87,9 +87,9 @@ def executePerformanceTest(ctx, String excludeTestsList, String emailsList){
     }
 }
 
-def getInstancesCount(String targetCluster){
+def getInstancesCount(String targetCluster, String targetRegion){
     def allInstances = sh([
-        script: "aws ecs list-container-instances --cluster ${targetCluster} --region ${ctx.targetRegion} | jq [.containerInstanceArns[]]",
+        script: "aws ecs list-container-instances --cluster ${targetCluster} --region ${targetRegion} | jq [.containerInstanceArns[]]",
         returnStdout: true
     ]);
     allInstances = Eval.me(allInstances)
@@ -97,7 +97,7 @@ def getInstancesCount(String targetCluster){
 }
 
 def installTelegrafAgent(ctx){
-    def allInstances = getInstancesCount(ctx.targetCluster)
+    def allInstances = getInstancesCount(ctx.targetCluster, ctx.targetRegion)
     for(i=1; i <= allInstances.size(); i++){
         def nodeName = targetCluster + '-node-' + i;
         sh(script: "aws ecs register-task-definition --cli-input-json file://${WORKSPACE}/carrier-io/scripts/cloudformation/telegraf.json")
@@ -121,7 +121,7 @@ def stopMonitoringTask(ctx){
 }
 
 def stopAllInstances(ctx){
-    def allInstances = getInstancesCount(ctx.targetCluster)
+    def allInstances = getInstancesCount(ctx.targetCluster, ctx.targetRegion)
     for(i=0; i<allInstances.size(); i++){
         sh(script: "aws ecs deregister-container-instance --cluster ${ctx.targetCluster} --region ${ctx.targetRegion} --container-instance ${allInstances[i]} --force")
     }
