@@ -89,7 +89,7 @@ def executePerformanceTest(ctx, String excludeTestsList, String emailsList){
 
 def getInstancesCount(String targetCluster, String targetRegion){
     def allInstances = sh(
-        script: "aws ecs list-container-instances --cluster ${targetCluster} --region ${targetRegion} | jq [.containerInstanceArns[]]",
+        script: "aws ecs list-container-instances --cluster ${targetCluster} --region ${targetRegion}  --output json | jq [.containerInstanceArns[]]",
         returnStdout: true
     );
     allInstances = Eval.me(allInstances)
