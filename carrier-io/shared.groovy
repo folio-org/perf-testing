@@ -53,11 +53,14 @@ def executePerformanceTest(ctx, String excludeTestsList, String emailsList){
 
         withCredentials([string(credentialsId: 'perf_carrier_io_token_u51', variable: 'carrierToken')]) {
             if (props.uploadArtifact) {
-                zip zipFile: "${artifact}", archive: false, dir: "${parentFolder}"
-                //httpRequest httpMode: 'POST', uploadFile: "${pathAndName}.zip", customHeaders: [[name: 'Authorization', value: 'bearer ${carrierToken}']], url: "http://${reportingInstanceUrl}/api/v1/artifacts/${projectId}/${bucket}/${test_Name}.zip"
-                sh "curl -L -w '\n' -X POST -D - http://${props.reportingInstanceUrl}/api/v1/artifacts/${props.projectId}/${props.bucket}/${props.artifact} \
-                    -H 'Authorization: bearer ${carrierToken}' \
-                    -F 'file=@${artifact}'"
+                withCredentials([file(credentialsId: 'perf_tests_credentials', variable: 'FILE')]) {
+                    sh(script: "mv ${FILE} ${parentFolder}/jmeter-supported-data")
+                    zip zipFile: "${artifact}", archive: false, dir: "${parentFolder}"
+                    //httpRequest httpMode: 'POST', uploadFile: "${pathAndName}.zip", customHeaders: [[name: 'Authorization', value: 'bearer ${carrierToken}']], url: "http://${reportingInstanceUrl}/api/v1/artifacts/${projectId}/${bucket}/${test_Name}.zip"
+                    sh "curl -L -w '\n' -X POST -D - http://${props.reportingInstanceUrl}/api/v1/artifacts/${props.projectId}/${props.bucket}/${props.artifact} \
+                        -H 'Authorization: bearer ${carrierToken}' \
+                        -F 'file=@${artifact}'"
+                }
             }
 
             withCredentials([string(credentialsId: 'perf_redis_password_u51', variable: 'redisPassword')]) {
@@ -83,7 +86,7 @@ def executePerformanceTest(ctx, String excludeTestsList, String emailsList){
         
         //sendNotification(props, testName, usersCount, emailsList)
 
-        //break; // remove to run all tests
+        break; // remove to run all tests
     }
 }
 
