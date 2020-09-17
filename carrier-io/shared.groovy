@@ -84,9 +84,9 @@ def executePerformanceTest(ctx, String excludeTestsList, Boolean sendReports){
             }
         }
         
-        if (sendReports) {
+        //if (sendReports) {
             sendNotification(props, testName, usersCount)
-        }
+        //}
 
         break; // remove to run all tests
     }
