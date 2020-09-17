@@ -36,7 +36,7 @@ def deleteStack(ctx){
     sh(script: "aws cloudformation wait stack-delete-complete --stack-name ${ctx.stackName} --region ${ctx.targetRegion}")
 }
 
-def executePerformanceTest(ctx, String excludeTestsList, Boolean sendReports){
+def executePerformanceTest(ctx, String excludeTestsList, boolean sendReports){
     
     final files = findFiles(glob: 'workflows-scripts/**/*.jmx', excludes: excludeTestsList)
     for (def i=0; i<files.length; i++) {
@@ -84,9 +84,9 @@ def executePerformanceTest(ctx, String excludeTestsList, Boolean sendReports){
             }
         }
         
-        //if (sendReports) {
-            sendNotification(props, testName, usersCount)
-        //}
+        if (sendReports) {
+        //    sendNotification(props, testName, usersCount)
+        }
 
         break; // remove to run all tests
     }
