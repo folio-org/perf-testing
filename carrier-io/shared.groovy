@@ -36,7 +36,7 @@ def deleteStack(ctx){
     sh(script: "aws cloudformation wait stack-delete-complete --stack-name ${ctx.stackName} --region ${ctx.targetRegion}")
 }
 
-def executePerformanceTest(ctx, String excludeTestsList, String emailsList){
+def executePerformanceTest(ctx, String excludeTestsList, Boolean sendReports){
     
     final files = findFiles(glob: 'workflows-scripts/**/*.jmx', excludes: excludeTestsList)
     for (def i=0; i<files.length; i++) {
@@ -79,14 +79,16 @@ def executePerformanceTest(ctx, String excludeTestsList, String emailsList){
                     -e artifact=${artifact} \
                     getcarrier/control_tower:latest \
                         -c getcarrier/perfmeter:latest \
-                        -e '{\"cmd\": \"-n -t /mnt/jmeter/${testName}.jmx -Jtest_name=${testName} -JDISTRIBUTION=${props.distribution} -Jtenant=${props.tenant} -Jtest.type=${props.testType} -Jenv.type=${props.envType} -JVUSERS=${usersCount} -JHOSTNAME=${props.targetUrl} -JRAMP_UP=${props.rampUp} -JDURATION=${props.duration} -Jinflux.host=${props.reportingInstanceUrl} -Jcomparison_db=comparison \"}' \
+                        -e '{\"cmd\": \"-n -t /mnt/jmeter/${testName}.jmx -Jtest_name=${testName} -JDISTRIBUTION=${props.distribution} -Jtenant=${props.tenant} -Jtest.type=${props.testType} -Jenv.type=${props.envType} -JVUSERS=${usersCount} -JHOSTNAME=${props.targetUrl} -JRAMP_UP=${props.rampUp} -JDURATION=${props.duration} -Jinflux.host=${props.reportingInstanceUrl} -Jcomparison_db=api_comparison \"}' \
                         -r 1 -t perfmeter -q ${props.loadGeneratorsCount} -n performance_test_job"
             }
         }
         
-        //sendNotification(props, testName, usersCount, emailsList)
+        if (sendReports) {
+            sendNotification(props, testName, usersCount)
+        }
 
-        //break; // remove to run all tests
+        break; // remove to run all tests
     }
 }
 
@@ -130,9 +132,9 @@ def stopAllInstances(ctx){
     }
 }
 
-def sendNotification(ctx, String testName, String usersCount, String emailsList){
-    withCredentials([string(credentialsId: 'perf_email_smtp_password_u51', variable: 'emailPassword')]) {
-        sh(script: """curl -L -X POST -H "Content-Type: application/json" -d '{"notification_type": "api","test": "${testName}", "test_type": "${ctx.testType}", "users": ${usersCount}, "influx_host": "${ctx.reportingInstanceUrl}", "smtp_user": "folio.email.notifications@gmail.com","smtp_password": "${emailPassword}", "user_list": "${emailsList}"}' ${ctx.notificationsWebHook}""")
+def sendNotification(ctx, String testName, String usersCount){
+    withCredentials([string(credentialsId: 'perf_slack_token_u51', variable: 'slackToken')]) {
+        sh(script: """curl -L -X POST -H "Content-Type: application/json" -d '{"notification_type": "api","test": "${testName}", "test_type": "${ctx.testType}", "users": "${usersCount}", "slack_channel": "#ptf_reports","slack_token": "${slackToken}", "influx_host": "${ctx.reportingInstanceUrl}"}' ${ctx.notificationsWebHook}""")
     }
 }
 

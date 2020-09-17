@@ -6,7 +6,7 @@ properties([
     strategy: [$class: 'LogRotator', numToKeepStr: '30']],
     disableConcurrentBuilds(), 
     parameters([
-        string(defaultValue: "", description: """Recipients for email notification in format "user1@mail.com","user2@mail.com","user3@mail.com" """, name: "emailsList"),
+        booleanParam(name: 'sendReports', defaultValue: true, description: "Send reports"),
         string(defaultValue: "", description: "List of tests to be excluded", name: "excludeTestsList")
     ])
 ])
@@ -46,7 +46,7 @@ node {
             }    
 
             stage("Execute tests") {
-                sharedLib.executePerformanceTest(context, params.excludeTestsList, params.emailsList)
+                sharedLib.executePerformanceTest(context, params.excludeTestsList, params.sendReports)
             }
 
         } catch (Exception err){
