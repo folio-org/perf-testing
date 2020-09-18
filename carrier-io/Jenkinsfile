@@ -37,13 +37,13 @@ node {
                 }    
             }*/
 
-            stage("Configure resources monitoring") {
-                sharedLib.installTelegrafAgent(context)
-            }
-
             stage("Configure load generators") {
                 sharedLib.createStack(context)
             }    
+
+            stage("Configure resources monitoring") {
+                sharedLib.installTelegrafAgent(context)
+            }
 
             stage("Execute tests") {
                 sharedLib.executePerformanceTest(context, params.excludeTestsList, params.sendReports)
