@@ -53,6 +53,7 @@ node {
             println err
         } finally { 
             stage('Shut down load generators and FOLIO environment'){
+                sleep 60s
                 sharedLib.stopAllServices(context)
                 sharedLib.stopAllInstances(context)
                 sharedLib.deleteStack(context)
