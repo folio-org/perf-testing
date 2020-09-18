@@ -56,8 +56,8 @@ def executePerformanceTest(ctx, excludeTestsList, sendReports){
                 withCredentials([file(credentialsId: 'perf_tests_credentials', variable: 'FILE')]) {
                     sh(script: "mv ${FILE} ${parentFolder}/jmeter-supported-data")
                     zip zipFile: "${artifact}", archive: false, dir: "${parentFolder}"
-                    //httpRequest httpMode: 'POST', uploadFile: "${pathAndName}.zip", customHeaders: [[name: 'Authorization', value: 'bearer ${carrierToken}']], url: "http://${reportingInstanceUrl}/api/v1/artifacts/${projectId}/${bucket}/${test_Name}.zip"
-                    sh "curl -L -w '\n' -X POST -D - http://${props.reportingInstanceUrl}/api/v1/artifacts/${props.projectId}/${props.bucket}/${props.artifact} \
+                    //httpRequest httpMode: 'POST', uploadFile: "${pathAndName}.zip", customHeaders: [[name: 'Authorization', value: 'bearer ${carrierToken}']], url: "http://${reportingInstanceUrl}/api/v1/artifacts/${projectId}/${bucket}/${testName}.zip"
+                    sh "curl -sSL -X POST -D - http://${props.reportingInstanceUrl}/api/v1/artifacts/${props.projectId}/${props.bucket}/${artifact} \
                         -H 'Authorization: bearer ${carrierToken}' \
                         -F 'file=@${artifact}'"
                 }
@@ -79,7 +79,7 @@ def executePerformanceTest(ctx, excludeTestsList, sendReports){
                     -e artifact=${artifact} \
                     getcarrier/control_tower:latest \
                         -c getcarrier/perfmeter:latest \
-                        -e '{\"cmd\": \"-n -t /mnt/jmeter/${testName}.jmx -Jtest_name=${testName} -JDISTRIBUTION=${props.distribution} -Jtenant=${props.tenant} -Jtest.type=${props.testType} -Jenv.type=${props.envType} -JVUSERS=${usersCount} -JHOSTNAME=${props.targetUrl} -JRAMP_UP=${props.rampUp} -JDURATION=${props.duration} -Jinflux.host=${props.reportingInstanceUrl} -Jcomparison_db=comparison \"}' \
+                        -e '{\"cmd\": \"-n -t /mnt/jmeter/${testName}.jmx -Jtest_name=${testName} -JDISTRIBUTION=${props.distribution} -Jtenant=${props.tenant} -Jtest.type=${props.testType} -Jenv.type=${props.envType} -JVUSERS=${usersCount} -JHOSTNAME=${props.targetUrl} -JRAMP_UP=${props.rampUp} -JDURATION=${props.duration} -Jinflux.host=${props.reportingInstanceUrl} \"}' \
                         -r 1 -t perfmeter -q ${props.loadGeneratorsCount} -n performance_test_job"
             }
         }
