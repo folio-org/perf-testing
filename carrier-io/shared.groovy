@@ -133,6 +133,17 @@ def stopAllInstances(ctx){
     }
 }
 
+def stopAllServices(ctx){
+    def allServices = sh(
+        script: "aws ecs list-services --cluster ${targetCluster} --region ${targetRegion}  --output json | jq [.serviceArns[]]",
+        returnStdout: true
+    );
+    allServices = Eval.me(allServices)
+    for(i=0; i<allServices.size(); i++){
+        sh(script: "aws ecs delete-service --cluster ${ctx.targetCluster} --region ${ctx.targetRegion} --service ${allServices[i]} --force")
+    }
+}
+
 def sendNotification(ctx, testName, usersCount){
     withCredentials([string(credentialsId: 'perf_slack_token_u51', variable: 'slackToken')]) {
         sh(script: """curl -sSL -X POST -H "Content-Type: application/json" -d '{"notification_type": "api","test": "${testName}", "test_type": "${ctx.testType}", "users": "${usersCount}", "slack_channel": "#ptf_reports","slack_token": "${slackToken}", "influx_host": "${ctx.reportingInstanceUrl}"}' ${ctx.notificationsWebHook}""")

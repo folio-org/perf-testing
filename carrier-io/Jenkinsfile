@@ -35,11 +35,11 @@ node {
                 if(params.populateDatabase){
                     sharedLib.populateData(params.tenant)
                 }    
-            }
+            }*/
 
             stage("Configure resources monitoring") {
                 sharedLib.installTelegrafAgent(context)
-            }*/
+            }
 
             stage("Configure load generators") {
                 sharedLib.createStack(context)
@@ -53,6 +53,7 @@ node {
             println err
         } finally { 
             stage('Shut down load generators and FOLIO environment'){
+                sharedLib.stopAllServices(context)
                 sharedLib.stopAllInstances(context)
                 sharedLib.deleteStack(context)
             }
