@@ -135,7 +135,7 @@ def stopAllInstances(ctx){
 
 def stopAllServices(ctx){
     def allServices = sh(
-        script: "aws ecs list-services --cluster ${targetCluster} --region ${targetRegion}  --output json | jq [.serviceArns[]]",
+        script: "aws ecs list-services --cluster ${ctx.targetCluster} --region ${ctx.targetRegion}  --output json | jq [.serviceArns[]]",
         returnStdout: true
     );
     allServices = Eval.me(allServices)
