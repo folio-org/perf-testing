@@ -89,7 +89,7 @@ def executePerformanceTest(ctx, excludeTestsList, sendReports){
             sendNotification(props, testName, usersCount)
         }
 
-        break; // remove to run all tests
+        //break; // remove to run all tests
     }
 }
 
