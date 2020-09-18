@@ -135,7 +135,7 @@ def stopAllInstances(ctx){
 
 def sendNotification(ctx, testName, usersCount){
     withCredentials([string(credentialsId: 'perf_slack_token_u51', variable: 'slackToken')]) {
-        sh(script: """curl -L -X POST -H "Content-Type: application/json" -d '{"notification_type": "api","test": "${testName}", "test_type": "${ctx.testType}", "users": "${usersCount}", "slack_channel": "#ptf_reports","slack_token": "${slackToken}", "influx_host": "${ctx.reportingInstanceUrl}"}' ${ctx.notificationsWebHook}""")
+        sh(script: """curl -sSL -X POST -H "Content-Type: application/json" -d '{"notification_type": "api","test": "${testName}", "test_type": "${ctx.testType}", "users": "${usersCount}", "slack_channel": "#ptf_reports","slack_token": "${slackToken}", "influx_host": "${ctx.reportingInstanceUrl}"}' ${ctx.notificationsWebHook}""")
     }
 }
 
