@@ -105,7 +105,7 @@ def getInstancesCount(targetCluster, targetRegion){
 def installTelegrafAgent(ctx){
     def allInstances = getInstancesCount(ctx.targetCluster, ctx.targetRegion)
     for(i=1; i <= allInstances.size(); i++){
-        def nodeName = targetCluster + '-node-' + i;
+        def nodeName = ctx.targetCluster + '-node-' + i;
         sh(script: "aws ecs register-task-definition --cli-input-json file://${WORKSPACE}/carrier-io/scripts/cloudformation/telegraf.json")
         sh(script: """aws ecs start-task --cluster ${ctx.targetCluster} \
             --overrides '{ "containerOverrides": [ { "name": "busybox", "environment": [ { "name": "INFLUX_HOST", "value": "http://${ctx.reportingInstanceUrl}:8086" }, { "name": "TELEGRAF_NODE_HOSTNAME", "value": "${nodeName}" } ] } ] }' \
