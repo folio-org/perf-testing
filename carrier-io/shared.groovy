@@ -36,7 +36,7 @@ def deleteStack(ctx){
     sh(script: "aws cloudformation wait stack-delete-complete --stack-name ${ctx.stackName} --region ${ctx.targetRegion}")
 }
 
-def executePerformanceTest(ctx, String excludeTestsList, boolean sendReports){
+def executePerformanceTest(ctx, excludeTestsList, sendReports){
     
     final files = findFiles(glob: 'workflows-scripts/**/*.jmx', excludes: excludeTestsList)
     for (def i=0; i<files.length; i++) {
@@ -133,7 +133,7 @@ def stopAllInstances(ctx){
     }
 }
 
-def sendNotification(ctx, String testName, String usersCount){
+def sendNotification(ctx, testName, usersCount){
     withCredentials([string(credentialsId: 'perf_slack_token_u51', variable: 'slackToken')]) {
         sh(script: """curl -L -X POST -H "Content-Type: application/json" -d '{"notification_type": "api","test": "${testName}", "test_type": "${ctx.testType}", "users": "${usersCount}", "slack_channel": "#ptf_reports","slack_token": "${slackToken}", "influx_host": "${ctx.reportingInstanceUrl}"}' ${ctx.notificationsWebHook}""")
     }
