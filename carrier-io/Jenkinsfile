@@ -53,7 +53,8 @@ node {
             println err
         } finally { 
             stage('Shut down load generators and FOLIO environment'){
-                sleep 60s
+                 // wait until all containers are completed
+                sleep 60
                 sharedLib.stopAllServices(context)
                 sharedLib.stopAllInstances(context)
                 sharedLib.deleteStack(context)
