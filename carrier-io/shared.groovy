@@ -69,7 +69,7 @@ def executePerformanceTest(ctx, String excludeTestsList, boolean sendReports){
                     -e REDIS_PASSWORD=${redisPassword} \
                     -e loki_host=http://${props.reportingInstanceUrl} \
                     -e loki_port=3100 \
-                    -e build_id=build_${JOB_NAME}_${BUILD_ID} \
+                    -e build_id=build_${props.envType}_${BUILD_ID} \
                     -e galloper_url=http://${props.reportingInstanceUrl} \
                     -e token=${carrierToken} \
                     -e bucket=${props.bucket} \
@@ -85,6 +85,7 @@ def executePerformanceTest(ctx, String excludeTestsList, boolean sendReports){
         }
         
         if (sendReports) {
+            echo 'Sending report ...'
             sendNotification(props, testName, usersCount)
         }
 
