@@ -1,0 +1,144 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Install aptitude using apt
+      apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+    - name: Install required system packages
+      apt: name={{ item }} state=latest update_cache=yes
+      loop: [ 'apt-transport-https', 'git', 'ca-certificates', 'curl', 'software-properties-common']
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+    - name: Add docker GPG apt key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+    - name: Add docker repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        state: present
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+    - name: Update apt and install docker-ce
+      yum: update_cache=yes name=docker-ce state=latest
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+    - name: Install required system packages
+      yum: name={{ item }} state=latest update_cache=true
+      loop: [ 'epel-release', 'yum-utils', 'lvm2', 'git', 'ca-certificates', 'curl' ]
+      when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+    - name: Add docker repo
+      get_url:
+        url: https://download.docker.com/linux/centos/docker-ce.repo
+        dest: /etc/yum.repos.d/docker-ce.repo
+      when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+    - name: Install docker
+      package:
+        name: docker-ce
+        state: latest
+      when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+    - name: Start docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+      when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+    - name: Install docker-compose
+      apt:
+        name: docker-compose
+        state: present
+        update_cache: yes
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+    - name: Install docker-compose
+      get_url:
+        url : https://github.com/docker/compose/releases/download/1.25.1-rc1/docker-compose-Linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: 'u+x,g+x'
+      when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+    - name: Copy Files
+      copy:
+        src: carrier
+        dest: "{{ CARRIER_PATH }}"
+
+    - name: Replace app host
+      replace:
+        path: "{{ CARRIER_PATH }}/carrier/.env"
+        regexp: 'http://localhost'
+        replace: "http://{{ APP_HOST }}"
+
+    - name: Replace install path
+      replace:
+        path: "{{ CARRIER_PATH }}/carrier/.env"
+        regexp: '/opt/carrier'
+        replace: "{{ CARRIER_PATH }}/carrier"
+
+    - name: Replace Carrier password
+      replace:
+        path: "{{ CARRIER_PATH }}/carrier/bootstrap.sh"
+        regexp: '--password carrier'
+        replace: "--password {{ MASTER_PASSWORD }}"
+
+    - name: Replace redis password
+      replace:
+        path: "{{ CARRIER_PATH }}/carrier/.env"
+        regexp: 'REDIS_PASSWORD=password'
+        replace: "REDIS_PASSWORD={{ MASTER_PASSWORD }}"
+
+    - name: Replace Keycloak password
+      replace:
+        path: "{{ CARRIER_PATH }}/carrier/.env"
+        regexp: 'KEYCLOAK_PASSWORD=carrier'
+        replace: "KEYCLOAK_PASSWORD={{ MASTER_PASSWORD }}"
+
+    - name: Replace Minio password
+      replace:
+        path: "{{ CARRIER_PATH }}/carrier/.env"
+        regexp: 'MINIO_SECRET_KEY=password'
+        replace: "MINIO_SECRET_KEY={{ MASTER_PASSWORD }}"
+
+    - name: Replace Grafana password
+      replace:
+        path: "{{ CARRIER_PATH }}/carrier/.env"
+        regexp: 'GF_SECURITY_ADMIN_PASSWORD=user'
+        replace: "GF_SECURITY_ADMIN_PASSWORD={{ MASTER_PASSWORD }}"
+
+    - name: Replace Postgres password
+      replace:
+        path: "{{ CARRIER_PATH }}/carrier/.env"
+        regexp: 'POSTGRES_PASSWORD=password'
+        replace: "POSTGRES_PASSWORD={{ MASTER_PASSWORD }}"
+
+    - name: Create and start services
+      shell: cd "{{ CARRIER_PATH }}/carrier" && docker-compose up -d
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+      register: output
+
+    - name: Create and start services
+      shell: cd "{{ CARRIER_PATH }}/carrier" && /usr/local/bin/docker-compose up -d
+      when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+      register: output
+
+    - name: Wait until the services fully load
+      command: sleep 35
+
+    - name: Replace bootstrap path
+      replace:
+        path: "{{ CARRIER_PATH }}/carrier/bootstrap.sh"
+        regexp: 'CARRIERPATH'
+        replace: "{{ CARRIER_PATH }}"
+
+    - name: bootstrap
+      shell: bash "{{ CARRIER_PATH }}/carrier/bootstrap.sh"
+
+    - debug:
+        var: output
