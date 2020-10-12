@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 10,
-  "iteration": 1601023612008,
+  "iteration": 1602500323338,
   "links": [],
   "panels": [
     {
@@ -43,19 +43,20 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 8,
+        "h": 7,
         "w": 12,
         "x": 0,
         "y": 1
       },
       "id": 82,
       "legend": {
+        "alignAsTable": true,
         "avg": true,
         "current": false,
         "max": true,
         "min": true,
         "show": true,
-        "total": false,
+        "total": true,
         "values": true
       },
       "lines": true,
@@ -89,9 +90,12 @@
               "type": "fill"
             }
           ],
+          "hide": true,
           "measurement": "org_folio_okapi_tokenCache_hits",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT mean(\"value\") FROM \"org_folio_okapi_tokenCache_hits\" WHERE (\"url\" =~ /^$url$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -113,6 +117,52 @@
               "key": "url",
               "operator": "=~",
               "value": "/^$url$/"
+            }
+          ]
+        },
+        {
+          "alias": "OKAPI token cache hits for tenant fs09000000",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "org_folio_okapi_tokenCache_hits",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT count(\"value\") FROM \"org_folio_okapi_tokenCache_hits\" WHERE (\"tenant\" = 'fs09000000') AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "count"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "tenant",
+              "operator": "=",
+              "value": "fs09000000"
             }
           ]
         }
@@ -167,143 +217,21 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 8,
+        "h": 7,
         "w": 12,
         "x": 12,
         "y": 1
       },
-      "id": 84,
-      "legend": {
-        "avg": true,
-        "current": false,
-        "max": true,
-        "min": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "alias": "OKAPI token cache expired for $url",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "org_folio_okapi_tokenCache_expired",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "url",
-              "operator": "=~",
-              "value": "/^$url$/"
-            }
-          ]
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "OKAPI token cache expired for $url",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "okapi",
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 9
-      },
       "id": 78,
       "legend": {
+        "alignAsTable": true,
         "avg": true,
         "current": false,
         "max": true,
         "min": true,
+        "rightSide": false,
         "show": true,
-        "total": false,
+        "total": true,
         "values": true
       },
       "lines": true,
@@ -337,9 +265,12 @@
               "type": "fill"
             }
           ],
+          "hide": true,
           "measurement": "org_folio_okapi_tokenCache_cached",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT mean(\"value\") FROM \"org_folio_okapi_tokenCache_cached\" WHERE (\"url\" =~ /^$url$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -361,6 +292,51 @@
               "key": "url",
               "operator": "=~",
               "value": "/^$url$/"
+            }
+          ]
+        },
+        {
+          "alias": "OKAPI token cache cached for fs09000000",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "org_folio_okapi_tokenCache_cached",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT count(\"value\") FROM \"org_folio_okapi_tokenCache_cached\" WHERE (\"tenant\" = 'fs09000000') AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "count"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "tenant",
+              "operator": "=",
+              "value": "fs09000000"
             }
           ]
         }
@@ -415,19 +391,22 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 8,
+        "h": 6,
         "w": 12,
-        "x": 12,
-        "y": 9
+        "x": 0,
+        "y": 8
       },
       "id": 80,
       "legend": {
+        "alignAsTable": true,
         "avg": true,
         "current": false,
+        "hideEmpty": false,
+        "hideZero": false,
         "max": true,
         "min": true,
         "show": true,
-        "total": false,
+        "total": true,
         "values": true
       },
       "lines": true,
@@ -461,9 +440,12 @@
               "type": "fill"
             }
           ],
+          "hide": true,
           "measurement": "org_folio_okapi_tokenCache_misses",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT count(\"value\") FROM \"org_folio_okapi_tokenCache_misses\" WHERE (\"url\" =~ /^$url$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -476,7 +458,7 @@
               },
               {
                 "params": [],
-                "type": "mean"
+                "type": "count"
               }
             ]
           ],
@@ -485,6 +467,51 @@
               "key": "url",
               "operator": "=~",
               "value": "/^$url$/"
+            }
+          ]
+        },
+        {
+          "alias": "OKAPI token cache misses for url $url",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "org_folio_okapi_tokenCache_misses",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT count(\"value\") FROM \"org_folio_okapi_tokenCache_misses\" WHERE (\"tenant\" = 'fs09000000') AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "count"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "tenant",
+              "operator": "=",
+              "value": "fs09000000"
             }
           ]
         }
@@ -540,14 +567,144 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "id": 84,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": true,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "OKAPI token cache expired for $url",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "org_folio_okapi_tokenCache_expired",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT count(\"value\") FROM \"org_folio_okapi_tokenCache_expired\" WHERE (\"url\" =~ /^$url$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "count"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "tenant",
+              "operator": "=",
+              "value": "fs09000000"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "OKAPI token cache expired for $url",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "okapi",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
         "w": 24,
         "x": 0,
-        "y": 17
+        "y": 14
       },
       "id": 76,
       "legend": {
+        "alignAsTable": true,
         "avg": true,
         "current": false,
+        "hideEmpty": false,
+        "hideZero": false,
         "max": true,
         "min": true,
         "show": true,
@@ -579,20 +736,16 @@
           "groupBy": [
             {
               "params": [
-                "10s"
+                "1s"
               ],
               "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
             }
           ],
           "measurement": "org_folio_okapi_http_client_responseTime",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT \"count\" FROM \"org_folio_okapi_http_client_responseTime\" WHERE (\"module\" =~ /^$module$/) AND $timeFilter",
+          "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -602,14 +755,16 @@
                   "count"
                 ],
                 "type": "field"
-              },
-              {
-                "params": [],
-                "type": "count"
               }
             ]
           ],
-          "tags": []
+          "tags": [
+            {
+              "key": "module",
+              "operator": "=~",
+              "value": "/^$module$/"
+            }
+          ]
         }
       ],
       "thresholds": [],
@@ -665,7 +820,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 20
       },
       "id": 70,
       "legend": {
@@ -805,7 +960,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 29
+        "y": 26
       },
       "id": 28,
       "legend": {
@@ -968,7 +1123,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 29
+        "y": 26
       },
       "id": 30,
       "legend": {
@@ -1138,7 +1293,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 37
+        "y": 34
       },
       "id": 32,
       "legend": {
@@ -1439,7 +1594,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 44
+        "y": 41
       },
       "id": 34,
       "legend": {
@@ -1784,7 +1939,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 51
+        "y": 48
       },
       "id": 72,
       "panels": [],
@@ -1803,7 +1958,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 52
+        "y": 49
       },
       "id": 36,
       "legend": {
@@ -1971,7 +2126,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 58
+        "y": 55
       },
       "id": 42,
       "legend": {
@@ -2090,7 +2245,7 @@
         "h": 5,
         "w": 24,
         "x": 0,
-        "y": 66
+        "y": 63
       },
       "id": 44,
       "legend": {
@@ -2208,7 +2363,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 71
+        "y": 68
       },
       "id": 64,
       "legend": {
@@ -2328,7 +2483,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 71
+        "y": 68
       },
       "id": 66,
       "legend": {
@@ -2446,7 +2601,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 79
+        "y": 76
       },
       "id": 60,
       "legend": {
@@ -2564,7 +2719,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 79
+        "y": 76
       },
       "id": 62,
       "legend": {
@@ -2720,7 +2875,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 87
+        "y": 84
       },
       "id": 56,
       "legend": {
@@ -2870,7 +3025,7 @@
         "h": 8,
         "w": 6,
         "x": 12,
-        "y": 87
+        "y": 84
       },
       "id": 40,
       "options": {
@@ -2951,7 +3106,7 @@
         "h": 8,
         "w": 6,
         "x": 18,
-        "y": 87
+        "y": 84
       },
       "id": 38,
       "options": {
@@ -3038,7 +3193,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 95
+        "y": 92
       },
       "id": 54,
       "legend": {
@@ -3156,7 +3311,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 101
+        "y": 98
       },
       "id": 52,
       "legend": {
@@ -3312,7 +3467,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 107
+        "y": 104
       },
       "id": 48,
       "legend": {
@@ -3430,7 +3585,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 107
+        "y": 104
       },
       "id": 46,
       "legend": {
@@ -3584,12 +3739,8 @@
       {
         "allValue": null,
         "current": {
-          "tags": [],
-          "text": "/accounts + /automated-patron-blocks/{userId}",
-          "value": [
-            "/accounts",
-            "/automated-patron-blocks/{userId}"
-          ]
+          "text": "/item-storage/items/{id}",
+          "value": "/item-storage/items/{id}"
         },
         "datasource": "okapi",
         "definition": "SHOW TAG VALUES FROM /.*/ WITH KEY = \"url\"",
@@ -3675,10 +3826,24 @@
       {
         "allValue": null,
         "current": {
-          "tags": [],
-          "text": "mod-authtoken-2.5.1.194",
+          "text": "mod-authtoken-2.5.1 + mod-circulation-19.0.13 + mod-circulation-storage-12.0.1 + mod-configuration-5.4.1 + mod-email-1.8.0 + mod-feesfines-15.8.2 + mod-inventory-16.0.1 + mod-inventory-storage-19.3.1 + mod-login-7.0.0 + mod-oai-pmh-3.1.0.108 + mod-oai-pmh-3.1.1 + mod-patron-blocks-1.0.6 + mod-permissions-5.11.2 + mod-pubsub-1.2.5 + mod-source-record-storage-4.0.2 + mod-users-17.1.0",
           "value": [
-            "mod-authtoken-2.5.1.194"
+            "mod-authtoken-2.5.1",
+            "mod-circulation-19.0.13",
+            "mod-circulation-storage-12.0.1",
+            "mod-configuration-5.4.1",
+            "mod-email-1.8.0",
+            "mod-feesfines-15.8.2",
+            "mod-inventory-16.0.1",
+            "mod-inventory-storage-19.3.1",
+            "mod-login-7.0.0",
+            "mod-oai-pmh-3.1.0.108",
+            "mod-oai-pmh-3.1.1",
+            "mod-patron-blocks-1.0.6",
+            "mod-permissions-5.11.2",
+            "mod-pubsub-1.2.5",
+            "mod-source-record-storage-4.0.2",
+            "mod-users-17.1.0"
           ]
         },
         "datasource": "okapi",
@@ -3703,7 +3868,7 @@
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {
@@ -3723,5 +3888,5 @@
   "timezone": "",
   "title": "OKAPI",
   "uid": "I6Iz6lOMz",
-  "version": 40
+  "version": 46
 }

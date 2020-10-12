@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 11,
-  "iteration": 1601026613014,
+  "iteration": 1602500816424,
   "links": [],
   "panels": [
     {
@@ -1394,7 +1394,6 @@
       {
         "allValue": null,
         "current": {
-          "tags": [],
           "text": "/circulation/due-date-scheduled-notices-processing",
           "value": [
             "/circulation/due-date-scheduled-notices-processing"
