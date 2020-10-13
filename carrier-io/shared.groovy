@@ -40,28 +40,28 @@ def executePerformanceTest(ctx, excludeTestsList, sendReports){
     
         def testName        = ctx.testName
         def artifact        = "${testName}.zip"
-        def usersCount = Math.round((ctx.users.toInteger() / props.loadGeneratorsCount.toInteger()).floatValue())
+        def usersCount = Math.round((ctx.users.toInteger() / ctx.loadGeneratorsCount.toInteger()).floatValue())
 
         withCredentials([string(credentialsId: 'perf_carrier_io_token_u51', variable: 'carrierToken')]) {
 
             withCredentials([string(credentialsId: 'perf_redis_password_u51', variable: 'redisPassword')]) {
                 sh "docker pull getcarrier/control_tower:latest && docker run -t --rm \
-                    -e REDIS_HOST=${props.reportingInstanceUrl} \
+                    -e REDIS_HOST=${ctx.reportingInstanceUrl} \
                     -e REDIS_PASSWORD=${redisPassword} \
-                    -e loki_host=http://${props.reportingInstanceUrl} \
+                    -e loki_host=http://${ctx.reportingInstanceUrl} \
                     -e loki_port=3100 \
-                    -e build_id=build_${props.envType}_${BUILD_ID} \
-                    -e galloper_url=http://${props.reportingInstanceUrl} \
+                    -e build_id=build_${ctx.envType}_${BUILD_ID} \
+                    -e galloper_url=http://${ctx.reportingInstanceUrl} \
                     -e token=${carrierToken} \
-                    -e bucket=${props.bucket} \
-                    -e project_id=${props.projectId} \
-                    -e JVM_ARGS='-Xmx${props.lgMemory}g' \
-                    -e DURATION=${props.duration} \
+                    -e bucket=${ctx.bucket} \
+                    -e project_id=${ctx.projectId} \
+                    -e JVM_ARGS='-Xmx${ctx.lgMemory}g' \
+                    -e DURATION=${ctx.duration} \
                     -e artifact=${artifact} \
                     getcarrier/control_tower:latest \
                         -c getcarrier/perfmeter:latest \
-                        -e '{\"cmd\": \"-n -t /mnt/jmeter/${testName}.jmx -Jtest_name=${testName} -JDISTRIBUTION=${props.distribution} -Jtenant=${props.tenant} -Jtest.type=${props.testType} -Jenv.type=${props.envType} -JVUSERS=${usersCount} -JHOSTNAME=${props.targetUrl} -JRAMP_UP=${props.rampUp} -JDURATION=${props.duration} -Jinflux.host=${props.reportingInstanceUrl} \"}' \
-                        -r 1 -t perfmeter -q ${props.loadGeneratorsCount} -n performance_test_job"
+                        -e '{\"cmd\": \"-n -t /mnt/jmeter/${testName}.jmx -Jtest_name=${testName} -JDISTRIBUTION=${ctx.distribution} -Jtenant=${ctx.tenant} -Jtest.type=${ctx.testType} -Jenv.type=${ctx.envType} -JVUSERS=${usersCount} -JHOSTNAME=${ctx.targetUrl} -JRAMP_UP=${ctx.rampUp} -JDURATION=${ctx.duration} -Jinflux.host=${ctx.reportingInstanceUrl} \"}' \
+                        -r 1 -t perfmeter -q ${ctx.loadGeneratorsCount} -n performance_test_job"
             }
         }
         
