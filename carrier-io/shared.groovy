@@ -38,6 +38,42 @@ def deleteStack(ctx){
 
 def executePerformanceTest(ctx, excludeTestsList, sendReports){
     
+        def testName        = ctx.testName
+        def artifact        = "${testName}.zip"
+        def usersCount = Math.round((ctx.users.toInteger() / props.loadGeneratorsCount.toInteger()).floatValue())
+
+        withCredentials([string(credentialsId: 'perf_carrier_io_token_u51', variable: 'carrierToken')]) {
+
+            withCredentials([string(credentialsId: 'perf_redis_password_u51', variable: 'redisPassword')]) {
+                sh "docker pull getcarrier/control_tower:latest && docker run -t --rm \
+                    -e REDIS_HOST=${props.reportingInstanceUrl} \
+                    -e REDIS_PASSWORD=${redisPassword} \
+                    -e loki_host=http://${props.reportingInstanceUrl} \
+                    -e loki_port=3100 \
+                    -e build_id=build_${props.envType}_${BUILD_ID} \
+                    -e galloper_url=http://${props.reportingInstanceUrl} \
+                    -e token=${carrierToken} \
+                    -e bucket=${props.bucket} \
+                    -e project_id=${props.projectId} \
+                    -e JVM_ARGS='-Xmx${props.lgMemory}g' \
+                    -e DURATION=${props.duration} \
+                    -e artifact=${artifact} \
+                    getcarrier/control_tower:latest \
+                        -c getcarrier/perfmeter:latest \
+                        -e '{\"cmd\": \"-n -t /mnt/jmeter/${testName}.jmx -Jtest_name=${testName} -JDISTRIBUTION=${props.distribution} -Jtenant=${props.tenant} -Jtest.type=${props.testType} -Jenv.type=${props.envType} -JVUSERS=${usersCount} -JHOSTNAME=${props.targetUrl} -JRAMP_UP=${props.rampUp} -JDURATION=${props.duration} -Jinflux.host=${props.reportingInstanceUrl} \"}' \
+                        -r 1 -t perfmeter -q ${props.loadGeneratorsCount} -n performance_test_job"
+            }
+        }
+        
+        if (sendReports) {
+            echo 'Sending report ...'
+            sendNotification(props, testName, usersCount)
+        }
+
+}
+
+def executePerformanceTests(ctx, excludeTestsList, sendReports){
+    
     final files = findFiles(glob: 'workflows-scripts/**/*.jmx', excludes: excludeTestsList)
     for (def i=0; i<files.length; i++) {
         
@@ -148,6 +184,18 @@ def sendNotification(ctx, testName, usersCount){
     withCredentials([string(credentialsId: 'perf_slack_token_u51', variable: 'slackToken')]) {
         sh(script: """curl -sSL -X POST -H "Content-Type: application/json" -d '{"notification_type": "api","test": "${testName}", "test_type": "${ctx.testType}", "users": "${usersCount}", "slack_channel": "#ptf_reports","slack_token": "${slackToken}", "influx_host": "${ctx.reportingInstanceUrl}"}' ${ctx.notificationsWebHook}""")
     }
+}
+
+def getContextSingle() {
+  
+    def ctx = readProperties file: 'carrier-io/system.properties'
+
+    ctx.testName    = params.testName
+    ctx.users       = params.users
+    ctx.rampUp      = params.rampUp
+
+    return ctx
+
 }
 
 def getContext() {
