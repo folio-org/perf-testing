@@ -6,7 +6,7 @@ properties([
     strategy: [$class: 'LogRotator', numToKeepStr: '30']],
     disableConcurrentBuilds(), 
     parameters([
-        choice(choices: "baseline\ncapacity\nfix_load\nlongevity", description: "Test type", name: "testType"),
+        choice(choices: "fix_load\ncapacity\nbaseline\nlongevity", description: "Test type", name: "testType"),
         string(defaultValue: "8", description: "vUsers count for test execution", name: "users"),
         string(defaultValue: "80", description: "Ramp up, s", name: "rampUp"),
         string(defaultValue: "30", description: "Test duration, s", name: "duration"),

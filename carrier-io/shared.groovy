@@ -190,9 +190,12 @@ def getContextSingle() {
   
     def ctx = readProperties file: 'carrier-io/system.properties'
 
-    ctx.testName    = params.testName
-    ctx.users       = params.users
-    ctx.rampUp      = params.rampUp
+    ctx.testName            = params.testName
+    ctx.bucket              = params.bucket
+    ctx.duration            = params.duration
+    ctx.users               = params.users
+    ctx.rampUp              = params.rampUp
+    ctx.loadGeneratorsCount = params.loadGeneratorsCount
 
     return ctx
 
