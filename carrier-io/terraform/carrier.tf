@@ -1,6 +1,7 @@
 resource "aws_security_group" "Carrier_security_group" {
   name         = "Carrier.IO security group"
   description  = "Carrier.IO security group"
+  vpc_id       = local.vpc_id
 
   ingress {
     cidr_blocks = var.ingressCIDRblock
@@ -44,7 +45,9 @@ resource "aws_instance" "carrier-io" {
   ami                     = data.aws_ami.ubuntu.id
   instance_type           = var.instance_type
   key_name                = aws_key_pair.ssh.id
-  vpc_security_group_ids  = [aws_security_group.Carrier_security_group.id]
+
+  vpc_security_group_ids      = [aws_security_group.Carrier_security_group.id]
+  subnet_id                   = element(tolist(local.subnet_ids), 0)
   associate_public_ip_address = true
 
   root_block_device {

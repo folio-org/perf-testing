@@ -3,6 +3,10 @@ data "aws_vpc" "default" {
   id      = var.vpc_id
 }
 
+data "aws_subnet_ids" "available" {
+  vpc_id = data.aws_vpc.default.id
+}
+
 data "aws_ami" "ubuntu" {
   most_recent = true
   owners      = ["099720109477"]
