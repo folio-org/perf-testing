@@ -60,7 +60,7 @@ def executePerformanceTest(ctx, excludeTestsList, sendReports){
                     -e artifact=${artifact} \
                     getcarrier/control_tower:latest \
                         -c getcarrier/perfmeter:latest \
-                        -e '{\"cmd\": \"-n -t /mnt/jmeter/${testName}.jmx -Jtest_name=${testName} -JDISTRIBUTION=${ctx.distribution} -Jtenant=${ctx.tenant} -Jtest.type=${ctx.testType} -Jenv.type=${ctx.envType} -JVUSERS=${usersCount} -JHOSTNAME=${ctx.targetUrl} -JRAMP_UP=${ctx.rampUp} -JDURATION=${ctx.duration} -Jinflux.host=${ctx.reportingInstanceUrl} \"}' \
+                        -e '{\"cmd\": \"-n -t /mnt/jmeter/${testName}.jmx -Jtest_name=${testName} -JDISTRIBUTION=${ctx.distribution} -Jtenant=${ctx.tenant} -Jtest.type=${ctx.testType} -Jenv.type=${ctx.envType} -JVUSERS=${usersCount} -JHOSTNAME=${ctx.targetUrl} -JRAMP_UP=${ctx.rampUp} -JDURATION=${ctx.duration} -Jinflux.host=${ctx.influxDbUrl} \"}' \
                         -r 1 -t perfmeter -q ${ctx.loadGeneratorsCount} -n performance_test_job"
             }
         }
@@ -115,7 +115,7 @@ def executePerformanceTests(ctx, excludeTestsList, sendReports){
                     -e artifact=${artifact} \
                     getcarrier/control_tower:latest \
                         -c getcarrier/perfmeter:latest \
-                        -e '{\"cmd\": \"-n -t /mnt/jmeter/${testName}.jmx -Jtest_name=${testName} -JDISTRIBUTION=${props.distribution} -Jtenant=${props.tenant} -Jtest.type=${props.testType} -Jenv.type=${props.envType} -JVUSERS=${usersCount} -JHOSTNAME=${props.targetUrl} -JRAMP_UP=${props.rampUp} -JDURATION=${props.duration} -Jinflux.host=${props.reportingInstanceUrl} \"}' \
+                        -e '{\"cmd\": \"-n -t /mnt/jmeter/${testName}.jmx -Jtest_name=${testName} -JDISTRIBUTION=${props.distribution} -Jtenant=${props.tenant} -Jtest.type=${props.testType} -Jenv.type=${props.envType} -JVUSERS=${usersCount} -JHOSTNAME=${props.targetUrl} -JRAMP_UP=${props.rampUp} -JDURATION=${props.duration} -Jinflux.host=${props.influxDbUrl} \"}' \
                         -r 1 -t perfmeter -q ${props.loadGeneratorsCount} -n performance_test_job"
             }
         }
@@ -144,7 +144,7 @@ def installTelegrafAgent(ctx){
         def nodeName = ctx.targetCluster + '-node-' + i;
         sh(script: "aws ecs register-task-definition --cli-input-json file://${WORKSPACE}/carrier-io/scripts/cloudformation/telegraf.json")
         sh(script: """aws ecs start-task --cluster ${ctx.targetCluster} \
-            --overrides '{ "containerOverrides": [ { "name": "busybox", "environment": [ { "name": "INFLUX_HOST", "value": "http://${ctx.reportingInstanceUrl}:8086" }, { "name": "TELEGRAF_NODE_HOSTNAME", "value": "${nodeName}" } ] } ] }' \
+            --overrides '{ "containerOverrides": [ { "name": "busybox", "environment": [ { "name": "INFLUX_HOST", "value": "http://${ctx.influxDbUrl}:8086" }, { "name": "TELEGRAF_NODE_HOSTNAME", "value": "${nodeName}" } ] } ] }' \
             --task-definition telegraf-monitoring --container-instances ${allInstances[i-1]}""")
     }
 }
@@ -182,7 +182,7 @@ def stopAllServices(ctx){
 
 def sendNotification(ctx, testName, usersCount){
     withCredentials([string(credentialsId: 'perf_slack_token_u51', variable: 'slackToken')]) {
-        sh(script: """curl -sSL -X POST -H "Content-Type: application/json" -d '{"notification_type": "api","test": "${testName}", "test_type": "${ctx.testType}", "users": "${usersCount}", "slack_channel": "#ptf_reports","slack_token": "${slackToken}", "influx_host": "${ctx.reportingInstanceUrl}"}' ${ctx.notificationsWebHook}""")
+        sh(script: """curl -sSL -X POST -H "Content-Type: application/json" -d '{"notification_type": "api","test": "${testName}", "test_type": "${ctx.testType}", "users": "${usersCount}", "slack_channel": "#ptf_reports","slack_token": "${slackToken}", "influx_host": "${ctx.influxDbUrl}"}' ${ctx.notificationsWebHook}""")
     }
 }
 
