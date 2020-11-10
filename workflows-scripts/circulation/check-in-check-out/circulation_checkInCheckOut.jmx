@@ -15,7 +15,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="HOSTNAME" elementType="Argument">
             <stringProp name="Argument.name">HOSTNAME</stringProp>
-            <stringProp name="Argument.value">${__P(HOSTNAME,okapi-fcp1-us-east-1.int.aws.folio.org)}</stringProp>
+            <stringProp name="Argument.value">${__P(HOSTNAME,[okapi-hostname-without-http-protocol])}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="DISTRIBUTION" elementType="Argument">
