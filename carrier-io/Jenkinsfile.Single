@@ -7,12 +7,15 @@ properties([
     disableConcurrentBuilds(), 
     parameters([
         choice(choices: "fix_load\ncapacity\nbaseline\nlongevity", description: "Test type", name: "testType"),
+        string(defaultValue: "ptf-okapi.ci.folio.org", description: "Target Okapi url", name: "targetUrl"),
+        string(defaultValue: "ptf-influxdb.ci.folio.org", description: "InfluxDB url", name: "influxDbUrl"),
+        string(defaultValue: "80", description: "InfluxDB port", name: "influxDbPort"),
         string(defaultValue: "8", description: "vUsers count for test execution", name: "users"),
         string(defaultValue: "80", description: "Ramp up, s", name: "rampUp"),
         string(defaultValue: "30", description: "Test duration, s", name: "duration"),
         string(defaultValue: "1", description: "Quantity of load generators", name: "loadGeneratorsCount"),
         string(defaultValue: "", description: "Test Name", name: "testName"),
-        string(defaultValue: "tests", description: "Galloper bucket with tests artifact", name: "bucket")
+        string(defaultValue: "automation", description: "Galloper bucket with tests artifact", name: "bucket")
     ])
 ])
     

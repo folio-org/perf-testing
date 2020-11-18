@@ -60,7 +60,7 @@ def executePerformanceTest(ctx, excludeTestsList, sendReports){
                     -e artifact=${artifact} \
                     getcarrier/control_tower:latest \
                         -c getcarrier/perfmeter:latest \
-                        -e '{\"cmd\": \"-n -t /mnt/jmeter/${testName}.jmx -Jtest_name=${testName} -JDISTRIBUTION=${ctx.distribution} -Jtenant=${ctx.tenant} -Jtest.type=${ctx.testType} -Jenv.type=${ctx.envType} -JVUSERS=${usersCount} -JHOSTNAME=${ctx.targetUrl} -JRAMP_UP=${ctx.rampUp} -JDURATION=${ctx.duration} -Jinflux.host=${ctx.influxDbUrl} \"}' \
+                        -e '{\"cmd\": \"-n -t /mnt/jmeter/${testName}.jmx -Jtest_name=${testName} -JDISTRIBUTION=${ctx.distribution} -Jtenant=${ctx.tenant} -Jtest.type=${ctx.testType} -Jenv.type=${ctx.envType} -JVUSERS=${usersCount} -JHOSTNAME=${ctx.targetUrl} -JRAMP_UP=${ctx.rampUp} -JDURATION=${ctx.duration} -Jinflux.host=${ctx.influxDbUrl} -Jinflux.port=${ctx.influxDbPort} -Jinflux.user=${ctx.influxDbUser} -Jinflux.password=${ctx.influxDbPassword} \"}' \
                         -r 1 -t perfmeter -q ${ctx.loadGeneratorsCount} -n performance_test_job"
             }
         }
@@ -190,6 +190,9 @@ def getContextSingle() {
   
     def ctx = readProperties file: 'carrier-io/system.properties'
 
+    ctx.targetUrl           = params.targetUrl
+    ctx.influxDbUrl         = params.influxDbUrl
+    ctx.influxDbPort        = params.influxDbPort
     ctx.testName            = params.testName
     ctx.bucket              = params.bucket
     ctx.duration            = params.duration
