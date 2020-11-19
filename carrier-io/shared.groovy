@@ -60,7 +60,7 @@ def executePerformanceTest(ctx, excludeTestsList, sendReports){
                     -e artifact=${artifact} \
                     getcarrier/control_tower:latest \
                         -c getcarrier/perfmeter:latest \
-                        -e '{\"cmd\": \"-n -t /mnt/jmeter/${testName}.jmx -Jtest_name=${testName} -JDISTRIBUTION=${ctx.distribution} -Jtenant=${ctx.tenant} -Jtest.type=${ctx.testType} -Jenv.type=${ctx.envType} -JVUSERS=${usersCount} -JHOSTNAME=${ctx.targetUrl} -JRAMP_UP=${ctx.rampUp} -JDURATION=${ctx.duration} -Jinflux.host=${ctx.influxDbUrl} -Jinflux.port=${ctx.influxDbPort} -Jinflux.username=${ctx.influxDbUser} -Jinflux.password=${ctx.influxDbPassword} \"}' \
+                        -e '{\"cmd\": \"-n -t /mnt/jmeter/${testName}.jmx -Jtest_name=${testName} -JDISTRIBUTION=${ctx.distribution} -Jtenant=${ctx.tenant} -Jtest.type=${ctx.testType} -Jenv.type=${ctx.envType} -JVUSERS=${usersCount} -JHOSTNAME=${ctx.targetUrl} -JRAMP_UP=${ctx.rampUp} -JDURATION=${ctx.duration} -Jinflux.host=${ctx.influxDbUrl} -Jinflux.port=${ctx.influxDbPort} \"}' \
                         -r 1 -t perfmeter -q ${ctx.loadGeneratorsCount} -n performance_test_job"
             }
         }
