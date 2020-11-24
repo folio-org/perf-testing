@@ -1,5 +1,11 @@
 ## Workflow steps:
 
+##### Workflow for mod_rtac_listInstanceIds.jmx
+This script makes call to new mod-rtac API POST /rtac-batch
+
+##### Workflow for edge_rtac_listInstanceIds.jmx
+This script makes call to new edge-rtac API GET /rtac?instanceIds=id1,id2,id3,id4,id5,id6,id7,id8,id9,id10&apikey={API_KEY}&fullPeriodicals=true
+
 ##### Workflow for mod-rtac_allBackendApiCalls.jmx
 This script mimics calls made by /rtac/{instance} API endpoint which is 
 For 1 instance -> many holdings -> each holding -> many items -> each item -> many loans
@@ -16,12 +22,12 @@ where hr2.instanceid = hr1.instanceid group by hr2.instanceid) > 300;
 
 ## Modules required to be enabled as a pre-requisite to run JMeter script:
 ##### Backend:
-- mod-circulation-18.0.9
-- mod-circulation-storage-11.0.0
-- mod-inventory-storage-19.1.2
-- mod-inventory-14.1.3
-- mod-authtoken-2.4.0"
-- mod-permissions-5.9.0
-- okapi-2.38.0
-
-- FOLIO release: FameFlower
+- mod-circulation
+- mod-circulation-storage
+- mod-inventory-storage
+- mod-inventory
+- mod-authtoken
+- mod-permissions
+- okapi
+- mod-rtac
+- edge-rtac
