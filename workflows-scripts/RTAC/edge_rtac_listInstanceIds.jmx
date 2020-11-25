@@ -44,6 +44,11 @@
             <stringProp name="Argument.value">${__P(port,443)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="API_KEY" elementType="Argument">
+            <stringProp name="Argument.name">API_KEY</stringProp>
+            <stringProp name="Argument.value">${__P(API_KEY,eyJzIjoiVW80VVRmNGVuYyIsInQiOiJmczA5MDAwMDAwIiwidSI6ImZzMDkwMDAwMDAifQ==)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
         </collectionProp>
       </Arguments>
       <hashTree/>
@@ -99,7 +104,7 @@
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">https://edge-honeysuckle-cap1.int.aws.folio.org/rtac?instanceIds=00009a0b-e973-443b-9796-c3373a352f86,00013259-9863-4259-910f-0d7ce90ff338&amp;apikey=eyJzIjoiVW80VVRmNGVuYyIsInQiOiJmczA5MDAwMDAwIiwidSI6ImZzMDkwMDAwMDAifQ==&amp;fullPeriodicals=true</stringProp>
+            <stringProp name="HTTPSampler.path">/rtac?instanceIds=00009a0b-e973-443b-9796-c3373a352f86,00013259-9863-4259-910f-0d7ce90ff338&amp;apikey=${API_KEY}&amp;fullPeriodicals=true</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -122,12 +127,6 @@
             <hashTree/>
           </hashTree>
         </hashTree>
-        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="false">
-          <boolProp name="displayJMeterProperties">false</boolProp>
-          <boolProp name="displayJMeterVariables">true</boolProp>
-          <boolProp name="displaySystemProperties">false</boolProp>
-        </DebugSampler>
-        <hashTree/>
       </hashTree>
       <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
