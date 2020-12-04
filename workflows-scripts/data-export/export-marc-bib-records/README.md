@@ -18,12 +18,12 @@ For example ```	SELECT id FROM fs09000000_mod_inventory_storage.instance where j
 After specifying csv file, UI will return. Then, asynchronously POST data-export/export request will start a task  which calls mod-source-record-storage module
 
 To mimics workflow in UI, following calls need to be made to backend in dataExport_exportMARCBibRecords.jmx as below:
-1. POST data-export/fileDefinitions 
+1. POST data-export/file-definitions 
 request
   filename and size
 response
  returns filename and metadata
-2. POST data-export/fileDefinitions/${fileDefinitionId}/upload
+2. POST data-export/file-definitions/${fileDefinitionId}/upload
 request
   file content as a Stream
 response
@@ -33,7 +33,7 @@ request
   file definition and job profile
 response
   returns 204 on success and asynchronously makes a call to mod-source-record-storage
-4. Loop over GET data-export/jobExecutions?query=id==${jobExecutionId} endpoint until job status is SUCCESS otherwise return
+4. Loop over GET data-export/job-executions?query=id==${jobExecutionId} endpoint until job status is SUCCESS otherwise return
 request
   empty
 response
@@ -44,12 +44,10 @@ To measure slowness, look for Exporting MARC Bib records workflow Transaction av
 
 ## Modules required to be enabled as a pre-requisite to run JMeter script:
 ##### Backend:
-- mod-source-record-storage-3.1.4
-- mod-data-export-1.1.1
-- mod-authtoken-2.4.0
-- mod-permissions-5.9.0
-- okapi-2.38.0
+- mod-source-record-storage
+- mod-data-export
+- mod-authtoken
+- mod-permissions
+- okapi
 ##### Frontend:
-- folio_stripes-data-transfer-components-1.0.1
-
-- FOLIO release: FameFlower
+- folio_data-export
