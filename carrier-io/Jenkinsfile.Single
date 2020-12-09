@@ -9,7 +9,7 @@ properties([
         choice(choices: "fix_load\ncapacity\nbaseline\nlongevity", description: "Test type", name: "testType"),
         string(defaultValue: "ptf-okapi.ci.folio.org", description: "Target Okapi url", name: "targetUrl"),
         string(defaultValue: "ptf-influxdb.ci.folio.org", description: "InfluxDB url", name: "influxDbUrl"),
-        string(defaultValue: "80", description: "InfluxDB port", name: "influxDbPort"),
+        string(defaultValue: "8086", description: "InfluxDB port", name: "influxDbPort"),
         string(defaultValue: "8", description: "vUsers count for test execution", name: "users"),
         string(defaultValue: "80", description: "Ramp up, s", name: "rampUp"),
         string(defaultValue: "30", description: "Test duration, s", name: "duration"),
