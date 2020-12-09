@@ -6,8 +6,16 @@ properties([
     strategy: [$class: 'LogRotator', numToKeepStr: '30']],
     disableConcurrentBuilds(), 
     parameters([
-        booleanParam(name: 'sendReports', defaultValue: true, description: "Send reports"),
-        string(defaultValue: "", description: "List of tests to be excluded", name: "excludeTestsList")
+        choice(choices: "fix_load\ncapacity\nbaseline\nlongevity", description: "Test type", name: "testType"),
+        string(defaultValue: "", description: "Test Name", name: "testName"),
+        string(defaultValue: "automation", description: "Galloper bucket with tests artifact", name: "bucket"),
+        string(defaultValue: "ptf-okapi.ci.folio.org", description: "Target Okapi url", name: "targetUrl"),
+        string(defaultValue: "ptf-influxdb.ci.folio.org", description: "InfluxDB url", name: "influxDbUrl"),
+        string(defaultValue: "8086", description: "InfluxDB port", name: "influxDbPort"),
+        string(defaultValue: "8", description: "vUsers count for test execution", name: "users"),
+        string(defaultValue: "80", description: "Ramp up, s", name: "rampUp"),
+        string(defaultValue: "30", description: "Test duration, s", name: "duration"),
+        string(defaultValue: "1", description: "Quantity of load generators", name: "loadGeneratorsCount")
     ])
 ])
     
@@ -28,7 +36,7 @@ node {
                 step([$class: 'WsCleanup'])
                 checkout scm
                 sharedLib = load "carrier-io/shared.groovy"
-                context = sharedLib.getContext()
+                context = sharedLib.getContextSingle()
             }
 
             /*stage("Populate data to db") {
@@ -46,7 +54,7 @@ node {
             }
 
             stage("Execute tests") {
-                sharedLib.executePerformanceTests(context, params.excludeTestsList, params.sendReports)
+                sharedLib.executePerformanceTest(context, params.excludeTestsList, params.sendReports)
             }
 
         } catch (Exception err){

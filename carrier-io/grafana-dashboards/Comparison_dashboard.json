@@ -27,8 +27,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 1,
-  "id": 6,
-  "iteration": 1579256678233,
+  "id": 1,
+  "iteration": 1602508674584,
   "links": [],
   "panels": [
     {
@@ -696,6 +696,7 @@
               "type": "fill"
             }
           ],
+          "orderByTime": "ASC",
           "policy": "default",
           "query": "SELECT ((\"sum_check2\"-\"sum_check1\")/\"sum_check2\")*100 FROM (SELECT sum(*) FROM (SELECT mean(\"$calculation\"::float) AS \"check1\" from api_comparison where build_id = '$build1'), (SELECT mean(\"$calculation\"::float) AS \"check2\" from api_comparison where build_id = '$build2') )",
           "rawQuery": true,
@@ -849,21 +850,38 @@
         "x": 0,
         "y": 25
       },
-      "id": 5,
+      "id": 9,
       "links": [],
       "options": {},
       "pageSize": null,
       "scroll": true,
       "showHeader": true,
       "sort": {
-        "col": 9,
+        "col": 4,
         "desc": true
       },
       "styles": [
         {
           "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "link": false,
           "pattern": "Time",
           "type": "hidden"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "delta(.*)",
+          "thresholds": [],
+          "type": "number",
+          "unit": "percent"
         },
         {
           "colorMode": null,
@@ -896,8 +914,9 @@
               "type": "fill"
             }
           ],
+          "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"sum_pct501\" AS \"p50 t1\", \"sum_pct502\" AS \"p50 t2\",         \"sum_pct751\" AS \"p75 t1\", \"sum_pct752\" AS \"p75 t2\", \t    \"sum_pct901\" AS \"p90 t1\", \"sum_pct902\" AS \"p90 t2\", \t    \"sum_pct951\" AS \"p95 t1\", \"sum_pct952\" AS \"p95 t2\", \t    \"sum_pct991\" AS \"p99 t1\", \"sum_pct992\" AS \"p99 t2\" FROM (SELECT sum(*) FROM \t (SELECT mean(\"pct50\"::float) AS \"pct501\", mean(\"pct75\"::float) AS \"pct751\",      \t\t mean(\"pct90\"::float) AS \"pct901\", mean(\"pct95\"::float) AS \"pct951\", \t\t\t mean(\"pct99\"::float) AS \"pct991\"  \t\t\t from api_comparison where build_id = '$build1' AND \"request_name\" =~ /^$request_name$/), \t (SELECT mean(\"pct50\"::float) AS \"pct502\", mean(\"pct75\"::float) AS \"pct752\",      \t\t mean(\"pct90\"::float) AS \"pct902\", mean(\"pct95\"::float) AS \"pct952\", \t\t\t mean(\"pct99\"::float) AS \"pct992\"  \t\t\t from api_comparison where build_id = '$build2'  AND \"request_name\" =~ /^$request_name$/) ) GROUP BY request_name",
+          "query": "SELECT\t\n\"sum_pct501\" AS \"p50 t1\", \n\"sum_pct502\" AS \"p50 t2\", \n(\"sum_pct501\" - \"sum_pct502\")/ \"sum_pct501\"*100 AS \"delta p50\",\n\n\"sum_pct751\" AS \"p75 t1\",\n\"sum_pct752\" AS \"p75 t2\", \n(\"sum_pct751\" - \"sum_pct752\") /\"sum_pct751\"*100 AS \"delta p75\",\n\n\"sum_pct901\" AS \"p90 t1\", \n\"sum_pct902\" AS \"p90 t2\",\n(\"sum_pct901\" - \"sum_pct902\")/\"sum_pct901\"*100 AS \"delta p90\",\n\n\"sum_pct951\" AS \"p95 t1\", \n\"sum_pct952\" AS \"p95 t2\", \n(\"sum_pct951\" - \"sum_pct952\")/ \"sum_pct951\"*100 AS \"delta p95\",\n\n\"sum_pct991\" AS \"p99 t1\",\n\"sum_pct992\" AS \"p99 t2\",\n(\"sum_pct991\" - \"sum_pct992\")/\"sum_pct991\"*100 AS \"delta p99\"\n\nFROM\t(\n\tSELECT\tSum(*) \n\tFROM\t(\n\t\tSELECT\tmean(\"pct50\"::FLOAT) AS \"pct501\", mean(\"pct75\"::FLOAT) AS \"pct751\",\n\t\t\t\tmean(\"pct90\"::FLOAT) AS \"pct901\", mean(\"pct95\"::FLOAT) AS \"pct951\",\n\t\tmean(\"pct99\"::FLOAT) AS \"pct991\" \n\t\tFROM\tapi_comparison \n\t\tWHERE\tbuild_id = '$build1' \n\t\t\tAND \"request_name\" =~ /^$request_name$/), (\n\t\tSELECT\tmean(\"pct50\"::FLOAT) AS \"pct502\", mean(\"pct75\"::FLOAT) AS \"pct752\",\n\t\tmean(\"pct90\"::FLOAT) AS \"pct902\", mean(\"pct95\"::FLOAT) AS \"pct952\",\n\t\t\t\tmean(\"pct99\"::FLOAT) AS \"pct992\" \n\t\tFROM\tapi_comparison \n\t\tWHERE\tbuild_id = '$build2' \n\t\t\tAND \"request_name\" =~ /^$request_name$/) )\nGROUP BY request_name",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -1017,8 +1036,9 @@
       {
         "allValue": "",
         "current": {
-          "text": "folio",
-          "value": "folio"
+          "tags": [],
+          "text": "ItemsAndHoldings_POST50",
+          "value": "ItemsAndHoldings_POST50"
         },
         "datasource": "comparison",
         "definition": "",
@@ -1198,9 +1218,8 @@
       {
         "allValue": null,
         "current": {
-          "tags": [],
-          "text": "build_ci-carrier-perfmeter-folio_261",
-          "value": "build_ci-carrier-perfmeter-folio_261"
+          "text": "build_perf-carrier-io_545",
+          "value": "build_perf-carrier-io_545"
         },
         "datasource": "comparison",
         "definition": "",
@@ -1224,8 +1243,9 @@
       {
         "allValue": null,
         "current": {
-          "text": "build_001d5879-feaf-404e-aab6-c93c6f3c03c2",
-          "value": "build_001d5879-feaf-404e-aab6-c93c6f3c03c2"
+          "tags": [],
+          "text": "build_perf-carrier-io_546",
+          "value": "build_perf-carrier-io_546"
         },
         "datasource": "comparison",
         "definition": "",
@@ -1300,5 +1320,5 @@
   "timezone": "browser",
   "title": "Performance Comparison Dashboard",
   "uid": "b_qfjP_ik",
-  "version": 6
+  "version": 7
 }
