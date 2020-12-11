@@ -1,7 +1,7 @@
 ## Workflow steps:
 
 ##### api for GET_loan-storage_loans.jmx
-1. GET /loan-storage/loans?query=(userId==${user_id} and status.name<>Closed)
+1. GET /item-storage/items?query=id==("<itemUUID>" or "<itemUUID>")&limit=2147483647
 
 
 
@@ -17,10 +17,9 @@
 
 - FOLIO release: HONEYSOUCKLE
 
-
 To run test properly:
 - Restore DB using checkin-checkout-db-restore.sql script;
 - Seed database with data using circ-data-load.sh script;
-- To find proper itemUUIDs the best way is to run  /loan-storage/loans&limit=2147483647 and select needed amount of user_id needed;
-- Populate userIDs.csv with user_id from previous step;
+- To find proper itemUUIDs the best way is to run  /item-storage/items&limit=2147483647 and select needed amount of UUIDs needed;
+- Populate itemUUIDs.csv with UUIDs from previous step;
 - Test is ready for execution.
