@@ -47,13 +47,13 @@ The following data files are needed to support the Jmeter script during its exec
 ### Non-runtime Data
 - circulation-seed-data.zip: This zip file is used by the circ-data-load.sh script. It contains seed data for requests, loans, and related loans/requests data. It needs to be unpacked and the files are placed in the same directory as the circ-data-load.sh script.
 
-## Relevant Modules Versions (Fameflower release)
-- mod-circulation-18.0.9
-- mod-circulation-storage-11.0.0
-- mod-inventory-14.1.3
-- mod-inventory-storage-19.1.2
-- mod-feesfines-15.7.2
-- mod-authtoken-2.4.0
-- folio_checkin-2.0.1
-- folio_checkout-3.0.2
-- folio_circulation-2.0.0
+## Relevant Modules Versions (Honeysuckle release)
+- mod-circulation-19.2.7
+- mod-circulation-storage-12.1.4
+- mod-inventory-16.1.3
+- mod-inventory-storage-19.4.4
+- mod-feesfines-15.9.2
+- mod-authtoken-2.6.0
+- folio_checkin-4.0.1
+- folio_checkout-5.0.1
+- folio_circulation-4.0.1
