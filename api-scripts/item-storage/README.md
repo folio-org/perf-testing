@@ -15,7 +15,7 @@
 ##### Frontend:
 - folio_circulation-2.0.0
 
-- FOLIO release: HONEYSOUCKLE
+- FOLIO release: HONEYSUCKLE
 
 To run test properly:
 - Restore DB using checkin-checkout-db-restore.sql script;
