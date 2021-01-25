@@ -19,8 +19,9 @@ To run the data load script:
 
 To run the database restore script:
 1. Go to an AWS EC2 jump box that's in the same environment as that DB.
-2. Execute > psql -f db-restore.sql -a --echo-all -h \<database-host-name\> -U \<db-username\> -d \<db-name\>
-3. Enter password when prompted
+2. Replace the variable {tenantId} in the script with an actual tenantId.
+3. Execute > psql -f db-restore.sql -a --echo-all -h \<database-host-name\> -U \<db-username\> -d \<db-name\>
+4. Enter password when prompted
 
 
 
