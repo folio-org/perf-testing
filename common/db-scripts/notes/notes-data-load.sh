@@ -16,6 +16,7 @@ export PGPASSWORD=`cat $DBCONF | jq '.password' | cut -d\" -f2`
 export PGHOST=`cat $DBCONF | jq '.host' | cut -d\" -f2`
 export PGPORT=`cat $DBCONF | jq '.port' | cut -d\" -f2`
 
+# notes.tsv is from the notes.json.tar.gz, see README for more details
 NOTES="notes.tsv"
 
 echo "================================================="
