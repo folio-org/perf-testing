@@ -191,8 +191,8 @@ def getContextSingle() {
     def ctx = readProperties file: 'carrier-io/system.properties'
 
     ctx.targetUrl           = params.targetUrl
-    ctx.influxDbUrl         = params.influxDbUrl
-    ctx.influxDbPort        = params.influxDbPort
+//    ctx.influxDbUrl         = params.influxDbUrl
+//    ctx.influxDbPort        = params.influxDbPort
     ctx.testName            = params.testName
     ctx.bucket              = params.bucket
     ctx.duration            = params.duration

@@ -31,12 +31,6 @@ node {
                 context = sharedLib.getContext()
             }
 
-            /*stage("Populate data to db") {
-                if(params.populateDatabase){
-                    sharedLib.populateData(params.tenant)
-                }    
-            }*/
-
             stage("Configure load generators") {
                 sharedLib.createStack(context)
             }    
