@@ -45,7 +45,7 @@ def executePerformanceTest(ctx, excludeTestsList, sendReports){
         withCredentials([string(credentialsId: 'perf_carrier_io_token_u51', variable: 'carrierToken')]) {
 
             withCredentials([string(credentialsId: 'perf_redis_password_u51', variable: 'redisPassword')]) {
-                sh "docker pull getcarrier/control_tower:latest && docker run -t --rm \
+                sh "docker pull getcarrier/control_tower:2.0 && docker run -t --rm \
                     -e REDIS_HOST=${ctx.reportingInstanceUrl} \
                     -e REDIS_PASSWORD=${redisPassword} \
                     -e loki_host=http://${ctx.reportingInstanceUrl} \
@@ -58,8 +58,8 @@ def executePerformanceTest(ctx, excludeTestsList, sendReports){
                     -e JVM_ARGS='-Xmx${ctx.lgMemory}g' \
                     -e DURATION=${ctx.duration} \
                     -e artifact=${artifact} \
-                    getcarrier/control_tower:latest \
-                        -c getcarrier/perfmeter:latest \
+                    getcarrier/control_tower:2.0 \
+                        -c getcarrier/perfmeter:2.0 \
                         -e '{\"cmd\": \"-n -t /mnt/jmeter/${testName}.jmx -Jtest_name=${testName} -JDISTRIBUTION=${ctx.distribution} -Jtenant=${ctx.tenant} -Jtest.type=${ctx.testType} -Jenv.type=${ctx.envType} -JVUSERS=${usersCount} -JHOSTNAME=${ctx.targetUrl} -JRAMP_UP=${ctx.rampUp} -JDURATION=${ctx.duration} -Jinflux.host=${ctx.influxDbUrl} -Jinflux.port=${ctx.influxDbPort} -Jinflux.username=${ctx.influxDbUser} -Jinflux.password=${ctx.influxDbPassword} \"}' \
                         -r 1 -t perfmeter -q ${ctx.loadGeneratorsCount} -n performance_test_job"
             }
