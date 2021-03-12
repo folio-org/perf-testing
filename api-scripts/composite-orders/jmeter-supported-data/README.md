@@ -2,6 +2,7 @@
 
 ##### api for POST_CompositeOrders.jmx
 1. POST orders/composite-orders
+2. DELETE orders/composite-orders/{compositeOrderId}
 
 ## Modules required to be enabled as a pre-requisite to run JMeter script:
 ##### Backend:
