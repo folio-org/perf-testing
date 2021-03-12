@@ -13,7 +13,7 @@
 Raw composite orders are given - sample compositeOrders.json
 
 ##### Steps to run test:
-1. Raw data is given compositeOrders.json - we have to split each line in this file into separate .json file which is basically a request body for POST /composite-orders
+1. Raw data is given compositeOrders.json - we have to split each line in this file into separate .json file which is basically a request body for POST /composite-orders. existing compositeOrders.json has 1 sample record but it could have 10K+ records or more in it.
 2. Run bash script split-to-multiple_json_files.sh which will generate `x` number .json files depending on total number of lines in the raw data. Run the bash script `./split-to-multiple_json_files.sh` from inside the directory
 3. Create a new JsonFilename.csv which will hold filenames of .json files created in step 2 above
 4. In .jmx file, in CSV Data config, make sure you have correct filename(for example JsonFilename.csv)
