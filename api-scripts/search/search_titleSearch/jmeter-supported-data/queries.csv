@@ -1,0 +1,6 @@
+title all "Water in Africa"
+title = "Water*"
+title = "*Africa"
+title any "Water in Africa"
+title == "Water in Africa"
+title <> "Water in Africa"
