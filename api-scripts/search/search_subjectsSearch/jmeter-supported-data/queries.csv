@@ -1,0 +1,6 @@
+subjects all "Washington"
+subjects = "Washington*"
+subjects = "*Washington"
+subjects any "Washington Ibiza"
+subjects == "Washington"
+subjects <> "Washington"
