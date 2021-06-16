@@ -1,0 +1,4 @@
+subjects all "washington" AND title all "international travel"
+subjects all "washington" OR title all "international travel"
+subjects = ("History" OR "Music")
+subjects all "washington" NOT title all "international travel"
