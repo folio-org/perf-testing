@@ -1,0 +1,5 @@
+languages == "eng"
+languages == ("eng" OR "fre" OR "ita" OR "ukr")
+languages == "eng" AND items.status.name == "Available"
+languages == ("eng" OR "fre") AND items.status.name == ("Available" OR "In transit")
+keyword all "water in africa" AND languages == "eng"
