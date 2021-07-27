@@ -1945,7 +1945,7 @@ switch (itemOrder){
                 <elementProp name="query" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
                   <stringProp name="Argument.name">query</stringProp>
-                  <stringProp name="Argument.value">(BARCODE==&quot;${user_barcode}&quot;  OR EXTERNAL==&quot;${user_barcode}&quot; OR FOLIO==&quot;${user_barcode}&quot; OR USER==&quot;${user_barcode}&quot; OR barcode==&quot;${user_barcode}&quot; OR externalSystemId==&quot;${user_barcode}&quot;  OR id==&quot;${user_barcode}&quot; OR username==&quot;${user_barcode}&quot;)</stringProp>
+                  <stringProp name="Argument.value">(barcode==&quot;${user_barcode}&quot; OR externalSystemId==&quot;${user_barcode}&quot; OR username==&quot;${user_barcode}&quot;)</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 </elementProp>
@@ -1972,7 +1972,7 @@ switch (itemOrder){
                 <elementProp name="query" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
                   <stringProp name="Argument.name">query</stringProp>
-                  <stringProp name="Argument.value">(BARCODE==&quot;${user_barcode}&quot;  OR EXTERNAL==&quot;${user_barcode}&quot; OR FOLIO==&quot;${user_barcode}&quot; OR USER==&quot;${user_barcode}&quot; OR barcode==&quot;${user_barcode}&quot; OR externalSystemId==&quot;${user_barcode}&quot;  OR id==&quot;${user_barcode}&quot; OR username==&quot;${user_barcode}&quot;)</stringProp>
+                  <stringProp name="Argument.value">(barcode==&quot;${user_barcode}&quot; OR externalSystemId==&quot;${user_barcode}&quot;  OR username==&quot;${user_barcode}&quot;)</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 </elementProp>
@@ -3189,7 +3189,7 @@ switch (itemOrder){
             <hashTree/>
           </hashTree>
         </hashTree>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -3226,7 +3226,7 @@ switch (itemOrder){
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
-        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="false">
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
