@@ -40,7 +40,7 @@
           </elementProp>
           <elementProp name="duration" elementType="Argument">
             <stringProp name="Argument.name">duration</stringProp>
-            <stringProp name="Argument.value">${__P(DURATION,300)}</stringProp>
+            <stringProp name="Argument.value">${__P(DURATION,5)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="thinktime_offset" elementType="Argument">
@@ -2221,11 +2221,11 @@
         <stringProp name="ThreadGroup.on_sample_error">startnextloop</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
+          <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">${global_vusers}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${global_rampup}</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.duration">${duration}</stringProp>
         <stringProp name="ThreadGroup.delay">0</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
@@ -2267,7 +2267,7 @@
         <hashTree/>
         <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="LC" enabled="true">
           <boolProp name="LoopController.continue_forever">true</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
+          <intProp name="LoopController.loops">-1</intProp>
         </LoopController>
         <hashTree>
           <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config - user_barcodes" enabled="true">
@@ -2429,7 +2429,7 @@ switch (itemOrder){
             <hashTree/>
           </hashTree>
         </hashTree>
-        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="false">
+        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="true">
           <boolProp name="displayJMeterProperties">false</boolProp>
           <boolProp name="displayJMeterVariables">true</boolProp>
           <boolProp name="displaySystemProperties">false</boolProp>
@@ -2440,11 +2440,11 @@ switch (itemOrder){
         <stringProp name="ThreadGroup.on_sample_error">startnextloop</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
+          <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">${global_vusers}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${global_rampup}</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.duration">${duration}</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
@@ -2486,7 +2486,7 @@ switch (itemOrder){
         <hashTree/>
         <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="LC" enabled="true">
           <boolProp name="LoopController.continue_forever">true</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
+          <intProp name="LoopController.loops">-1</intProp>
         </LoopController>
         <hashTree>
           <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config - user_barcodes" enabled="true">
@@ -2633,11 +2633,11 @@ vars.put(&quot;goto_check_io&quot;, result)
         <stringProp name="ThreadGroup.on_sample_error">startnextloop</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
+          <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">${global_vusers}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${global_rampup}</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.duration">${duration}</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
@@ -2679,7 +2679,7 @@ vars.put(&quot;goto_check_io&quot;, result)
         <hashTree/>
         <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="LC" enabled="true">
           <boolProp name="LoopController.continue_forever">true</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
+          <intProp name="LoopController.loops">-1</intProp>
         </LoopController>
         <hashTree>
           <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config - user_barcodes" enabled="true">
@@ -2826,11 +2826,11 @@ vars.put(&quot;goto_check_io&quot;, result)
         <stringProp name="ThreadGroup.on_sample_error">startnextloop</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
+          <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">${global_vusers}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${global_rampup}</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.duration">${duration}</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
@@ -2872,7 +2872,7 @@ vars.put(&quot;goto_check_io&quot;, result)
         <hashTree/>
         <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="LC" enabled="true">
           <boolProp name="LoopController.continue_forever">true</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
+          <intProp name="LoopController.loops">-1</intProp>
         </LoopController>
         <hashTree>
           <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config - user_barcodes" enabled="true">
@@ -3019,11 +3019,11 @@ vars.put(&quot;goto_check_io&quot;, result)
         <stringProp name="ThreadGroup.on_sample_error">startnextloop</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
+          <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">${global_vusers}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${global_rampup}</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.duration">${duration}</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
@@ -3065,7 +3065,7 @@ vars.put(&quot;goto_check_io&quot;, result)
         <hashTree/>
         <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="LC" enabled="true">
           <boolProp name="LoopController.continue_forever">true</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
+          <intProp name="LoopController.loops">-1</intProp>
         </LoopController>
         <hashTree>
           <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config - user_barcodes" enabled="true">
@@ -3385,11 +3385,11 @@ vars.put(&quot;goto_check_io&quot;, result)
         <stringProp name="ThreadGroup.on_sample_error">startnextloop</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
+          <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">${global_vusers}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${global_rampup}</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.duration">${duration}</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
@@ -3431,7 +3431,7 @@ vars.put(&quot;goto_check_io&quot;, result)
         <hashTree/>
         <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="LC" enabled="true">
           <boolProp name="LoopController.continue_forever">true</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
+          <intProp name="LoopController.loops">-1</intProp>
         </LoopController>
         <hashTree>
           <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config - user_barcodes" enabled="true">
@@ -3578,11 +3578,11 @@ vars.put(&quot;goto_check_io&quot;, result)
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
+          <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">${global_vusers}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${global_rampup}</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.duration">${duration}</stringProp>
         <stringProp name="ThreadGroup.delay">0</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
@@ -3637,11 +3637,11 @@ sampler.getHeaderManager().removeHeaderNamed(&quot;X-Okapi-Tenant&quot;);</strin
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
+          <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">${global_vusers}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${global_rampup}</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.duration">${duration}</stringProp>
         <stringProp name="ThreadGroup.delay">0</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
@@ -3696,11 +3696,11 @@ sampler.getHeaderManager().removeHeaderNamed(&quot;X-Okapi-Tenant&quot;);</strin
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
+          <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">${global_vusers}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${global_rampup}</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.duration">${duration}</stringProp>
         <stringProp name="ThreadGroup.delay">0</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
@@ -3755,11 +3755,11 @@ sampler.getHeaderManager().removeHeaderNamed(&quot;X-Okapi-Tenant&quot;);</strin
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
+          <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">${global_vusers}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${global_rampup}</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.duration">${duration}</stringProp>
         <stringProp name="ThreadGroup.delay">0</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
@@ -3814,11 +3814,11 @@ sampler.getHeaderManager().removeHeaderNamed(&quot;X-Okapi-Tenant&quot;);</strin
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
+          <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">${global_vusers}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${global_rampup}</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.duration">${duration}</stringProp>
         <stringProp name="ThreadGroup.delay">0</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
@@ -3873,11 +3873,11 @@ sampler.getHeaderManager().removeHeaderNamed(&quot;X-Okapi-Tenant&quot;);</strin
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
+          <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">${global_vusers}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${global_rampup}</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.duration">${duration}</stringProp>
         <stringProp name="ThreadGroup.delay">0</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
