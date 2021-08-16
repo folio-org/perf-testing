@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.1">
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="circulation_checkInCheckOut" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
@@ -40,7 +40,7 @@
           </elementProp>
           <elementProp name="duration" elementType="Argument">
             <stringProp name="Argument.name">duration</stringProp>
-            <stringProp name="Argument.value">${__P(DURATION,5)}</stringProp>
+            <stringProp name="Argument.value">${__P(DURATION,30)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="thinktime_offset" elementType="Argument">
@@ -3599,7 +3599,7 @@ vars.put(&quot;goto_check_io&quot;, result)
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/rtac?instanceIds=05a0c72e-7edf-425a-bc7c-f955135798ad&amp;apikey=${API_KEY_1020}&amp;fullPeriodicals=true</stringProp>
+            <stringProp name="HTTPSampler.path">/rtac?instanceIds=04c6c31e-0f82-4e4f-b338-d1d25eb2dad8,087f84a0-d78f-447b-956b-534cf7cc0788,11560f64-ff8d-4061-9303-0159971fb7ed,14856eb5-1eb3-4927-8c69-893a265f4d30,198a3975-37bd-4b64-af31-00bb57a26367,1cc6a326-e4db-4afa-915a-17773ced353e,263fe3bd-bd19-4c38-8003-c8104a18d037,2895ee8b-1059-4a3a-a4f3-36084ffae75f,2e2ee030-9e31-4254-b1d0-d938668d84b1,34a747c0-3a3f-40fc-b022-71b1bfea20aa&amp;apikey=${API_KEY_1020}&amp;fullPeriodicals=true</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -3658,7 +3658,7 @@ sampler.getHeaderManager().removeHeaderNamed(&quot;X-Okapi-Tenant&quot;);</strin
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/rtac?instanceIds=9d2d02b9-bcfa-444b-b4b2-dd47a92df3df&amp;apikey=${API_KEY_1041}&amp;fullPeriodicals=true</stringProp>
+            <stringProp name="HTTPSampler.path">/rtac?instanceIds=36916e5e-76e2-429b-8a73-e80d551712d7,37b85810-68ec-452c-bcb4-405b6ec930d9,4003937b-72b0-4ccf-8725-9ca98723b758,41e22e96-43db-4c6d-b06c-b665dc199b95,5190ef29-7fb2-48df-80bd-021407df988d,8fc5da26-84e5-4858-b518-6173ddfd5b53,9d2d02b9-bcfa-444b-b4b2-dd47a92df3df,b381bdf4-2ffe-42a1-8a39-367ee008cc2e,d319a43a-dd77-40dd-a0e9-fa3d8ffd779f,e718a7eb-c1a0-4c22-8930-f2aaf3338fec&amp;apikey=${API_KEY_1041}&amp;fullPeriodicals=true</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -3717,7 +3717,7 @@ sampler.getHeaderManager().removeHeaderNamed(&quot;X-Okapi-Tenant&quot;);</strin
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/rtac?instanceIds=0458c251-aafc-4d7b-afab-aa267dfddbb6&amp;apikey=${API_KEY_1050}&amp;fullPeriodicals=true</stringProp>
+            <stringProp name="HTTPSampler.path">/rtac?instanceIds=007537d8-fb0e-4d6a-866e-a7d92a8f7f75,024f68c3-01b4-4760-9f56-2132247da9bd,0458c251-aafc-4d7b-afab-aa267dfddbb6,088c5259-da31-4bc7-b793-90cc96d12f45,08a58fca-4fe9-4224-ab8d-cc7457b427fb,08c2dffa-16b5-4ad9-b55a-a44175247b88,15e95ab5-31e9-4f41-9d89-c6e46673b9e8,1aa38d6c-7104-4094-ae08-7c067836a74d,26645f96-d4b7-4729-b30b-c414c467943f,325e8d89-e97b-4d3a-9444-5b2ae85d945e&amp;apikey=${API_KEY_1050}&amp;fullPeriodicals=true</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -3776,7 +3776,7 @@ sampler.getHeaderManager().removeHeaderNamed(&quot;X-Okapi-Tenant&quot;);</strin
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/rtac?instanceIds=05a637e1-3408-4840-a4db-ada7efab600e&amp;apikey=${API_KEY_1051}&amp;fullPeriodicals=true</stringProp>
+            <stringProp name="HTTPSampler.path">/rtac?instanceIds=01f99eb7-87a9-4cb6-94b3-7a943a6d49b8,03a69433-8301-4cfa-82d6-95e3928cbdd9,04d72246-668a-48b6-af6e-4ae6d4069f93,05a637e1-3408-4840-a4db-ada7efab600e,05efdd1a-77e0-42be-bd29-44e5b4615e92,065f14cc-7582-45b4-aee2-824ab2cfa158,0669aa5d-d845-4c53-93cb-224af820d37b,0cb8c27d-6449-46a1-b868-5bb068ba6f1c,0c75b3db-b4e4-4031-90af-f7a2dc0d94e1,0c7ed8b6-a319-4ca2-b292-0ac869362cbc&amp;apikey=${API_KEY_1051}&amp;fullPeriodicals=true</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -3835,7 +3835,7 @@ sampler.getHeaderManager().removeHeaderNamed(&quot;X-Okapi-Tenant&quot;);</strin
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/rtac?instanceIds=48cf59a0-4a35-4d29-ac00-09a673f3549d&amp;apikey=${API_KEY_1053}&amp;fullPeriodicals=true</stringProp>
+            <stringProp name="HTTPSampler.path">/rtac?instanceIds=0d2b64c5-6b23-4b98-8679-0baadbff76c8,2f931ae0-957e-4b82-ab65-cfd393ddf224,4753691a-d9a2-45d3-b668-7927f7c79e28,48cf59a0-4a35-4d29-ac00-09a673f3549d,5423058a-aeaa-4d34-b449-8bb5cacf6780,6181c1b0-bb60-451e-9ca2-ba7f6ac9b61a,65ff0f92-6db1-4af2-b2d5-dbc0e6ca3c32,693ba7b8-6c24-4c6b-87e0-928a6131e654,6ccb07ad-49ce-478d-86e8-1cc4518f2919,705af314-1cfe-466d-8c67-31e232bfb163&amp;apikey=${API_KEY_1053}&amp;fullPeriodicals=true</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -3894,7 +3894,7 @@ sampler.getHeaderManager().removeHeaderNamed(&quot;X-Okapi-Tenant&quot;);</strin
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/rtac?instanceIds=5ac7e91b-07fa-4093-b7ac-d377f408e0b1&amp;apikey=${API_KEY_1062}&amp;fullPeriodicals=true</stringProp>
+            <stringProp name="HTTPSampler.path">/rtac?instanceIds=0000f33e-3186-46fd-8131-953bac2acd55,00017332-a8f8-4e08-a6ca-806cc95424a5,0001d871-b80b-4cd7-942d-caaf86a0b008,00024627-ec0e-4738-a0b2-f8bca3da782b,0002463a-648d-4291-a041-1f371c3c77a9,0002d45c-ca84-4f0f-88ef-97da46346c93,0003300b-366b-48a4-94c8-a179d94596cf,000346f9-3410-48d2-8313-284ca306b050,0003b9d7-2873-482e-8104-f0730c08c60f,0003d20a-af0f-4b65-938b-81cd516d9af0&amp;apikey=${API_KEY_1062}&amp;fullPeriodicals=true</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -5327,6 +5327,80 @@ sampler.getHeaderManager().removeHeaderNamed(&quot;X-Okapi-Tenant&quot;);</strin
           </hashTree>
         </hashTree>
       </hashTree>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="false">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
     </hashTree>
   </hashTree>
 </jmeterTestPlan>
