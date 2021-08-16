@@ -20,6 +20,15 @@ where (select count(*) from fs09000000_mod_inventory_storage.holdings_record hr2
 where hr2.instanceid = hr1.instanceid group by hr2.instanceid) > 300;
 ```
 
+SQL query to get all instances whose total holdings record count > 5 AND < 10:
+```
+select DISTINCT hr1.instanceid from fs09000000_mod_inventory_storage.holdings_record hr1
+where (select count(*) from fs09000000_mod_inventory_storage.holdings_record hr2
+where hr2.instanceid = hr1.instanceid group by hr2.instanceid) > 5 AND 
+(select count(*) from fs09000000_mod_inventory_storage.holdings_record hr2
+where hr2.instanceid = hr1.instanceid group by hr2.instanceid) < 10;
+```
+
 ## Modules required to be enabled as a pre-requisite to run JMeter script:
 ##### Backend:
 - mod-circulation
