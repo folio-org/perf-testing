@@ -1661,7 +1661,7 @@ switch (itemOrder){
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&quot;servicePointId&quot;:&quot;${servicePoints_Id}&quot;,&quot;checkInDate&quot;:&quot;${__time(yyyy-MM-dd&apos;T&apos;hh:mm:ssZ)}&quot;,&quot;itemBarcode&quot;:&quot;${item_barcodes_checkedout}&quot;,&quot;id&quot;:&quot;${__UUID()}&quot;}</stringProp>
+                  <stringProp name="Argument.value">{&quot;servicePointId&quot;:&quot;${servicePoints_Id}&quot;,&quot;checkInDate&quot;:&quot;${__time(yyyy-MM-dd&apos;T&apos;hh:mm:ss.SSSZ)}&quot;,&quot;itemBarcode&quot;:&quot;${item_barcodes_checkedout}&quot;,&quot;id&quot;:&quot;${__UUID()}&quot;}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
@@ -2974,7 +2974,7 @@ switch (itemOrder){
                   <stringProp name="Argument.value">{&#xd;
 	&quot;itemBarcode&quot;:&quot;${item_barcode_availiable}&quot;,&#xd;
 	&quot;userBarcode&quot;:&quot;${user_barcode}&quot;,&#xd;
-	&quot;loanDate&quot;:&quot;${__time(yyyy-MM-dd&apos;T&apos;hh:mm:ssZ)}&quot;,&#xd;
+	&quot;loanDate&quot;:&quot;${__time(yyyy-MM-dd&apos;T&apos;hh:mm:ss.SSSZ)}&quot;,&#xd;
 	&quot;id&quot;:&quot;${__UUID()}&quot;,&#xd;
 	&quot;servicePointId&quot;: &quot;${servicePoints_Id}&quot;&#xd;
 }&#xd;
