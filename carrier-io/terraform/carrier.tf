@@ -33,6 +33,18 @@ resource "aws_security_group" "Carrier_security_group" {
     to_port     = 8086
     protocol    = "tcp"
   }
+  ingress {
+    cidr_blocks = var.ingressCIDRblock
+    from_port   = 5672
+    to_port     = 5672
+    protocol    = "tcp"
+  }
+  ingress {
+    cidr_blocks = var.ingressCIDRblock
+    from_port   = 15672
+    to_port     = 15672
+    protocol    = "tcp"
+  }
   egress {
     from_port   = 0
     to_port     = 0
@@ -71,7 +83,7 @@ resource "aws_instance" "carrier-io" {
   }
 
   provisioner "local-exec" {
-    command = "ansible-playbook -u ubuntu --private-key ${local_file.private_key.filename} -i '${self.public_dns},' ${path.module}/files/carrierbook.yml --extra-vars 'APP_HOST=${self.public_dns} CARRIER_PATH=/opt MASTER_PASSWORD=${var.carrier_master_password}' --ssh-common-args='-o StrictHostKeyChecking=no'"
+    command = "ansible-playbook -u ubuntu --private-key ${local_file.private_key.filename} -i '${self.public_dns},' ${path.module}/carrierbook.yml --extra-vars 'APP_HOST=${self.public_dns} CARRIER_PATH=/opt REDIS_PASSWORD=${var.redis_password} RABBIT_PASSWORD=${var.rabbit_password} INFLUX_PASSWORD=${var.influx_password}' --ssh-common-args='-o StrictHostKeyChecking=no'"
   }
 
   tags = {

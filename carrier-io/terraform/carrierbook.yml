@@ -1,6 +1,8 @@
 ---
 - hosts: all
   become: yes
+  vars_files:
+  - vars/default.yml
   tasks:
     - name: Install aptitude using apt
       apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
@@ -19,7 +21,7 @@
 
     - name: Add docker repository
       apt_repository:
-        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        repo: deb https://download.docker.com/linux/ubuntu bionic stable
         state: present
       when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
@@ -66,9 +68,7 @@
       when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
     - name: Copy Files
-      copy:
-        src: carrier
-        dest: "{{ CARRIER_PATH }}"
+      shell: git clone https://github.com/carrier-io/installer.git --branch v.2.5 && mv ./installer/carrier "{{ CARRIER_PATH }}/carrier" && mkdir /installer && mv ./installer/grafana /installer/grafana && rm -rf ./installer
 
     - name: Replace app host
       replace:
@@ -82,41 +82,47 @@
         regexp: '/opt/carrier'
         replace: "{{ CARRIER_PATH }}/carrier"
 
-    - name: Replace Carrier password
-      replace:
-        path: "{{ CARRIER_PATH }}/carrier/bootstrap.sh"
-        regexp: '--password carrier'
-        replace: "--password {{ MASTER_PASSWORD }}"
-
     - name: Replace redis password
       replace:
         path: "{{ CARRIER_PATH }}/carrier/.env"
         regexp: 'REDIS_PASSWORD=password'
-        replace: "REDIS_PASSWORD={{ MASTER_PASSWORD }}"
+        replace: "REDIS_PASSWORD={{ REDIS_PASSWORD }}"
 
-    - name: Replace Keycloak password
+    - name: Replace rabbit password
       replace:
         path: "{{ CARRIER_PATH }}/carrier/.env"
-        regexp: 'KEYCLOAK_PASSWORD=carrier'
-        replace: "KEYCLOAK_PASSWORD={{ MASTER_PASSWORD }}"
+        regexp: 'RABBIT_PASSWORD=password'
+        replace: "RABBIT_PASSWORD={{ RABBIT_PASSWORD }}"
 
-    - name: Replace Minio password
+    - name: Replace influx password
       replace:
         path: "{{ CARRIER_PATH }}/carrier/.env"
-        regexp: 'MINIO_SECRET_KEY=password'
-        replace: "MINIO_SECRET_KEY={{ MASTER_PASSWORD }}"
+        regexp: 'INFLUX_PASSWORD=password'
+        replace: "INFLUX_PASSWORD={{ INFLUX_PASSWORD }}"
 
-    - name: Replace Grafana password
+    - name: Replace influx username
       replace:
         path: "{{ CARRIER_PATH }}/carrier/.env"
-        regexp: 'GF_SECURITY_ADMIN_PASSWORD=user'
-        replace: "GF_SECURITY_ADMIN_PASSWORD={{ MASTER_PASSWORD }}"
+        regexp: 'INFLUX_USERNAME=admin'
+        replace: "INFLUX_USERNAME={{ INFLUX_USERNAME }}"
 
-    - name: Replace Postgres password
+    - name: Replace influx host in telegraf config
       replace:
-        path: "{{ CARRIER_PATH }}/carrier/.env"
-        regexp: 'POSTGRES_PASSWORD=password'
-        replace: "POSTGRES_PASSWORD={{ MASTER_PASSWORD }}"
+        path: "{{ CARRIER_PATH }}/carrier/telegraf/telegraf.conf"
+        regexp: 'INFLUX_HOST'
+        replace: "http://{{ APP_HOST }}:8086"
+
+    - name: Replace influx username in telegraf config
+      replace:
+        path: "{{ CARRIER_PATH }}/carrier/telegraf/telegraf.conf"
+        regexp: 'INFLUX_USER'
+        replace: "{{ INFLUX_USERNAME }}"
+
+    - name: Replace influx password in telegraf config
+      replace:
+        path: "{{ CARRIER_PATH }}/carrier/telegraf/telegraf.conf"
+        regexp: 'INFLUX_PASSWORD'
+        replace: "{{ INFLUX_PASSWORD }}"
 
     - name: Create and start services
       shell: cd "{{ CARRIER_PATH }}/carrier" && docker-compose up -d
@@ -131,14 +137,33 @@
     - name: Wait until the services fully load
       command: sleep 35
 
-    - name: Replace bootstrap path
+    - name: Replace influx password
       replace:
         path: "{{ CARRIER_PATH }}/carrier/bootstrap.sh"
-        regexp: 'CARRIERPATH'
-        replace: "{{ CARRIER_PATH }}"
+        regexp: 'INFLUXPASSWORD'
+        replace: "{{ INFLUX_PASSWORD }}"
+
+    - name: Bootstrap influx username
+      replace:
+        path: "{{ CARRIER_PATH }}/carrier/bootstrap.sh"
+        regexp: 'INFLUXUSERNAME'
+        replace: "{{ INFLUX_USERNAME }}"
+
+    - name: Restart services
+      shell: docker restart carrier-vault && sleep 30 && docker restart carrier-galloper
 
     - name: bootstrap
-      shell: bash "{{ CARRIER_PATH }}/carrier/bootstrap.sh"
+      shell: bash "{{ CARRIER_PATH }}/carrier/bootstrap.sh" http {{ APP_HOST }} {{ CARRIER_PATH }}
+
+    - name: Restart services
+      shell: cd "{{ CARRIER_PATH }}/carrier" && docker-compose up -d
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+      register: output
+
+    - name: Restart services
+      shell: cd "{{ CARRIER_PATH }}/carrier" && /usr/local/bin/docker-compose up -d
+      when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+      register: output
 
     - debug:
         var: output

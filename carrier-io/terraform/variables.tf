@@ -23,8 +23,8 @@ variable "vpc_id" {
 }
 
 variable "ingressCIDRblock" {
-    type = list
-    default = [ "0.0.0.0/0" ]
+  type    = list
+  default = ["0.0.0.0/0"]
 }
 
 variable "creds_output_path" {
@@ -33,7 +33,17 @@ variable "creds_output_path" {
   default     = "./"
 }
 
-variable "carrier_master_password" {
+variable "redis_password" {
   type        = string
-  description = "Password for Keycloak, Redis, Minio, Grafana, Postgres"
+  description = "Password for Redis"
+}
+
+variable "rabbit_password" {
+  type        = string
+  description = "Password for Rabbit"
+}
+
+variable "influx_password" {
+  type        = string
+  description = "Password for Influx"
 }

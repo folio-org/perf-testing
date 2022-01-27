@@ -1,5 +1,7 @@
-instance_type           = "t3a.medium"
-carrier_master_password = "<master password>"
+instance_type   = "t3a.medium"
+redis_password  = "<password>"
+rabbit_password = "<password>"
+influx_password = "<password>"
 use_default_vpc = false
-vpc_id = "<existing VPC id>"
-aws_region = "us-west-1"
+vpc_id          = "<existing VPC id>"
+aws_region      = "us-west-2"
