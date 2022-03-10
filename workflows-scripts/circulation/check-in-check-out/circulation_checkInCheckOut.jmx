@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jmeterTestPlan version="1.2" properties="5.0" jmeter="5.2.1">
   <hashTree>
-    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="circulation_checkInCheckOut_accounts" enabled="true">
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="circulation_checkInCheckOut" enabled="true">
       <stringProp name="TestPlan.comments">With calls to /accounts afterward</stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
@@ -15,7 +15,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="HOSTNAME" elementType="Argument">
             <stringProp name="Argument.name">HOSTNAME</stringProp>
-            <stringProp name="Argument.value">${__P(HOSTNAME,[hostName])}</stringProp>
+            <stringProp name="Argument.value">${__P(HOSTNAME,[host-name])}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="DISTRIBUTION" elementType="Argument">
@@ -30,7 +30,7 @@
           </elementProp>
           <elementProp name="global_vusers" elementType="Argument">
             <stringProp name="Argument.name">global_vusers</stringProp>
-            <stringProp name="Argument.value">${__P(VUSERS,1)}</stringProp>
+            <stringProp name="Argument.value">${__P(VUSERS,10)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="global_rampup" elementType="Argument">
@@ -122,7 +122,7 @@
         <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC_Get_login_page" enabled="false">
           <collectionProp name="ModuleController.node_path">
             <stringProp name="764597751">Test Plan</stringProp>
-            <stringProp name="-519714422">circulation_checkInCheckOut_accounts</stringProp>
+            <stringProp name="-519714422">circulation_checkInCheckOut</stringProp>
             <stringProp name="-1998062128">User-flow</stringProp>
             <stringProp name="2065982184">Authorize_simple</stringProp>
           </collectionProp>
@@ -131,7 +131,7 @@
         <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC_Authorize" enabled="true">
           <collectionProp name="ModuleController.node_path">
             <stringProp name="764597751">Test Plan</stringProp>
-            <stringProp name="-519714422">circulation_checkInCheckOut_accounts</stringProp>
+            <stringProp name="-519714422">circulation_checkInCheckOut</stringProp>
             <stringProp name="-1998062128">User-flow</stringProp>
             <stringProp name="2065982184">Authorize_simple</stringProp>
           </collectionProp>
@@ -240,7 +240,7 @@ vars.put(&quot;goto_check_io&quot;, result)
             <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC_get_checkin_page" enabled="true">
               <collectionProp name="ModuleController.node_path">
                 <stringProp name="764597751">Test Plan</stringProp>
-                <stringProp name="-519714422">circulation_checkInCheckOut_accounts</stringProp>
+                <stringProp name="-519714422">circulation_checkInCheckOut</stringProp>
                 <stringProp name="-1998062128">User-flow</stringProp>
                 <stringProp name="-1961676462">Check-In Controller</stringProp>
               </collectionProp>
@@ -255,7 +255,7 @@ vars.put(&quot;goto_check_io&quot;, result)
             <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC_get_checkout_page" enabled="true">
               <collectionProp name="ModuleController.node_path">
                 <stringProp name="764597751">Test Plan</stringProp>
-                <stringProp name="-519714422">circulation_checkInCheckOut_accounts</stringProp>
+                <stringProp name="-519714422">circulation_checkInCheckOut</stringProp>
                 <stringProp name="-1998062128">User-flow</stringProp>
                 <stringProp name="1788085107">Check-Out Controller</stringProp>
               </collectionProp>
@@ -1977,7 +1977,7 @@ switch (itemOrder){
           </HTTPSamplerProxy>
           <hashTree>
             <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Uniform Random Timer" enabled="true">
-              <stringProp name="ConstantTimer.delay">5000 + ${thinktime_offset}</stringProp>
+              <stringProp name="ConstantTimer.delay">1000 + ${thinktime_offset}</stringProp>
               <stringProp name="RandomTimer.range">2000</stringProp>
             </UniformRandomTimer>
             <hashTree/>
@@ -2046,8 +2046,8 @@ switch (itemOrder){
           </HTTPSamplerProxy>
           <hashTree>
             <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Uniform Random Timer" enabled="true">
-              <stringProp name="ConstantTimer.delay">5000 + ${thinktime_offset}</stringProp>
-              <stringProp name="RandomTimer.range">2000</stringProp>
+              <stringProp name="ConstantTimer.delay">1000 + ${thinktime_offset}</stringProp>
+              <stringProp name="RandomTimer.range">3000</stringProp>
             </UniformRandomTimer>
             <hashTree/>
             <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON Assertion" enabled="true">
