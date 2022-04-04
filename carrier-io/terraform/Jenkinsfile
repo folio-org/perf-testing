@@ -6,7 +6,8 @@ ansiColor(colorMapName:'xterm') {node {
                         accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
         stage('Checkout') {
-            checkout([$class: 'GitSCM', branches: [[name: '*/master']],  userRemoteConfigs: [[url: 'https://github.com/folio-org/perf-testing.git']]])
+            cleanWs disableDeferredWipeout: true, deleteDirs: true, cleanWhenAborted: true, cleanWhenFailure: true, cleanWhenSuccess: true
+            checkout scm
         }
         dir('carrier-io/terraform') {
             docker.image('hashicorp/terraform:1.0.0').inside('-u 0:0 --entrypoint=') {
