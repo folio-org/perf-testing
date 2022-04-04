@@ -1,0 +1,26 @@
+#!groovy
+ansiColor(colorMapName:'xterm') {node {
+    currentBuild.displayName = "#${BUILD_NUMBER}-${params.teamName}-${params.Release_version}"
+    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding',
+                        credentialsId: "stanislav_test",
+                        accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+        stage('Checkout') {
+            checkout([$class: 'GitSCM', branches: [[name: '*/master']],  userRemoteConfigs: [[url: 'https://github.com/folio-org/perf-testing.git']]])
+        }
+        dir('carrier-io/terraform') {
+            docker.image('hashicorp/terraform:1.0.0').inside('-u 0:0 --entrypoint=') {
+                stage('Plan') {
+                    env.key_pair_name   = "Carrier-Ci"
+                    env.redis_password  = "1234567890"
+                    env.influx_password = "1234567890"
+                    env.rabbit_password = "1234567890"
+                    sh """
+                        terraform init
+                        terraform plan -input=false -out tfplan
+                        """
+                }
+            }
+        }
+    }
+}}
