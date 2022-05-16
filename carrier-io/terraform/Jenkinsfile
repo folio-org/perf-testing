@@ -12,14 +12,14 @@ ansiColor(colorMapName:'xterm') {node {
         dir('carrier-io/terraform') {
             docker.image('hashicorp/terraform:1.0.0').inside('-u 0:0 --entrypoint=') {
                 stage('Plan') {
-                    env['key_pair_name']   = "Carrier-Ci"
-                    env['redis_password']  = "1234567890"
-                    env['influx_password'] = "1234567890"
-                    env['rabbit_password'] = "1234567890"
                     sh """
                         echo "key = $key_pair_name"
                         terraform init
-                        terraform plan -input=false -out tfplan
+                        terraform plan -input=false -out tfplan \
+                            -var "key_pair_name=Carrier-Ci" \
+                            -var "redis_password=1234567890" \
+                            -var "influx_password=1234567890" \
+                            -var "rabbit_password=1234567890"
                         """
                 }
             }
