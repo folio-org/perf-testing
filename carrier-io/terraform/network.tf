@@ -27,7 +27,7 @@ resource "aws_route53_record" "www" {
 }
 
 # Create VPC for carrier
-module "vpc" {
+/* "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "~> 3.12.0"
 
@@ -78,7 +78,7 @@ module "vpc" {
     Type                                  = "private"
   }
 }
-
+*/
 # Security group for carrier instance
 module "security_group" {
   source  = "terraform-aws-modules/security-group/aws"
