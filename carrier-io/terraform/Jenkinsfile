@@ -17,7 +17,7 @@ ansiColor(colorMapName:'xterm') {node {
                     env['influx_password'] = "1234567890"
                     env['rabbit_password'] = "1234567890"
                     sh """
-                        echo $key_pair_name
+                        echo "key = $key_pair_name"
                         terraform init
                         terraform plan -input=false -out tfplan
                         """
