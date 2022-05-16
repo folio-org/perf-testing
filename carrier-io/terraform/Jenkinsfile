@@ -6,7 +6,7 @@ ansiColor(colorMapName:'xterm') {node {
                         accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
         stage('Checkout') {
-            cleanWs disableDeferredWipeout: true, deleteDirs: true, cleanWhenAborted: true, cleanWhenFailure: true, cleanWhenSuccess: true
+            cleanWs disableDeferredWipeout: false, deleteDirs: true, cleanWhenAborted: true, cleanWhenFailure: true, cleanWhenSuccess: true
             checkout scm
         }
         dir('carrier-io/terraform') {
