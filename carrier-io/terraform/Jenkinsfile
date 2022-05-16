@@ -13,7 +13,6 @@ ansiColor(colorMapName:'xterm') {node {
             docker.image('hashicorp/terraform:1.0.0').inside('-u 0:0 --entrypoint=') {
                 stage('Plan') {
                     sh """
-                        echo "key = $key_pair_name"
                         terraform init
                         terraform plan -input=false -out tfplan \
                             -var "key_pair_name=Carrier-Ci" \
