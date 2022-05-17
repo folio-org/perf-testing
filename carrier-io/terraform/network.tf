@@ -95,7 +95,7 @@ module "security_group" {
 
   name        = join("-", [var.resource_name, "sg"])
   description = "Folio Carrier IO security group"
-  vpc_id      = data.aws_vpc
+  vpc_id      = data.aws_vpc.default.id
 
   ingress_cidr_blocks = ["0.0.0.0/0"]
   ingress_rules       = ["http-80-tcp", "redis-tcp", "rabbitmq-5672-tcp", "rabbitmq-15672-tcp"]

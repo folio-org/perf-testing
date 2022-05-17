@@ -6,7 +6,7 @@ module "ec2_instance" {
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.instance_type
   availability_zone           = data.aws_availability_zones.available
-  subnet_id                   = data.aws_subnet.selected[0]
+  subnet_id                   = data.aws_subnet.selected.count[0]
   vpc_security_group_ids      = [module.security_group.security_group_id]
   key_name                    = var.key_pair_name
   associate_public_ip_address = true
