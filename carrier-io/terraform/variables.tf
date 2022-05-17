@@ -24,7 +24,7 @@ variable "zone_offset" {
 
 variable "root_domain" {
   type    = string
-  default = "ci.folio.org"
+  default = "int.aws.folio.org
 }
 
 variable "resource_name" {
