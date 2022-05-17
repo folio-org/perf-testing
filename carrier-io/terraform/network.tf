@@ -1,3 +1,7 @@
+data "aws_vpc" "default" {
+  default = true
+}
+
 # Get all available AZs in our region
 data "aws_availability_zones" "available_azs" {
   state = "available"
@@ -79,12 +83,6 @@ resource "aws_route53_record" "www" {
   }
 }
 */
-
-data "aws_vpc" "default" {
-  default = true
-}
-
-data "aws_subnet" "selected" {}
 
 # Security group for carrier instance
 module "security_group" {
