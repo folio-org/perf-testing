@@ -2,7 +2,7 @@
 ansiColor(colorMapName:'xterm') {node {
     currentBuild.displayName = "#${BUILD_NUMBER}-${params.teamName}-${params.Release_version}"
     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding',
-                        credentialsId: "stanislav_test",
+                        credentialsId: "aws_folio_int",
                         accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
         stage('Checkout') {
