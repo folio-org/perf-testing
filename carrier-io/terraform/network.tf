@@ -27,7 +27,7 @@ resource "aws_route53_record" "www" {
 }
 
 # Create VPC for carrier
-/* "vpc" {
+/*module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "~> 3.12.0"
 
@@ -79,6 +79,15 @@ resource "aws_route53_record" "www" {
   }
 }
 */
+
+data "aws_vpc" "default" {
+  default = true
+}
+
+data "aws_availability_zones" "available" {}
+
+data "aws_subnet" "selected" {}
+
 # Security group for carrier instance
 module "security_group" {
   source  = "terraform-aws-modules/security-group/aws"
@@ -86,7 +95,7 @@ module "security_group" {
 
   name        = join("-", [var.resource_name, "sg"])
   description = "Folio Carrier IO security group"
-  vpc_id      = module.vpc.vpc_id
+  vpc_id      = data.aws_vpc
 
   ingress_cidr_blocks = ["0.0.0.0/0"]
   ingress_rules       = ["http-80-tcp", "redis-tcp", "rabbitmq-5672-tcp", "rabbitmq-15672-tcp"]

@@ -5,8 +5,8 @@ module "ec2_instance" {
   name                        = join("-", [var.resource_name, "ec2-instance"])
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.instance_type
-  availability_zone           = element(module.vpc.azs, 0)
-  subnet_id                   = element(module.vpc.public_subnets, 0)
+  availability_zone           = data.aws_availability_zones.available
+  subnet_id                   = data.aws_subnet.selected[0]
   vpc_security_group_ids      = [module.security_group.security_group_id]
   key_name                    = var.key_pair_name
   associate_public_ip_address = true
