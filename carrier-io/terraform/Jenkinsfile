@@ -14,7 +14,7 @@ node {
                 stage('Plan') {
                     sh """
                         terraform init
-                        terraform plan -input=false -out tfplan \
+                        terraform plan -input=false -out tfplan -no-color \
                             -var "key_pair_name=carrier-io-kp" \
                             -var "redis_password=1234567890" \
                             -var "influx_password=1234567890" \
