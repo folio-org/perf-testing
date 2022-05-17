@@ -84,8 +84,6 @@ data "aws_vpc" "default" {
   default = true
 }
 
-data "aws_availability_zones" "available" {}
-
 data "aws_subnet" "selected" {}
 
 # Security group for carrier instance
