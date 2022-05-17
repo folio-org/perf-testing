@@ -1,6 +1,6 @@
 terraform {
     backend "s3" {
-      bucket                = "folio-terraform"
+      bucket                = "eks-terraform-us-east-1"
       workspace_key_prefix  = "carrier"
       key                   = "carrier/terraform.tfstate"
       region                = "us-east-1"
