@@ -1,5 +1,5 @@
 #!groovy
-ansiColor(colorMapName:'xterm') {node {
+node {
     currentBuild.displayName = "#${BUILD_NUMBER}-${params.teamName}-${params.Release_version}"
     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding',
                         credentialsId: "aws_folio_int",
@@ -24,4 +24,4 @@ ansiColor(colorMapName:'xterm') {node {
             }
         }
     }
-}}
+}
