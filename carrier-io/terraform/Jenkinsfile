@@ -15,7 +15,7 @@ node {
                     sh """
                         terraform init
                         terraform plan -input=false -out tfplan -no-color \
-                            -var "key_pair_name=carrier-io-kp" \
+                            -var "key_pair_name=SimpleEC2KP" \
                             -var "redis_password=1234567890" \
                             -var "influx_password=1234567890" \
                             -var "rabbit_password=1234567890"
