@@ -19,6 +19,7 @@ node {
                             -var "redis_password=1234567890" \
                             -var "influx_password=1234567890" \
                             -var "rabbit_password=1234567890"
+                        terraform apply -input=false tfplan
                         """
                 }
             }
