@@ -13,22 +13,22 @@ data "aws_route53_zone" "domain" {
 }
 
 # Reserve Elastic IP to be used in our NAT gateway
-resource "aws_eip" "nat_gw_elastic_ip" {
+/*resource "aws_eip" "nat_gw_elastic_ip" {
   vpc = true
 
   tags = {
     Name = join("-", [var.resource_name, "nat-eip"])
   }
-}
+}*/
 
 # Create CNAME record in DNS zone for carrier instance
-resource "aws_route53_record" "www" {
+/*resource "aws_route53_record" "www" {
   zone_id = data.aws_route53_zone.domain.zone_id
   name    = join(".", [var.resource_name, var.root_domain])
   type    = "CNAME"
   ttl     = "300"
   records = [module.ec2_instance.public_dns]
-}
+}*/
 
 # Create VPC for carrier
 /*module "vpc" {
