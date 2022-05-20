@@ -13,6 +13,7 @@ node {
             docker.image('hashicorp/terraform:1.0.0').inside('-u 0:0 --entrypoint=') {
                 stage('Plan') {
                     sh """
+                        aws ec2 describe-key-pairs
                         terraform init
                         terraform plan -input=false -out tfplan -no-color \
                             -var "key_pair_name=SimpleEC2KP" \
