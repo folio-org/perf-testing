@@ -1,0 +1,5 @@
+100-item-accession_num-all.csv,ACCESSION_NUMBER
+100-item-barcode-all.csv,BARCODE
+100-item-holdingsRecordId-all.csv,HOLDINGS_RECORD_ID
+100-item-hrid-all.csv,HRID
+100-item-id-all.csv,ID
