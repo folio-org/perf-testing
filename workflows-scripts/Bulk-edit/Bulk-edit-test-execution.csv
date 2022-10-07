@@ -1,0 +1,40 @@
+jmeter -n -t Bulk_edit_user_barcode_mg.jmx -test for user app
+jmeter -n -t Bulk_edit_item_barcode_mg.jmx -test for item app
+set up for run locally on https://ptf-rmb.int.aws.folio.org
+parameters VUSERS number of virtual users from 1 to 5 available (5 by default)
+RAMP_UP (0 by default)
+DURATION (7200 by default in case some job is stuck IN_PROGRESS forever should be increased for jobs with 100k items. Not relevant before https://issues.folio.org/browse/MODEXPW-265 is fixed ).
+
+There are 7 thread groups in the test for 100, 1000, 5k, 10k, 25k, 50k and 100k items and users 
+
+for items 100k records test available only for 1 virtual user due to https://issues.folio.org/browse/MODEXPW-237, all other tests can be performed.
+for users 5k and 10k records tests are available - https://issues.folio.org/browse/PERF-299
+
+To run test, you have to enable thread with correct record number (will be parametrized in future) all other threads and test fragments should be disabled
+
+database preparation:
+For items app
+
+TRUNCATE TABLE fs09000000_mod_patron_blocks.user_summary;
+TRUNCATE TABLE fs09000000_mod_feesfines.accounts;
+TRUNCATE TABLE fs09000000_mod_circulation_storage.loan;
+TRUNCATE TABLE fs09000000_mod_circulation_storage.audit_loan;
+TRUNCATE TABLE fs09000000_mod_circulation_storage.request;
+TRUNCATE TABLE fs09000000_mod_circulation_storage.patron_action_session;
+TRUNCATE TABLE fs09000000_mod_feesfines.feefines;
+TRUNCATE TABLE fs09000000_mod_circulation_storage.scheduled_notice;
+TRUNCATE TABLE fs09000000_mod_notify.notify_data;
+UPDATE fs09000000_mod_inventory_storage.item SET jsonb = jsonb_set(jsonb, '{status, name}', '"Available"') WHERE jsonb->'status'->>'name' != 'Available';
+
+For users app
+
+UPDATE fs09000000_mod_users.users SET jsonb = jsonb_set(jsonb, '{active}', '"true"') WHERE jsonb->'active' != 'true';
+
+Test results:
+Check progress of the test in database (column "progress"(jsonb))
+
+SELECT (start_time - created_date) as time1,(end_time - start_time) as time2,* FROM fs09000000_mod_data_export_spring.job order by name desc limit 100
+
+time1 - delay from job created time to start time for users app or for items app it is time to upload identifier file (approximate - time to wait 30 sec and time time for POST /bulk-edit/${jobId}/items-content-update/upload)
+
+time2 - time to update records.
