@@ -86,7 +86,7 @@ variable "vpc_name" {
   description = "VPC name"
 }
 
-variable "load_balancer" {
+variable "deploy_load_balancer" {
   type        = string
   default     = "false"
   description = "If true deploy load balancer, target group and record CNAME"

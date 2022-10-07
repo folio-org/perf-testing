@@ -30,7 +30,7 @@ data "aws_acm_certificate" "amazon_issued" {
 
 # Create Application Load Balancer with target group
 module "alb" {
-  count = var.load_balancer ? 1 : 0
+  count = var.deploy_load_balancer ? 1 : 0
   depends_on = [module.security_group]
 
   source  = "terraform-aws-modules/alb/aws"
@@ -85,7 +85,7 @@ module "alb" {
 
 # Create CNAME record in DNS zone for carrier instance
 resource "aws_route53_record" "www" {
-  count = var.load_balancer ? 1 : 0
+  count = var.deploy_load_balancer ? 1 : 0
   depends_on = [module.alb]
 
   zone_id = data.aws_route53_zone.domain.zone_id
@@ -97,7 +97,7 @@ resource "aws_route53_record" "www" {
 
 # Security group for carrier instance
 module "security_group" {
-  count = var.load_balancer ? 1 : 0
+  count = var.deploy_load_balancer ? 1 : 0
   source  = "terraform-aws-modules/security-group/aws"
   version = "~> 4.8.0"
 
