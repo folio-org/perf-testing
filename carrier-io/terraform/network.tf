@@ -1,6 +1,20 @@
-# Get all available AZs in our region
-data "aws_availability_zones" "available_azs" {
-  state = "available"
+# Get VPC network folio-rancher-vpc
+data "aws_vpc" "this" {
+  filter {
+    name   = "tag:Name"
+    values = [var.vpc_name]
+  }
+}
+
+# Get public subnet
+data "aws_subnets" "public" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.this.id]
+  }
+  tags = {
+    Type : "public"
+  }
 }
 
 # Get data about root domain
@@ -8,88 +22,91 @@ data "aws_route53_zone" "domain" {
   name = var.root_domain
 }
 
-# Reserve Elastic IP to be used in our NAT gateway
-resource "aws_eip" "nat_gw_elastic_ip" {
-  vpc = true
+# Get AWS cerificate
+data "aws_acm_certificate" "amazon_issued" {
+  domain      = "*.${var.root_domain}"
+  types       = ["AMAZON_ISSUED"]
+}
 
-  tags = {
-    Name = join("-", [var.resource_name, "nat-eip"])
-  }
+# Create Application Load Balancer with target group
+module "alb" {
+  count = var.load_balancer ? 1 : 0
+  depends_on = [module.security_group]
+
+  source  = "terraform-aws-modules/alb/aws"
+  version = "~> 6.0"
+
+  name = join("-", [var.resource_name, "alb"])
+
+  load_balancer_type = "application"
+
+  vpc_id             = data.aws_vpc.this.id
+  subnets            = [element(data.aws_subnets.public.ids, 0), element(data.aws_subnets.public.ids, 1)]
+  security_groups    = [module.security_group[0].security_group_id]
+
+  target_groups = [
+    {
+      backend_protocol = "HTTP"
+      backend_port     = 80
+      target_type      = "instance"
+      targets = {
+        carrier-io = {
+          target_id = module.ec2_instance.id
+          port = 80
+        }
+      }
+    }
+  ]
+
+  https_listeners = [
+    {
+      port               = 443
+      protocol           = "HTTPS"
+      certificate_arn    = data.aws_acm_certificate.amazon_issued.arn
+      target_group_index = 0
+    }
+  ]
+
+  http_tcp_listeners = [
+    {
+      port               = 80
+      protocol           = "HTTP"
+      action_type        = "redirect"
+      redirect = {
+        port        = "443"
+        protocol    = "HTTPS"
+        status_code = "HTTP_301"
+      }
+    }
+  ]
+
+  tags = var.tags
 }
 
 # Create CNAME record in DNS zone for carrier instance
 resource "aws_route53_record" "www" {
+  count = var.load_balancer ? 1 : 0
+  depends_on = [module.alb]
+
   zone_id = data.aws_route53_zone.domain.zone_id
   name    = join(".", [var.resource_name, var.root_domain])
   type    = "CNAME"
   ttl     = "300"
-  records = [module.ec2_instance.public_dns]
-}
-
-# Create VPC for carrier
-module "vpc" {
-  source  = "terraform-aws-modules/vpc/aws"
-  version = "~> 3.12.0"
-
-  name = join("-", [var.resource_name, "vpc"])
-  cidr = var.vpc_cidr_block
-  azs  = data.aws_availability_zones.available_azs.names
-
-  create_igw           = true
-  enable_dns_support   = true
-  enable_dns_hostnames = true
-  enable_nat_gateway   = true
-  single_nat_gateway   = true
-  reuse_nat_ips        = true
-  external_nat_ip_ids  = [aws_eip.nat_gw_elastic_ip.id]
-
-  private_subnets = [
-    # this loop will create a one-line list as ["10.0.0.0/20", "10.0.16.0/20", "10.0.32.0/20", ...] with a length depending on how many Zones are available
-    for zone_id in data.aws_availability_zones.available_azs.zone_ids :
-    cidrsubnet(var.vpc_cidr_block, var.subnet_prefix_extension, tonumber(substr(zone_id, length(zone_id) - 1, 1)) - 1)
-  ]
-
-  public_subnets = [
-    # this loop will create a one-line list as ["10.0.128.0/20", "10.0.144.0/20", "10.0.160.0/20", ...] with a length depending on how many Zones are available
-    # there is a zone Offset variable, to make sure no collisions are present with private subnet blocks
-    for zone_id in data.aws_availability_zones.available_azs.zone_ids :
-    cidrsubnet(var.vpc_cidr_block, var.subnet_prefix_extension, tonumber(substr(zone_id, length(zone_id) - 1, 1)) + var.zone_offset - 1)
-  ]
-
-  database_subnets = [
-    for zone_id in data.aws_availability_zones.available_azs.zone_ids :
-    cidrsubnet(var.vpc_cidr_block, var.subnet_prefix_extension, tonumber(substr(zone_id, length(zone_id) - 1, 1)) + (var.zone_offset / 2) - 1)
-  ]
-
-  tags = merge(
-    {
-      "kubernetes.io/cluster/folio-testing" = "shared"
-    },
-    var.tags
-  )
-  public_subnet_tags = {
-    "kubernetes.io/cluster/folio-testing" = "shared"
-    "kubernetes.io/role/elb"              = "1"
-    Type                                  = "public"
-  }
-  private_subnet_tags = {
-    "kubernetes.io/cluster/folio-testing" = "shared"
-    "kubernetes.io/role/internal-elb"     = "1"
-    Type                                  = "private"
-  }
+  records = [module.alb[0].lb_dns_name]
 }
 
 # Security group for carrier instance
 module "security_group" {
+  count = var.load_balancer ? 1 : 0
   source  = "terraform-aws-modules/security-group/aws"
   version = "~> 4.8.0"
 
   name        = join("-", [var.resource_name, "sg"])
   description = "Folio Carrier IO security group"
-  vpc_id      = module.vpc.vpc_id
+  vpc_id      = data.aws_vpc.this.id
 
   ingress_cidr_blocks = ["0.0.0.0/0"]
-  ingress_rules       = ["http-80-tcp", "redis-tcp", "rabbitmq-5672-tcp", "rabbitmq-15672-tcp"]
+  ingress_rules       = ["http-80-tcp", "redis-tcp", "rabbitmq-5672-tcp", "rabbitmq-15672-tcp", "https-443-tcp"]
   ingress_with_cidr_blocks = [
     {
       from_port   = 8086

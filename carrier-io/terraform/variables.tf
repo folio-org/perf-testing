@@ -80,3 +80,14 @@ variable "tags" {
   description = "Default tags"
 }
 
+variable "vpc_name" {
+  type        = string
+  default     = "folio-rancher-vpc"
+  description = "VPC name"
+}
+
+variable "load_balancer" {
+  type        = string
+  default     = "false"
+  description = "If true deploy load balancer, target group and record CNAME"
+}
