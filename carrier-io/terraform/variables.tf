@@ -76,6 +76,7 @@ variable "tags" {
     Project   = "folio"
     Team      = "kitfox"
     Tool      = "carrier-io"
+    Owner     = "folio.kitfox"
   }
   description = "Default tags"
 }
@@ -90,4 +91,16 @@ variable "deploy_load_balancer" {
   type        = string
   default     = "false"
   description = "If true deploy load balancer, target group and record CNAME"
+}
+
+variable "subnet_type_tag_key" {
+  type        = string
+  default     = "Type"
+  description = "Name of key tag for subnet"
+}
+
+variable "subnet_type_tag_value" {
+  type        = string
+  default     = "public"
+  description = "Name of value tag for subnet"
 }

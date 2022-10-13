@@ -13,7 +13,7 @@ data "aws_subnets" "public" {
     values = [data.aws_vpc.this.id]
   }
   tags = {
-    Type : "public"
+    "${var.subnet_type_tag_key}" : "${var.subnet_type_tag_value}"
   }
 }
 

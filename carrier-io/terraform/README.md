@@ -29,3 +29,14 @@ Initialize project
 Destroy infrastructure
 
 ```terraform destroy --auto-approve```
+
+### For installing on EBSCO side used next value of vars:
+deploy_load_balancer=true 
+resource_name=carrier 
+aws_region=us-east-1
+root_domain=int.folio.ebsco.com 
+vpc_name=VpcA-Platform-AWSNVirginia-FolioIntegration
+root_domain=int.folio.ebsco.com
+subnet_type_tag_key=aws:cloudformation:logical-id
+subnet_type_tag_value=VpcASubnetPubA*
+
