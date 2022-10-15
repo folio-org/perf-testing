@@ -5,9 +5,8 @@ module "ec2_instance" {
   name                        = join("-", [var.resource_name, "ec2-instance"])
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.instance_type
-  availability_zone           = element(module.vpc.azs, 0)
-  subnet_id                   = element(module.vpc.public_subnets, 0)
-  vpc_security_group_ids      = [module.security_group.security_group_id]
+  subnet_id                   = element(data.aws_subnets.public.ids, 0)
+  vpc_security_group_ids      = try([module.security_group[0].security_group_id], null) 
   key_name                    = var.key_pair_name
   associate_public_ip_address = true
 
@@ -42,6 +41,7 @@ locals {
   sed -i "s#INFLUX_PASSWORD: password#INFLUX_PASSWORD: ${var.influx_password}#g" /tmp/installer/vars/default.yml
   sed -i "s#INFLUX_USERNAME: admin#INFLUX_USERNAME: ${var.influx_username}#g" /tmp/installer/vars/default.yml
   sed -i "s#RABBIT_PASSWORD: password#RABBIT_PASSWORD: ${var.rabbit_password}#g" /tmp/installer/vars/default.yml
+  sed -i "s#http://{{ APP_HOST }}#https://{{ APP_HOST }}#g" /tmp/installer/carrierbook.yml
   echo -e "[myhost]\nlocalhost ansible_connection=local" > /tmp/installer/host
 
   cd ~
