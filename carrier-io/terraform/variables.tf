@@ -76,7 +76,7 @@ variable "tags" {
     Project   = "folio"
     Team      = "kitfox"
     Tool      = "carrier-io"
-    Owner     = "folio.kitfox"
+    owner     = "folio.kitfox"
   }
   description = "Default tags"
 }
