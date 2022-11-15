@@ -1,5 +1,7 @@
-jmeter -n -t Bulk_edit_user_barcode_mg.jmx -test for user app
-jmeter -n -t Bulk_edit_item_barcode_mg.jmx -test for item app
+To run test for user app:
+jmeter -n -t Bulk_edit_user_barcode_mg.jmx 
+To run test for item app:
+jmeter -n -t Bulk_edit_item_barcode_mg.jmx
 set up for run locally on https://ptf-rmb.int.aws.folio.org
 parameters VUSERS number of virtual users from 1 to 5 available (5 by default)
 RAMP_UP (0 by default)
