@@ -1,0 +1,91 @@
+import com.amazonaws.services.ecs.AmazonECS;
+import com.amazonaws.services.ecs.AmazonECSClientBuilder;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+public class Comparer {
+
+    public JSONObject readJson() throws IOException {
+        JSONObject jsonBase=new JSONObject();
+        File file = new File("base.json");
+        FileInputStream fis = new FileInputStream(file);
+        byte[] data = new byte[(int) file.length()];
+        fis.read(data);
+        fis.close();
+        String str = new String(data, "UTF-8");
+        JSONArray array = new JSONArray(str);
+        jsonBase= array.getJSONObject(0);
+        return jsonBase;
+    }
+
+    public void compare(JSONObject jsonBase, String cluster) {
+        AmazonECS ecsClient = AmazonECSClientBuilder.defaultClient();
+        Object[] arr = jsonBase.keySet().toArray();
+        ECSResources ecs = new ECSResources(ecsClient, cluster);
+        JSONObject output = new JSONObject();
+        for (int i = 0; i < jsonBase.keySet().toArray().length; i++) {
+            System.out.println(arr[i].toString());
+            JSONObject base = jsonBase.getJSONObject(arr[i].toString());
+            JSONObject target = ecs.describeTskDef(arr[i].toString());
+            checkDifferences(target,base,cluster);
+            output.accumulate(arr[i].toString(),checkDifferences(target,base,cluster));
+        }
+        System.out.println(output);
+    }
+
+    public JSONObject checkDifferences (JSONObject target,JSONObject base,String cluster){
+        JSONObject output =new JSONObject();
+        if (target==null){
+            System.out.println("there is no such module in cluster " + cluster);
+            output.put("NoSuchModule",true);
+           // return null;
+        }
+        else {
+            if (base.toString().equals(target.toString())) {
+                return null;
+            } else {
+                if (base.getInt("SoftLimit") != target.getInt("SoftLimit")) {
+                    output.put("SoftLimit-cluster-"+cluster,target.getInt("SoftLimit"));
+                    output.put("SoftLimit-input",base.getInt("SoftLimit"));
+                }
+                if (base.getInt("XMX") != target.getInt("XMX")) {
+                    output.put("XMX-cluster-"+cluster,target.getInt("XMX"));
+                    output.put("XMX-input",base.getInt("XMX"));
+                }
+                if (!base.getString("Version").equals(target.getString("Version"))) {
+                    output.put("Version-cluster-"+cluster,target.getString("Version"));
+                    output.put("Version-input",base.getString("Version"));
+                }
+                if (base.getInt("desiredCount") != target.getInt("desiredCount")) {
+                    output.put("desiredCount-cluster-"+cluster,target.getInt("desiredCount"));
+                    output.put("desiredCount-input",base.getInt("desiredCount"));
+                }
+                if (base.getInt("CPUUnits") != target.getInt("CPUUnits")) {
+                    output.put("CPUUnits-cluster-"+cluster,target.getInt("CPUUnits"));
+                    output.put("CPUUnits-input",base.getInt("CPUUnits"));
+                }
+                if (base.getBoolean("RWSplitEnabled") != target.getBoolean("RWSplitEnabled")) {
+                    output.put("RWSplitEnabled-cluster-"+cluster,target.getBoolean("RWSplitEnabled"));
+                    output.put("RWSplitEnabled-input",base.getBoolean("RWSplitEnabled"));
+                }
+                if (base.getInt("HardLimit") != target.getInt("HardLimit")) {
+                    output.put("HardLimit-cluster-"+cluster,target.getInt("HardLimit"));
+                    output.put("HardLimit-input",base.getInt("HardLimit"));
+                }
+                if (base.getInt("Metaspace") != target.getInt("Metaspace")) {
+                    output.put("Metaspace-cluster-"+cluster,target.getInt("Metaspace"));
+                    output.put("Metaspace-input",base.getInt("Metaspace"));
+                }
+                if (base.getInt("MaxMetaspaceSize") != target.getInt("MaxMetaspaceSize")) {
+                    output.put("MaxMetaspaceSize-cluster-"+cluster,target.getInt("MaxMetaspaceSize"));
+                    output.put("MaxMetaspaceSize-input",base.getInt("MaxMetaspaceSize"));
+                }
+            }
+        }
+        return output;
+    }
+    }
+
