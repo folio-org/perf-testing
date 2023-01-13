@@ -6,18 +6,22 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+
 public class Comparer {
 
-    public JSONObject readJson() throws IOException {
-        JSONObject jsonBase=new JSONObject();
-        File file = new File("base.json");
+    public JSONObject readJson() throws IOException, URISyntaxException {
+        ClassLoader classLoader = getClass().getClassLoader();
+        URL resource = classLoader.getResource("base.json");
+        File file = new File(resource.toURI());
         FileInputStream fis = new FileInputStream(file);
         byte[] data = new byte[(int) file.length()];
         fis.read(data);
         fis.close();
         String str = new String(data, "UTF-8");
         JSONArray array = new JSONArray(str);
-        jsonBase= array.getJSONObject(0);
+        JSONObject jsonBase= array.getJSONObject(0);
         return jsonBase;
     }
 
