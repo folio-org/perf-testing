@@ -2,13 +2,14 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class Main {
-    public static void main(String[] cluster) throws IOException {
-        System.out.println(cluster[0]);
+    public static void main(String[] args){
+        System.out.println(args[0]);
         Comparer comparer=new Comparer();
-        try {
-            comparer.compare(comparer.readJson(),cluster[0]);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
+        String json="";
+        for (int i = 1; i <args.length ; i++) {
+            json=json.concat(args[i]);
+
         }
+        comparer.compare(comparer.readParam(json),args[0]);
     }
 }

@@ -11,17 +11,10 @@ import java.net.URL;
 
 public class Comparer {
 
-    public JSONObject readJson() throws IOException, URISyntaxException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        URL resource = classLoader.getResource("base.json");
-        File file = new File(resource.toURI());
-        FileInputStream fis = new FileInputStream(file);
-        byte[] data = new byte[(int) file.length()];
-        fis.read(data);
-        fis.close();
-        String str = new String(data, "UTF-8");
-        JSONArray array = new JSONArray(str);
-        JSONObject jsonBase= array.getJSONObject(0);
+    public JSONObject readParam(String param){
+        JSONObject jsonBase;
+        JSONArray array = new JSONArray(param);
+        jsonBase= array.getJSONObject(0);
         return jsonBase;
     }
 
