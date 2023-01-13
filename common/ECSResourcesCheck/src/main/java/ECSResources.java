@@ -8,7 +8,6 @@ import org.json.JSONObject;
 public class ECSResources {
 
     private AmazonECS _ecsClient;
-
     private String _cluster;
 
     public ECSResources(AmazonECS ecsClient,String cluster){
