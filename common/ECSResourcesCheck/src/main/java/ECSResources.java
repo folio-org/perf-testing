@@ -1,4 +1,9 @@
+import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.EnvironmentVariableCredentialsProvider;
 import com.amazonaws.services.ecs.AmazonECS;
+import com.amazonaws.services.ecs.AmazonECSClientBuilder;
 import com.amazonaws.services.ecs.model.DescribeServicesRequest;
 import com.amazonaws.services.ecs.model.DescribeServicesResult;
 import com.amazonaws.services.ecs.model.DescribeTaskDefinitionRequest;
@@ -6,14 +11,19 @@ import com.amazonaws.services.ecs.model.DescribeTaskDefinitionResult;
 import org.json.JSONObject;
 
 public class ECSResources {
-
+    private AWSCredentialsProvider _credentialsProvider;
     private AmazonECS _ecsClient;
     private String _cluster;
+    private String _accessKey;
+    private String _secretKey;
+    protected String _region;
 
     public ECSResources(AmazonECS ecsClient,String cluster){
         _ecsClient = ecsClient;
         _cluster=cluster;
+
     }
+
 
     public String describeService (String Service){
         DescribeServicesRequest describeServicesRequest=new DescribeServicesRequest();
@@ -27,9 +37,6 @@ public class ECSResources {
     }
 
     public int getDesiredCount (String Service){
-        /**
-         * this one return integer desired count
-         */
         DescribeServicesRequest describeServicesRequest=new DescribeServicesRequest();
         describeServicesRequest.setCluster(_cluster);
         describeServicesRequest.withServices(Service);

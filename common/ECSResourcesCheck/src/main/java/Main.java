@@ -1,7 +1,12 @@
-import java.io.IOException;
-import java.net.URISyntaxException;
+import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import org.json.JSONObject;
 
 public class Main {
+    public static JSONObject readParam(String param){
+        return new JSONObject(param);
+    }
+
     public static void main(String[] args){
         System.out.println(args[0]);
         Comparer comparer=new Comparer();
@@ -10,6 +15,6 @@ public class Main {
             json=json.concat(args[i]);
 
         }
-        comparer.compare(comparer.readParam(json),args[0]);
+        comparer.compare(readParam(json),args[0]);
     }
 }

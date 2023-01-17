@@ -3,6 +3,7 @@ import com.amazonaws.services.ecs.AmazonECSClientBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.json.JsonObject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,19 +12,13 @@ import java.net.URL;
 
 public class Comparer {
 
-    public JSONObject readParam(String param){
-        JSONObject jsonBase;
-        JSONArray array = new JSONArray(param);
-        jsonBase= array.getJSONObject(0);
-        return jsonBase;
-    }
-
     public void compare(JSONObject jsonBase, String cluster) {
         AmazonECS ecsClient = AmazonECSClientBuilder.defaultClient();
+      ECSResources ecs = new ECSResources(ecsClient, cluster);
         Object[] arr = jsonBase.keySet().toArray();
-        ECSResources ecs = new ECSResources(ecsClient, cluster);
         JSONObject output = new JSONObject();
-        for (int i = 0; i < jsonBase.keySet().toArray().length; i++) {
+        int key=jsonBase.keySet().toArray().length;
+        for (int i = 0; i < key; i++) {
             System.out.println(arr[i].toString());
             JSONObject base = jsonBase.getJSONObject(arr[i].toString());
             JSONObject target = ecs.describeTskDef(arr[i].toString());
