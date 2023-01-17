@@ -1,5 +1,3 @@
-import com.amazonaws.auth.AWSCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
 import org.json.JSONObject;
 
 public class Main {
@@ -8,13 +6,9 @@ public class Main {
     }
 
     public static void main(String[] args){
-        System.out.println(args[0]);
         Comparer comparer=new Comparer();
-        String json="";
-        for (int i = 1; i <args.length ; i++) {
-            json=json.concat(args[i]);
+        ECSResources ecs=new ECSResources(args[0],args[1],args[2], args[3]);
+        comparer.compare(readParam(args[4]),args[0],ecs);}
 
-        }
-        comparer.compare(readParam(json),args[0]);
+
     }
-}

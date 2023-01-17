@@ -1,20 +1,7 @@
-import com.amazonaws.services.ecs.AmazonECS;
-import com.amazonaws.services.ecs.AmazonECSClientBuilder;
-import org.json.JSONArray;
 import org.json.JSONObject;
-
-import javax.json.JsonObject;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-
 public class Comparer {
 
-    public void compare(JSONObject jsonBase, String cluster) {
-        AmazonECS ecsClient = AmazonECSClientBuilder.defaultClient();
-      ECSResources ecs = new ECSResources(ecsClient, cluster);
+    public void compare(JSONObject jsonBase, String cluster,ECSResources ecs) {
         Object[] arr = jsonBase.keySet().toArray();
         JSONObject output = new JSONObject();
         int key=jsonBase.keySet().toArray().length;

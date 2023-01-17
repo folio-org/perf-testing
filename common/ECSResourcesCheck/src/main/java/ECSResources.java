@@ -14,9 +14,17 @@ public class ECSResources {
     private AWSCredentialsProvider _credentialsProvider;
     private AmazonECS _ecsClient;
     private String _cluster;
-    private String _accessKey;
-    private String _secretKey;
-    protected String _region;
+
+    public ECSResources (String cluster,String aws_access_key_id,String aws_secret_access_key, String region){
+        AWSCredentialsProvider credentialsProvider=new AWSStaticCredentialsProvider((new BasicAWSCredentials(aws_access_key_id, aws_secret_access_key)));
+        _ecsClient= AmazonECSClientBuilder
+                .standard()
+                .withCredentials(credentialsProvider)
+                .withRegion(region)
+                .build();
+        _cluster=cluster;
+
+    }
 
     public ECSResources(AmazonECS ecsClient,String cluster){
         _ecsClient = ecsClient;
