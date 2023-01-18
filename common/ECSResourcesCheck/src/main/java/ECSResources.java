@@ -1,21 +1,16 @@
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.auth.EnvironmentVariableCredentialsProvider;
 import com.amazonaws.services.ecs.AmazonECS;
 import com.amazonaws.services.ecs.AmazonECSClientBuilder;
-import com.amazonaws.services.ecs.model.DescribeServicesRequest;
-import com.amazonaws.services.ecs.model.DescribeServicesResult;
-import com.amazonaws.services.ecs.model.DescribeTaskDefinitionRequest;
-import com.amazonaws.services.ecs.model.DescribeTaskDefinitionResult;
+import com.amazonaws.services.ecs.model.*;
 import org.json.JSONObject;
 
 public class ECSResources {
-    private AWSCredentialsProvider _credentialsProvider;
     private AmazonECS _ecsClient;
     private String _cluster;
 
-    public ECSResources (String cluster,String aws_access_key_id,String aws_secret_access_key, String region){
+    public ECSResources ( String cluster, String aws_access_key_id, String aws_secret_access_key, String region){
         AWSCredentialsProvider credentialsProvider=new AWSStaticCredentialsProvider((new BasicAWSCredentials(aws_access_key_id, aws_secret_access_key)));
         _ecsClient= AmazonECSClientBuilder
                 .standard()
@@ -23,15 +18,12 @@ public class ECSResources {
                 .withRegion(region)
                 .build();
         _cluster=cluster;
-
     }
 
-    public ECSResources(AmazonECS ecsClient,String cluster){
+    public ECSResources( AmazonECS ecsClient, String cluster){
         _ecsClient = ecsClient;
         _cluster=cluster;
-
     }
-
 
     public String describeService (String Service){
         DescribeServicesRequest describeServicesRequest=new DescribeServicesRequest();
@@ -52,7 +44,7 @@ public class ECSResources {
         return  describeServicesResult.getServices().get(0).getDesiredCount();
     }
 
-    public JSONObject describeTskDef(String service){
+    public JSONObject describeTaskDef(String service){
         String taskDefArn=describeService(service);
         if (taskDefArn==null){
             return null;
@@ -64,11 +56,12 @@ public class ECSResources {
         if(f.contains("DB_HOST_READER")){
             rw=true;
         }
-        jsonObject.put("CPUUnits",task.getTaskDefinition().getContainerDefinitions().get(0).getCpu())
-                .put("HardLimit",task.getTaskDefinition().getContainerDefinitions().get(0).getMemory())
-                .put("SoftLimit",task.getTaskDefinition().getContainerDefinitions().get(0).getMemoryReservation())
+        ContainerDefinition containerDefinition=task.getTaskDefinition().getContainerDefinitions().get(0);
+        jsonObject.put("CPUUnits",containerDefinition.getCpu())
+                .put("HardLimit",containerDefinition.getMemory())
+                .put("SoftLimit",containerDefinition.getMemoryReservation())
                 .put("Revision",task.getTaskDefinition().getRevision())
-                .put("Version",task.getTaskDefinition().getContainerDefinitions().get(0).getImage())
+                .put("Version",containerDefinition.getImage())
                 .put("desiredCount",getDesiredCount(service))
                 .put("RWSplitEnabled",rw)
                 .put("Metaspace",getMetaspaceSize(f))
@@ -84,7 +77,6 @@ public class ECSResources {
             return Integer.parseInt(env);
         }
         return 0;
-
     }
 
     public int getMaxMetaspaceSize (String env){
