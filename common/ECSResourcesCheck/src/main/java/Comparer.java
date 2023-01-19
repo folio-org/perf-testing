@@ -1,7 +1,7 @@
 import org.json.JSONObject;
 public class Comparer {
 
-    public void compare(final JSONObject jsonBase, final String clusterName, final ECSResources ecs) {
+    public void compare(JSONObject jsonBase, String clusterName, ECSResources ecs) {
         Object[] arr = jsonBase.keySet().toArray();
         JSONObject output = new JSONObject();
         int key = jsonBase.keySet().toArray().length;
@@ -13,15 +13,14 @@ public class Comparer {
             if (target != null) {
                 checkDifferences(target, base, clusterName);
                 output.accumulate(module, checkDifferences(target, base, clusterName));
-            }
-            else {
+            } else {
                 System.out.println("there is no such module in cluster " + clusterName);
                 output.accumulate(module, "no such module");
             }
         }
         System.out.println(output);
     }
-    public JSONObject checkDifferences(final JSONObject target, final JSONObject base, final String clusterName) {
+    public JSONObject checkDifferences(JSONObject target, JSONObject base, String clusterName) {
         JSONObject output = new JSONObject();
             if (base.toString().equals(target.toString())) {
                 return null;

@@ -14,4 +14,4 @@ public class Main {
         ECSResources ecs = new ECSResources(args[0], args[1], args[2], args[3]);
         comparer.compare(new JSONObject(args[4]), args[0], ecs);
     }
-    }
+}
