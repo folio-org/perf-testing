@@ -10,8 +10,7 @@ public class Main {
             args[3] = aws region,
             args[4] = base json with the list of modules
          */
-        Comparer comparer = new Comparer();
-        ECSResources ecs = new ECSResources(args[0], args[1], args[2], args[3]);
-        comparer.compare(new JSONObject(args[4]), args[0], ecs);
+        ECSServices ecsServices = new ECSServices(args[0], args[1], args[2], args[3]);
+        Compare compare = new Compare(new JSONObject(args[4]), args[0], ecsServices);
     }
 }

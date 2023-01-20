@@ -1,25 +1,30 @@
+import com.amazonaws.services.ecs.model.DescribeTaskDefinitionResult;
 import org.json.JSONObject;
-public class Comparer {
 
-    public void compare(JSONObject jsonBase, String clusterName, ECSResources ecs) {
+public class Compare {
+
+    public Compare(JSONObject jsonBase, String clusterName, ECSServices ecsServices) {
         Object[] arr = jsonBase.keySet().toArray();
         JSONObject output = new JSONObject();
+        TaskDefinitionParser taskDefinitionParser = new TaskDefinitionParser();
         int key = jsonBase.keySet().toArray().length;
         for (int i = 0; i < key; i++) {
-            String module = arr[i].toString();
-            System.out.println(module);
-            JSONObject base = jsonBase.getJSONObject(module);
-            JSONObject target = ecs.describeTaskDef(module);
-            if (target != null) {
-                checkDifferences(target, base, clusterName);
-                output.accumulate(module, checkDifferences(target, base, clusterName));
-            } else {
+            String service = arr[i].toString();
+            System.out.println(service);
+            DescribeTaskDefinitionResult describeTaskDefinitionResult = ecsServices.describeTaskDef(service);
+            if(describeTaskDefinitionResult == null) {
                 System.out.println("there is no such module in cluster " + clusterName);
-                output.accumulate(module, "no such module");
+                output.accumulate(service, "no such module");
+                continue;
             }
+            JSONObject base = jsonBase.getJSONObject(service);
+            JSONObject target = taskDefinitionParser.buildJson(describeTaskDefinitionResult, ecsServices.getDesiredCount(service));
+            checkDifferences(target, base, clusterName);
+            output.accumulate(service, checkDifferences(target, base, clusterName));
         }
         System.out.println(output);
     }
+
     public JSONObject checkDifferences(JSONObject target, JSONObject base, String clusterName) {
         JSONObject output = new JSONObject();
             if (base.toString().equals(target.toString())) {
@@ -64,5 +69,5 @@ public class Comparer {
             }
         return output;
     }
-    }
+}
 
