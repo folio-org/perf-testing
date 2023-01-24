@@ -1,18 +1,39 @@
 #Automatic check and comparison of ECS cluster
-**How to use**
+**How to run**
 
-1. Add appropriate default credentials to .aws folder.
+Specify parameters
     
-    `aws_access_key_id`, `aws_secret_access_key`, `region`, `output`
-    
-2. Add input parameters 
+`     ecs cluster name,
+`     
+`     aws_access_key_id,
+`     
+`     aws_secret_access_key,
+`     
+`     aws region,
+`     
+`     base json with the list of modules
+`    
+
+Parameters description 
 
 
 ______Input Parameters______
 
-Cluster name _for example_ 
+Cluster name: for example
 
 `gptf-pub`
+
+aws_acces_key_id
+
+`aws_access_key_id`
+
+aws_secret_access_key
+
+`aws_secret_access_key`
+
+aws region for example
+
+`us-east-1`
 
 Input Json in format
 ```
@@ -43,6 +64,10 @@ Input Json in format
     }}]
 
 ```   
+**Command to run**
+
+`Java -jar app.jar $ecs_cluster_name $aws_acces_key_id $aws_secret_access_key $aws_region $inputJson
+`
 
 **Output format**
 

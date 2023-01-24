@@ -9,8 +9,8 @@ import com.amazonaws.services.ecs.model.DescribeTaskDefinitionRequest;
 import com.amazonaws.services.ecs.model.DescribeTaskDefinitionResult;
 
 public class ECSServices {
-    public AmazonECS _ecsClient;
-    public String _cluster;
+    private AmazonECS _ecsClient;
+    private String _cluster;
 
     public ECSServices(String cluster, String aws_access_key_id, String aws_secret_access_key, String region) {
         AWSCredentialsProvider credentialsProvider = new AWSStaticCredentialsProvider((new BasicAWSCredentials(aws_access_key_id, aws_secret_access_key)));
@@ -19,11 +19,6 @@ public class ECSServices {
                 .withCredentials(credentialsProvider)
                 .withRegion(region)
                 .build();
-        _cluster = cluster;
-    }
-
-    public ECSServices(AmazonECS ecsClient, String cluster) {
-        _ecsClient = ecsClient;
         _cluster = cluster;
     }
 

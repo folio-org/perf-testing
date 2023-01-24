@@ -46,7 +46,7 @@ public class TaskDefinitionParser {
         return 0;
     }
 
-    public int getXMX(String env) {
+     public int getXMX(String env) {
         if (env.contains("-Xmx")) {
             env = env.substring(env.indexOf("-Xmx") + 4);
             env = env.substring(0, env.indexOf("m"));
