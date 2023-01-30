@@ -12,6 +12,8 @@ pipeline {
       steps {
         sh '''cd common/ECSResourcesCheck
 mvn clean install
+ls -la
+pwd
 '''
       }}
 
