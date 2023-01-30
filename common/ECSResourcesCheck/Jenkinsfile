@@ -4,7 +4,7 @@
       string(name: 'aws_access_key_id', defaultValue: null, description: null),
       string(name: 'aws_secret_access_key', defaultValue: null, description: null),
       string(name: 'region', defaultValue: 'us-east-1', description: null),
-      text(name: 'baseJson', defaultValue: '{
+      text(name: 'baseJson', defaultValue: '"{
     "mod-inventory-storage-b": {
       "SoftLimit": 1952,
       "XMX": 1440,
@@ -929,7 +929,7 @@
       "Metaspace": 88,
       "MaxMetaspaceSize": 128
     }
-  }', description: null)
+  }"', description: null)
         ])
 ])
 pipeline {
