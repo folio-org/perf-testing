@@ -31,7 +31,7 @@ pwd
       sh '''pwd
       cd common/ECSResourcesCheck/target
       echo ${Cluster}
-   java -jar AWSFin-1.0-SNAPSHOT-jar-with-dependencies.jar ${Cluster} ${params.aws_access_key_id} ${aws_secret_access_key} ${region} "${baseJson}"
+   java -jar AWSFin-1.0-SNAPSHOT-jar-with-dependencies.jar ${Cluster} ${aws_access_key_id} ${aws_secret_access_key} ${region} "${baseJson}"
    '''
          }
 
