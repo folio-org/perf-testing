@@ -21,7 +21,7 @@ mvn clean install
          }
 
     }
-  }
+  }}
    parameters {
       string(name: 'Cluster', defaultValue: 'ncp3-pvt', description: null)
       string(name: 'aws_access_key_id', defaultValue: null, description: null)
@@ -30,4 +30,3 @@ mvn clean install
       text(name: 'baseJson', defaultValue: null, description: null)
     }
   }
-}
