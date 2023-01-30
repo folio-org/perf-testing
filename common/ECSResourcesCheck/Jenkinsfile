@@ -20,7 +20,7 @@ pwd
     stage('Run Artifact') {
       steps {
       sh '''pwd
-      cd target
+      cd common/ECSResourcesCheck/target
    java -jar AWSFin-1.0-SNAPSHOT-jar-with-dependencies.jar $Cluster $aws_access_key_id2 $aws_secret_access_key2 $region "$baseJson"
    '''
          }
