@@ -18,7 +18,7 @@ mvn clean install
     stage('Run Artifact') {
       steps {
       sh '''cd target
-   java -jar AWSFin.jar $Cluster $aws_access_key_id2 $aws_secret_access_key2 $region "$baseJson"
+   java -jar AWSFin-1.0-SNAPSHOT-jar-with-dependencies.jar $Cluster $aws_access_key_id2 $aws_secret_access_key2 $region "$baseJson"
    '''
          }
 
