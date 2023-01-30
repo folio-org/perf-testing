@@ -7,12 +7,14 @@ pipeline {
         git 'https://github.com/folio-org/perf-testing'
       }
     }
+
     stage('Build Artifact') {
       steps {
         sh '''cd common/ECSResourcesCheck
 mvn clean install
 '''
-      }
+      }}
+
     stage('Build Artifact') {
       steps {
       sh '''cd target
@@ -29,4 +31,3 @@ mvn clean install
       string(name: 'region', defaultValue: 'us-east-1', description: null)
       text(name: 'baseJson', defaultValue: null, description: null)
     }
-  }
