@@ -1,12 +1,12 @@
 pipeline {
   agent any
+
   stages {
     stage('Checkout Scm') {
       steps {
         git 'https://github.com/folio-org/perf-testing'
       }
     }
-
     stage('Build Artifact') {
       steps {
         sh '''cd common/ECSResourcesCheck
