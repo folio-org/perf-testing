@@ -30,7 +30,7 @@ pwd
       steps {
       sh '''pwd
       cd common/ECSResourcesCheck/target
-   java -jar AWSFin-1.0-SNAPSHOT-jar-with-dependencies.jar''' ${params.Cluster} ${params.aws_access_key_id} ${params.aws_secret_access_key} ${params.region} ${"params.baseJson"}'''
+   java -jar AWSFin-1.0-SNAPSHOT-jar-with-dependencies.jar''' ${params.Cluster}''' '''${params.aws_access_key_id}''' '''${params.aws_secret_access_key}''' '''${params.region}''' '''${"params.baseJson"}'''
    '''
          }
 
