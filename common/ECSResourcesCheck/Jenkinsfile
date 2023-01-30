@@ -29,4 +29,5 @@ mvn clean install
       string(name: 'region', defaultValue: 'us-east-1', description: null)
       text(name: 'baseJson', defaultValue: null, description: null)
     }
+  }
 }
