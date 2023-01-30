@@ -15,7 +15,7 @@ mvn clean install
 '''
       }}
 
-    stage('Build Artifact') {
+    stage('Run Artifact') {
       steps {
       sh '''cd target
    java -jar AWSFin.jar $Cluster $aws_access_key_id2 $aws_secret_access_key2 $region "$baseJson"
