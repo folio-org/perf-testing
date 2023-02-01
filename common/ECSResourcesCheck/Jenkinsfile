@@ -27,7 +27,7 @@ pipeline {
     stage('Compare ECS clusters') {
       steps {
       sh '''cd common/ECSResourcesCheck/target
-            java -jar AWSFin-1.0-SNAPSHOT-jar-with-dependencies.jar ${Cluster} ${aws_access_key_id} ${aws_secret_access_key} ${region} "${baseJson}"
+            java -jar ECSClusterComparison-1.0-SNAPSHOT-jar-with-dependencies.jar ${Cluster} ${aws_access_key_id} ${aws_secret_access_key} ${region} "${baseJson}"
          '''
          }
 
