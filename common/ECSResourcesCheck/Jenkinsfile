@@ -26,10 +26,13 @@ pipeline {
 
     stage('Compare ECS clusters') {
       steps {
+      withCredentials([usernamePassword(credentialsId: 'aws_folio_int', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
       sh '''cd common/ECSResourcesCheck/target
-            java -jar AWSFin-1.0-SNAPSHOT-jar-with-dependencies.jar ${Cluster} ${aws_access_key_id} ${aws_secret_access_key} ${region} "${baseJson}"
+            echo  ${USERNAME}
+            echo ${PASSWORD}
+            java -jar AWSFin-1.0-SNAPSHOT-jar-with-dependencies.jar ${Cluster} ${USERNAME} ${PASSWORD} ${region} "${baseJson}"
          '''
-         }
+         }}
 
     }
   }}
