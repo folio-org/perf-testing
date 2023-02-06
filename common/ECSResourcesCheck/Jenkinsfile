@@ -26,13 +26,13 @@ pipeline {
 
     stage('Compare ECS clusters') {
       steps {
-      withCredentials([usernamePassword(credentialsId: 'aws_folio_int', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-      sh '''cd common/ECSResourcesCheck/target
-            echo  ${USERNAME}
-            echo ${PASSWORD}
-            java -jar AWSFin-1.0-SNAPSHOT-jar-with-dependencies.jar ${Cluster} ${USERNAME} ${PASSWORD} ${region} "${baseJson}"
+          sh '''cd common/ECSResourcesCheck/target
+                      def profile ='int'
+                      def secretkey = sh([script: "aws configure get aws_secret_access_key --profile ${profile} | xargs echo -n", returnStdout: true])
+                      def publickey = sh([script:"aws configure get aws_access_key_id --profile ${profile} | xargs echo -n",returnStdout: true])
+            java -jar AWSFin-1.0-SNAPSHOT-jar-with-dependencies.jar ${Cluster} ${secretkey} ${publickey} ${region} "${baseJson}"
          '''
-         }}
+         }
 
     }
   }}
