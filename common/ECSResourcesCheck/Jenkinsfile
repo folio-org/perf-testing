@@ -27,9 +27,9 @@ pipeline {
         withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws_folio_int', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]){
             script {
                 def profile = 'int'
-                sh """cd common/ECSResourcesCheck/target
-                java -jar ECSClusterComparison-1.0-SNAPSHOT-jar-with-dependencies.jar ${Cluster} ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY} ${region} '$baseJson'
-                """
+                sh '''cd common/ECSResourcesCheck/target
+                java -jar ECSClusterComparison-1.0-SNAPSHOT-jar-with-dependencies.jar ${Cluster} ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY} ${region} "${baseJson}"
+                '''
             }
         }
       }
