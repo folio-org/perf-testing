@@ -1,8 +1,6 @@
   properties([
         parameters([
       string(name: 'Cluster', defaultValue: 'ncp3-pvt', description: null),
-      string(name: 'aws_access_key_id', defaultValue: null, description: null),
-      string(name: 'aws_secret_access_key', defaultValue: null, description: null),
       string(name: 'region', defaultValue: 'us-east-1', description: null),
       text(name: 'baseJson', defaultValue: null, description: null)
         ])
