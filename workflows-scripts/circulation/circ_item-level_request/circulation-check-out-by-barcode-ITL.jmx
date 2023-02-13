@@ -15,7 +15,7 @@
           </elementProp>
           <elementProp name="HOSTNAME" elementType="Argument">
             <stringProp name="Argument.name">HOSTNAME</stringProp>
-            <stringProp name="Argument.value">${__P(HOSTNAME, okapi-ptf-nolana-2.int.aws.folio.org)}</stringProp>
+            <stringProp name="Argument.value">${__P(HOSTNAME, [host-name])}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="VUSERS" elementType="Argument">
