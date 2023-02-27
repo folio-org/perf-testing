@@ -2,7 +2,7 @@
 1. Make sure that the DB is clean by running checkin-checkout-db-restore.sql
 2. Add seed data to mimic a database that already has loans and requests by running circ-data-load.sh
 3. Run the test
-(On carrier-io Jenkins job, specify the test name as "folio")
+(On carrier-io Jenkins job, Pipeline perf-carrier-io)
 4. Clean up the DB afterward by running checkin-checkout-db-restore.sql to restore the database state.
 
 ## Artifacts and Usage
@@ -47,13 +47,19 @@ The following data files are needed to support the Jmeter script during its exec
 ### Non-runtime Data
 - circulation-seed-data.zip: This zip file is used by the circ-data-load.sh script. It contains seed data for requests, loans, and related loans/requests data. It needs to be unpacked and the files are placed in the same directory as the circ-data-load.sh script.
 
-## Relevant Modules Versions (Honeysuckle release)
-- mod-circulation-19.2.7
-- mod-circulation-storage-12.1.4
-- mod-inventory-16.1.3
-- mod-inventory-storage-19.4.4
-- mod-feesfines-15.9.2
-- mod-authtoken-2.6.0
-- folio_checkin-4.0.1
-- folio_checkout-5.0.1
-- folio_circulation-4.0.1
+## Relevant Modules
+- okapi
+- mod-circulation
+- mod-circulation
+- mod-inventory
+- mod-inventory-storage
+- mod-feesfines
+- mod-authtoken
+- mod-users
+- mod-configuration
+- mod-remote-storage
+- mod-patron-blocks
+- mod-pubsub
+- folio_checkin
+- folio_checkout
+- folio_circulation
