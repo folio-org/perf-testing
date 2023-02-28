@@ -4,8 +4,8 @@ This is a CREATE import workflow of all 3 Types of Data Import: Bib, Authority, 
 ## Workflow steps
 ##### Workflow for data-import-alltypes-create.jmx
 Describe the workflow that this test models and necessary information about using this JMX file
-1. Go to Data Import app
-2. Click to to upload the record file
+1. Data Import app is already opened
+2. Script starts from uploading the record file
 3. Choose Data Import Create job profile
 4. Run Data Import Create
 
