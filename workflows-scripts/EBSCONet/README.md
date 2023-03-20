@@ -30,6 +30,7 @@ with body:
     "vendorReferenceNumbers": [],
     "workflowStatus": "Open"
 }
+same body is used for both thread groups
 ```
 ##### Additional info:
 To run test
