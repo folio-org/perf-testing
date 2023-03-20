@@ -1,6 +1,6 @@
 ## Workflow steps:
 
-##### api for GET_loan-storage_loans.jmx
+##### API for GET_loan-storage_loans.jmx
 1. /oai/records?verb=ListRecords&metadataPrefix=marc21_withholdings&apikey=${APIKey}
 2. /oai/records?verb=ListRecords&apikey=${APIKey}&resumptionToken=${resumptionToken}
 

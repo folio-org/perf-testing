@@ -22,20 +22,21 @@
             <stringProp name="Argument.name">API_KEY</stringProp>
             <stringProp name="Argument.value">${__P(API_KEY,[API_KEY])}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">Edge hostname</stringProp>
           </elementProp>
           <elementProp name="fromTime" elementType="Argument">
             <stringProp name="Argument.name">fromTime</stringProp>
-            <stringProp name="Argument.value">2022-12-21</stringProp>
+            <stringProp name="Argument.value">${__P(fromTime,2022-12-21)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="untilTime" elementType="Argument">
             <stringProp name="Argument.name">untilTime</stringProp>
-            <stringProp name="Argument.value">2023-01-15</stringProp>
+            <stringProp name="Argument.value">${__P(untilTime,2023-01-15)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="metadataPrefix" elementType="Argument">
             <stringProp name="Argument.name">metadataPrefix</stringProp>
-            <stringProp name="Argument.value">marc21_withholdings</stringProp>
+            <stringProp name="Argument.value">${__P(metadataPrefix,marc21_withholdings)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -123,7 +124,7 @@
               <elementProp name="metadataPrefix" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.name">metadataPrefix</stringProp>
-                <stringProp name="Argument.value">marc21_withholdings</stringProp>
+                <stringProp name="Argument.value">${metadataPrefix}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
               </elementProp>
