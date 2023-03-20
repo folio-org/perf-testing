@@ -10,7 +10,7 @@ Login Thread Group and EBSCONET Okapi thread group represents calls that is goin
 
 edgeebsconet Edge thread group represents calls that is going through edge endpoint with API token
 
-to use different approach please disable thread groups that is not needed. 
+To use different approach please disable thread groups that is not needed. 
 
 
 ##### Workflow for EBSCONET.jmx
