@@ -64,9 +64,6 @@ The following data files are needed to support the Jmeter script during its exec
 - Take a DB Dump as described here:
   https://wiki.folio.org/pages/viewpage.action?pageId=118262764
 
-- Create zip archive with users_patronRecordOperations.jmx and all content located in jmeter-supported-data folder.
-- Upload the zip into.
-
 ## Run JMeter script
 Example of command:
 ```shell
