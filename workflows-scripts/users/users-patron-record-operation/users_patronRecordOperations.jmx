@@ -18,39 +18,35 @@
             <stringProp name="Argument.value">${__BeanShell(import org.apache.jmeter.services.FileServer; FileServer.getFileServer().getBaseDir();)}${__BeanShell(File.separator,)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="pProtocol" elementType="Argument">
-            <stringProp name="Argument.name">pProtocol</stringProp>
-            <stringProp name="Argument.value">${__P(Protocol, https)}</stringProp>
+          <elementProp name="HOSTNAME" elementType="Argument">
+            <stringProp name="Argument.name">HOSTNAME</stringProp>
+            <stringProp name="Argument.value">${__P(HOSTNAME, okapi-ptf-nolana-2.int.aws.folio.org)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="pHost" elementType="Argument">
-            <stringProp name="Argument.name">pHost</stringProp>
-            <stringProp name="Argument.value">${__P(Host, okapi-ptf-nolana-2.int.aws.folio.org)}</stringProp>
+          <elementProp name="port" elementType="Argument">
+            <stringProp name="Argument.name">port</stringProp>
+            <stringProp name="Argument.value">${__P(port, 443)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="pPort" elementType="Argument">
-            <stringProp name="Argument.name">pPort</stringProp>
-            <stringProp name="Argument.value">${__P(Port, 443)}</stringProp>
+          <elementProp name="global_vusers" elementType="Argument">
+            <stringProp name="Argument.name">global_vusers</stringProp>
+            <stringProp name="Argument.value">${__P(VUSERS, 1)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">Default users: 1</stringProp>
           </elementProp>
-          <elementProp name="pUsers" elementType="Argument">
-            <stringProp name="Argument.name">pUsers</stringProp>
-            <stringProp name="Argument.value">${__P(VUSERS, 2)}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="pRampup" elementType="Argument">
-            <stringProp name="Argument.name">pRampup</stringProp>
+          <elementProp name="global_rampup" elementType="Argument">
+            <stringProp name="Argument.name">global_rampup</stringProp>
             <stringProp name="Argument.value">${__P(RAMP_UP, 1)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="pDuration" elementType="Argument">
-            <stringProp name="Argument.name">pDuration</stringProp>
+          <elementProp name="duration" elementType="Argument">
+            <stringProp name="Argument.name">duration</stringProp>
             <stringProp name="Argument.value">${__P(DURATION, 180)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">Default duration | 180 sec</stringProp>
           </elementProp>
-          <elementProp name="pLoops" elementType="Argument">
-            <stringProp name="Argument.name">pLoops</stringProp>
+          <elementProp name="loops" elementType="Argument">
+            <stringProp name="Argument.name">loops</stringProp>
             <stringProp name="Argument.value">${__P(LOOPS, 1)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">Default Infinite</stringProp>
@@ -60,32 +56,32 @@
       <hashTree/>
       <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Probabilities" enabled="true">
         <collectionProp name="Arguments.arguments">
-          <elementProp name="pProb_OpenClose" elementType="Argument">
-            <stringProp name="Argument.name">pProb_OpenClose</stringProp>
+          <elementProp name="prob_openClose" elementType="Argument">
+            <stringProp name="Argument.name">prob_openClose</stringProp>
             <stringProp name="Argument.value">${__P(Prob_OpenClose, 50\, 50)}</stringProp>
             <stringProp name="Argument.desc">Open | Closed</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="pProb_CreateUser" elementType="Argument">
-            <stringProp name="Argument.name">pProb_CreateUser</stringProp>
+          <elementProp name="prob_createUser" elementType="Argument">
+            <stringProp name="Argument.name">prob_createUser</stringProp>
             <stringProp name="Argument.value">${__P(Prob_CreateUser, 0)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">Default - %</stringProp>
           </elementProp>
-          <elementProp name="pProb_ViewUserLoans" elementType="Argument">
-            <stringProp name="Argument.name">pProb_ViewUserLoans</stringProp>
-            <stringProp name="Argument.value">${__P(Prob_ViewUserLoans, 0)}</stringProp>
+          <elementProp name="prob_viewUserLoans" elementType="Argument">
+            <stringProp name="Argument.name">prob_viewUserLoans</stringProp>
+            <stringProp name="Argument.value">${__P(Prob_ViewUserLoans, 100)}</stringProp>
             <stringProp name="Argument.desc">Default - %</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="pProb_EditUser" elementType="Argument">
-            <stringProp name="Argument.name">pProb_EditUser</stringProp>
+          <elementProp name="prob_editUser" elementType="Argument">
+            <stringProp name="Argument.name">prob_editUser</stringProp>
             <stringProp name="Argument.value">${__P(Prob_EditUser, 0)}</stringProp>
             <stringProp name="Argument.desc">Default - %</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="pProb_DeleteUser" elementType="Argument">
-            <stringProp name="Argument.name">pProb_DeleteUser</stringProp>
+          <elementProp name="prob_deleteUser" elementType="Argument">
+            <stringProp name="Argument.name">prob_deleteUser</stringProp>
             <stringProp name="Argument.value">${__P(Prob_DeleteUser, 0)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">Default - %</stringProp>
@@ -125,7 +121,7 @@
           </elementProp>
           <elementProp name="Origin&#x9;http" elementType="Header">
             <stringProp name="Header.name">Origin</stringProp>
-            <stringProp name="Header.value">${pProtocol}://${pHost}</stringProp>
+            <stringProp name="Header.value">https://${HOSTNAME}</stringProp>
           </elementProp>
           <elementProp name="Accept-Language" elementType="Header">
             <stringProp name="Header.name">Accept-Language</stringProp>
@@ -145,7 +141,7 @@
           </elementProp>
           <elementProp name="Referer" elementType="Header">
             <stringProp name="Header.name">Referer</stringProp>
-            <stringProp name="Header.value">${pProtocol}://${pHost}</stringProp>
+            <stringProp name="Header.value">https://${HOSTNAME}</stringProp>
           </elementProp>
           <elementProp name="Accept-Encoding" elementType="Header">
             <stringProp name="Header.name">Accept-Encoding</stringProp>
@@ -162,9 +158,9 @@
         <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
           <collectionProp name="Arguments.arguments"/>
         </elementProp>
-        <stringProp name="HTTPSampler.domain">${pHost}</stringProp>
-        <stringProp name="HTTPSampler.port">${pPort}</stringProp>
-        <stringProp name="HTTPSampler.protocol">${pProtocol}</stringProp>
+        <stringProp name="HTTPSampler.domain">${HOSTNAME}</stringProp>
+        <stringProp name="HTTPSampler.port">${port}</stringProp>
+        <stringProp name="HTTPSampler.protocol">https</stringProp>
         <stringProp name="HTTPSampler.contentEncoding"></stringProp>
         <stringProp name="HTTPSampler.path"></stringProp>
         <boolProp name="HTTPSampler.image_parser">true</boolProp>
@@ -265,12 +261,12 @@ props.put(&quot;xProp_DistributionClass&quot;, Distribution);
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">${pLoops}</stringProp>
+          <stringProp name="LoopController.loops">${loops}</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">${pUsers}</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">${pRampup}</stringProp>
+        <stringProp name="ThreadGroup.num_threads">${global_vusers}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${global_rampup}</stringProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <stringProp name="ThreadGroup.duration">${pDuration}</stringProp>
+        <stringProp name="ThreadGroup.duration">${duration}</stringProp>
         <stringProp name="ThreadGroup.delay">0</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
       </ThreadGroup>
@@ -294,7 +290,7 @@ props.put(&quot;xProp_DistributionClass&quot;, Distribution);
           <hashTree/>
         </hashTree>
         <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Do Create" enabled="true">
-          <stringProp name="IfController.condition">${__groovy((new Random().nextInt(100) + 1) &lt;= vars.get(&quot;pProb_CreateUser&quot;).toInteger();)}</stringProp>
+          <stringProp name="IfController.condition">${__groovy((new Random().nextInt(100) + 1) &lt;= vars.get(&quot;prob_createUser&quot;).toInteger();)}</stringProp>
           <boolProp name="IfController.evaluateAll">false</boolProp>
           <boolProp name="IfController.useExpression">true</boolProp>
         </IfController>
@@ -310,7 +306,7 @@ props.put(&quot;xProp_DistributionClass&quot;, Distribution);
           <hashTree/>
         </hashTree>
         <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Do View User &amp; History" enabled="true">
-          <stringProp name="IfController.condition">${__groovy((new Random().nextInt(100) + 1) &lt;= vars.get(&quot;pProb_ViewUserLoans&quot;).toInteger();)}</stringProp>
+          <stringProp name="IfController.condition">${__groovy((new Random().nextInt(100) + 1) &lt;= vars.get(&quot;prob_viewUserLoans&quot;).toInteger();)}</stringProp>
           <boolProp name="IfController.evaluateAll">false</boolProp>
           <boolProp name="IfController.useExpression">true</boolProp>
         </IfController>
@@ -326,7 +322,7 @@ props.put(&quot;xProp_DistributionClass&quot;, Distribution);
           <hashTree/>
         </hashTree>
         <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Do Edit User" enabled="true">
-          <stringProp name="IfController.condition">${__groovy((new Random().nextInt(100) + 1) &lt;= vars.get(&quot;pProb_EditUser&quot;).toInteger();)}</stringProp>
+          <stringProp name="IfController.condition">${__groovy((new Random().nextInt(100) + 1) &lt;= vars.get(&quot;prob_editUser&quot;).toInteger();)}</stringProp>
           <boolProp name="IfController.evaluateAll">false</boolProp>
           <boolProp name="IfController.useExpression">true</boolProp>
         </IfController>
@@ -342,7 +338,7 @@ props.put(&quot;xProp_DistributionClass&quot;, Distribution);
           <hashTree/>
         </hashTree>
         <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Do Delete User" enabled="true">
-          <stringProp name="IfController.condition">${__groovy((new Random().nextInt(100) + 1) &lt;= vars.get(&quot;pProb_DeleteUser&quot;).toInteger();)}</stringProp>
+          <stringProp name="IfController.condition">${__groovy((new Random().nextInt(100) + 1) &lt;= vars.get(&quot;prob_deleteUser&quot;).toInteger();)}</stringProp>
           <boolProp name="IfController.evaluateAll">false</boolProp>
           <boolProp name="IfController.useExpression">true</boolProp>
         </IfController>
@@ -444,7 +440,7 @@ props.put(&quot;xProp_DistributionClass&quot;, Distribution);
           </ModuleController>
           <hashTree/>
           <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="Switch Open | Closed Loans" enabled="true">
-            <stringProp name="SwitchController.value">${__groovy(props.get(&quot;xProp_DistributionClass&quot;).distrFromString(vars.get(&quot;pProb_OpenClose&quot;));)}</stringProp>
+            <stringProp name="SwitchController.value">${__groovy(props.get(&quot;xProp_DistributionClass&quot;).distrFromString(vars.get(&quot;prob_openClose&quot;));)}</stringProp>
           </SwitchController>
           <hashTree>
             <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: GoTo Open Loans" enabled="true">
@@ -1800,10 +1796,10 @@ String uuidString = &quot;${__UUID}&quot;;
 vars.put(&quot;uuid&quot;, uuidString);
 
 String reqPrefUuidString = &quot;${__UUID}&quot;;
-vars.put(&quot;xVar_ReqPref_uuid&quot;, reqPrefUuidString);
+vars.put(&quot;reqpref_uuid&quot;, reqPrefUuidString);
 
 String permsString = &quot;${__UUID}&quot;;
-vars.put(&quot;xVar_Perms_uuid&quot;, permsString);</stringProp>
+vars.put(&quot;perms_uuid&quot;, permsString);</stringProp>
             </JSR223PreProcessor>
             <hashTree/>
           </hashTree>
@@ -1828,7 +1824,7 @@ sampler.setName(&quot;Users_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; 
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&quot;active&quot;:true,&quot;personal&quot;:{&quot;firstName&quot;:&quot;FirstName_${xVar_Prefix}&quot;,&quot;preferredContactTypeId&quot;:&quot;002&quot;,&quot;lastName&quot;:&quot;LastName_${xVar_Prefix}&quot;,&quot;email&quot;:&quot;email_${xVar_Prefix}@test.com&quot;},&quot;patronGroup&quot;:&quot;ad0bc554-d5bc-463c-85d1-5562127ae91b&quot;,&quot;id&quot;:&quot;${uuid}&quot;,&quot;departments&quot;:[]}</stringProp>
+                    <stringProp name="Argument.value">{&quot;active&quot;:true,&quot;personal&quot;:{&quot;firstName&quot;:&quot;FirstName_${rand_id}&quot;,&quot;preferredContactTypeId&quot;:&quot;002&quot;,&quot;lastName&quot;:&quot;LastName_${rand_id}&quot;,&quot;email&quot;:&quot;${rand_id}_email@test.com&quot;},&quot;patronGroup&quot;:&quot;ad0bc554-d5bc-463c-85d1-5562127ae91b&quot;,&quot;id&quot;:&quot;${uuid}&quot;,&quot;departments&quot;:[]}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                   </elementProp>
                 </collectionProp>
@@ -1853,8 +1849,7 @@ sampler.setName(&quot;Users_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; 
                 <stringProp name="parameters"></stringProp>
                 <stringProp name="filename"></stringProp>
                 <stringProp name="cacheKey">true</stringProp>
-                <stringProp name="script">vars.put(&quot;xVar_Prefix&quot;, &quot;${__RandomString(5,abcdefghijklmnop,)}&quot;);
-log.info(&quot;===xVar_Prefix===:&quot; + vars.get(&quot;xVar_Prefix&quot;));</stringProp>
+                <stringProp name="script">vars.put(&quot;rand_id&quot;, &quot;${__RandomString(5,abcdefghijklmnop,)}&quot;);</stringProp>
               </JSR223PreProcessor>
               <hashTree/>
               <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
@@ -1904,7 +1899,7 @@ log.info(&quot;===xVar_Prefix===:&quot; + vars.get(&quot;xVar_Prefix&quot;));</s
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&quot;userId&quot;:&quot;${uuid}&quot;,&quot;fulfillment&quot;:&quot;Hold Shelf&quot;,&quot;holdShelf&quot;:true,&quot;delivery&quot;:false,&quot;defaultServicePointId&quot;:null,&quot;defaultDeliveryAddressTypeId&quot;:null,&quot;id&quot;:&quot;${xVarReqPref_uuid}&quot;}</stringProp>
+                    <stringProp name="Argument.value">{&quot;userId&quot;:&quot;${uuid}&quot;,&quot;fulfillment&quot;:&quot;Hold Shelf&quot;,&quot;holdShelf&quot;:true,&quot;delivery&quot;:false,&quot;defaultServicePointId&quot;:null,&quot;defaultDeliveryAddressTypeId&quot;:null,&quot;id&quot;:&quot;${reqpref_uuid}&quot;}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                   </elementProp>
                 </collectionProp>
@@ -1961,7 +1956,7 @@ log.info(&quot;===xVar_Prefix===:&quot; + vars.get(&quot;xVar_Prefix&quot;));</s
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&quot;userId&quot;:&quot;${uuid}&quot;,&quot;permissions&quot;:[],&quot;id&quot;:&quot;${xVarPerms_uuid}&quot;}</stringProp>
+                    <stringProp name="Argument.value">{&quot;userId&quot;:&quot;${uuid}&quot;,&quot;permissions&quot;:[],&quot;id&quot;:&quot;${perms_uuid}&quot;}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                   </elementProp>
                 </collectionProp>
@@ -4215,7 +4210,7 @@ sampler.setName(&quot;Users_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; 
                   <elementProp name="query" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">true</boolProp>
                     <stringProp name="Argument.name">query</stringProp>
-                    <stringProp name="Argument.value">((username=&quot;FirstName_${xVar_Prefix}*&quot; or personal.firstName=&quot;FirstName_${xVar_Prefix}*&quot; or personal.preferredFirstName=&quot;FirstName_${xVar_Prefix}*&quot; or personal.lastName=&quot;FirstName_${xVar_Prefix}*&quot; or personal.email=&quot;FirstName_${xVar_Prefix}*&quot; or barcode=&quot;FirstName_${xVar_Prefix}*&quot; or id=&quot;FirstName_${xVar_Prefix}*&quot; or externalSystemId=&quot;FirstName_${xVar_Prefix}*&quot; or customFields=&quot;FirstName_${xVar_Prefix}*&quot;)) sortby personal.lastName personal.firstName</stringProp>
+                    <stringProp name="Argument.value">((username=&quot;FirstName_${rand_id}*&quot; or personal.firstName=&quot;FirstName_${rand_id}*&quot; or personal.preferredFirstName=&quot;FirstName_${rand_id}*&quot; or personal.lastName=&quot;FirstName_${rand_id}*&quot; or personal.email=&quot;FirstName_${rand_id}*&quot; or barcode=&quot;FirstName_${rand_id}*&quot; or id=&quot;FirstName_${rand_id}*&quot; or externalSystemId=&quot;FirstName_${rand_id}*&quot; or customFields=&quot;FirstName_${rand_id}*&quot;)) sortby personal.lastName personal.firstName</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   </elementProp>
@@ -4263,31 +4258,6 @@ sampler.setName(&quot;Users_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; 
                   </elementProp>
                 </collectionProp>
               </HeaderManager>
-              <hashTree/>
-              <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Users" enabled="true">
-                <stringProp name="scriptLanguage">groovy</stringProp>
-                <stringProp name="parameters"></stringProp>
-                <stringProp name="filename"></stringProp>
-                <stringProp name="cacheKey">true</stringProp>
-                <stringProp name="script">import groovy.json.JsonSlurper;
-
-try {
-	Map jsonData = new JsonSlurper().parseText(prev.getResponseDataAsString());
-	String totalRecords = jsonData.totalRecords.toString();	
-
-	if (totalRecords != null) {
-		vars.put(&quot;xVar_UsersTotalRecords&quot;, totalRecords);
-		AssertionResult.setFailure(false);
-		} else {
-			AssertionResult.setFailure(true);
-			}
-	
-	} catch (Exception e) {
-		AssertionResult.setFailureMessage(&quot;Users quantity failure: &quot; + e.getMessage());
-		AssertionResult.setFailure(true);
-		}
-</stringProp>
-              </JSR223Assertion>
               <hashTree/>
             </hashTree>
           </hashTree>
@@ -6480,7 +6450,7 @@ sampler.setName(&quot;Users_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; 
               </HeaderManager>
               <hashTree/>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor - /service-points-users" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">spuid; spu</stringProp>
+                <stringProp name="JSONPostProcessor.referenceNames">service_points_users_id; service_points_users</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.servicePointsUsers[0].id; $.servicePointsUsers[0]</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
                 <stringProp name="JSONPostProcessor.defaultValues">NOT_FOUND;NOT_FOUND</stringProp>
@@ -6541,12 +6511,6 @@ sampler.setName(&quot;Users_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; 
                   </elementProp>
                 </collectionProp>
               </HeaderManager>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor - /service-points-users" enabled="false">
-                <stringProp name="JSONPostProcessor.referenceNames">spu</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.servicepoints[0].id</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
-              </JSONPostProcessor>
               <hashTree/>
             </hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /users" enabled="true">
@@ -6750,7 +6714,7 @@ import com.jayway.jsonpath.JsonPath;
 
 def jsonData = new JsonSlurper().parseText(prev.getResponseDataAsString());
 jsonData.personal.email = &quot;new@mail.com&quot;;
-vars.put(&quot;userData&quot;,new JsonBuilder(jsonData).toString());
+vars.put(&quot;user_data&quot;,new JsonBuilder(jsonData).toString());
 </stringProp>
                 <stringProp name="scriptLanguage">groovy</stringProp>
               </JSR223PostProcessor>
@@ -7214,7 +7178,7 @@ vars.put(&quot;userData&quot;,new JsonBuilder(jsonData).toString());
               </HeaderManager>
               <hashTree/>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor - /perms/user" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">upermsid</stringProp>
+                <stringProp name="JSONPostProcessor.referenceNames">users_perm_id</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
               </JSONPostProcessor>
@@ -7223,7 +7187,7 @@ vars.put(&quot;userData&quot;,new JsonBuilder(jsonData).toString());
                 <stringProp name="cacheKey">true</stringProp>
                 <stringProp name="filename"></stringProp>
                 <stringProp name="parameters"></stringProp>
-                <stringProp name="script">vars.put(&quot;uperms&quot;,prev.getResponseDataAsString());
+                <stringProp name="script">vars.put(&quot;users_perms&quot;,prev.getResponseDataAsString());
 </stringProp>
                 <stringProp name="scriptLanguage">groovy</stringProp>
               </JSR223PostProcessor>
@@ -7383,7 +7347,7 @@ vars.put(&quot;userData&quot;,new JsonBuilder(jsonData).toString());
               </HeaderManager>
               <hashTree/>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor - /request-preference-storage/request-preference" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">rpsid; rps</stringProp>
+                <stringProp name="JSONPostProcessor.referenceNames">request_preferences_id; request_preferences</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.requestPreferences[0].id; $.requestPreferences[0]</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
                 <stringProp name="JSONPostProcessor.defaultValues">NOT_FOUND;NOT_FOUND</stringProp>
@@ -7835,8 +7799,8 @@ vars.put(&quot;userData&quot;,new JsonBuilder(jsonData).toString());
 sampler.setName(&quot;Users_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; + sampleName);</stringProp>
             </JSR223PreProcessor>
             <hashTree/>
-            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If UserData" enabled="true">
-              <stringProp name="IfController.condition">${__groovy( vars.get(&quot;userData&quot;) != null &amp;&amp; !vars.get(&quot;userData&quot;).equals(&quot;&quot;) ;)}</stringProp>
+            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If user data exists" enabled="true">
+              <stringProp name="IfController.condition">${__groovy( vars.get(&quot;user_data&quot;) != null &amp;&amp; !vars.get(&quot;user_data&quot;).equals(&quot;&quot;) ;)}</stringProp>
               <boolProp name="IfController.evaluateAll">false</boolProp>
               <boolProp name="IfController.useExpression">true</boolProp>
             </IfController>
@@ -7847,7 +7811,7 @@ sampler.setName(&quot;Users_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; 
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">${userData}</stringProp>
+                      <stringProp name="Argument.value">${user_data}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                     </elementProp>
                   </collectionProp>
@@ -7890,8 +7854,8 @@ sampler.setName(&quot;Users_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; 
                 <hashTree/>
               </hashTree>
             </hashTree>
-            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If PERM" enabled="true">
-              <stringProp name="IfController.condition">${__groovy( vars.get(&quot;upermsid&quot;) != null &amp;&amp; !vars.get(&quot;upermsid&quot;).equals(&quot;&quot;) ;)}</stringProp>
+            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If users permissions exist" enabled="true">
+              <stringProp name="IfController.condition">${__groovy( vars.get(&quot;users_perm_id&quot;) != null &amp;&amp; !vars.get(&quot;users_perm_id&quot;).equals(&quot;&quot;) ;)}</stringProp>
               <boolProp name="IfController.evaluateAll">false</boolProp>
               <boolProp name="IfController.useExpression">true</boolProp>
             </IfController>
@@ -7902,7 +7866,7 @@ sampler.setName(&quot;Users_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; 
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">${uperms}</stringProp>
+                      <stringProp name="Argument.value">${users_perms}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                     </elementProp>
                   </collectionProp>
@@ -7911,7 +7875,7 @@ sampler.setName(&quot;Users_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; 
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">perms/users/${upermsid}?indexField=userId</stringProp>
+                <stringProp name="HTTPSampler.path">perms/users/${users_perm_id}?indexField=userId</stringProp>
                 <stringProp name="HTTPSampler.method">PUT</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -7954,8 +7918,8 @@ sampler.setName(&quot;Users_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; 
                 <hashTree/>
               </hashTree>
             </hashTree>
-            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If SPU" enabled="true">
-              <stringProp name="IfController.condition">${__groovy( vars.get(&quot;spuid&quot;) != null &amp;&amp; !vars.get(&quot;spuid&quot;).equals(&quot;NOT_FOUND&quot;) ;)}</stringProp>
+            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If service points users exists" enabled="true">
+              <stringProp name="IfController.condition">${__groovy( vars.get(&quot;service_points_users_id&quot;) != null &amp;&amp; !vars.get(&quot;service_points_users_id&quot;).equals(&quot;NOT_FOUND&quot;) ;)}</stringProp>
               <boolProp name="IfController.evaluateAll">false</boolProp>
               <boolProp name="IfController.useExpression">true</boolProp>
             </IfController>
@@ -7966,7 +7930,7 @@ sampler.setName(&quot;Users_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; 
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">${spu}</stringProp>
+                      <stringProp name="Argument.value">${service_points_users}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                     </elementProp>
                   </collectionProp>
@@ -7975,7 +7939,7 @@ sampler.setName(&quot;Users_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; 
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">service-points-users/${spuid}</stringProp>
+                <stringProp name="HTTPSampler.path">service-points-users/${service_points_users_id}</stringProp>
                 <stringProp name="HTTPSampler.method">PUT</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -8009,8 +7973,8 @@ sampler.setName(&quot;Users_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; 
                 <hashTree/>
               </hashTree>
             </hashTree>
-            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If RPS" enabled="true">
-              <stringProp name="IfController.condition">${__groovy( vars.get(&quot;rpsid&quot;) != null &amp;&amp; !vars.get(&quot;rpsid&quot;).equals(&quot;NOT_FOUND&quot;) ;)}</stringProp>
+            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If request  preferences exist" enabled="true">
+              <stringProp name="IfController.condition">${__groovy( vars.get(&quot;request_preferences_id&quot;) != null &amp;&amp; !vars.get(&quot;request_preferences_id&quot;).equals(&quot;NOT_FOUND&quot;) ;)}</stringProp>
               <boolProp name="IfController.evaluateAll">false</boolProp>
               <boolProp name="IfController.useExpression">true</boolProp>
             </IfController>
@@ -8021,7 +7985,7 @@ sampler.setName(&quot;Users_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; 
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">${rps}</stringProp>
+                      <stringProp name="Argument.value">${request_preferences}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                     </elementProp>
                   </collectionProp>
@@ -8030,7 +7994,7 @@ sampler.setName(&quot;Users_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; 
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">request-preference-storage/request-preference/${rpsid}</stringProp>
+                <stringProp name="HTTPSampler.path">request-preference-storage/request-preference/${request_preferences_id}</stringProp>
                 <stringProp name="HTTPSampler.method">PUT</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>

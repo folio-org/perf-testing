@@ -48,8 +48,7 @@ The following data files are needed to support the Jmeter script during its exec
 
 ### Parameters
 #### Environment and Configuration
-- Protocol
-- Host
+- HOSTNAME
 - VUSERS		count of concurrent users.
 - RAMP_UP		the amount of time it will take the script to add all test users (threads) to a test execution.
 - DURATION		timespan between start and end of the script
