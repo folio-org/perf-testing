@@ -48,6 +48,7 @@ The following data files are needed to support the Jmeter script during its exec
 
 ### Parameters
 #### Environment and Configuration
+- DISTRIBUTION  define probabilities of scenarious (create, view, edit, delete), example: 0-100-0-0
 - HOSTNAME
 - VUSERS		count of concurrent users.
 - RAMP_UP		the amount of time it will take the script to add all test users (threads) to a test execution.
@@ -55,10 +56,6 @@ The following data files are needed to support the Jmeter script during its exec
 - LOOPS			not used with the script but predefined for some purposes in the future and should not be used in Delete scenario.
 #### Probabilities of scenarios
 - Prob_OpenClose		OpenClose scenario for View
-- Prob_CreateUser		Create
-- Prob_ViewUserLoans	View
-- Prob_EditUser			Edit
-- Prob_DeleteUser		Delete
 
 ## Setup data before running JMeter script:
 - Take a DB Dump as described here:

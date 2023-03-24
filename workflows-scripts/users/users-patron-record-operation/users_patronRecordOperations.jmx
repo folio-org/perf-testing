@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.3">
   <hashTree>
-    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="PetronRecordOperations" enabled="true">
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="users_patronRecordOperations" enabled="true">
       <stringProp name="TestPlan.comments">This test plan was created by EPAM performance team</stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
@@ -47,9 +47,15 @@
           </elementProp>
           <elementProp name="loops" elementType="Argument">
             <stringProp name="Argument.name">loops</stringProp>
-            <stringProp name="Argument.value">${__P(LOOPS, 1)}</stringProp>
+            <stringProp name="Argument.value">${__P(LOOPS, -1)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">Default Infinite</stringProp>
+          </elementProp>
+          <elementProp name="DISTRIBUTION" elementType="Argument">
+            <stringProp name="Argument.name">DISTRIBUTION</stringProp>
+            <stringProp name="Argument.value">${__P(DISTRIBUTION, 0-100-0-0)} </stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">Default 0-100-0-0</stringProp>
           </elementProp>
         </collectionProp>
       </Arguments>
@@ -61,30 +67,6 @@
             <stringProp name="Argument.value">${__P(Prob_OpenClose, 50\, 50)}</stringProp>
             <stringProp name="Argument.desc">Open | Closed</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="prob_createUser" elementType="Argument">
-            <stringProp name="Argument.name">prob_createUser</stringProp>
-            <stringProp name="Argument.value">${__P(Prob_CreateUser, 0)}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-            <stringProp name="Argument.desc">Default - %</stringProp>
-          </elementProp>
-          <elementProp name="prob_viewUserLoans" elementType="Argument">
-            <stringProp name="Argument.name">prob_viewUserLoans</stringProp>
-            <stringProp name="Argument.value">${__P(Prob_ViewUserLoans, 100)}</stringProp>
-            <stringProp name="Argument.desc">Default - %</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="prob_editUser" elementType="Argument">
-            <stringProp name="Argument.name">prob_editUser</stringProp>
-            <stringProp name="Argument.value">${__P(Prob_EditUser, 0)}</stringProp>
-            <stringProp name="Argument.desc">Default - %</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="prob_deleteUser" elementType="Argument">
-            <stringProp name="Argument.name">prob_deleteUser</stringProp>
-            <stringProp name="Argument.value">${__P(Prob_DeleteUser, 0)}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-            <stringProp name="Argument.desc">Default - %</stringProp>
           </elementProp>
         </collectionProp>
       </Arguments>
@@ -261,7 +243,7 @@ props.put(&quot;xProp_DistributionClass&quot;, Distribution);
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">${loops}</stringProp>
+          <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">${global_vusers}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${global_rampup}</stringProp>
@@ -271,12 +253,34 @@ props.put(&quot;xProp_DistributionClass&quot;, Distribution);
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
       </ThreadGroup>
       <hashTree>
+        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Define flow" enabled="true">
+          <intProp name="ActionProcessor.action">1</intProp>
+          <intProp name="ActionProcessor.target">0</intProp>
+          <stringProp name="ActionProcessor.duration">0</stringProp>
+        </TestAction>
+        <hashTree>
+          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="Define flow from distribution" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">HashSet variables = vars.entrySet();
+
+def distributions = vars.get(&quot;DISTRIBUTION&quot;).split(&quot;-&quot;);
+
+vars.put(&quot;prob_createUser&quot;, distributions[0]);
+vars.put(&quot;prob_viewUserLoans&quot;, distributions[1]);
+vars.put(&quot;prob_editUser&quot;, distributions[2]);
+vars.put(&quot;prob_deleteUser&quot;, distributions[3]);</stringProp>
+          </JSR223PreProcessor>
+          <hashTree/>
+        </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="SC: Login" enabled="true"/>
         <hashTree>
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Login" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-151503953">PetronRecordOperations</stringProp>
+              <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
               <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
               <stringProp name="-838982077">SC: Login (01.xxx)</stringProp>
             </collectionProp>
@@ -298,7 +302,7 @@ props.put(&quot;xProp_DistributionClass&quot;, Distribution);
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Create User Flow" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-151503953">PetronRecordOperations</stringProp>
+              <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
               <stringProp name="-1394928069">---------- Flows ----------</stringProp>
               <stringProp name="-2121535175">SC: Create User</stringProp>
             </collectionProp>
@@ -314,7 +318,7 @@ props.put(&quot;xProp_DistributionClass&quot;, Distribution);
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: View User Flow" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-151503953">PetronRecordOperations</stringProp>
+              <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
               <stringProp name="-1394928069">---------- Flows ----------</stringProp>
               <stringProp name="1319892490">SC: View User &amp; History</stringProp>
             </collectionProp>
@@ -330,7 +334,7 @@ props.put(&quot;xProp_DistributionClass&quot;, Distribution);
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Edit User Flow" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-151503953">PetronRecordOperations</stringProp>
+              <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
               <stringProp name="-1394928069">---------- Flows ----------</stringProp>
               <stringProp name="-1582612629">SC: Edit User</stringProp>
             </collectionProp>
@@ -346,14 +350,14 @@ props.put(&quot;xProp_DistributionClass&quot;, Distribution);
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Delete User Flow" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-151503953">PetronRecordOperations</stringProp>
+              <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
               <stringProp name="-1394928069">---------- Flows ----------</stringProp>
               <stringProp name="1545183722">SC: Delete User</stringProp>
             </collectionProp>
           </ModuleController>
           <hashTree/>
         </hashTree>
-        <JSR223Listener guiclass="TestBeanGUI" testclass="JSR223Listener" testname="Log Failed Samples" enabled="true">
+        <JSR223Listener guiclass="TestBeanGUI" testclass="JSR223Listener" testname="Log Failed Samples" enabled="false">
           <stringProp name="cacheKey">true</stringProp>
           <stringProp name="filename"></stringProp>
           <stringProp name="parameters"></stringProp>
@@ -388,7 +392,7 @@ props.put(&quot;xProp_DistributionClass&quot;, Distribution);
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Go To User" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-151503953">PetronRecordOperations</stringProp>
+              <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
               <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
               <stringProp name="390650644">SC: GoTo Users (02.xxx)</stringProp>
             </collectionProp>
@@ -397,7 +401,7 @@ props.put(&quot;xProp_DistributionClass&quot;, Distribution);
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Create User Page" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-151503953">PetronRecordOperations</stringProp>
+              <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
               <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
               <stringProp name="1514006249">SC: Click Actions &amp; New  (03.xxx)</stringProp>
             </collectionProp>
@@ -406,7 +410,7 @@ props.put(&quot;xProp_DistributionClass&quot;, Distribution);
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Click Save" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-151503953">PetronRecordOperations</stringProp>
+              <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
               <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
               <stringProp name="976275304">SC: Click Save (04.xxx)</stringProp>
             </collectionProp>
@@ -424,7 +428,7 @@ props.put(&quot;xProp_DistributionClass&quot;, Distribution);
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Search By Name" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-151503953">PetronRecordOperations</stringProp>
+              <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
               <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
               <stringProp name="-501920496">SC: Search User By Name (06.xxx)</stringProp>
             </collectionProp>
@@ -433,34 +437,41 @@ props.put(&quot;xProp_DistributionClass&quot;, Distribution);
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Choose User" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-151503953">PetronRecordOperations</stringProp>
+              <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
               <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
               <stringProp name="-822884110">SC: Choose User (07.xxx)</stringProp>
             </collectionProp>
           </ModuleController>
           <hashTree/>
-          <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="Switch Open | Closed Loans" enabled="true">
-            <stringProp name="SwitchController.value">${__groovy(props.get(&quot;xProp_DistributionClass&quot;).distrFromString(vars.get(&quot;prob_openClose&quot;));)}</stringProp>
-          </SwitchController>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If user exists" enabled="true">
+            <stringProp name="IfController.condition">${__groovy( !vars.get(&quot;user_found&quot;).equals(&quot;user_not_found&quot;);)}</stringProp>
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+            <boolProp name="IfController.useExpression">true</boolProp>
+          </IfController>
           <hashTree>
-            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: GoTo Open Loans" enabled="true">
-              <collectionProp name="ModuleController.node_path">
-                <stringProp name="764597751">Test Plan</stringProp>
-                <stringProp name="-151503953">PetronRecordOperations</stringProp>
-                <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
-                <stringProp name="1787712419">SC: GoTo Open Loans (11.xxx)</stringProp>
-              </collectionProp>
-            </ModuleController>
-            <hashTree/>
-            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: GoTo Close Loans" enabled="true">
-              <collectionProp name="ModuleController.node_path">
-                <stringProp name="764597751">Test Plan</stringProp>
-                <stringProp name="-151503953">PetronRecordOperations</stringProp>
-                <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
-                <stringProp name="997747522">SC: GoTo Close Loans (12.xxx)</stringProp>
-              </collectionProp>
-            </ModuleController>
-            <hashTree/>
+            <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="Switch Open | Closed Loans" enabled="true">
+              <stringProp name="SwitchController.value">${__groovy(props.get(&quot;xProp_DistributionClass&quot;).distrFromString(vars.get(&quot;prob_openClose&quot;));)}</stringProp>
+            </SwitchController>
+            <hashTree>
+              <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: GoTo Open Loans" enabled="true">
+                <collectionProp name="ModuleController.node_path">
+                  <stringProp name="764597751">Test Plan</stringProp>
+                  <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
+                  <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
+                  <stringProp name="1787712419">SC: GoTo Open Loans (11.xxx)</stringProp>
+                </collectionProp>
+              </ModuleController>
+              <hashTree/>
+              <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: GoTo Close Loans" enabled="true">
+                <collectionProp name="ModuleController.node_path">
+                  <stringProp name="764597751">Test Plan</stringProp>
+                  <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
+                  <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
+                  <stringProp name="997747522">SC: GoTo Close Loans (12.xxx)</stringProp>
+                </collectionProp>
+              </ModuleController>
+              <hashTree/>
+            </hashTree>
           </hashTree>
           <TestAction guiclass="TestActionGui" testclass="TestAction" testname="--- ThinkTimer: Fast" enabled="true">
             <intProp name="ActionProcessor.action">1</intProp>
@@ -474,7 +485,7 @@ props.put(&quot;xProp_DistributionClass&quot;, Distribution);
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Search By Name" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-151503953">PetronRecordOperations</stringProp>
+              <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
               <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
               <stringProp name="-501920496">SC: Search User By Name (06.xxx)</stringProp>
             </collectionProp>
@@ -483,30 +494,37 @@ props.put(&quot;xProp_DistributionClass&quot;, Distribution);
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Choose User" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-151503953">PetronRecordOperations</stringProp>
+              <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
               <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
               <stringProp name="-822884110">SC: Choose User (07.xxx)</stringProp>
             </collectionProp>
           </ModuleController>
           <hashTree/>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: User Edit Page" enabled="true">
-            <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-151503953">PetronRecordOperations</stringProp>
-              <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
-              <stringProp name="732625833">SC: User Edit Page (08.xxx)</stringProp>
-            </collectionProp>
-          </ModuleController>
-          <hashTree/>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Click Save &amp; Close" enabled="true">
-            <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-151503953">PetronRecordOperations</stringProp>
-              <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
-              <stringProp name="468990469">SC: Click Save &amp; Close (09.xxx)</stringProp>
-            </collectionProp>
-          </ModuleController>
-          <hashTree/>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If user exists" enabled="true">
+            <stringProp name="IfController.condition">${__groovy( !vars.get(&quot;user_found&quot;).equals(&quot;user_not_found&quot;);)}</stringProp>
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+            <boolProp name="IfController.useExpression">true</boolProp>
+          </IfController>
+          <hashTree>
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: User Edit Page" enabled="true">
+              <collectionProp name="ModuleController.node_path">
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
+                <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
+                <stringProp name="732625833">SC: User Edit Page (08.xxx)</stringProp>
+              </collectionProp>
+            </ModuleController>
+            <hashTree/>
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Click Save &amp; Close" enabled="true">
+              <collectionProp name="ModuleController.node_path">
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
+                <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
+                <stringProp name="468990469">SC: Click Save &amp; Close (09.xxx)</stringProp>
+              </collectionProp>
+            </ModuleController>
+            <hashTree/>
+          </hashTree>
           <TestAction guiclass="TestActionGui" testclass="TestAction" testname="--- ThinkTimer: Fast" enabled="true">
             <intProp name="ActionProcessor.action">1</intProp>
             <intProp name="ActionProcessor.target">0</intProp>
@@ -519,7 +537,7 @@ props.put(&quot;xProp_DistributionClass&quot;, Distribution);
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Search By Name" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-151503953">PetronRecordOperations</stringProp>
+              <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
               <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
               <stringProp name="-501920496">SC: Search User By Name (06.xxx)</stringProp>
             </collectionProp>
@@ -528,21 +546,28 @@ props.put(&quot;xProp_DistributionClass&quot;, Distribution);
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Choose User" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-151503953">PetronRecordOperations</stringProp>
+              <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
               <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
               <stringProp name="-822884110">SC: Choose User (07.xxx)</stringProp>
             </collectionProp>
           </ModuleController>
           <hashTree/>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Delete User" enabled="true">
-            <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-151503953">PetronRecordOperations</stringProp>
-              <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
-              <stringProp name="1897134911">SC: Click Delete (10.xxx)</stringProp>
-            </collectionProp>
-          </ModuleController>
-          <hashTree/>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If user exists" enabled="true">
+            <stringProp name="IfController.condition">${__groovy( !vars.get(&quot;user_found&quot;).equals(&quot;user_not_found&quot;);)}</stringProp>
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+            <boolProp name="IfController.useExpression">true</boolProp>
+          </IfController>
+          <hashTree>
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Delete User" enabled="true">
+              <collectionProp name="ModuleController.node_path">
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
+                <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
+                <stringProp name="1897134911">SC: Click Delete (10.xxx)</stringProp>
+              </collectionProp>
+            </ModuleController>
+            <hashTree/>
+          </hashTree>
           <TestAction guiclass="TestActionGui" testclass="TestAction" testname="--- ThinkTimer: Fast" enabled="true">
             <intProp name="ActionProcessor.action">1</intProp>
             <intProp name="ActionProcessor.target">0</intProp>
@@ -1791,15 +1816,11 @@ sampler.setName(&quot;Users_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; 
               <stringProp name="parameters"></stringProp>
               <stringProp name="filename"></stringProp>
               <stringProp name="cacheKey">true</stringProp>
-              <stringProp name="script">
-String uuidString = &quot;${__UUID}&quot;;
-vars.put(&quot;uuid&quot;, uuidString);
+              <stringProp name="script">import java.util.UUID;
 
-String reqPrefUuidString = &quot;${__UUID}&quot;;
-vars.put(&quot;reqpref_uuid&quot;, reqPrefUuidString);
-
-String permsString = &quot;${__UUID}&quot;;
-vars.put(&quot;perms_uuid&quot;, permsString);</stringProp>
+vars.put(&quot;uuid&quot;, UUID.randomUUID().toString());
+vars.put(&quot;reqpref_uuid&quot;, UUID.randomUUID().toString());
+vars.put(&quot;perms_uuid&quot;, UUID.randomUUID().toString());</stringProp>
             </JSR223PreProcessor>
             <hashTree/>
           </hashTree>
@@ -4359,17 +4380,19 @@ sampler.setName(&quot;Users_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; 
 
 try {
 	Map jsonData = new JsonSlurper().parseText(prev.getResponseDataAsString());
+
 	String foundUser = jsonData.users[0].id.toString();	
 
 	if (foundUser != null) {
 		vars.put(&quot;uuid&quot;, foundUser);
 		AssertionResult.setFailure(false);
+		log.info(&quot;== uuid in 06: &quot; + vars.get(&quot;uuid&quot;));
 		} else {
 			AssertionResult.setFailure(true);
 			}
 	
 	} catch (Exception e) {
-		AssertionResult.setFailureMessage(&quot;Found user failure: &quot; + e.getMessage());
+		AssertionResult.setFailureMessage(&quot;User not found failure: &quot; + e.getMessage());
 		AssertionResult.setFailure(true);
 		}
 </stringProp>
@@ -4771,6 +4794,13 @@ sampler.setName(&quot;Users_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; 
                   </elementProp>
                 </collectionProp>
               </HeaderManager>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor user_found" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">user_found</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+                <stringProp name="JSONPostProcessor.defaultValues">user_not_found</stringProp>
+              </JSONPostProcessor>
               <hashTree/>
             </hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /circulation/loans" enabled="true">
@@ -6561,6 +6591,13 @@ sampler.setName(&quot;Users_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; 
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor user_found" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">user_found</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+                <stringProp name="JSONPostProcessor.defaultValues">user_not_found</stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
             </hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /custom-fields" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
@@ -8103,57 +8140,71 @@ sampler.setName(&quot;Users_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; 
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor Get has_open_transaction" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">has_open_transaction</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.hasOpenTransactions</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+                <stringProp name="JSONPostProcessor.defaultValues">true</stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE /bl-users/by-id/{id}" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">bl-users/by-id/${uuid}</stringProp>
-              <stringProp name="HTTPSampler.method">DELETE</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
+            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller" enabled="true">
+              <stringProp name="IfController.condition">${__groovy(!vars.get(&quot;has_open_transaction&quot;).equals(&quot;true&quot;);)}</stringProp>
+              <boolProp name="IfController.evaluateAll">false</boolProp>
+              <boolProp name="IfController.useExpression">true</boolProp>
+            </IfController>
             <hashTree>
-              <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
-                <collectionProp name="HeaderManager.headers">
-                  <elementProp name="X-Okapi-Tenant" elementType="Header">
-                    <stringProp name="Header.name">X-Okapi-Tenant</stringProp>
-                    <stringProp name="Header.value">${tenant}</stringProp>
-                  </elementProp>
-                  <elementProp name="X-Okapi-Token" elementType="Header">
-                    <stringProp name="Header.name">X-Okapi-Token</stringProp>
-                    <stringProp name="Header.value">${okapi-token}</stringProp>
-                  </elementProp>
-                  <elementProp name="Content-Type" elementType="Header">
-                    <stringProp name="Header.name">Content-Type</stringProp>
-                    <stringProp name="Header.value">application/json</stringProp>
-                  </elementProp>
-                  <elementProp name="Accept" elementType="Header">
-                    <stringProp name="Header.name">Accept</stringProp>
-                    <stringProp name="Header.value">application/json</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </HeaderManager>
-              <hashTree/>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="49590">204</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">2</intProp>
-              </ResponseAssertion>
-              <hashTree/>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE /bl-users/by-id/{id}" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+                  <collectionProp name="Arguments.arguments"/>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain"></stringProp>
+                <stringProp name="HTTPSampler.port"></stringProp>
+                <stringProp name="HTTPSampler.protocol"></stringProp>
+                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                <stringProp name="HTTPSampler.path">bl-users/by-id/${uuid}</stringProp>
+                <stringProp name="HTTPSampler.method">DELETE</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
+                  <collectionProp name="HeaderManager.headers">
+                    <elementProp name="X-Okapi-Tenant" elementType="Header">
+                      <stringProp name="Header.name">X-Okapi-Tenant</stringProp>
+                      <stringProp name="Header.value">${tenant}</stringProp>
+                    </elementProp>
+                    <elementProp name="X-Okapi-Token" elementType="Header">
+                      <stringProp name="Header.name">X-Okapi-Token</stringProp>
+                      <stringProp name="Header.value">${okapi-token}</stringProp>
+                    </elementProp>
+                    <elementProp name="Content-Type" elementType="Header">
+                      <stringProp name="Header.name">Content-Type</stringProp>
+                      <stringProp name="Header.value">application/json</stringProp>
+                    </elementProp>
+                    <elementProp name="Accept" elementType="Header">
+                      <stringProp name="Header.name">Accept</stringProp>
+                      <stringProp name="Header.value">application/json</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </HeaderManager>
+                <hashTree/>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="49590">204</stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.custom_message"></stringProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">2</intProp>
+                </ResponseAssertion>
+                <hashTree/>
+              </hashTree>
             </hashTree>
           </hashTree>
         </hashTree>
