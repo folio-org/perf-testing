@@ -434,43 +434,50 @@ vars.put(&quot;prob_deleteUser&quot;, distributions[3]);</stringProp>
             </collectionProp>
           </ModuleController>
           <hashTree/>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Choose User" enabled="true">
-            <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
-              <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
-              <stringProp name="-822884110">SC: Choose User (07.xxx)</stringProp>
-            </collectionProp>
-          </ModuleController>
-          <hashTree/>
           <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If user exists" enabled="true">
-            <stringProp name="IfController.condition">${__groovy( !vars.get(&quot;user_found&quot;).equals(&quot;user_not_found&quot;);)}</stringProp>
+            <stringProp name="IfController.condition">${__groovy( !vars.remove(&quot;user_found&quot;).equals(&quot;user_not_found&quot;);)}</stringProp>
             <boolProp name="IfController.evaluateAll">false</boolProp>
             <boolProp name="IfController.useExpression">true</boolProp>
           </IfController>
           <hashTree>
-            <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="Switch Open | Closed Loans" enabled="true">
-              <stringProp name="SwitchController.value">${__groovy(props.get(&quot;xProp_DistributionClass&quot;).distrFromString(vars.get(&quot;prob_openClose&quot;));)}</stringProp>
-            </SwitchController>
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Choose User" enabled="true">
+              <collectionProp name="ModuleController.node_path">
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
+                <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
+                <stringProp name="-822884110">SC: Choose User (07.xxx)</stringProp>
+              </collectionProp>
+            </ModuleController>
+            <hashTree/>
+            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If user exists" enabled="true">
+              <stringProp name="IfController.condition">${__groovy( !vars.remove(&quot;user_found&quot;).equals(&quot;user_not_found&quot;);)}</stringProp>
+              <boolProp name="IfController.evaluateAll">false</boolProp>
+              <boolProp name="IfController.useExpression">true</boolProp>
+            </IfController>
             <hashTree>
-              <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: GoTo Open Loans" enabled="true">
-                <collectionProp name="ModuleController.node_path">
-                  <stringProp name="764597751">Test Plan</stringProp>
-                  <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
-                  <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
-                  <stringProp name="1787712419">SC: GoTo Open Loans (11.xxx)</stringProp>
-                </collectionProp>
-              </ModuleController>
-              <hashTree/>
-              <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: GoTo Close Loans" enabled="true">
-                <collectionProp name="ModuleController.node_path">
-                  <stringProp name="764597751">Test Plan</stringProp>
-                  <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
-                  <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
-                  <stringProp name="997747522">SC: GoTo Close Loans (12.xxx)</stringProp>
-                </collectionProp>
-              </ModuleController>
-              <hashTree/>
+              <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="Switch Open | Closed Loans" enabled="true">
+                <stringProp name="SwitchController.value">${__groovy(props.get(&quot;xProp_DistributionClass&quot;).distrFromString(vars.get(&quot;prob_openClose&quot;));)}</stringProp>
+              </SwitchController>
+              <hashTree>
+                <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: GoTo Open Loans" enabled="true">
+                  <collectionProp name="ModuleController.node_path">
+                    <stringProp name="764597751">Test Plan</stringProp>
+                    <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
+                    <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
+                    <stringProp name="1787712419">SC: GoTo Open Loans (11.xxx)</stringProp>
+                  </collectionProp>
+                </ModuleController>
+                <hashTree/>
+                <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: GoTo Close Loans" enabled="true">
+                  <collectionProp name="ModuleController.node_path">
+                    <stringProp name="764597751">Test Plan</stringProp>
+                    <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
+                    <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
+                    <stringProp name="997747522">SC: GoTo Close Loans (12.xxx)</stringProp>
+                  </collectionProp>
+                </ModuleController>
+                <hashTree/>
+              </hashTree>
             </hashTree>
           </hashTree>
           <TestAction guiclass="TestActionGui" testclass="TestAction" testname="--- ThinkTimer: Fast" enabled="true">
@@ -491,39 +498,46 @@ vars.put(&quot;prob_deleteUser&quot;, distributions[3]);</stringProp>
             </collectionProp>
           </ModuleController>
           <hashTree/>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Choose User" enabled="true">
-            <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
-              <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
-              <stringProp name="-822884110">SC: Choose User (07.xxx)</stringProp>
-            </collectionProp>
-          </ModuleController>
-          <hashTree/>
           <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If user exists" enabled="true">
-            <stringProp name="IfController.condition">${__groovy( !vars.get(&quot;user_found&quot;).equals(&quot;user_not_found&quot;);)}</stringProp>
+            <stringProp name="IfController.condition">${__groovy( !vars.remove(&quot;user_found&quot;).equals(&quot;user_not_found&quot;);)}</stringProp>
             <boolProp name="IfController.evaluateAll">false</boolProp>
             <boolProp name="IfController.useExpression">true</boolProp>
           </IfController>
           <hashTree>
-            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: User Edit Page" enabled="true">
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Choose User" enabled="true">
               <collectionProp name="ModuleController.node_path">
                 <stringProp name="764597751">Test Plan</stringProp>
                 <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
                 <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
-                <stringProp name="732625833">SC: User Edit Page (08.xxx)</stringProp>
+                <stringProp name="-822884110">SC: Choose User (07.xxx)</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
-            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Click Save &amp; Close" enabled="true">
-              <collectionProp name="ModuleController.node_path">
-                <stringProp name="764597751">Test Plan</stringProp>
-                <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
-                <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
-                <stringProp name="468990469">SC: Click Save &amp; Close (09.xxx)</stringProp>
-              </collectionProp>
-            </ModuleController>
-            <hashTree/>
+            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If user exists" enabled="true">
+              <stringProp name="IfController.condition">${__groovy( !vars.remove(&quot;user_found&quot;).equals(&quot;user_not_found&quot;);)}</stringProp>
+              <boolProp name="IfController.evaluateAll">false</boolProp>
+              <boolProp name="IfController.useExpression">true</boolProp>
+            </IfController>
+            <hashTree>
+              <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: User Edit Page" enabled="true">
+                <collectionProp name="ModuleController.node_path">
+                  <stringProp name="764597751">Test Plan</stringProp>
+                  <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
+                  <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
+                  <stringProp name="732625833">SC: User Edit Page (08.xxx)</stringProp>
+                </collectionProp>
+              </ModuleController>
+              <hashTree/>
+              <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Click Save &amp; Close" enabled="true">
+                <collectionProp name="ModuleController.node_path">
+                  <stringProp name="764597751">Test Plan</stringProp>
+                  <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
+                  <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
+                  <stringProp name="468990469">SC: Click Save &amp; Close (09.xxx)</stringProp>
+                </collectionProp>
+              </ModuleController>
+              <hashTree/>
+            </hashTree>
           </hashTree>
           <TestAction guiclass="TestActionGui" testclass="TestAction" testname="--- ThinkTimer: Fast" enabled="true">
             <intProp name="ActionProcessor.action">1</intProp>
@@ -543,30 +557,37 @@ vars.put(&quot;prob_deleteUser&quot;, distributions[3]);</stringProp>
             </collectionProp>
           </ModuleController>
           <hashTree/>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Choose User" enabled="true">
-            <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
-              <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
-              <stringProp name="-822884110">SC: Choose User (07.xxx)</stringProp>
-            </collectionProp>
-          </ModuleController>
-          <hashTree/>
           <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If user exists" enabled="true">
-            <stringProp name="IfController.condition">${__groovy( !vars.get(&quot;user_found&quot;).equals(&quot;user_not_found&quot;);)}</stringProp>
+            <stringProp name="IfController.condition">${__groovy( !vars.remove(&quot;user_found&quot;).equals(&quot;user_not_found&quot;);)}</stringProp>
             <boolProp name="IfController.evaluateAll">false</boolProp>
             <boolProp name="IfController.useExpression">true</boolProp>
           </IfController>
           <hashTree>
-            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Delete User" enabled="true">
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Choose User" enabled="true">
               <collectionProp name="ModuleController.node_path">
                 <stringProp name="764597751">Test Plan</stringProp>
                 <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
                 <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
-                <stringProp name="1897134911">SC: Click Delete (10.xxx)</stringProp>
+                <stringProp name="-822884110">SC: Choose User (07.xxx)</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
+            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If user exists" enabled="true">
+              <stringProp name="IfController.condition">${__groovy( !vars.remove(&quot;user_found&quot;).equals(&quot;user_not_found&quot;);)}</stringProp>
+              <boolProp name="IfController.evaluateAll">false</boolProp>
+              <boolProp name="IfController.useExpression">true</boolProp>
+            </IfController>
+            <hashTree>
+              <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Delete User" enabled="true">
+                <collectionProp name="ModuleController.node_path">
+                  <stringProp name="764597751">Test Plan</stringProp>
+                  <stringProp name="-1181105758">users_patronRecordOperations</stringProp>
+                  <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
+                  <stringProp name="1897134911">SC: Click Delete (10.xxx)</stringProp>
+                </collectionProp>
+              </ModuleController>
+              <hashTree/>
+            </hashTree>
           </hashTree>
           <TestAction guiclass="TestActionGui" testclass="TestAction" testname="--- ThinkTimer: Fast" enabled="true">
             <intProp name="ActionProcessor.action">1</intProp>
@@ -4371,7 +4392,7 @@ sampler.setName(&quot;Users_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; 
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Define uuid" enabled="false">
+              <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Get  random uuid from Users page if uuid quantity &gt;= 1" enabled="true">
                 <stringProp name="scriptLanguage">groovy</stringProp>
                 <stringProp name="parameters"></stringProp>
                 <stringProp name="filename"></stringProp>
@@ -4380,22 +4401,22 @@ sampler.setName(&quot;Users_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; 
 
 try {
 	Map jsonData = new JsonSlurper().parseText(prev.getResponseDataAsString());
-
-	String foundUser = jsonData.users[0].id.toString();	
-
-	if (foundUser != null) {
-		vars.put(&quot;uuid&quot;, foundUser);
-		AssertionResult.setFailure(false);
-		log.info(&quot;== uuid in 06: &quot; + vars.get(&quot;uuid&quot;));
-		} else {
-			AssertionResult.setFailure(true);
-			}
+	Integer user_quantity =  jsonData.totalRecords;
 	
+	if (user_quantity &gt;= 1) {
+		
+		ArrayList uuids = jsonData.users.flatten();
+		String random_uuid = uuids[new Random().nextInt(uuids.size())].id; 
+		vars.put(&quot;uuid&quot;, random_uuid);
+
+		}	else if (user_quantity == 0) {
+				vars.put(&quot;user_found&quot;, &quot;user_not_found&quot;);
+			}
 	} catch (Exception e) {
-		AssertionResult.setFailureMessage(&quot;User not found failure: &quot; + e.getMessage());
-		AssertionResult.setFailure(true);
-		}
-</stringProp>
+			AssertionResult.setFailureMessage(&quot;Users page failure: &quot; + e.getMessage());
+			AssertionResult.setFailure(true);
+			}</stringProp>
+                <stringProp name="TestPlan.comments">To use it no need in uuid from external file.</stringProp>
               </JSR223Assertion>
               <hashTree/>
             </hashTree>
