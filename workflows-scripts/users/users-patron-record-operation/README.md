@@ -59,6 +59,9 @@ The following data files are needed to support the Jmeter script during its exec
 - Prob_ViewUserLoans	View
 - Prob_EditUser			Edit
 - Prob_DeleteUser		Delete
+### Test modifications
+- to enable random pickup user from searching result (searching by keyword) toggle on the JSR223 Assertion "GET random uuid from Users" 
+- location: Raw Test Fragments -> SC: Search User By Name (06.xxx) -> TC: Search User By Name -> GET /users -> JSR223 Assertion "GET random uuid from Users" 
 
 ## Setup data before running JMeter script:
 - Take a DB Dump as described here:
@@ -67,7 +70,7 @@ The following data files are needed to support the Jmeter script during its exec
 ## Run JMeter script
 Example of command:
 ```shell
-jmeter -n -t users_patronRecordOperations.jmx -JVUSERS=2 -l report.csv -e -o HTML
+jmeter -n -t users_patronRecordOperations.jmx -J VUSERS=2 -l report.csv -e -o HTML
 ```
 ## Setup data after running JMeter script:
 - Restore a DB Dump as described here:

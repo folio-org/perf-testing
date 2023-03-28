@@ -20,7 +20,7 @@
           </elementProp>
           <elementProp name="HOSTNAME" elementType="Argument">
             <stringProp name="Argument.name">HOSTNAME</stringProp>
-            <stringProp name="Argument.value">${__P(HOSTNAME, okapi-ptf-nolana-2.int.aws.folio.org)}</stringProp>
+            <stringProp name="Argument.value">${__P(HOSTNAME, [HOSTNAME])}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="port" elementType="Argument">
@@ -55,7 +55,7 @@
             <stringProp name="Argument.name">DISTRIBUTION</stringProp>
             <stringProp name="Argument.value">${__P(DISTRIBUTION, 0-100-0-0)} </stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
-            <stringProp name="Argument.desc">Default 0-100-0-0</stringProp>
+            <stringProp name="Argument.desc">Default 0-100-0-0 [create-view-edit-delete]</stringProp>
           </elementProp>
         </collectionProp>
       </Arguments>
