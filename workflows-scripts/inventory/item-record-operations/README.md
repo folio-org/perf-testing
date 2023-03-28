@@ -43,6 +43,9 @@ Delete User:
 The following data files are needed to support the Jmeter script during its execution.
 - search_items.csv: a list of instance hrid for Search field that will be used to execute the script.
 - credentials.csv: a file to specify credentials for the tenant being tested.
+### Non-runtime Data
+- item-data-load.sh : the file is used to recreate the DB data with affected instances 2K-items.tsv
+- files should be in the same directory to run the bash script with command: item-data-load.sh [instance_configs].conf [tenant]
 
 ### Parameters
 #### Environment and Configuration
