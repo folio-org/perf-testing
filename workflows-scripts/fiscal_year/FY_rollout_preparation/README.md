@@ -4,7 +4,7 @@ It creates:
 - configuration data;
 - fiscal years;
 - ledger;
-- expence slasses;
+- expense classes;
 - funds;
 - budgets;
 - orders with 2 order lines:
