@@ -48,14 +48,17 @@ The following data files are needed to support the Jmeter script during its exec
 
 ### Parameters
 #### Environment and Configuration
-- DISTRIBUTION  define probabilities of scenarious (create, view, edit, delete), example: 0-100-0-0
 - HOSTNAME
 - VUSERS		count of concurrent users.
 - RAMP_UP		the amount of time it will take the script to add all test users (threads) to a test execution.
 - DURATION		timespan between start and end of the script
-- LOOPS			not used with the script but predefined for some purposes in the future and should not be used in Delete scenario.
+- LOOPS			by default -1 means run forever and it should be carefully used by running DELETE scenario. 
 #### Probabilities of scenarios
 - Prob_OpenClose		OpenClose scenario for View
+- Prob_CreateUser		Create
+- Prob_ViewUserLoans	View
+- Prob_EditUser			Edit
+- Prob_DeleteUser		Delete
 
 ## Setup data before running JMeter script:
 - Take a DB Dump as described here:
@@ -64,7 +67,7 @@ The following data files are needed to support the Jmeter script during its exec
 ## Run JMeter script
 Example of command:
 ```shell
-jmeter -n -t users_patronRecordOperations.jmx -J VUSERS=2 -l report.csv -e -o HTML
+jmeter -n -t users_patronRecordOperations.jmx -JVUSERS=2 -l report.csv -e -o HTML
 ```
 ## Setup data after running JMeter script:
 - Restore a DB Dump as described here:

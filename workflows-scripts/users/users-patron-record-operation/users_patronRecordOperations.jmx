@@ -4392,7 +4392,7 @@ sampler.setName(&quot;Users_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; 
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Get  random uuid from Users page if uuid quantity &gt;= 1" enabled="true">
+              <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Get  random uuid from Users page if uuid quantity &gt;= 1" enabled="false">
                 <stringProp name="scriptLanguage">groovy</stringProp>
                 <stringProp name="parameters"></stringProp>
                 <stringProp name="filename"></stringProp>
