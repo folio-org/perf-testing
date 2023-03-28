@@ -70,7 +70,7 @@ The following data files are needed to support the Jmeter script during its exec
 ## Run JMeter script
 Example of command:
 ```shell
-jmeter -n -t users_patronRecordOperations.jmx -J VUSERS=2 -l report.csv -e -o HTML
+jmeter -n -t users_patronRecordOperations.jmx -JVUSERS=2 -l report.csv -e -o HTML
 ```
 ## Setup data after running JMeter script:
 - Restore a DB Dump as described here:
