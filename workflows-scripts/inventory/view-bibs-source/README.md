@@ -7,7 +7,7 @@
 4. When the search result list appears in the middle pane, click on a title link. (The title's detailed record will be displayed on the third panel.)
 5. On the record's detail panel, click on Actions -> View Source to bring up the MARC tag table.
 6. Note that steps 4-5 are the workflow steps, as the prior steps belong to the search workflow. For now we do not need to record the searching steps. Repeat steps 4-5 by clicking other records in the result list to view details.
-## Modules required to be enabled as a pre-requisite to run JMeter script:
+## Modules required(minimum required versions) to be enabled as a pre-requisite to run JMeter script:
 ##### Backend:
 - mod-inventory-storage-25.0.4
 - mod-inventory-19.0.2
@@ -22,4 +22,4 @@
 ###### Csv data config files
 They are used for test parameterization, for creating different data sets for different users in the same test script.
 - credentials.csv (contains username,password,tenant, they are needed for login)
-- keywords.csv (contains keyword) in this case it is Instance keyword
+- keywords.csv (contains keyword) in this case it is Instance keyword you can generate this file using scripts/selectKeyWords.sql
