@@ -45,7 +45,7 @@ The following data files are needed to support the Jmeter script during its exec
 - credentials.csv: a file to specify credentials for the tenant being tested.
 ### Non-runtime Data
 - item-data-load.sh : the file is used to recreate the DB data with affected instances 2K-items.tsv
-- files should be in the same directory to run the bash script with command: item-data-load.sh [instance_configs].conf [tenant]
+- files should be in the same directory to run the bash script with command: bash item-data-load.sh [instance_configs].conf [tenant]
 
 ### Parameters
 #### Environment and Configuration
@@ -55,9 +55,9 @@ The following data files are needed to support the Jmeter script during its exec
 - DURATION		timespan between start and end of the script
 - LOOPS			by default -1 means run forever and it should be carefully used by running DELETE scenario. 
 #### Probabilities of scenarios
-- Prob_ViewUserLoans	View
-- Prob_EditUser			Edit
-- Prob_DeleteUser		Delete
+- prob_viewItem	        View
+- prob_editItem			Edit
+- prob_deleteItem		Delete
 
 ## Setup data before running JMeter script:
 - Restore DB from previously prepared backup with items.tsv file using item-data-load.sh file
