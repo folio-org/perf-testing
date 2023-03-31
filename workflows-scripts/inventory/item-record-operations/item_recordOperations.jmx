@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.3">
   <hashTree>
-    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="item_recordOperationsView" enabled="true">
-      <stringProp name="TestPlan.comments">This test plan was created by EPAM performance team</stringProp>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="item_recordOperations" enabled="true">
+      <stringProp name="TestPlan.comments">This test contains the retrieval, edit, and delete flows of items</stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" enabled="true">
@@ -217,7 +217,7 @@ vars.put(&quot;prob_deleteItem&quot;, distributions[2]);</stringProp>
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Login" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-424091378">item_recordOperationsView</stringProp>
+              <stringProp name="-1659978039">item_recordOperations</stringProp>
               <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
               <stringProp name="-838982077">SC: Login (01.xxx)</stringProp>
             </collectionProp>
@@ -239,7 +239,7 @@ vars.put(&quot;prob_deleteItem&quot;, distributions[2]);</stringProp>
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: View Item" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-424091378">item_recordOperationsView</stringProp>
+              <stringProp name="-1659978039">item_recordOperations</stringProp>
               <stringProp name="-1394928069">---------- Flows ----------</stringProp>
               <stringProp name="-1289966856">SC: View Item</stringProp>
             </collectionProp>
@@ -255,7 +255,7 @@ vars.put(&quot;prob_deleteItem&quot;, distributions[2]);</stringProp>
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Edit Item" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-424091378">item_recordOperationsView</stringProp>
+              <stringProp name="-1659978039">item_recordOperations</stringProp>
               <stringProp name="-1394928069">---------- Flows ----------</stringProp>
               <stringProp name="-1582969165">SC: Edit Item</stringProp>
             </collectionProp>
@@ -271,7 +271,7 @@ vars.put(&quot;prob_deleteItem&quot;, distributions[2]);</stringProp>
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Delete Item" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-424091378">item_recordOperationsView</stringProp>
+              <stringProp name="-1659978039">item_recordOperations</stringProp>
               <stringProp name="-1394928069">---------- Flows ----------</stringProp>
               <stringProp name="1544827186">SC: Delete Item</stringProp>
             </collectionProp>
@@ -313,7 +313,7 @@ vars.put(&quot;prob_deleteItem&quot;, distributions[2]);</stringProp>
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Click Inventory" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-424091378">item_recordOperationsView</stringProp>
+              <stringProp name="-1659978039">item_recordOperations</stringProp>
               <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
               <stringProp name="408023744">SC: GoTo Inventory (02.xxx)</stringProp>
             </collectionProp>
@@ -322,7 +322,7 @@ vars.put(&quot;prob_deleteItem&quot;, distributions[2]);</stringProp>
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Search Item" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-424091378">item_recordOperationsView</stringProp>
+              <stringProp name="-1659978039">item_recordOperations</stringProp>
               <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
               <stringProp name="332686847">SC: Search Item (03.xxx)</stringProp>
             </collectionProp>
@@ -331,7 +331,7 @@ vars.put(&quot;prob_deleteItem&quot;, distributions[2]);</stringProp>
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Click Holdings" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-424091378">item_recordOperationsView</stringProp>
+              <stringProp name="-1659978039">item_recordOperations</stringProp>
               <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
               <stringProp name="1764381493">SC: Click Holdings (04.xxx)</stringProp>
             </collectionProp>
@@ -340,7 +340,7 @@ vars.put(&quot;prob_deleteItem&quot;, distributions[2]);</stringProp>
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC: Click Barcode" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="-424091378">item_recordOperationsView</stringProp>
+              <stringProp name="-1659978039">item_recordOperations</stringProp>
               <stringProp name="-1206634253">---------- Raw Test Fragments ----------</stringProp>
               <stringProp name="-800693440">SC: Click Barcode (05.xxx)</stringProp>
             </collectionProp>
@@ -1672,76 +1672,6 @@ sampler.setName(&quot;Item_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; +
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /search/instances" enabled="false">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
-                <collectionProp name="Arguments.arguments">
-                  <elementProp name="query" elementType="HTTPArgument">
-                    <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                    <stringProp name="Argument.name">query</stringProp>
-                    <stringProp name="Argument.value">(keyword all &quot;${hrid}&quot; or isbn=&quot;${hrid}&quot; or hrid==&quot;${hrid}&quot; or id==&quot;${hrid}&quot;) sortby title</stringProp>
-                    <stringProp name="Argument.metadata">=</stringProp>
-                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                  </elementProp>
-                  <elementProp name="limit" elementType="HTTPArgument">
-                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.name">limit</stringProp>
-                    <stringProp name="Argument.value">100</stringProp>
-                    <stringProp name="Argument.metadata">=</stringProp>
-                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                  </elementProp>
-                </collectionProp>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">search/instances</stringProp>
-              <stringProp name="HTTPSampler.method">GET</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor define instanceId" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">instanceId</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.instances[0].id</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">instanceId_notFound</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor define titleId" enabled="false">
-                <stringProp name="JSONPostProcessor.referenceNames">titleId</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.instances[0].title</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">titleId_notFound</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor define callNumber" enabled="false">
-                <stringProp name="JSONPostProcessor.referenceNames">callNumber</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.instances[0].items[0].effectiveCallNumberComponents.callNumber</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">callNumber_notFound</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor define contributorsName" enabled="false">
-                <stringProp name="JSONPostProcessor.referenceNames">contributorsName</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.instances[0].contributors[0].name</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">contributorsName_notFound</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor define contributorsName2" enabled="false">
-                <stringProp name="JSONPostProcessor.referenceNames">contributorsName2</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.instances[0].contributors[1].name</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">contributorsName2_notFound</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-            </hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /holdings-storage/holdings" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                 <collectionProp name="Arguments.arguments">
@@ -2232,11 +2162,11 @@ sampler.setName(&quot;Item_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; +
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
             </HTTPSamplerProxy>
             <hashTree>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor define itemsId" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">itemsId</stringProp>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor define itemId" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">itemId</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[0].id</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">itemsId_notFound</stringProp>
+                <stringProp name="JSONPostProcessor.defaultValues">itemId_notFound</stringProp>
               </JSONPostProcessor>
               <hashTree/>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor define hrid" enabled="true">
@@ -2251,118 +2181,6 @@ sampler.setName(&quot;Item_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; +
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[0].barcode</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
                 <stringProp name="JSONPostProcessor.defaultValues">barcode_notFound</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor define statisticalCodeIds" enabled="false">
-                <stringProp name="JSONPostProcessor.referenceNames">statisticalCodeIds</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[0].statisticalCodeIds[0]</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">statisticalCodeIds_notFound</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor define materialTypeId" enabled="false">
-                <stringProp name="JSONPostProcessor.referenceNames">materialTypeId</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[0].materialType.id</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">materialTypeId_notFound</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor define materialTypeName" enabled="false">
-                <stringProp name="JSONPostProcessor.referenceNames">materialTypeName</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[0].materialType.name</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">materialTypeName_notFound</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor define permanentLoanTypeId" enabled="false">
-                <stringProp name="JSONPostProcessor.referenceNames">permanentLoanTypeId</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[0].permanentLoanType.id</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">permanentLoanTypeId_notFound</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor define permanentLoanTypeName" enabled="false">
-                <stringProp name="JSONPostProcessor.referenceNames">permanentLoanTypeName</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[0].permanentLoanType.name</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">permanentLoanTypeName_notFound</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor define copyNumber" enabled="false">
-                <stringProp name="JSONPostProcessor.referenceNames">copyNumber</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[0].copyNumber</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">copyNumber_notFound</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor define createdDate" enabled="false">
-                <stringProp name="JSONPostProcessor.referenceNames">createdDate</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[0].metadata.createdDate</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">createdDate_notFound</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor define updatedDate" enabled="false">
-                <stringProp name="JSONPostProcessor.referenceNames">updatedDate</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[0].metadata.updatedDate</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">updatedDate_notFound</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor define updatedByUserId" enabled="false">
-                <stringProp name="JSONPostProcessor.referenceNames">updatedByUserId</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[0].metadata.updatedByUserId</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">updatedByUserId_notFound</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor define effectiveCallNumberComponentsTypeId" enabled="false">
-                <stringProp name="JSONPostProcessor.referenceNames">effectiveCallNumberComponentsTypeId</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[0].effectiveCallNumberComponents.typeId</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">effectiveCallNumberComponentsTypeId_notFound</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor define effectiveShelvingOrder" enabled="false">
-                <stringProp name="JSONPostProcessor.referenceNames">effectiveShelvingOrder</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[0].effectiveShelvingOrder</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">effectiveShelvingOrder_notFound</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor define effectiveLocationId" enabled="false">
-                <stringProp name="JSONPostProcessor.referenceNames">effectiveLocationId</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[0].effectiveLocation.id</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">effectiveLocationId_notFound</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor define effectiveLocationName" enabled="false">
-                <stringProp name="JSONPostProcessor.referenceNames">effectiveLocationName</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[0].effectiveLocation.name</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">effectiveLocationName_notFound</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor define numberOfPieces" enabled="false">
-                <stringProp name="JSONPostProcessor.referenceNames">numberOfPieces</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[0].numberOfPieces</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">numberOfPieces_notFound</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor define descriptionOfPieces" enabled="false">
-                <stringProp name="JSONPostProcessor.referenceNames">descriptionOfPieces</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[0].descriptionOfPieces</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">descriptionOfPieces_notFound</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor define itemsVersion" enabled="false">
-                <stringProp name="JSONPostProcessor.referenceNames">itemsVersion</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[0]._version</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">itemsVersion_notFound</stringProp>
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
@@ -2422,7 +2240,7 @@ sampler.setName(&quot;Item_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; +
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /inventory/items/itemsId" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /inventory/items/itemId" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -2430,7 +2248,7 @@ sampler.setName(&quot;Item_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; +
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">inventory/items/${itemsId}</stringProp>
+              <stringProp name="HTTPSampler.path">inventory/items/${itemId}</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -2520,7 +2338,7 @@ vars.put(&quot;user_data&quot;,new JsonBuilder(jsonData).toString());</stringPro
                   <elementProp name="query" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">true</boolProp>
                     <stringProp name="Argument.name">query</stringProp>
-                    <stringProp name="Argument.value">(itemId==${itemsId}) and status==(&quot;Open - Awaiting pickup&quot; or &quot;Open - Not yet filled&quot; or &quot;Open - In transit&quot; or &quot;Open - Awaiting delivery&quot;) sortby requestDate desc</stringProp>
+                    <stringProp name="Argument.value">(itemId==${itemId}) and status==(&quot;Open - Awaiting pickup&quot; or &quot;Open - Not yet filled&quot; or &quot;Open - In transit&quot; or &quot;Open - Awaiting delivery&quot;) sortby requestDate desc</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   </elementProp>
@@ -2554,7 +2372,7 @@ vars.put(&quot;user_data&quot;,new JsonBuilder(jsonData).toString());</stringPro
                   <elementProp name="query" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">true</boolProp>
                     <stringProp name="Argument.name">query</stringProp>
-                    <stringProp name="Argument.value">status.name==&quot;Open&quot; and itemId==${itemsId}</stringProp>
+                    <stringProp name="Argument.value">status.name==&quot;Open&quot; and itemId==${itemId}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   </elementProp>
@@ -2629,7 +2447,7 @@ vars.put(&quot;user_data&quot;,new JsonBuilder(jsonData).toString());</stringPro
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
             </HTTPSamplerProxy>
             <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /inventory/items/itemsId" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /inventory/items/itemId" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -2637,7 +2455,7 @@ vars.put(&quot;user_data&quot;,new JsonBuilder(jsonData).toString());</stringPro
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">inventory/items/${itemsId}</stringProp>
+              <stringProp name="HTTPSampler.path">inventory/items/${itemId}</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -2837,7 +2655,7 @@ sampler.setName(&quot;Item_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; +
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
             </HTTPSamplerProxy>
             <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /inventory/items/itemsId" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /inventory/items/itemId" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -2845,7 +2663,7 @@ sampler.setName(&quot;Item_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; +
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">inventory/items/${itemsId}</stringProp>
+              <stringProp name="HTTPSampler.path">inventory/items/${itemId}</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -2918,7 +2736,7 @@ sampler.setName(&quot;Item_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; +
               <boolProp name="IfController.useExpression">true</boolProp>
             </IfController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PUT /inventory/items/itemsId" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PUT /inventory/items/itemId" enabled="true">
                 <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                   <collectionProp name="Arguments.arguments">
@@ -2933,7 +2751,7 @@ sampler.setName(&quot;Item_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; +
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">inventory/items/${itemsId}</stringProp>
+                <stringProp name="HTTPSampler.path">inventory/items/${itemId}</stringProp>
                 <stringProp name="HTTPSampler.method">PUT</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -2955,7 +2773,7 @@ sampler.setName(&quot;Item_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; +
                 </ResponseAssertion>
                 <hashTree/>
               </hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /inventory/items/itemsId" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /inventory/items/itemId" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -2963,7 +2781,7 @@ sampler.setName(&quot;Item_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; +
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">inventory/items/${itemsId}</stringProp>
+                <stringProp name="HTTPSampler.path">inventory/items/${itemId}</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -3037,7 +2855,7 @@ sampler.setName(&quot;Item_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; +
                     <elementProp name="query" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">true</boolProp>
                       <stringProp name="Argument.name">query</stringProp>
-                      <stringProp name="Argument.value">(itemId==${itemsId}) and status==(&quot;Open - Awaiting pickup&quot; or &quot;Open - Not yet filled&quot; or &quot;Open - In transit&quot; or &quot;Open - Awaiting delivery&quot;) sortby requestDate desc</stringProp>
+                      <stringProp name="Argument.value">(itemId==${itemId}) and status==(&quot;Open - Awaiting pickup&quot; or &quot;Open - Not yet filled&quot; or &quot;Open - In transit&quot; or &quot;Open - Awaiting delivery&quot;) sortby requestDate desc</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     </elementProp>
@@ -3071,7 +2889,7 @@ sampler.setName(&quot;Item_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; +
                     <elementProp name="query" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">true</boolProp>
                       <stringProp name="Argument.name">query</stringProp>
-                      <stringProp name="Argument.value">status.name==&quot;Open&quot; and itemId==${itemsId}</stringProp>
+                      <stringProp name="Argument.value">status.name==&quot;Open&quot; and itemId==${itemId}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     </elementProp>
@@ -3173,7 +2991,7 @@ sampler.setName(&quot;Item_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; +
                 <stringProp name="HTTPSampler.response_timeout"></stringProp>
               </HTTPSamplerProxy>
               <hashTree/>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /inventory/items/itemsId" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /inventory/items/itemId" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -3181,7 +2999,7 @@ sampler.setName(&quot;Item_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; +
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">inventory/items/${itemsId}</stringProp>
+                <stringProp name="HTTPSampler.path">inventory/items/${itemId}</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -3249,7 +3067,7 @@ sampler.setName(&quot;Item_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; +
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE /inventory/items/itemsId" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE /inventory/items/itemId" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -3257,7 +3075,7 @@ sampler.setName(&quot;Item_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; +
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">inventory/items/${itemsId}</stringProp>
+              <stringProp name="HTTPSampler.path">inventory/items/${itemId}</stringProp>
               <stringProp name="HTTPSampler.method">DELETE</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>

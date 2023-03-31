@@ -1,5 +1,5 @@
 ## Workflow steps:
-##### Workflow for item_recordOperations.jmx
+##### This script contains 3 workflows to manage items: view, edit, and delete. The flows can be configured to control the probability of them being called by setting probalities in DISTRIBUTION field
 
 View Item:
 
@@ -60,13 +60,10 @@ The following data files are needed to support the Jmeter script during its exec
 - prob_deleteItem		Delete
 
 ## Setup data before running JMeter script:
-- Restore DB from previously prepared backup with items.tsv file using item-data-load.sh file
+- Restore DB from previously prepared backup with items.tsv file using command: bash item-data-load.sh [instance_configs].conf [tenant]
 
 ## Run JMeter script
 Example of command:
 ```shell
 jmeter -n -t users_patronRecordOperations.jmx -JVUSERS=2 -l report.csv -e -o HTML
 ```
-
-## Setup data after running JMeter script:
-- Restore DB from items.tsv file using item-data-load.sh file
