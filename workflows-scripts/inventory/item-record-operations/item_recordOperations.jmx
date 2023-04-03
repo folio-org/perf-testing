@@ -482,7 +482,7 @@ vars.put(&quot;prob_deleteItem&quot;, distributions[2]);</stringProp>
       </hashTree>
       <TestFragmentController guiclass="TestFragmentControllerGui" testclass="TestFragmentController" testname="---------- Raw Test Fragments ----------" enabled="true"/>
       <hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="SC: Login (01.xxx)" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="SC: Login (01)" enabled="true"/>
         <hashTree>
           <TestAction guiclass="TestActionGui" testclass="TestAction" testname="---------- Transaction Settings ---------- " enabled="true">
             <intProp name="ActionProcessor.action">1</intProp>
@@ -608,7 +608,7 @@ sampler.setName(&quot;Item_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; +
             </hashTree>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="SC: GoTo Inventory (02.xxx)" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="SC: GoTo Inventory (02)" enabled="true"/>
         <hashTree>
           <TestAction guiclass="TestActionGui" testclass="TestAction" testname="---------- Transaction Settings ---------- " enabled="true">
             <intProp name="ActionProcessor.action">1</intProp>
@@ -1575,7 +1575,7 @@ sampler.setName(&quot;Item_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; +
             <hashTree/>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="SC: Search Item (03.xxx)" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="SC: Search Item (03)" enabled="true"/>
         <hashTree>
           <TestAction guiclass="TestActionGui" testclass="TestAction" testname="---------- Transaction Settings ---------- " enabled="true">
             <intProp name="ActionProcessor.action">1</intProp>
@@ -2074,7 +2074,7 @@ sampler.setName(&quot;Item_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; +
             <hashTree/>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="SC: Click Holdings (04.xxx)" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="SC: Click Holdings (04)" enabled="true"/>
         <hashTree>
           <TestAction guiclass="TestActionGui" testclass="TestAction" testname="---------- Transaction Settings ---------- " enabled="true">
             <intProp name="ActionProcessor.action">1</intProp>
@@ -2186,7 +2186,7 @@ sampler.setName(&quot;Item_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; +
             </hashTree>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="SC: Click Barcode (05.xxx)" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="SC: Click Barcode (05)" enabled="true"/>
         <hashTree>
           <TestAction guiclass="TestActionGui" testclass="TestAction" testname="---------- Transaction Settings ---------- " enabled="true">
             <intProp name="ActionProcessor.action">1</intProp>
@@ -2468,7 +2468,7 @@ vars.put(&quot;user_data&quot;,new JsonBuilder(jsonData).toString());</stringPro
             <hashTree/>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="SC: Click Actions (06.xxx)" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="SC: Click Actions (06)" enabled="true"/>
         <hashTree>
           <TestAction guiclass="TestActionGui" testclass="TestAction" testname="---------- Transaction Settings ---------- " enabled="true">
             <intProp name="ActionProcessor.action">1</intProp>
@@ -2676,7 +2676,7 @@ sampler.setName(&quot;Item_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; +
             <hashTree/>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="SC: Click Save and Close (07.xxx)" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="SC: Click Save and Close (07)" enabled="true"/>
         <hashTree>
           <TestAction guiclass="TestActionGui" testclass="TestAction" testname="---------- Transaction Settings ---------- " enabled="true">
             <intProp name="ActionProcessor.action">1</intProp>
@@ -3013,7 +3013,7 @@ sampler.setName(&quot;Item_&quot; + vars.get(&quot;pNum&quot;) + &quot;_&quot; +
             </hashTree>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="SC: Click Delete (08.xxx)" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="SC: Click Delete (08)" enabled="true"/>
         <hashTree>
           <TestAction guiclass="TestActionGui" testclass="TestAction" testname="---------- Transaction Settings ---------- " enabled="true">
             <intProp name="ActionProcessor.action">1</intProp>
