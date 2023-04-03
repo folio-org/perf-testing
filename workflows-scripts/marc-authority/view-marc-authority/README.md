@@ -1,5 +1,5 @@
 ## Workflow steps:
-##### Workflow for marc_viewAuthorityRecord.jmx
+##### Workflow for marc_viewAuthorityRecord.jmx to retrieve marc authority record ids and click it randomly
 
 View MARC Authority Record:
 
@@ -22,7 +22,7 @@ Repeat step 4 by clicking on other results in the result list to bring up other 
 ## JMeter-supported-data
 ### Runtime Data
 The following data files are needed to support the Jmeter script during its execution.
-- search_marc_keyword.csv: a list of search keywords for marc authority records.
+- search_marc_keyword.csv: a list of search keywords for marc authority records is dependant on Environment against which tests will be executed.
 - credentials.csv: a file to specify credentials for the tenant being tested.
 
 ### Parameters
@@ -32,8 +32,6 @@ The following data files are needed to support the Jmeter script during its exec
 - RAMP_UP		the amount of time it will take the script to add all test users (threads) to a test execution.
 - DURATION		timespan between start and end of the script
 - LOOPS			by default -1 means run forever and it should be carefully used by running DELETE scenario. 
-#### Probabilities of scenarios
-- prob_viewAuthority	View
 
 ## Setup data before running JMeter script:
 - Restore DB not needed
