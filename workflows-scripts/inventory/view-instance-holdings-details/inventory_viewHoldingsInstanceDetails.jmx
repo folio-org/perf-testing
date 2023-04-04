@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.3">
   <hashTree>
-    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Inventory_viewHoldingsInstanceDetails" enabled="true">
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="inventory_viewHoldingsInstanceDetails" enabled="true">
       <stringProp name="TestPlan.comments">This script was created to get instance and holdings details for a specific ID</stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
@@ -20,7 +20,7 @@
           </elementProp>
           <elementProp name="HOSTNAME" elementType="Argument">
             <stringProp name="Argument.name">HOSTNAME</stringProp>
-            <stringProp name="Argument.value">${__P(HOSTNAME, okapi-ptf-ncp5-00.int.aws.folio.org)}</stringProp>
+            <stringProp name="Argument.value">${__P(HOSTNAME, [HOSTNAME])}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="port" elementType="Argument">
