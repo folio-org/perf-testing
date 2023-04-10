@@ -1,5 +1,5 @@
 ## Workflow steps:
-##### This script contains 3 workflows to manage items: view, edit, and delete. The flows can be configured to control the probability of them being called by setting probalities in DISTRIBUTION field
+##### This script contains 3 workflows to manage items: view, edit, and delete. The flows can be configured to control the probability of them being called by setting probabilities in DISTRIBUTION field
 
 View Item:
 
@@ -16,7 +16,7 @@ Edit Item:
 5. Update one or several fields
 6. Hit Save and Close
 
-Delete User:
+Delete Item:
 
 1. In the Keyword field, search for the item by a unique name or by an item's identifier such as HRID or barcode
 2. The found item's associated instance will be displayed in the third (right) pane. 
@@ -65,5 +65,5 @@ The following data files are needed to support the Jmeter script during its exec
 ## Run JMeter script
 Example of command:
 ```shell
-jmeter -n -t users_patronRecordOperations.jmx -JVUSERS=2 -l report.csv -e -o HTML
+jmeter -n -t item_recordOperations.jmx -JVUSERS=2 -l report.csv -e -o HTML
 ```
