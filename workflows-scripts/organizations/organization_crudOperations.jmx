@@ -47,13 +47,13 @@
           </elementProp>
           <elementProp name="org_loops" elementType="Argument">
             <stringProp name="Argument.name">org_loops</stringProp>
-            <stringProp name="Argument.value">${__P(LOOPS, -1)}</stringProp>
+            <stringProp name="Argument.value">${__P(LOOPS, 4)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">Default Infinite</stringProp>
           </elementProp>
           <elementProp name="DISTRIBUTION" elementType="Argument">
             <stringProp name="Argument.name">DISTRIBUTION</stringProp>
-            <stringProp name="Argument.value">${__P(DISTRIBUTION, 0-100-0-0)} </stringProp>
+            <stringProp name="Argument.value">${__P(DISTRIBUTION, 25-25-25-25)} </stringProp>
             <stringProp name="Argument.desc">Default 0-100-0-0 [create-view-edit-delete]</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
@@ -61,6 +61,11 @@
             <stringProp name="Argument.name">prob_search</stringProp>
             <stringProp name="Argument.value">${__P(prob_nameActive, 50\, 50)}</stringProp>
             <stringProp name="Argument.desc">By Name | By Active</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="protocol" elementType="Argument">
+            <stringProp name="Argument.name">protocol</stringProp>
+            <stringProp name="Argument.value">${__P(protocol, https)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -137,7 +142,7 @@
         </elementProp>
         <stringProp name="HTTPSampler.domain">${HOSTNAME}</stringProp>
         <stringProp name="HTTPSampler.port">${port}</stringProp>
-        <stringProp name="HTTPSampler.protocol">https</stringProp>
+        <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
         <stringProp name="HTTPSampler.contentEncoding"></stringProp>
         <stringProp name="HTTPSampler.path"></stringProp>
         <boolProp name="HTTPSampler.image_parser">true</boolProp>
@@ -168,7 +173,7 @@
         <boolProp name="recycle">true</boolProp>
         <stringProp name="shareMode">shareMode.all</stringProp>
         <boolProp name="stopThread">false</boolProp>
-        <stringProp name="variableNames">orgName</stringProp>
+        <stringProp name="variableNames">organization_name</stringProp>
       </CSVDataSet>
       <hashTree/>
       <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="setUp Thread Group" enabled="true">
@@ -330,19 +335,27 @@ props.put(&quot;xProp_DistributionClass&quot;, Distribution);
             <stringProp name="parameters"></stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="cacheKey">true</stringProp>
-            <stringProp name="script">HashSet variables = vars.entrySet();
+            <stringProp name="script">def distributions = vars.get(&quot;DISTRIBUTION&quot;).split(&quot;-&quot;);
+String[] flows = [&quot;organization_createVendor&quot;, &quot;organization_viewVendor&quot;, &quot;organization_editVendor&quot;, &quot;organization_deleteVendor&quot;];
+def selected = 0;
+def leftBorder = 0;
+def randomNumber = new Random().nextInt(100);
+for (distribution in distributions) {
+def rightBorder = distribution.toInteger() + leftBorder;
+if((randomNumber &gt;= leftBorder) &amp;&amp; (randomNumber &lt; rightBorder)) {
+break;
+}
+leftBorder = rightBorder;
+selected++;
+}
 
-def distributions = vars.get(&quot;DISTRIBUTION&quot;).split(&quot;-&quot;);
-
-vars.put(&quot;prob_createVendor&quot;, distributions[0]);
-vars.put(&quot;prob_viewVendor&quot;, distributions[1]);
-vars.put(&quot;prob_editVendor&quot;, distributions[2]);
-vars.put(&quot;prob_deleteVendor&quot;, distributions[3]);</stringProp>
+vars.put(&quot;flow&quot;, flows[selected]);
+log.info(&quot;====flow: &quot; + vars.get(&quot;flow&quot;));</stringProp>
           </JSR223PreProcessor>
           <hashTree/>
         </hashTree>
         <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Do Create" enabled="true">
-          <stringProp name="IfController.condition">${__groovy((new Random().nextInt(100) + 1) &lt;= vars.get(&quot;prob_createVendor&quot;).toInteger();)}</stringProp>
+          <stringProp name="IfController.condition">${__groovy(vars.get(&quot;flow&quot;).equals(&quot;organization_createVendor&quot;);)}</stringProp>
           <boolProp name="IfController.evaluateAll">false</boolProp>
           <boolProp name="IfController.useExpression">true</boolProp>
         </IfController>
@@ -353,22 +366,6 @@ vars.put(&quot;prob_deleteVendor&quot;, distributions[3]);</stringProp>
             <stringProp name="ActionProcessor.duration">${__Random(300,500,)}</stringProp>
           </TestAction>
           <hashTree/>
-          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Define UUID to create vendor ID" enabled="true">
-            <intProp name="ActionProcessor.action">1</intProp>
-            <intProp name="ActionProcessor.target">0</intProp>
-            <stringProp name="ActionProcessor.duration">0</stringProp>
-          </TestAction>
-          <hashTree>
-            <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
-              <stringProp name="scriptLanguage">groovy</stringProp>
-              <stringProp name="parameters"></stringProp>
-              <stringProp name="filename"></stringProp>
-              <stringProp name="cacheKey">true</stringProp>
-              <stringProp name="script">import java.util.UUID;
-vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
-            </JSR223PreProcessor>
-            <hashTree/>
-          </hashTree>
           <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TC: Click App Organizations" enabled="true">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
             <boolProp name="TransactionController.parent">false</boolProp>
@@ -678,7 +675,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
                   <elementProp name="query" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">true</boolProp>
                     <stringProp name="Argument.name">query</stringProp>
-                    <stringProp name="Argument.value">code==&quot;Vendor_Test_New_${vendor_suffix}&quot;</stringProp>
+                    <stringProp name="Argument.value">code==&quot;Vendor_Test_New_${__RandomString(5,abcdefgf123,)}&quot;</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   </elementProp>
@@ -698,16 +695,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
               <stringProp name="HTTPSampler.connect_timeout"></stringProp>
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
             </HTTPSamplerProxy>
-            <hashTree>
-              <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
-                <stringProp name="scriptLanguage">groovy</stringProp>
-                <stringProp name="parameters"></stringProp>
-                <stringProp name="filename"></stringProp>
-                <stringProp name="cacheKey">true</stringProp>
-                <stringProp name="script">vars.put(&quot;vendor_suffix&quot;, vars.get(&quot;orgId&quot;));</stringProp>
-              </JSR223PreProcessor>
-              <hashTree/>
-            </hashTree>
+            <hashTree/>
           </hashTree>
           <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TC: Click Save &amp; Close" enabled="true">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
@@ -720,7 +708,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&quot;interfaces&quot;:[],&quot;contacts&quot;:[],&quot;isVendor&quot;:false,&quot;edi&quot;:{&quot;vendorEdiType&quot;:&quot;31B/US-SAN&quot;,&quot;libEdiType&quot;:&quot;31B/US-SAN&quot;,&quot;ediFtp&quot;:{&quot;ftpFormat&quot;:&quot;SFTP&quot;,&quot;ftpMode&quot;:&quot;ASCII&quot;,&quot;ftpConnMode&quot;:&quot;Active&quot;}},&quot;name&quot;:&quot;Vendor_Test_Name_${vendor_suffix}&quot;,&quot;code&quot;:&quot;Vendor_Test_Code_${vendor_suffix}&quot;,&quot;status&quot;:&quot;Active&quot;,&quot;description&quot;:&quot;Vendor_Test_New_description&quot;,&quot;id&quot;:&quot;${orgId}&quot;}</stringProp>
+                    <stringProp name="Argument.value">{&quot;interfaces&quot;:[],&quot;contacts&quot;:[],&quot;isVendor&quot;:false,&quot;edi&quot;:{&quot;vendorEdiType&quot;:&quot;31B/US-SAN&quot;,&quot;libEdiType&quot;:&quot;31B/US-SAN&quot;,&quot;ediFtp&quot;:{&quot;ftpFormat&quot;:&quot;SFTP&quot;,&quot;ftpMode&quot;:&quot;ASCII&quot;,&quot;ftpConnMode&quot;:&quot;Active&quot;}},&quot;name&quot;:&quot;Vendor_Test_Name_${__RandomString(5,abcdefgf123,)}&quot;,&quot;code&quot;:&quot;Vendor_Test_Code_${__RandomString(5,abcdefgf123,)}&quot;,&quot;status&quot;:&quot;Active&quot;,&quot;description&quot;:&quot;Vendor_Test_New_description&quot;}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                   </elementProp>
                 </collectionProp>
@@ -741,7 +729,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
             </HTTPSamplerProxy>
             <hashTree>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">orgsUuid</stringProp>
+                <stringProp name="JSONPostProcessor.referenceNames">organization_id</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
                 <stringProp name="JSONPostProcessor.defaultValues">orgsUuid_not_found</stringProp>
@@ -887,7 +875,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
             </HTTPSamplerProxy>
             <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /organizations/organizations/orgsUuid" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /organizations/organizations/organization_id" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="limit" elementType="HTTPArgument">
@@ -903,7 +891,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">organizations/organizations/${orgsUuid}</stringProp>
+              <stringProp name="HTTPSampler.path">organizations/organizations/${organization_id}</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -954,7 +942,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
                   <elementProp name="query" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">true</boolProp>
                     <stringProp name="Argument.name">query</stringProp>
-                    <stringProp name="Argument.value">configName==EDIFACT_ORDERS_EXPORT_${orgsUuid}*</stringProp>
+                    <stringProp name="Argument.value">configName==EDIFACT_ORDERS_EXPORT_${organization_id}*</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   </elementProp>
@@ -982,7 +970,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
             </HTTPSamplerProxy>
             <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /note-links/domain/organizations/type/organization/id/orgsUuid" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /note-links/domain/organizations/type/organization/id/organization_id" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="limit" elementType="HTTPArgument">
@@ -1019,7 +1007,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">note-links/domain/organizations/type/organization/id/${orgsUuid}</stringProp>
+              <stringProp name="HTTPSampler.path">note-links/domain/organizations/type/organization/id/${organization_id}</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -1152,7 +1140,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
                   <elementProp name="filters" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">true</boolProp>
                     <stringProp name="Argument.name">filters</stringProp>
-                    <stringProp name="Argument.value">orgs.org.orgsUuid==${orgsUuid}</stringProp>
+                    <stringProp name="Argument.value">orgs.org.organization_id==${organization_id}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   </elementProp>
@@ -1183,7 +1171,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
           </hashTree>
         </hashTree>
         <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Do View Vendor" enabled="true">
-          <stringProp name="IfController.condition">${__groovy((new Random().nextInt(100) + 1) &lt;= vars.get(&quot;prob_viewVendor&quot;).toInteger();)}</stringProp>
+          <stringProp name="IfController.condition">${__groovy(vars.get(&quot;flow&quot;).equals(&quot;organization_viewVendor&quot;);)}</stringProp>
           <boolProp name="IfController.evaluateAll">false</boolProp>
           <boolProp name="IfController.useExpression">true</boolProp>
         </IfController>
@@ -1360,7 +1348,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
                       <elementProp name="query" elementType="HTTPArgument">
                         <boolProp name="HTTPArgument.always_encode">true</boolProp>
                         <stringProp name="Argument.name">query</stringProp>
-                        <stringProp name="Argument.value">(((name=${orgName}*))) sortby name/sort.ascending</stringProp>
+                        <stringProp name="Argument.value">(((name=${organization_name}*))) sortby name/sort.ascending</stringProp>
                         <stringProp name="Argument.metadata">=</stringProp>
                         <boolProp name="HTTPArgument.use_equals">true</boolProp>
                       </elementProp>
@@ -1388,11 +1376,11 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
                   <stringProp name="HTTPSampler.response_timeout"></stringProp>
                 </HTTPSamplerProxy>
                 <hashTree>
-                  <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor Get orgsId" enabled="true">
-                    <stringProp name="JSONPostProcessor.referenceNames">orgsId</stringProp>
-                    <stringProp name="JSONPostProcessor.jsonPathExprs">$.organizations[0].id</stringProp>
-                    <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-                    <stringProp name="JSONPostProcessor.defaultValues">orgsId_not_found</stringProp>
+                  <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor Get organization_id" enabled="true">
+                    <stringProp name="JSONPostProcessor.referenceNames">organization_id</stringProp>
+                    <stringProp name="JSONPostProcessor.jsonPathExprs">$.organizations.*.id</stringProp>
+                    <stringProp name="JSONPostProcessor.match_numbers">0</stringProp>
+                    <stringProp name="JSONPostProcessor.defaultValues">not_found</stringProp>
                   </JSONPostProcessor>
                   <hashTree/>
                 </hashTree>
@@ -1446,19 +1434,19 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
                   <stringProp name="HTTPSampler.response_timeout"></stringProp>
                 </HTTPSamplerProxy>
                 <hashTree>
-                  <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor Get orgsId" enabled="true">
-                    <stringProp name="JSONPostProcessor.referenceNames">orgsId</stringProp>
-                    <stringProp name="JSONPostProcessor.jsonPathExprs">$.organizations[*].id</stringProp>
+                  <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor Get organization_id" enabled="true">
+                    <stringProp name="JSONPostProcessor.referenceNames">organization_id</stringProp>
+                    <stringProp name="JSONPostProcessor.jsonPathExprs">$.organizations.*.id</stringProp>
                     <stringProp name="JSONPostProcessor.match_numbers">0</stringProp>
-                    <stringProp name="JSONPostProcessor.defaultValues">orgsId_not_found</stringProp>
+                    <stringProp name="JSONPostProcessor.defaultValues">not_found</stringProp>
                   </JSONPostProcessor>
                   <hashTree/>
                 </hashTree>
               </hashTree>
             </hashTree>
           </hashTree>
-          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller" enabled="true">
-            <stringProp name="IfController.condition">${__groovy( !vars.get(&quot;orgsId&quot;).equals(&quot;orgsId_not_found&quot;);)}</stringProp>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If organization_id exists" enabled="true">
+            <stringProp name="IfController.condition">${__groovy( !vars.get(&quot;organization_id&quot;).equals(&quot;not_found&quot;);)}</stringProp>
             <boolProp name="IfController.evaluateAll">false</boolProp>
             <boolProp name="IfController.useExpression">true</boolProp>
           </IfController>
@@ -1495,7 +1483,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
                 <stringProp name="HTTPSampler.response_timeout"></stringProp>
               </HTTPSamplerProxy>
               <hashTree/>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /organizations/organizations/orgsId" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /organizations/organizations/organization_id" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="limit" elementType="HTTPArgument">
@@ -1511,7 +1499,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">organizations/organizations/${orgsId}</stringProp>
+                <stringProp name="HTTPSampler.path">organizations/organizations/${organization_id}</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -1562,7 +1550,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
                     <elementProp name="query" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">true</boolProp>
                       <stringProp name="Argument.name">query</stringProp>
-                      <stringProp name="Argument.value">configName==EDIFACT_ORDERS_EXPORT_${orgsId}*</stringProp>
+                      <stringProp name="Argument.value">configName==EDIFACT_ORDERS_EXPORT_${organization_id}*</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     </elementProp>
@@ -1590,7 +1578,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
                 <stringProp name="HTTPSampler.response_timeout"></stringProp>
               </HTTPSamplerProxy>
               <hashTree/>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /note-links/domain/organizations/type/organization/id/orgsId" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /note-links/domain/organizations/type/organization/id/organization_id" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="limit" elementType="HTTPArgument">
@@ -1627,7 +1615,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">note-links/domain/organizations/type/organization/id/${orgsId}</stringProp>
+                <stringProp name="HTTPSampler.path">note-links/domain/organizations/type/organization/id/${organization_id}</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -1760,7 +1748,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
                     <elementProp name="filters" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">true</boolProp>
                       <stringProp name="Argument.name">filters</stringProp>
-                      <stringProp name="Argument.value">orgs.org.orgsUuid==${orgsId}</stringProp>
+                      <stringProp name="Argument.value">orgs.org.organization_id==${organization_id}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     </elementProp>
@@ -1792,7 +1780,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
           </hashTree>
         </hashTree>
         <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Do Edit Vendor" enabled="true">
-          <stringProp name="IfController.condition">${__groovy((new Random().nextInt(100) + 1) &lt;= vars.get(&quot;prob_editVendor&quot;).toInteger();)}</stringProp>
+          <stringProp name="IfController.condition">${__groovy(vars.get(&quot;flow&quot;).equals(&quot;organization_editVendor&quot;);)}</stringProp>
           <boolProp name="IfController.evaluateAll">false</boolProp>
           <boolProp name="IfController.useExpression">true</boolProp>
         </IfController>
@@ -1963,7 +1951,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
                   <elementProp name="query" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">true</boolProp>
                     <stringProp name="Argument.name">query</stringProp>
-                    <stringProp name="Argument.value">(((name=${orgName}*))) sortby name/sort.ascending</stringProp>
+                    <stringProp name="Argument.value">(((name=${organization_name}*))) sortby name/sort.ascending</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   </elementProp>
@@ -1991,17 +1979,17 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
             </HTTPSamplerProxy>
             <hashTree>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor Get orgsId" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">orgsId</stringProp>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor Get organization_id" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">organization_id</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.organizations[0].id</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">orgsId_not_found</stringProp>
+                <stringProp name="JSONPostProcessor.defaultValues">not_found</stringProp>
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
           </hashTree>
-          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If orgsId exists Do Click " enabled="true">
-            <stringProp name="IfController.condition">${__groovy( !vars.get(&quot;orgsId&quot;).equals(&quot;orgsId_not_found&quot;);)}</stringProp>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If organization_id exists Do Click " enabled="true">
+            <stringProp name="IfController.condition">${__groovy( !vars.get(&quot;organization_id&quot;).equals(&quot;not_found&quot;);)}</stringProp>
             <boolProp name="IfController.evaluateAll">false</boolProp>
             <boolProp name="IfController.useExpression">true</boolProp>
           </IfController>
@@ -2044,7 +2032,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
                 <stringProp name="HTTPSampler.response_timeout"></stringProp>
               </HTTPSamplerProxy>
               <hashTree/>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /organizations/organizations/orgsId" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /organizations/organizations/organization_id" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="limit" elementType="HTTPArgument">
@@ -2060,7 +2048,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">organizations/organizations/${orgsId}</stringProp>
+                <stringProp name="HTTPSampler.path">organizations/organizations/${organization_id}</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -2111,7 +2099,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
                     <elementProp name="query" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">true</boolProp>
                       <stringProp name="Argument.name">query</stringProp>
-                      <stringProp name="Argument.value">configName==EDIFACT_ORDERS_EXPORT_${orgsId}*</stringProp>
+                      <stringProp name="Argument.value">configName==EDIFACT_ORDERS_EXPORT_${organization_id}*</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     </elementProp>
@@ -2139,7 +2127,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
                 <stringProp name="HTTPSampler.response_timeout"></stringProp>
               </HTTPSamplerProxy>
               <hashTree/>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /note-links/domain/organizations/type/organization/id/orgsId" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /note-links/domain/organizations/type/organization/id/organization_id" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="limit" elementType="HTTPArgument">
@@ -2176,7 +2164,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">note-links/domain/organizations/type/organization/id/${orgsId}</stringProp>
+                <stringProp name="HTTPSampler.path">note-links/domain/organizations/type/organization/id/${organization_id}</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -2309,7 +2297,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
                     <elementProp name="filters" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">true</boolProp>
                       <stringProp name="Argument.name">filters</stringProp>
-                      <stringProp name="Argument.value">orgs.org.orgsUuid==${orgsId}</stringProp>
+                      <stringProp name="Argument.value">orgs.org.organization_id==${organization_id}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     </elementProp>
@@ -2343,7 +2331,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
               <boolProp name="TransactionController.parent">false</boolProp>
             </TransactionController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /organizations/organizations/orgsId" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /organizations/organizations/organization_id" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="limit" elementType="HTTPArgument">
@@ -2359,7 +2347,7 @@ vars.put(&quot;orgId&quot;, UUID.randomUUID().toString());</stringProp>
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">organizations/organizations/${orgsId}</stringProp>
+                <stringProp name="HTTPSampler.path">organizations/organizations/${organization_id}</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -2514,7 +2502,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
                     <elementProp name="query" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">true</boolProp>
                       <stringProp name="Argument.name">query</stringProp>
-                      <stringProp name="Argument.value">code==&quot;${codeId}&quot; and id&lt;&gt;&quot;${orgsId}&quot;</stringProp>
+                      <stringProp name="Argument.value">code==&quot;${codeId}&quot; and id&lt;&gt;&quot;${organization_id}&quot;</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     </elementProp>
@@ -2575,7 +2563,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
                     <elementProp name="query" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">true</boolProp>
                       <stringProp name="Argument.name">query</stringProp>
-                      <stringProp name="Argument.value">code==&quot;${codeId}&quot; and id&lt;&gt;&quot;${orgsId}&quot;</stringProp>
+                      <stringProp name="Argument.value">code==&quot;${codeId}&quot; and id&lt;&gt;&quot;${organization_id}&quot;</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     </elementProp>
@@ -2602,7 +2590,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
                     <elementProp name="query" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">true</boolProp>
                       <stringProp name="Argument.name">query</stringProp>
-                      <stringProp name="Argument.value">code==&quot;${codeId}&quot; and id&lt;&gt;&quot;${orgsId}&quot;</stringProp>
+                      <stringProp name="Argument.value">code==&quot;${codeId}&quot; and id&lt;&gt;&quot;${organization_id}&quot;</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     </elementProp>
@@ -2629,7 +2617,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
                     <elementProp name="query" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">true</boolProp>
                       <stringProp name="Argument.name">query</stringProp>
-                      <stringProp name="Argument.value">code==&quot;${codeId}&quot; and id&lt;&gt;&quot;${orgsId}&quot;</stringProp>
+                      <stringProp name="Argument.value">code==&quot;${codeId}&quot; and id&lt;&gt;&quot;${organization_id}&quot;</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     </elementProp>
@@ -2656,7 +2644,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
                     <elementProp name="query" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">true</boolProp>
                       <stringProp name="Argument.name">query</stringProp>
-                      <stringProp name="Argument.value">code==&quot;${codeId}&quot; and id&lt;&gt;&quot;${orgsId}&quot;</stringProp>
+                      <stringProp name="Argument.value">code==&quot;${codeId}&quot; and id&lt;&gt;&quot;${organization_id}&quot;</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     </elementProp>
@@ -2683,7 +2671,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
                     <elementProp name="query" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">true</boolProp>
                       <stringProp name="Argument.name">query</stringProp>
-                      <stringProp name="Argument.value">code==&quot;${codeId}&quot; and id&lt;&gt;&quot;${orgsId}&quot;</stringProp>
+                      <stringProp name="Argument.value">code==&quot;${codeId}&quot; and id&lt;&gt;&quot;${organization_id}&quot;</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     </elementProp>
@@ -2710,7 +2698,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
                     <elementProp name="query" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">true</boolProp>
                       <stringProp name="Argument.name">query</stringProp>
-                      <stringProp name="Argument.value">code==&quot;${codeId}&quot; and id&lt;&gt;&quot;${orgsId}&quot;</stringProp>
+                      <stringProp name="Argument.value">code==&quot;${codeId}&quot; and id&lt;&gt;&quot;${organization_id}&quot;</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     </elementProp>
@@ -2737,7 +2725,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
                     <elementProp name="query" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">true</boolProp>
                       <stringProp name="Argument.name">query</stringProp>
-                      <stringProp name="Argument.value">code==&quot;${codeId}&quot; and id&lt;&gt;&quot;${orgsId}&quot;</stringProp>
+                      <stringProp name="Argument.value">code==&quot;${codeId}&quot; and id&lt;&gt;&quot;${organization_id}&quot;</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     </elementProp>
@@ -2764,7 +2752,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
                     <elementProp name="query" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">true</boolProp>
                       <stringProp name="Argument.name">query</stringProp>
-                      <stringProp name="Argument.value">code==&quot;${codeId}&quot; and id&lt;&gt;&quot;${orgsId}&quot;</stringProp>
+                      <stringProp name="Argument.value">code==&quot;${codeId}&quot; and id&lt;&gt;&quot;${organization_id}&quot;</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     </elementProp>
@@ -2797,7 +2785,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
                 <boolProp name="TransactionController.parent">false</boolProp>
               </TransactionController>
               <hashTree>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PUT /organizations/organizations/orgsId" enabled="true">
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PUT /organizations/organizations/organization_id" enabled="true">
                   <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
                   <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                     <collectionProp name="Arguments.arguments">
@@ -2812,7 +2800,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
                   <stringProp name="HTTPSampler.port"></stringProp>
                   <stringProp name="HTTPSampler.protocol"></stringProp>
                   <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                  <stringProp name="HTTPSampler.path">organizations/organizations/${orgsId}</stringProp>
+                  <stringProp name="HTTPSampler.path">organizations/organizations/${organization_id}</stringProp>
                   <stringProp name="HTTPSampler.method">PUT</stringProp>
                   <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                   <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -2963,7 +2951,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
                   <stringProp name="HTTPSampler.response_timeout"></stringProp>
                 </HTTPSamplerProxy>
                 <hashTree/>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /organizations/organizations/orgsId" enabled="true">
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /organizations/organizations/organization_id" enabled="true">
                   <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                     <collectionProp name="Arguments.arguments">
                       <elementProp name="limit" elementType="HTTPArgument">
@@ -2979,7 +2967,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
                   <stringProp name="HTTPSampler.port"></stringProp>
                   <stringProp name="HTTPSampler.protocol"></stringProp>
                   <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                  <stringProp name="HTTPSampler.path">organizations/organizations/${orgsId}</stringProp>
+                  <stringProp name="HTTPSampler.path">organizations/organizations/${organization_id}</stringProp>
                   <stringProp name="HTTPSampler.method">GET</stringProp>
                   <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                   <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -3030,7 +3018,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
                       <elementProp name="query" elementType="HTTPArgument">
                         <boolProp name="HTTPArgument.always_encode">true</boolProp>
                         <stringProp name="Argument.name">query</stringProp>
-                        <stringProp name="Argument.value">configName==EDIFACT_ORDERS_EXPORT_${orgsId}*</stringProp>
+                        <stringProp name="Argument.value">configName==EDIFACT_ORDERS_EXPORT_${organization_id}*</stringProp>
                         <stringProp name="Argument.metadata">=</stringProp>
                         <boolProp name="HTTPArgument.use_equals">true</boolProp>
                       </elementProp>
@@ -3071,7 +3059,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
                       <elementProp name="query" elementType="HTTPArgument">
                         <boolProp name="HTTPArgument.always_encode">true</boolProp>
                         <stringProp name="Argument.name">query</stringProp>
-                        <stringProp name="Argument.value">(((name=${orgName}*))) sortby name/sort.ascending</stringProp>
+                        <stringProp name="Argument.value">(((name=${organization_name}*))) sortby name/sort.ascending</stringProp>
                         <stringProp name="Argument.metadata">=</stringProp>
                         <boolProp name="HTTPArgument.use_equals">true</boolProp>
                       </elementProp>
@@ -3099,7 +3087,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
                   <stringProp name="HTTPSampler.response_timeout"></stringProp>
                 </HTTPSamplerProxy>
                 <hashTree/>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /note-links/domain/organizations/type/organization/id/orgsId" enabled="true">
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /note-links/domain/organizations/type/organization/id/organization_id" enabled="true">
                   <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                     <collectionProp name="Arguments.arguments">
                       <elementProp name="limit" elementType="HTTPArgument">
@@ -3136,7 +3124,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
                   <stringProp name="HTTPSampler.port"></stringProp>
                   <stringProp name="HTTPSampler.protocol"></stringProp>
                   <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                  <stringProp name="HTTPSampler.path">note-links/domain/organizations/type/organization/id/${orgsId}</stringProp>
+                  <stringProp name="HTTPSampler.path">note-links/domain/organizations/type/organization/id/${organization_id}</stringProp>
                   <stringProp name="HTTPSampler.method">GET</stringProp>
                   <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                   <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -3269,7 +3257,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
                       <elementProp name="filters" elementType="HTTPArgument">
                         <boolProp name="HTTPArgument.always_encode">true</boolProp>
                         <stringProp name="Argument.name">filters</stringProp>
-                        <stringProp name="Argument.value">orgs.org.orgsUuid==${orgsId}</stringProp>
+                        <stringProp name="Argument.value">orgs.org.organization_id==${organization_id}</stringProp>
                         <stringProp name="Argument.metadata">=</stringProp>
                         <boolProp name="HTTPArgument.use_equals">true</boolProp>
                       </elementProp>
@@ -3302,7 +3290,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
           </hashTree>
         </hashTree>
         <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Do Delete Vendor" enabled="true">
-          <stringProp name="IfController.condition">${__groovy((new Random().nextInt(100) + 1) &lt;= vars.get(&quot;prob_deleteVendor&quot;).toInteger();)}</stringProp>
+          <stringProp name="IfController.condition">${__groovy(vars.get(&quot;flow&quot;).equals(&quot;organization_deleteVendor&quot;);)}</stringProp>
           <boolProp name="IfController.evaluateAll">false</boolProp>
           <boolProp name="IfController.useExpression">true</boolProp>
         </IfController>
@@ -3473,7 +3461,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
                   <elementProp name="query" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">true</boolProp>
                     <stringProp name="Argument.name">query</stringProp>
-                    <stringProp name="Argument.value">(((name=${orgName}*))) sortby name/sort.ascending</stringProp>
+                    <stringProp name="Argument.value">(((name=${organization_name}*))) sortby name/sort.ascending</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   </elementProp>
@@ -3501,17 +3489,17 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
             </HTTPSamplerProxy>
             <hashTree>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor Get orgsId" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">orgsId</stringProp>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor Get organization_id" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">organization_id</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.organizations[0].id</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">orgsId_not_found</stringProp>
+                <stringProp name="JSONPostProcessor.defaultValues">not_found</stringProp>
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
           </hashTree>
-          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If orgsId exists Do Click " enabled="true">
-            <stringProp name="IfController.condition">${__groovy( !vars.get(&quot;orgsId&quot;).equals(&quot;orgsId_not_found&quot;);)}</stringProp>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If organization_id exists Do Click " enabled="true">
+            <stringProp name="IfController.condition">${__groovy( !vars.get(&quot;organization_id&quot;).equals(&quot;not_found&quot;);)}</stringProp>
             <boolProp name="IfController.evaluateAll">false</boolProp>
             <boolProp name="IfController.useExpression">true</boolProp>
           </IfController>
@@ -3548,7 +3536,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
                 <stringProp name="HTTPSampler.response_timeout"></stringProp>
               </HTTPSamplerProxy>
               <hashTree/>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /organizations/organizations/orgsId" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /organizations/organizations/organization_id" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="limit" elementType="HTTPArgument">
@@ -3564,7 +3552,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">organizations/organizations/${orgsId}</stringProp>
+                <stringProp name="HTTPSampler.path">organizations/organizations/${organization_id}</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -3615,7 +3603,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
                     <elementProp name="query" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">true</boolProp>
                       <stringProp name="Argument.name">query</stringProp>
-                      <stringProp name="Argument.value">configName==EDIFACT_ORDERS_EXPORT_${orgsId}*</stringProp>
+                      <stringProp name="Argument.value">configName==EDIFACT_ORDERS_EXPORT_${organization_id}*</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     </elementProp>
@@ -3643,7 +3631,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
                 <stringProp name="HTTPSampler.response_timeout"></stringProp>
               </HTTPSamplerProxy>
               <hashTree/>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /note-links/domain/organizations/type/organization/id/orgsId" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /note-links/domain/organizations/type/organization/id/organization_id" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="limit" elementType="HTTPArgument">
@@ -3680,7 +3668,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">note-links/domain/organizations/type/organization/id/${orgsId}</stringProp>
+                <stringProp name="HTTPSampler.path">note-links/domain/organizations/type/organization/id/${organization_id}</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -3813,7 +3801,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
                     <elementProp name="filters" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">true</boolProp>
                       <stringProp name="Argument.name">filters</stringProp>
-                      <stringProp name="Argument.value">orgs.org.orgsUuid==${orgsId}</stringProp>
+                      <stringProp name="Argument.value">orgs.org.organization_id==${organization_id}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     </elementProp>
@@ -3847,7 +3835,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
               <boolProp name="TransactionController.parent">false</boolProp>
             </TransactionController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE /organizations/organizations/orgsId" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE /organizations/organizations/organization_id" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -3855,7 +3843,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">organizations/organizations/${orgsId}</stringProp>
+                <stringProp name="HTTPSampler.path">organizations/organizations/${organization_id}</stringProp>
                 <stringProp name="HTTPSampler.method">DELETE</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -3881,43 +3869,6 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
           </hashTree>
         </hashTree>
       </hashTree>
-      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
-        <boolProp name="ResultCollector.error_logging">false</boolProp>
-        <objProp>
-          <name>saveConfig</name>
-          <value class="SampleSaveConfiguration">
-            <time>true</time>
-            <latency>true</latency>
-            <timestamp>true</timestamp>
-            <success>true</success>
-            <label>true</label>
-            <code>true</code>
-            <message>true</message>
-            <threadName>true</threadName>
-            <dataType>true</dataType>
-            <encoding>false</encoding>
-            <assertions>true</assertions>
-            <subresults>true</subresults>
-            <responseData>false</responseData>
-            <samplerData>false</samplerData>
-            <xml>false</xml>
-            <fieldNames>true</fieldNames>
-            <responseHeaders>false</responseHeaders>
-            <requestHeaders>false</requestHeaders>
-            <responseDataOnError>false</responseDataOnError>
-            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-            <assertionsResultsToSave>0</assertionsResultsToSave>
-            <bytes>true</bytes>
-            <sentBytes>true</sentBytes>
-            <url>true</url>
-            <threadCounts>true</threadCounts>
-            <idleTime>true</idleTime>
-            <connectTime>true</connectTime>
-          </value>
-        </objProp>
-        <stringProp name="filename"></stringProp>
-      </ResultCollector>
-      <hashTree/>
     </hashTree>
   </hashTree>
 </jmeterTestPlan>
