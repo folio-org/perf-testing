@@ -57,7 +57,7 @@
           </elementProp>
           <elementProp name="DI_file" elementType="Argument">
             <stringProp name="Argument.name">DI_file</stringProp>
-            <stringProp name="Argument.value">${__P(DI_file,1_bib_Create.mrc/1_holdings_Create.mrc)}</stringProp>
+            <stringProp name="Argument.value">${__P(DI_file,1_bib_Create.mrc-1_holdings_Create.mrc)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="DI_Pause" elementType="Argument">
@@ -216,7 +216,7 @@
           <stringProp name="filename"></stringProp>
           <stringProp name="cacheKey">true</stringProp>
           <stringProp name="script">SampleResult.setIgnore()
-vars.get(&apos;DI_file&apos;).trim().split(&apos;/&apos;).eachWithIndex { DI_file, index -&gt;
+vars.get(&apos;DI_file&apos;).trim().split(&apos;-&apos;).eachWithIndex { DI_file, index -&gt;
     vars.put(&apos;DI_file_&apos; + ++index, DI_file.trim())
 }</stringProp>
         </JSR223Sampler>

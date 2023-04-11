@@ -24,7 +24,7 @@ Back-end modules and versions as of the Nolana general release:
 - mod-search
 
 ## Usage
-- Prepare files with proper naming:
+- Prepare files with proper naming. Do not use dashes (-) in file names:
                         bib_Create should be included to the file name for MARC BIB Create
                         holdings_Create should be included to the file name for MARC Holdings Create
                         authority_Create should be included to the file name for MARC Authority Create
@@ -36,8 +36,8 @@ Back-end modules and versions as of the Nolana general release:
                          username - Folio app username
                          DI_VUSERS - number of concurrent users
                          DI_RAMP-UP - ramp-up time in seconds
-                         DI_file - All file names separated with "/" for all jobs 
-                                                    Example: 1_bib_Create.mrc/1_holdings_Create.mrc (2 jobs will be performed)
+                         DI_file - All file names separated with "-" for all jobs 
+                                                    Example: 1_bib_Create.mrc-1_holdings_Create.mrc (2 jobs will be performed)
                          DI_Pause - pause after each DI job in miliseconds
 
 - before holdings test prepare files properly: 
