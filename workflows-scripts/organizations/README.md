@@ -59,10 +59,10 @@ The following data files are needed to support the Jmeter script during its exec
 - LOOPS			by default -1 means run forever and it should be carefully used by running EDIT & DELETE scenario. 
 
 #### Probabilities of scenarios
-- prob_createVendor		Create
-- prob_viewVendor		View
-- prob_editVendor		Edit
-- prob_deleteVendor		Delete
+- organization_createVendor		Create
+- organization_viewVendor		View
+- organization_editVendor		Edit
+- organization_deleteVendor		Delete
 
 ## Setup data before running JMeter script:
 - Populate DB with vendors for edit and delete scenario and use these vendor names to edit & delete vendors
@@ -72,7 +72,7 @@ The following data files are needed to support the Jmeter script during its exec
 ## Run JMeter script
 Example of command:
 ```shell
-jmeter -n -t users_patronRecordOperations.jmx -JVUSERS=2 -l report.csv -e -o HTML
+jmeter -n -t organization_crudOperations.jmx -JVUSERS=2 -l report.csv -e -o HTML
 ```
 ## Setup data after running JMeter script:
 - Restore a DB by running Delete scenario

@@ -47,13 +47,13 @@
           </elementProp>
           <elementProp name="org_loops" elementType="Argument">
             <stringProp name="Argument.name">org_loops</stringProp>
-            <stringProp name="Argument.value">${__P(LOOPS, 4)}</stringProp>
+            <stringProp name="Argument.value">${__P(LOOPS, 1)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">Default Infinite</stringProp>
           </elementProp>
           <elementProp name="DISTRIBUTION" elementType="Argument">
             <stringProp name="Argument.name">DISTRIBUTION</stringProp>
-            <stringProp name="Argument.value">${__P(DISTRIBUTION, 25-25-25-25)} </stringProp>
+            <stringProp name="Argument.value">${__P(DISTRIBUTION, 0-100-0-0)} </stringProp>
             <stringProp name="Argument.desc">Default 0-100-0-0 [create-view-edit-delete]</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
@@ -349,8 +349,7 @@ leftBorder = rightBorder;
 selected++;
 }
 
-vars.put(&quot;flow&quot;, flows[selected]);
-log.info(&quot;====flow: &quot; + vars.get(&quot;flow&quot;));</stringProp>
+vars.put(&quot;flow&quot;, flows[selected]);</stringProp>
           </JSR223PreProcessor>
           <hashTree/>
         </hashTree>
