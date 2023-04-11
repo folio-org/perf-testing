@@ -6,11 +6,11 @@ This is a CREATE import workflow of all 3 Types of Data Import: Bib, Authority, 
 Describe the workflow that this test models and necessary information about using this JMX file
 1. Data Import app is already opened
 2. Script starts from uploading the record file
-3. Choose Data Import Create job profile
+3. Choose Data Import Create job profile (profile will be chosen automatically)
 4. Run Data Import Create
 
 ## Modules required to be enabled as a pre-requisite to run JMeter script
-FOLIO release: Nolana general release
+FOLIO release: Orchid general release
 
 ##### Backend:
 Back-end modules and versions as of the Nolana general release:
@@ -24,20 +24,22 @@ Back-end modules and versions as of the Nolana general release:
 - mod-search
 
 ## Usage
-- Modify credentials.csv to have the correct values before running the script.
+- Prepare files with proper naming:
+                        bib_Create should be included to the file name for MARC BIB Create
+                        holdings_Create should be included to the file name for MARC Holdings Create
+                        authority_Create should be included to the file name for MARC Authority Create
 - Ensure that the environment has proper job profiles.
 - Choose in JMeter script property:
-                         HOSTNAME starting from okapi-
-                         importType from bib, authority, holdings
-                         profile_name: PTF - Create 2, Default - Create SRS MARC Authority, Default - Create instance and SRS MARC Bib etc.
-                         file_size for bib - 1k,2k,5k,10k,25k,50k,100k,500k,all(to run jobs for all record files one by one with 5 min interval)
-                                     authority - 1k,5k,10k,25k,50k,all(to run jobs for all record files one by one with 5 min interval)
-                                     holdings - 1k,5k,10k,80k,all(to run jobs for all record files one by one with 5 min interval) 
-                        test_count for test with parameters all to run all:
-                                    - bib tests set-8 or if you need only the first few tests to be run decrease the number of test_count, example: set test_count to 3 for bib and it will be 1k, 2k, 5k tested
-                                    - authority tests set-5
-                                    - holdings tests set-4
-                                if you need 1 test to be run set test_count - 1 for any of the choosen file_size
+                         HOSTNAME - starting from okapi-
+                         tenant - specify tenant
+                         password - password to Folio app 
+                         username - Folio app username
+                         DI_VUSERS - number of concurrent users
+                         DI_RAMP-UP - ramp-up time in seconds
+                         DI_file - All file names separated with "/" for all jobs 
+                                                    Example: 1_bib_Create.mrc/1_holdings_Create.mrc (2 jobs will be performed)
+                         DI_Pause - pause after each DI job in miliseconds
+
 - before holdings test prepare files properly: 
 1. export 1 record file with import profile Default - Create instance and SRS MARC Bib
 2. After it completed - copy field 001 from newly created record (from UI) (it should looks like “in00007579903”).
