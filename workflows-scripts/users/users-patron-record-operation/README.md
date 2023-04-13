@@ -52,13 +52,9 @@ The following data files are needed to support the Jmeter script during its exec
 - VUSERS		count of concurrent users.
 - RAMP_UP		the amount of time it will take the script to add all test users (threads) to a test execution.
 - DURATION		timespan between start and end of the script
-- LOOPS			by default -1 means run forever and it should be carefully used by running DELETE scenario. 
-#### Probabilities of scenarios
-- Prob_OpenClose		OpenClose scenario for View
-- Prob_CreateUser		Create
-- Prob_ViewUserLoans	View
-- Prob_EditUser			Edit
-- Prob_DeleteUser		Delete
+- LOOPS			by default -1 means run forever and it should be carefully used by running DELETE scenario.
+- DISTRIBUTION  Distribution of flows. By default, 0-100-0-0 probabilities for create-view-update-delete operations
+- DISTRIBUTION_OC  Distribution of flows. By default, 50-50 probabilities for loans open/closed
 ### Test modifications
 - to enable random pickup user from searching result (searching by keyword) toggle on the JSR223 Assertion "GET random uuid from Users" 
 - location: Raw Test Fragments -> SC: Search User By Name (06.xxx) -> TC: Search User By Name -> GET /users -> JSR223 Assertion "GET random uuid from Users" 
