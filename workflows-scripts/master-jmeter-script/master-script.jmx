@@ -198,11 +198,6 @@
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">/--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//</stringProp>
           </elementProp>
-          <elementProp name="CICO_DISTRIBUTION" elementType="Argument">
-            <stringProp name="Argument.name">CICO_DISTRIBUTION</stringProp>
-            <stringProp name="Argument.value">${__P(CICO_DISTRIBUTION,43-57)}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
           <elementProp name="CICO_VUSERS" elementType="Argument">
             <stringProp name="Argument.name">CICO_VUSERS</stringProp>
             <stringProp name="Argument.value">${__P(CICO_VUSERS,6)}</stringProp>
@@ -219,6 +214,12 @@
             <stringProp name="Argument.value">${__P(CICO_DURATION,60)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">seconds</stringProp>
+          </elementProp>
+          <elementProp name="CICO_DISTRIBUTION" elementType="Argument">
+            <stringProp name="Argument.name">CICO_DISTRIBUTION</stringProp>
+            <stringProp name="Argument.value">${__P(CICO_DISTRIBUTION,43-57)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">[check-in, check-out]</stringProp>
           </elementProp>
           <elementProp name="thinktime_offset" elementType="Argument">
             <stringProp name="Argument.name">thinktime_offset</stringProp>
@@ -316,9 +317,9 @@
           </elementProp>
           <elementProp name="LO_DISTRIBUTION" elementType="Argument">
             <stringProp name="Argument.name">LO_DISTRIBUTION</stringProp>
-            <stringProp name="Argument.value">${__P(DISTRIBUTION, 0-100-0-0)}</stringProp>
+            <stringProp name="Argument.value">${__P(LO_DISTRIBUTION, 0-100-0-0)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
-            <stringProp name="Argument.desc">Default 0-100-0-0 [create,view,update,delete]</stringProp>
+            <stringProp name="Argument.desc">[create,view,update,delete]</stringProp>
           </elementProp>
           <elementProp name="IRO  //--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//" elementType="Argument">
             <stringProp name="Argument.name">IRO  //--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//</stringProp>
@@ -345,7 +346,7 @@
             <stringProp name="Argument.name">IRO_DISTRIBUTION</stringProp>
             <stringProp name="Argument.value">${__P(IRO_DISTRIBUTION, 100-0-0)} </stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
-            <stringProp name="Argument.desc">Default 100-0-0 [view-edit-delete]</stringProp>
+            <stringProp name="Argument.desc">[view-edit-delete]</stringProp>
           </elementProp>
           <elementProp name="ILR  //--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//" elementType="Argument">
             <stringProp name="Argument.name">ILR  //--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//</stringProp>
@@ -368,9 +369,9 @@
             <stringProp name="Argument.value">${__P(ILR_DURATION,60)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="RequestsPerUser" elementType="Argument">
-            <stringProp name="Argument.name">RequestsPerUser</stringProp>
-            <stringProp name="Argument.value">${__P(RequestsPerUser,1)}</stringProp>
+          <elementProp name="ILR_RequestsPerUser" elementType="Argument">
+            <stringProp name="Argument.name">ILR_RequestsPerUser</stringProp>
+            <stringProp name="Argument.value">${__P(ILR_RequestsPerUser,1)}</stringProp>
             <stringProp name="Argument.desc">How many ILR are created by each user</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
@@ -523,7 +524,7 @@ props.put(&quot;servicePointId&quot;, vars.get(&quot;servicePointId&quot;));</st
         </DebugSampler>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Bulk-edit-All-identifiers" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Bulk Eit All Identifiers" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -537,20 +538,8 @@ props.put(&quot;servicePointId&quot;, vars.get(&quot;servicePointId&quot;));</st
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
       <hashTree>
-        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config-BE-ALL-RECORDS.csv" enabled="false">
-          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/BE-ALL-RECORDS.csv</stringProp>
-          <stringProp name="fileEncoding">UTF-8</stringProp>
-          <stringProp name="variableNames">entityType,item_identifier,record_file,test_record_id,edited_file</stringProp>
-          <boolProp name="ignoreFirstLine">false</boolProp>
-          <stringProp name="delimiter">,</stringProp>
-          <boolProp name="quotedData">false</boolProp>
-          <boolProp name="recycle">false</boolProp>
-          <boolProp name="stopThread">true</boolProp>
-          <stringProp name="shareMode">shareMode.group</stringProp>
-        </CSVDataSet>
-        <hashTree/>
         <com.blazemeter.jmeter.RandomCSVDataSetConfig guiclass="com.blazemeter.jmeter.RandomCSVDataSetConfigGui" testclass="com.blazemeter.jmeter.RandomCSVDataSetConfig" testname="bzm - Random CSV Data Set Config-BE-ALL-RECORDS.csv" enabled="true">
-          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/BE-ALL-RECORDS.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/BE_all_records.csv</stringProp>
           <stringProp name="fileEncoding">UTF-8</stringProp>
           <stringProp name="delimiter">,</stringProp>
           <stringProp name="variableNames">entityType,item_identifier,record_file,test_record_id,edited_file</stringProp>
@@ -6220,7 +6209,7 @@ log.info(&quot;Get temporaryloantypeid - ${temporaryloantypeid}&quot;);</stringP
           <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config - user_barcodes" enabled="true">
             <stringProp name="delimiter">;</stringProp>
             <stringProp name="fileEncoding">UTF-8</stringProp>
-            <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/user_barcodes.csv</stringProp>
+            <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/CICO_user_barcodes.csv</stringProp>
             <boolProp name="ignoreFirstLine">false</boolProp>
             <boolProp name="quotedData">false</boolProp>
             <boolProp name="recycle">true</boolProp>
@@ -6232,7 +6221,7 @@ log.info(&quot;Get temporaryloantypeid - ${temporaryloantypeid}&quot;);</stringP
           <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config - item_barcodes_availiable" enabled="true">
             <stringProp name="delimiter"></stringProp>
             <stringProp name="fileEncoding">UTF-8</stringProp>
-            <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/available.csv</stringProp>
+            <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/CICO_available.csv</stringProp>
             <boolProp name="ignoreFirstLine">false</boolProp>
             <boolProp name="quotedData">false</boolProp>
             <boolProp name="recycle">true</boolProp>
@@ -6244,7 +6233,7 @@ log.info(&quot;Get temporaryloantypeid - ${temporaryloantypeid}&quot;);</stringP
           <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config - item_barcodes_checkedout" enabled="true">
             <stringProp name="delimiter"></stringProp>
             <stringProp name="fileEncoding">UTF-8</stringProp>
-            <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/checked_out.csv</stringProp>
+            <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/CICO_checked_out.csv</stringProp>
             <boolProp name="ignoreFirstLine">false</boolProp>
             <boolProp name="quotedData">false</boolProp>
             <boolProp name="recycle">true</boolProp>
@@ -6256,7 +6245,7 @@ log.info(&quot;Get temporaryloantypeid - ${temporaryloantypeid}&quot;);</stringP
           <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config - service_point" enabled="true">
             <stringProp name="delimiter"></stringProp>
             <stringProp name="fileEncoding">UTF-8</stringProp>
-            <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/service_point.csv</stringProp>
+            <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/CICO_service_point.csv</stringProp>
             <boolProp name="ignoreFirstLine">false</boolProp>
             <boolProp name="quotedData">false</boolProp>
             <boolProp name="recycle">true</boolProp>
@@ -8705,7 +8694,7 @@ switch (itemOrder){
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Users loan Renewal " enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Users Loan Renewal " enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -8718,7 +8707,7 @@ switch (itemOrder){
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="RENEW_Users loan Renewal Transaction" enabled="true">
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="ULR_Users loan Renewal Transaction" enabled="true">
           <boolProp name="TransactionController.parent">false</boolProp>
         </TransactionController>
         <hashTree>
@@ -8746,7 +8735,7 @@ switch (itemOrder){
           <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config - users" enabled="true">
             <stringProp name="delimiter">,</stringProp>
             <stringProp name="fileEncoding"></stringProp>
-            <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/users.csv</stringProp>
+            <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/ULR_users.csv</stringProp>
             <boolProp name="ignoreFirstLine">false</boolProp>
             <boolProp name="quotedData">false</boolProp>
             <boolProp name="recycle">true</boolProp>
@@ -8755,7 +8744,7 @@ switch (itemOrder){
             <stringProp name="variableNames">user</stringProp>
           </CSVDataSet>
           <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="RENEW_GET_/users/{userId}" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="ULR_GET_/users/{userId}" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
               <collectionProp name="Arguments.arguments">
                 <elementProp name="limit" elementType="HTTPArgument">
@@ -8801,7 +8790,7 @@ switch (itemOrder){
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="RENEW_GET_/circulation/loans?query=(userId=${user})%20sortby%20id&amp;limit=100000" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="ULR_GET_/circulation/loans?query=(userId=${user})%20sortby%20id&amp;limit=100000" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
@@ -8857,7 +8846,7 @@ switch (itemOrder){
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
-          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="RENEW_InitCounter" enabled="true">
+          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="ULR_InitCounter" enabled="true">
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters"></stringProp>
@@ -8865,7 +8854,7 @@ switch (itemOrder){
             <stringProp name="scriptLanguage">java</stringProp>
           </JSR223Sampler>
           <hashTree/>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="RENEW_Loan renewal Transaction Controller" enabled="true">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="ULR_Loan renewal Transaction Controller" enabled="true">
             <boolProp name="TransactionController.parent">true</boolProp>
           </TransactionController>
           <hashTree>
@@ -8873,7 +8862,7 @@ switch (itemOrder){
               <stringProp name="WhileController.condition">${__jexl3(${counter} &lt;= ${totalRecords_1},)}</stringProp>
             </WhileController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="RENEW_POST_/circulation/renew-by-barcode" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="ULR_POST_/circulation/renew-by-barcode" enabled="true">
                 <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                   <collectionProp name="Arguments.arguments">
@@ -8918,7 +8907,7 @@ switch (itemOrder){
                 </ResponseAssertion>
                 <hashTree/>
               </hashTree>
-              <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="RENEW_IncrementCounter" enabled="true">
+              <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="ULR_IncrementCounter" enabled="true">
                 <stringProp name="scriptLanguage">java</stringProp>
                 <stringProp name="parameters"></stringProp>
                 <stringProp name="filename"></stringProp>
@@ -8929,7 +8918,7 @@ vars.put(&quot;counter&quot;,Integer.toString(counter));</stringProp>
               </JSR223Sampler>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="RENEW_GET_/circulation/loans?query=(userId=${user})%20sortby%20id&amp;limit=100000" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="ULR_GET_/circulation/loans?query=(userId=${user})%20sortby%20id&amp;limit=100000" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -11362,7 +11351,7 @@ log.info(&apos;Thread &apos; + (ctx.getThreadNum() + 1) + &apos; filename: &apos
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="View MARC tag table" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="View MARC Tag Table" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -14531,7 +14520,7 @@ log.info(&apos;Thread &apos; + (ctx.getThreadNum() + 1) + &apos; filename: &apos
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Ledger operations" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Ledger Operations" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -22796,7 +22785,7 @@ vars.put(&quot;user_data&quot;,new JsonBuilder(jsonData).toString());</stringPro
           <hashTree/>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Item-level requests creation" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Item-level Requests Creation" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
