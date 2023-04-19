@@ -56,6 +56,8 @@ Delete Order:
 The following data files are needed to support the Jmeter script during its execution.
 - vendors.csv: a list of vendors ids that have all needed checkers to create order. It will be used to execute create, view, edit, delete orders in the script.
 - credentials.csv: a file to specify credentials for the tenant being tested (contains username,password,tenant, they are needed for login).
+- vendors and credentials are mandatory and should be modified before script start
+- by default vendor_id predefined for single environment usage in configuration viriables
 
 ### Parameters
 #### Environment and Configuration

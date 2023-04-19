@@ -259,14 +259,20 @@
             </elementProp>
             <elementProp name="DISTRIBUTION" elementType="Argument">
               <stringProp name="Argument.name">DISTRIBUTION</stringProp>
-              <stringProp name="Argument.value">${__P(POO_DISTRIBUTION, 100-0-0-0)} </stringProp>
+              <stringProp name="Argument.value">${__P(POO_DISTRIBUTION, 0-100-0-0)} </stringProp>
               <stringProp name="Argument.desc">Default 0-100-0-0 [create-view-edit-delete]</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="vendor_id" elementType="Argument">
+              <stringProp name="Argument.name">vendor_id</stringProp>
+              <stringProp name="Argument.value">${__P(POO_VendorId, 366825e2-8b42-4348-9cc2-6ef8b70e8a69)} </stringProp>
+              <stringProp name="Argument.desc">Default for NLA</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
           </collectionProp>
         </Arguments>
         <hashTree/>
-        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Data - Vendors" enabled="true">
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Data - Vendors" enabled="false">
           <stringProp name="delimiter">,</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/vendors.csv</stringProp>
@@ -322,11 +328,10 @@ vars.put(&quot;flow&quot;, flows[selected]);</stringProp>
           <boolProp name="IfController.useExpression">true</boolProp>
         </IfController>
         <hashTree>
-          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="--- ThinkTimer: Fast" enabled="true">
-            <intProp name="ActionProcessor.action">1</intProp>
-            <intProp name="ActionProcessor.target">0</intProp>
-            <stringProp name="ActionProcessor.duration">${__Random(300,500,)}</stringProp>
-          </TestAction>
+          <GaussianRandomTimer guiclass="GaussianRandomTimerGui" testclass="GaussianRandomTimer" testname="Gaussian Random Timer" enabled="true">
+            <stringProp name="ConstantTimer.delay">500</stringProp>
+            <stringProp name="RandomTimer.range">300</stringProp>
+          </GaussianRandomTimer>
           <hashTree/>
           <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TC: Click App Orders" enabled="true">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
@@ -2022,11 +2027,10 @@ vars.put(&quot;flow&quot;, flows[selected]);</stringProp>
           <boolProp name="IfController.useExpression">true</boolProp>
         </IfController>
         <hashTree>
-          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="--- ThinkTimer: Fast" enabled="true">
-            <intProp name="ActionProcessor.action">1</intProp>
-            <intProp name="ActionProcessor.target">0</intProp>
-            <stringProp name="ActionProcessor.duration">${__Random(300,500,)}</stringProp>
-          </TestAction>
+          <GaussianRandomTimer guiclass="GaussianRandomTimerGui" testclass="GaussianRandomTimer" testname="Gaussian Random Timer" enabled="true">
+            <stringProp name="ConstantTimer.delay">500</stringProp>
+            <stringProp name="RandomTimer.range">300</stringProp>
+          </GaussianRandomTimer>
           <hashTree/>
           <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TC: Click App Orders" enabled="true">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
@@ -2109,12 +2113,14 @@ vars.put(&quot;flow&quot;, flows[selected]);</stringProp>
                     <stringProp name="Argument.name">query</stringProp>
                     <stringProp name="Argument.value">cql.allRecords=1 sortby name</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   </elementProp>
                   <elementProp name="limit" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
                     <stringProp name="Argument.name">limit</stringProp>
                     <stringProp name="Argument.value">1000</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   </elementProp>
                 </collectionProp>
               </elementProp>
@@ -3279,11 +3285,10 @@ vars.put(&quot;flow&quot;, flows[selected]);</stringProp>
           <boolProp name="IfController.useExpression">true</boolProp>
         </IfController>
         <hashTree>
-          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="--- ThinkTimer: Fast" enabled="true">
-            <intProp name="ActionProcessor.action">1</intProp>
-            <intProp name="ActionProcessor.target">0</intProp>
-            <stringProp name="ActionProcessor.duration">${__Random(300,500,)}</stringProp>
-          </TestAction>
+          <GaussianRandomTimer guiclass="GaussianRandomTimerGui" testclass="GaussianRandomTimer" testname="Gaussian Random Timer" enabled="true">
+            <stringProp name="ConstantTimer.delay">500</stringProp>
+            <stringProp name="RandomTimer.range">300</stringProp>
+          </GaussianRandomTimer>
           <hashTree/>
           <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TC: Click App Orders" enabled="true">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
@@ -5776,11 +5781,10 @@ vars.put(&quot;order_editData&quot;,new JsonBuilder(jsonData).toString());
           <boolProp name="IfController.useExpression">true</boolProp>
         </IfController>
         <hashTree>
-          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="--- ThinkTimer: Fast" enabled="true">
-            <intProp name="ActionProcessor.action">1</intProp>
-            <intProp name="ActionProcessor.target">0</intProp>
-            <stringProp name="ActionProcessor.duration">${__Random(300,500,)}</stringProp>
-          </TestAction>
+          <GaussianRandomTimer guiclass="GaussianRandomTimerGui" testclass="GaussianRandomTimer" testname="Gaussian Random Timer" enabled="true">
+            <stringProp name="ConstantTimer.delay">500</stringProp>
+            <stringProp name="RandomTimer.range">300</stringProp>
+          </GaussianRandomTimer>
           <hashTree/>
           <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TC: Click App Orders" enabled="true">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
@@ -7139,7 +7143,7 @@ vars.put(&quot;order_editData&quot;,new JsonBuilder(jsonData).toString());
           </hashTree>
         </hashTree>
       </hashTree>
-      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
