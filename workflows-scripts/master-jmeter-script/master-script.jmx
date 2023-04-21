@@ -39578,15 +39578,15 @@ vars.putObject(&apos;lastUpdateTime&apos;, System.currentTimeMillis());
 
 def DE_file = vars.getObject(&apos;DE_file&apos;);
 def profile_name = vars.getObject(&apos;DE_profile_name&apos;);
-if (new String(DI_file).contains(&quot;bib&quot;)) {
+if (new String(DE_file).contains(&quot;bib&quot;)) {
     vars.putObject(&quot;DE_profile_name&quot;,&quot;srs - holdings and items&quot;);
 }
 else {
-	if (new String(DI_file).contains(&quot;holdings&quot;)) {
+	if (new String(DE_file).contains(&quot;holdings&quot;)) {
     		vars.putObject(&quot;DE_profile_name&quot;,&quot;Default - Create instance and SRS MARC Bib&quot;);
 	}
 	else{
-		if (new String(DI_file).contains(&quot;items&quot;)) {
+		if (new String(DE_file).contains(&quot;items&quot;)) {
     			vars.putObject(&quot;DE_profile_name&quot;,&quot;Default - Create SRS MARC Authority&quot;)
 		}
 	
@@ -40087,7 +40087,7 @@ log.info(&apos;ERROR Job is not updating for more than 0.5 hour for Thread &apos
                 <stringProp name="script">SampleResult.setIgnore()
 def end = System.currentTimeMillis()
 def start = vars.getObject(&apos;startTime&apos;)
-def filename = vars.getObject(&apos;DI_file&apos;)
+def filename = vars.getObject(&apos;DE_file&apos;)
 log.info(&apos;Thread &apos; + (ctx.getThreadNum() + 1) + &apos; filename: &apos; + filename + &apos; elapsed time: &apos; + (end - start))</stringProp>
               </JSR223Sampler>
               <hashTree/>
