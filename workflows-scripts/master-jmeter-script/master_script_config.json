@@ -1,9 +1,21 @@
 [
   {
+    "Bulk Edit": {
+      "BE_VUSERS": 2,
+      "BE_RAMP_UP": "${__Random(1000,3000,)}",
+      "BE_jobs_count": 1,
+      "BE_pause": 0
+    },
     "User Loan Renewal": {
       "RENEW_VUSERS": 8,
       "RENEW_RAMP_UP": 70,
       "RENEW_DURATION": 2
+    },
+    "Data Import": {
+      "DI_VUSERS": 2,
+      "DI_RAMP_UP": "${__Random(1000,3000,)}",
+      "DI_test_count": 2,
+      "DI_pause": 300000
     },
     "Check-in Checkout": {
       "CICO_DISTRIBUTION": "43-57",
@@ -12,17 +24,105 @@
       "CICO_DURATION": 60,
       "CICO_THINK_OFFSET": 0
     },
-    "Bulk Edit": {
-      "BE_VUSERS": 2,
-      "BE_RAMP_UP": "${__Random(1000,3000,)}",
-      "BE_jobs_count": 1,
-      "BE_pause": 0
+    "VB": {
+      "VB_VUSERS": 1,
+      "VB_RAMP_UP": 0,
+      "VB_DURATION": 60
     },
-    "Data Import": {
-      "DI_VUSERS": 2,
-      "DI_RAMP_UP": "${__Random(1000,3000,)}",
-      "DI_test_count": 2,
-      "DI_pause": 300000
+    "VTT": {
+      "VTT_VUSERS": 1,
+      "VTT_RAMP_UP": 0,
+      "VTT_DURATION": 60
+    },
+    "VH": {
+      "VH_VUSERS": 1,
+      "VH_RAMP_UP": 0,
+      "VH_DURATION": 60
+    },
+    "LO": {
+      "LO_VUSERS": 1,
+      "LO_RAMP_UP": 0,
+      "LO_DURATION": 60,
+      "LO_DISTRIBUTION":  "0-100-0-0"
+    },
+    "IRO": {
+      "IRO_VUSERS": 1,
+      "IRO_RAMP_UP": 0,
+      "IRO_DURATION": 60,
+      "IRO_DISTRIBUTION":  "100-0-0"
+    },
+    "ILR": {
+      "ILR_VUSERS": 1,
+      "ILR_RAMP_UP": 0,
+      "ILR_DURATION": 60,
+      "ILR_RequestsPerUser":  1
+    },
+    "IO": {
+      "IO_VUSERS": 1,
+      "IO_RAMP_UP": 0,
+      "IO_DURATION": 60,
+      "IO_DISTRIBUTION":  "0-100-0-0",
+      "IO_VIEW_DISTRIBUTION":  "50-50"
+    },
+    "VAR": {
+      "VAR_VUSERS": 1,
+      "VAR_RAMP_UP": 0,
+      "VAR_DURATION": 60,
+      "VAR_LOOPS":  -1
+    },
+    "VRO": {
+      "VRO_VUSERS": 1,
+      "VRO_RAMP_UP": 0,
+      "VRO_DURATION": 60,
+      "VRO_LOOPS": -1,
+      "VRO_DISTRIBUTION":  "0-100-0-0",
+      "VRO_prob_nameActive":  "50\\, 50"
+    },
+    "PRO": {
+      "PRO_VUSERS": 1,
+      "PRO_RAMP_UP": 0,
+      "PRO_DURATION": 60,
+      "PRO_LOOPS": -1,
+      "PRO_DISTRIBUTION":  "0-100-0-0",
+      "PRO_DISTRIBUTION_OC":  "50-50"
+    },
+    "DE": {
+      "DE_file": "1k_mrc_bib.csv-100k_mrc_bib.csv",
+      "DE_profile_name": "srs - holdings and items",
+      "DE_VUSERS": 1,
+      "DE_RAMP-UP": 1,
+      "DE_idType":  "instance",
+      "DE_pause":  3600
+    },
+    "ETT": {
+      "ETT_VUSERS": 1,
+      "ETT_RAMP_UP": 0,
+      "ETT_DURATION": 60,
+      "ETT_LOOPS":  -1
+    },
+    "POO": {
+      "POO_VUSERS": 1,
+      "POO_RAMP_UP": 0,
+      "POO_DURATION": 60,
+      "POO_LOOPS": -1,
+      "POO_DISTRIBUTION": "0-100-0-0"
+    },
+    "MPS": {
+      "MPS_VUSERS": 1,
+      "MPS_RAMP_UP": 0,
+      "MPS_DURATION": 60,
+      "MPS_LOOPS":  -1
+    },
+    "AIE": {
+      "AIE_VUSERS": 1,
+      "AIE_RAMP_UP": 0,
+      "AIE_DURATION": 60,
+      "AIE_VIEW_DISTRIBUTION": "50-50"
+    },
+    "RIH": {
+      "RIH_VUSERS": 1,
+      "RIH_RAMP_UP": 0,
+      "RIH_DURATION": 60
     }
   }
 ]
