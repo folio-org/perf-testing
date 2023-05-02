@@ -123,6 +123,12 @@
       "RIH_VUSERS": 1,
       "RIH_RAMP_UP": 0,
       "RIH_DURATION": 60
+    },
+    "VIR": {
+      "VIR_VUSERS": 1,
+      "VIR_RAMP_UP": 0,
+      "VIR_DURATION": 60,
+      "VIR_VIEW_DISTRIBUTION": "20"
     }
   }
 ]
