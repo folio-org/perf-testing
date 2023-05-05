@@ -729,6 +729,29 @@
             <stringProp name="Argument.desc">Default probability 10-20 % </stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="PRV //--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//" elementType="Argument">
+            <stringProp name="Argument.name">PRV //--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//</stringProp>
+            <stringProp name="Argument.value">//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//</stringProp>
+            <stringProp name="Argument.desc">//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="PRV_vusers" elementType="Argument">
+            <stringProp name="Argument.name">PRV_vusers</stringProp>
+            <stringProp name="Argument.value">${__P(PRV_VUSERS, 1)}</stringProp>
+            <stringProp name="Argument.desc">Default users: 1</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="PRV_rampup" elementType="Argument">
+            <stringProp name="Argument.name">PRV_rampup</stringProp>
+            <stringProp name="Argument.value">${__P(PRV_RAMP_UP, 1)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="PRV_duration" elementType="Argument">
+            <stringProp name="Argument.name">PRV_duration</stringProp>
+            <stringProp name="Argument.value">${__P(PRV_DURATION, 180)}</stringProp>
+            <stringProp name="Argument.desc">Default duration | 180 sec</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
         </collectionProp>
       </Arguments>
       <hashTree/>
