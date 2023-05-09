@@ -23,16 +23,6 @@
             <stringProp name="Argument.value">${__P(HOSTNAME,[HOSTNAME])}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="port" elementType="Argument">
-            <stringProp name="Argument.name">port</stringProp>
-            <stringProp name="Argument.value">${__P(port, 443)}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="protocol" elementType="Argument">
-            <stringProp name="Argument.name">protocol</stringProp>
-            <stringProp name="Argument.value">${__P(protocol, https)}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
         </collectionProp>
       </Arguments>
       <hashTree/>
@@ -106,8 +96,8 @@
           <collectionProp name="Arguments.arguments"/>
         </elementProp>
         <stringProp name="HTTPSampler.domain">${HOSTNAME}</stringProp>
-        <stringProp name="HTTPSampler.port">${port}</stringProp>
-        <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
+        <stringProp name="HTTPSampler.port"></stringProp>
+        <stringProp name="HTTPSampler.protocol">https</stringProp>
         <stringProp name="HTTPSampler.contentEncoding"></stringProp>
         <stringProp name="HTTPSampler.path"></stringProp>
         <boolProp name="HTTPSampler.image_parser">true</boolProp>
@@ -153,6 +143,26 @@
             <stringProp name="Argument.value">${__P(BLS_LOOPS, 1)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">Default loops: 1</stringProp>
+          </elementProp>
+          <elementProp name="BLS_holdingsRecordId" elementType="Argument">
+            <stringProp name="Argument.name">BLS_holdingsRecordId</stringProp>
+            <stringProp name="Argument.value">00000118-b674-4867-be95-1a70f6127907</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="BLS_permanentLoanTypeId" elementType="Argument">
+            <stringProp name="Argument.name">BLS_permanentLoanTypeId</stringProp>
+            <stringProp name="Argument.value">2b94c631-fca9-4892-a730-03ee529ffe27</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="BLS_materialTypeId" elementType="Argument">
+            <stringProp name="Argument.name">BLS_materialTypeId</stringProp>
+            <stringProp name="Argument.value">025ba2c5-5e96-4667-a677-8186463aee69</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="BLS_pickupServicePointId" elementType="Argument">
+            <stringProp name="Argument.name">BLS_pickupServicePointId</stringProp>
+            <stringProp name="Argument.value">7068e104-aa14-4f30-a8bf-71f71cc15e07</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
       </Arguments>
@@ -275,13 +285,13 @@
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Data - user_ids" enabled="true">
           <stringProp name="delimiter">,</stringProp>
           <stringProp name="fileEncoding"></stringProp>
-          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/instance_user_ids.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/BLS_instance_user_ids.csv</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
           <boolProp name="quotedData">false</boolProp>
           <boolProp name="recycle">true</boolProp>
           <stringProp name="shareMode">shareMode.group</stringProp>
           <boolProp name="stopThread">false</boolProp>
-          <stringProp name="variableNames">BLS_instance_id,user_id</stringProp>
+          <stringProp name="variableNames">instance_id,user_id</stringProp>
         </CSVDataSet>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="BLS_GET_item-storage/items" enabled="true">
@@ -397,12 +407,12 @@ vars.put(&quot;edited_item&quot;,new JsonBuilder(jsonData).toString());</stringP
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
   &quot;id&quot;: &quot;${__UUID}&quot;,&#xd;
-  &quot;holdingsRecordId&quot;: &quot;00000118-b674-4867-be95-1a70f6127907&quot;,&#xd;
-  &quot;permanentLoanTypeId&quot;: &quot;2b94c631-fca9-4892-a730-03ee529ffe27&quot;,&#xd;
+  &quot;holdingsRecordId&quot;: &quot;${BLS_holdingsRecordId}&quot;,&#xd;
+  &quot;permanentLoanTypeId&quot;: &quot;${BLS_permanentLoanTypeId}&quot;,&#xd;
   &quot;status&quot;: {&#xd;
     &quot;name&quot;: &quot;In transit&quot;&#xd;
   },&#xd;
-  &quot;materialTypeId&quot;: &quot;025ba2c5-5e96-4667-a677-8186463aee69&quot;&#xd;
+  &quot;materialTypeId&quot;: &quot;${BLS_materialTypeId}&quot;&#xd;
 &#xd;
 }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
@@ -516,7 +526,7 @@ vars.put(&quot;edited_item&quot;,new JsonBuilder(jsonData).toString());</stringP
 	&quot;fulfilmentPreference&quot;: &quot;Hold Shelf&quot;,&#xd;
 	&quot;instanceId&quot;: &quot;${instance_id}&quot;,&#xd;
 	&quot;requesterId&quot;: &quot;${user_id}&quot;,&#xd;
-	&quot;pickupServicePointId&quot;: &quot;7068e104-aa14-4f30-a8bf-71f71cc15e07&quot;,&#xd;
+	&quot;pickupServicePointId&quot;: &quot;${BLS_pickupServicePointId}&quot;,&#xd;
 	&quot;requestLevel&quot;: &quot;Title&quot;,&#xd;
 	&quot;requestDate&quot;: &quot;${__time(yyyy-MM-dd&apos;T&apos;HH:mm:ss.SSS&apos;Z&apos;)}&quot;,&#xd;
 	&quot;id&quot;: &quot;${__UUID}&quot;&#xd;
