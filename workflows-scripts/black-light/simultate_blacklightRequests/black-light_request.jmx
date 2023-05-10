@@ -20,7 +20,7 @@
           </elementProp>
           <elementProp name="HOSTNAME" elementType="Argument">
             <stringProp name="Argument.name">HOSTNAME</stringProp>
-            <stringProp name="Argument.value">${__P(HOSTNAME,okapi-ptf-nolana-2.int.aws.folio.org)}</stringProp>
+            <stringProp name="Argument.value">${__P(HOSTNAME,[HOSTNAME])}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -115,26 +115,6 @@
             <stringProp name="Argument.value">${__P(BLS_LOOPS, 1)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">Default loops: 1</stringProp>
-          </elementProp>
-          <elementProp name="BLS_holdingsRecordId" elementType="Argument">
-            <stringProp name="Argument.name">BLS_holdingsRecordId</stringProp>
-            <stringProp name="Argument.value">00000118-b674-4867-be95-1a70f6127907</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="BLS_permanentLoanTypeId" elementType="Argument">
-            <stringProp name="Argument.name">BLS_permanentLoanTypeId</stringProp>
-            <stringProp name="Argument.value">2b94c631-fca9-4892-a730-03ee529ffe27</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="BLS_materialTypeId" elementType="Argument">
-            <stringProp name="Argument.name">BLS_materialTypeId</stringProp>
-            <stringProp name="Argument.value">025ba2c5-5e96-4667-a677-8186463aee69</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="BLS_pickupServicePointId" elementType="Argument">
-            <stringProp name="Argument.name">BLS_pickupServicePointId</stringProp>
-            <stringProp name="Argument.value">7068e104-aa14-4f30-a8bf-71f71cc15e07</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
       </Arguments>
@@ -254,7 +234,7 @@
           </collectionProp>
         </HeaderManager>
         <hashTree/>
-        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Data - instance|holdingsRecord|Item IDs" enabled="true">
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Data - item_holdings_instance_ids" enabled="true">
           <stringProp name="delimiter">,</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/BLS_item_holdings_instance_ids.csv</stringProp>
@@ -276,6 +256,18 @@
           <stringProp name="shareMode">shareMode.group</stringProp>
           <boolProp name="stopThread">false</boolProp>
           <stringProp name="variableNames">user_id</stringProp>
+        </CSVDataSet>
+        <hashTree/>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Data - pickup_service_point_ids" enabled="true">
+          <stringProp name="delimiter">,</stringProp>
+          <stringProp name="fileEncoding"></stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/BLS_pickup_service_point_ids.csv</stringProp>
+          <boolProp name="ignoreFirstLine">false</boolProp>
+          <boolProp name="quotedData">false</boolProp>
+          <boolProp name="recycle">true</boolProp>
+          <stringProp name="shareMode">shareMode.group</stringProp>
+          <boolProp name="stopThread">false</boolProp>
+          <stringProp name="variableNames">pickupServicePointId</stringProp>
         </CSVDataSet>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="BLS_GET_item-storage/items" enabled="true">
@@ -337,6 +329,13 @@ jsonData.descriptionOfPieces = &quot;SomeDescription_${__time(,)}&quot;
 vars.put(&quot;edited_item&quot;,new JsonBuilder(jsonData).toString());</stringProp>
             </JSR223PostProcessor>
             <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor permanentLoanTypeId, materialTypeId" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">permanentLoanTypeId; materialTypeId</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.permanentLoanTypeId; $.materialTypeId</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">not_found; not_found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="BLS_PUT_item-storage/items/{item_id}" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -383,12 +382,12 @@ vars.put(&quot;edited_item&quot;,new JsonBuilder(jsonData).toString());</stringP
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
   &quot;id&quot;: &quot;${__UUID}&quot;,&#xd;
-  &quot;holdingsRecordId&quot;: &quot;${BLS_holdingsRecordId}&quot;,&#xd;
-  &quot;permanentLoanTypeId&quot;: &quot;${BLS_permanentLoanTypeId}&quot;,&#xd;
+  &quot;holdingsRecordId&quot;: &quot;${holdings_record_id}&quot;,&#xd;
+  &quot;permanentLoanTypeId&quot;: &quot;${permanentLoanTypeId}&quot;,&#xd;
   &quot;status&quot;: {&#xd;
     &quot;name&quot;: &quot;Available&quot;&#xd;
   },&#xd;
-  &quot;materialTypeId&quot;: &quot;${BLS_materialTypeId}&quot;&#xd;
+  &quot;materialTypeId&quot;: &quot;${materialTypeId}&quot;&#xd;
 }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
@@ -490,42 +489,6 @@ vars.put(&quot;edited_item&quot;,new JsonBuilder(jsonData).toString());</stringP
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="BLS_POST_circulation/requests" enabled="false">
-          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">{&#xd;
-	&quot;requestType&quot;: &quot;Page&quot;,&#xd;
-	&quot;fulfilmentPreference&quot;: &quot;Hold Shelf&quot;,&#xd;
-	&quot;itemId&quot;: &quot;${item_id}&quot;&#xd;
-	&quot;instanceId&quot;: &quot;${instance_id}&quot;,&#xd;
-	&quot;holdingsRecordId&quot; : &quot;${holdings_record_id}&quot;,&#xd;
-	&quot;requesterId&quot;: &quot;${user_id}&quot;,&#xd;
-	&quot;pickupServicePointId&quot;: &quot;${BLS_pickupServicePointId}&quot;,&#xd;
-	&quot;requestLevel&quot;: &quot;Item&quot;,&#xd;
-	&quot;requestDate&quot;: &quot;${__time(yyyy-MM-dd&apos;T&apos;HH:mm:ss.SSS&apos;Z&apos;)}&quot;&#xd;
-}</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-            </collectionProp>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain"></stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.protocol"></stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">circulation/requests</stringProp>
-          <stringProp name="HTTPSampler.method">POST</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="BLS_POST_circulation/requests" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
@@ -535,51 +498,15 @@ vars.put(&quot;edited_item&quot;,new JsonBuilder(jsonData).toString());</stringP
                 <stringProp name="Argument.value">{&#xd;
   &quot;id&quot;: &quot;${__UUID}&quot;,&#xd;
   &quot;requestLevel&quot;: &quot;Item&quot;,&#xd;
-  &quot;requestType&quot;: &quot;Hold&quot;,&#xd;
-  &quot;status&quot;: &quot;Open - Not yet filled&quot;,&#xd;
+  &quot;requestType&quot;: &quot;Page&quot;,&#xd;
   &quot;requestDate&quot;: &quot;${__time(yyyy-MM-dd&apos;T&apos;HH:mm:ss.SSS&apos;Z&apos;)}&quot;,&#xd;
-  &quot;requestExpirationDate&quot;: &quot;2023-06-23T11:04:25.000+00:00&quot;,&#xd;
+  &quot;requestExpirationDate&quot;: &quot;2023-05-24T11:04:25.000+00:00&quot;,&#xd;
   &quot;requesterId&quot;: &quot;${user_id}&quot;,&#xd;
-  &quot;requester&quot;: {&#xd;
-    &quot;barcode&quot;: &quot;1234&quot;,&#xd;
-    &quot;lastName&quot;: &quot;Lastname&quot;,&#xd;
-    &quot;firstName&quot;: &quot;Firstname&quot;&#xd;
-  },&#xd;
-  &quot;instanceId&quot;: &quot;86c722c3-2f5e-42e1-bd0e-7ffbbd3b4972&quot;,&#xd;
-  &quot;instance&quot;: {&#xd;
-    &quot;title&quot;: &quot;Children of Time&quot;,&#xd;
-    &quot;identifiers&quot;: [&#xd;
-      {&#xd;
-        &quot;value&quot;: &quot;0123456789&quot;,&#xd;
-        &quot;identifierTypeId&quot;: &quot;8261054f-9876-422d-bd51-4ed9f33c7654&quot;&#xd;
-      },&#xd;
-      {&#xd;
-        &quot;value&quot;: &quot;98765432123456&quot;,&#xd;
-        &quot;identifierTypeId&quot;: &quot;8261054f-9876-422d-bd51-4ed9f33c7654&quot;&#xd;
-      }&#xd;
-    ]&#xd;
-  },&#xd;
-  &quot;holdingsRecordId&quot;: &quot;e63273e7-48f5-4c43-ab4e-1751ecacaa21&quot;,&#xd;
-  &quot;itemId&quot;: &quot;195efae1-588f-47bd-a181-13a2eb437701&quot;,&#xd;
-  &quot;item&quot;: {&#xd;
-    &quot;barcode&quot;: &quot;760932543816&quot;&#xd;
-  },&#xd;
-  &quot;position&quot;: 1,&#xd;
+  &quot;instanceId&quot;: &quot;${instance_id}&quot;,&#xd;
+  &quot;holdingsRecordId&quot;: &quot;${holdings_record_id}&quot;,&#xd;
+  &quot;itemId&quot;: &quot;${item_id}&quot;,&#xd;
   &quot;fulfilmentPreference&quot;: &quot;Hold Shelf&quot;,&#xd;
-  &quot;pickupServicePointId&quot;: &quot;3a40852d-49fd-4df2-a1f9-6e2641a6e91f&quot;,&#xd;
-  &quot;tags&quot;: {&#xd;
-    &quot;tagList&quot;: [&#xd;
-      &quot;new&quot;,&#xd;
-      &quot;important&quot;&#xd;
-    ]&#xd;
-  },&#xd;
-  &quot;searchIndex&quot;: {&#xd;
-    &quot;shelvingOrder&quot;: &quot;F 416 H37 A2 59001&quot;,&#xd;
-    &quot;callNumberComponents&quot;: {&#xd;
-      &quot;callNumber&quot;: &quot;F16.H37 A2 9001&quot;&#xd;
-    },&#xd;
-    &quot;pickupServicePointName&quot;: &quot;Circ Desk 1&quot;&#xd;
-  }&#xd;
+  &quot;pickupServicePointId&quot;: &quot;${pickupServicePointId}&quot;&#xd;
 }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
@@ -605,7 +532,7 @@ vars.put(&quot;edited_item&quot;,new JsonBuilder(jsonData).toString());</stringP
         </ConstantTimer>
         <hashTree/>
       </hashTree>
-      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
