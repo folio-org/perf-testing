@@ -25,7 +25,16 @@ Simulate Blacklight's calling FOLIO to view a record by issuing the following AP
 ## JMeter-supported-data
 ### Runtime Data
 The following data files are needed to support the Jmeter script during its execution.
-- BLS_instance_user_ids.csv: a list of instance and item ids to run the script.
+- BLS_item_holdings_instance_ids.csv.csv: a list of item ids and their related holdings and instances to run the script. To obtain these UUIDs, run the following SQL script:
+
+`SELECT item.id as itemId, hr.id as hrId, hr.jsonb->>'instanceId' as instanceId 
+FROM <tenantId>_mod_inventory_storage.item item
+INNER JOIN <tenantID>_mod_inventory_storage.holdings_record hr
+ON uuid(item.jsonb->>'holdingsRecordId') = hr.id
+WHERE item.jsonb->'status'->>'name' = 'Available'
+LIMIT 1000`
+
+- BLS_user_ids.csv: a list of user ids to run the script. These are users who are active and have a valid barcode.
 - credentials.csv: a file to specify credentials for the tenant being tested (contains username,password,tenant, they are needed for login).
 
 ### Parameters
