@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.3">
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.2.1">
   <hashTree>
-    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="simultate_blacklightRequests" enabled="true">
-      <stringProp name="TestPlan.comments"></stringProp>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="black-light_request" enabled="true">
+      <stringProp name="TestPlan.comments">This test simulates the Black Light app creating item-lvel requests in FOLIO</stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" enabled="true">
@@ -20,7 +20,7 @@
           </elementProp>
           <elementProp name="HOSTNAME" elementType="Argument">
             <stringProp name="Argument.name">HOSTNAME</stringProp>
-            <stringProp name="Argument.value">${__P(HOSTNAME,[HOSTNAME])}</stringProp>
+            <stringProp name="Argument.value">${__P(HOSTNAME,[hostName])}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -40,53 +40,17 @@
       <hashTree/>
       <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
         <collectionProp name="HeaderManager.headers">
-          <elementProp name="sec-ch-ua" elementType="Header">
-            <stringProp name="Header.name">sec-ch-ua</stringProp>
-            <stringProp name="Header.value">&quot;Google Chrome&quot;;v=&quot;111&quot;, &quot;Not(A:Brand&quot;;v=&quot;8&quot;, &quot;Chromium&quot;;v=&quot;111&quot;</stringProp>
-          </elementProp>
-          <elementProp name="sec-ch-ua-mobile" elementType="Header">
-            <stringProp name="Header.name">sec-ch-ua-mobile</stringProp>
-            <stringProp name="Header.value">?0</stringProp>
-          </elementProp>
-          <elementProp name="sec-ch-ua-platform" elementType="Header">
-            <stringProp name="Header.name">sec-ch-ua-platform</stringProp>
-            <stringProp name="Header.value">&quot;Windows&quot;</stringProp>
-          </elementProp>
           <elementProp name="User-Agent" elementType="Header">
             <stringProp name="Header.name">User-Agent</stringProp>
             <stringProp name="Header.value">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36</stringProp>
-          </elementProp>
-          <elementProp name="Accept-Language" elementType="Header">
-            <stringProp name="Header.name">Accept-Language</stringProp>
-            <stringProp name="Header.value">en-US</stringProp>
-          </elementProp>
-          <elementProp name="Sec-Fetch-Site" elementType="Header">
-            <stringProp name="Header.name">Sec-Fetch-Site</stringProp>
-            <stringProp name="Header.value">same-site</stringProp>
-          </elementProp>
-          <elementProp name="Sec-Fetch-Mode" elementType="Header">
-            <stringProp name="Header.name">Sec-Fetch-Mode</stringProp>
-            <stringProp name="Header.value">cors</stringProp>
-          </elementProp>
-          <elementProp name="Sec-Fetch-Dest" elementType="Header">
-            <stringProp name="Header.name">Sec-Fetch-Dest</stringProp>
-            <stringProp name="Header.value">empty</stringProp>
-          </elementProp>
-          <elementProp name="Accept-Encoding" elementType="Header">
-            <stringProp name="Header.name">Accept-Encoding</stringProp>
-            <stringProp name="Header.value">gzip, deflate, br</stringProp>
           </elementProp>
           <elementProp name="X-Okapi-Tenant" elementType="Header">
             <stringProp name="Header.name">X-Okapi-Tenant</stringProp>
             <stringProp name="Header.value">${tenant}</stringProp>
           </elementProp>
-          <elementProp name="Content-Type" elementType="Header">
-            <stringProp name="Header.name">Content-Type</stringProp>
-            <stringProp name="Header.value">application/json</stringProp>
-          </elementProp>
           <elementProp name="Accept" elementType="Header">
-            <stringProp name="Header.name">Accept</stringProp>
-            <stringProp name="Header.value">application/json</stringProp>
+            <stringProp name="Header.name">Origin</stringProp>
+            <stringProp name="Header.value">http://localhost</stringProp>
           </elementProp>
         </collectionProp>
       </HeaderManager>
@@ -282,16 +246,28 @@
           </collectionProp>
         </HeaderManager>
         <hashTree/>
-        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Data - user_ids" enabled="true">
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Data - instance|holdingsRecord|Item IDs" enabled="true">
           <stringProp name="delimiter">,</stringProp>
           <stringProp name="fileEncoding"></stringProp>
-          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/BLS_instance_user_ids.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/BLS_item_holdings_instance_ids.csv</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
           <boolProp name="quotedData">false</boolProp>
           <boolProp name="recycle">true</boolProp>
           <stringProp name="shareMode">shareMode.group</stringProp>
           <boolProp name="stopThread">false</boolProp>
-          <stringProp name="variableNames">instance_id,user_id</stringProp>
+          <stringProp name="variableNames">item_id,holdings_record_id,instance_id</stringProp>
+        </CSVDataSet>
+        <hashTree/>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Data - user_ids" enabled="true">
+          <stringProp name="delimiter">,</stringProp>
+          <stringProp name="fileEncoding"></stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/BLS_user_ids.csv</stringProp>
+          <boolProp name="ignoreFirstLine">false</boolProp>
+          <boolProp name="quotedData">false</boolProp>
+          <boolProp name="recycle">true</boolProp>
+          <stringProp name="shareMode">shareMode.group</stringProp>
+          <boolProp name="stopThread">false</boolProp>
+          <stringProp name="variableNames">user_id</stringProp>
         </CSVDataSet>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="BLS_GET_item-storage/items" enabled="true">
@@ -312,15 +288,7 @@
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </HTTPSamplerProxy>
-        <hashTree>
-          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor item_id" enabled="true">
-            <stringProp name="JSONPostProcessor.referenceNames">item_id</stringProp>
-            <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[*].id</stringProp>
-            <stringProp name="JSONPostProcessor.match_numbers">0</stringProp>
-            <stringProp name="JSONPostProcessor.defaultValues">not_found</stringProp>
-          </JSONPostProcessor>
-          <hashTree/>
-        </hashTree>
+        <hashTree/>
         <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Do if item_id exists" enabled="true">
           <stringProp name="IfController.condition">${__groovy(vars.get(&quot;item_id&quot;) != null;)}</stringProp>
           <boolProp name="IfController.evaluateAll">false</boolProp>
@@ -410,10 +378,9 @@ vars.put(&quot;edited_item&quot;,new JsonBuilder(jsonData).toString());</stringP
   &quot;holdingsRecordId&quot;: &quot;${BLS_holdingsRecordId}&quot;,&#xd;
   &quot;permanentLoanTypeId&quot;: &quot;${BLS_permanentLoanTypeId}&quot;,&#xd;
   &quot;status&quot;: {&#xd;
-    &quot;name&quot;: &quot;In transit&quot;&#xd;
+    &quot;name&quot;: &quot;Available&quot;&#xd;
   },&#xd;
   &quot;materialTypeId&quot;: &quot;${BLS_materialTypeId}&quot;&#xd;
-&#xd;
 }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
@@ -521,15 +488,16 @@ vars.put(&quot;edited_item&quot;,new JsonBuilder(jsonData).toString());</stringP
             <collectionProp name="Arguments.arguments">
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">	{&#xd;
+                <stringProp name="Argument.value">{&#xd;
 	&quot;requestType&quot;: &quot;Page&quot;,&#xd;
 	&quot;fulfilmentPreference&quot;: &quot;Hold Shelf&quot;,&#xd;
+	&quot;itemId&quot;: &quot;${item_Id}&quot;&#xd;
 	&quot;instanceId&quot;: &quot;${instance_id}&quot;,&#xd;
+	&quot;holdingsRecordId&quot; : &quot;${holdings_record_Id}&quot;,&#xd;
 	&quot;requesterId&quot;: &quot;${user_id}&quot;,&#xd;
 	&quot;pickupServicePointId&quot;: &quot;${BLS_pickupServicePointId}&quot;,&#xd;
-	&quot;requestLevel&quot;: &quot;Title&quot;,&#xd;
-	&quot;requestDate&quot;: &quot;${__time(yyyy-MM-dd&apos;T&apos;HH:mm:ss.SSS&apos;Z&apos;)}&quot;,&#xd;
-	&quot;id&quot;: &quot;${__UUID}&quot;&#xd;
+	&quot;requestLevel&quot;: &quot;Item&quot;,&#xd;
+	&quot;requestDate&quot;: &quot;${__time(yyyy-MM-dd&apos;T&apos;HH:mm:ss.SSS&apos;Z&apos;)}&quot;&#xd;
 }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
@@ -555,7 +523,7 @@ vars.put(&quot;edited_item&quot;,new JsonBuilder(jsonData).toString());</stringP
         </ConstantTimer>
         <hashTree/>
       </hashTree>
-      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
