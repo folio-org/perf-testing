@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.2.1">
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.3">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="black-light_request" enabled="true">
       <stringProp name="TestPlan.comments">This test simulates the Black Light app creating item-lvel requests in FOLIO</stringProp>
@@ -20,7 +20,7 @@
           </elementProp>
           <elementProp name="HOSTNAME" elementType="Argument">
             <stringProp name="Argument.name">HOSTNAME</stringProp>
-            <stringProp name="Argument.value">${__P(HOSTNAME,[hostName])}</stringProp>
+            <stringProp name="Argument.value">${__P(HOSTNAME,okapi-ptf-nolana-2.int.aws.folio.org)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -51,6 +51,14 @@
           <elementProp name="Accept" elementType="Header">
             <stringProp name="Header.name">Origin</stringProp>
             <stringProp name="Header.value">http://localhost</stringProp>
+          </elementProp>
+          <elementProp name="Content-Type" elementType="Header">
+            <stringProp name="Header.name">Content-Type</stringProp>
+            <stringProp name="Header.value">application/json</stringProp>
+          </elementProp>
+          <elementProp name="Accept" elementType="Header">
+            <stringProp name="Header.name">Accept</stringProp>
+            <stringProp name="Header.value">application/json</stringProp>
           </elementProp>
         </collectionProp>
       </HeaderManager>
@@ -228,7 +236,7 @@
         <stringProp name="ThreadGroup.num_threads">${BLS_vusers}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${BLS_rampup}</stringProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <stringProp name="ThreadGroup.duration">${VIR_duration}</stringProp>
+        <stringProp name="ThreadGroup.duration">${BLS_duration}</stringProp>
         <stringProp name="ThreadGroup.delay">0</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
@@ -482,7 +490,7 @@ vars.put(&quot;edited_item&quot;,new JsonBuilder(jsonData).toString());</stringP
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="BLS_POST_circulation/requests" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="BLS_POST_circulation/requests" enabled="false">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -491,13 +499,87 @@ vars.put(&quot;edited_item&quot;,new JsonBuilder(jsonData).toString());</stringP
                 <stringProp name="Argument.value">{&#xd;
 	&quot;requestType&quot;: &quot;Page&quot;,&#xd;
 	&quot;fulfilmentPreference&quot;: &quot;Hold Shelf&quot;,&#xd;
-	&quot;itemId&quot;: &quot;${item_Id}&quot;&#xd;
+	&quot;itemId&quot;: &quot;${item_id}&quot;&#xd;
 	&quot;instanceId&quot;: &quot;${instance_id}&quot;,&#xd;
-	&quot;holdingsRecordId&quot; : &quot;${holdings_record_Id}&quot;,&#xd;
+	&quot;holdingsRecordId&quot; : &quot;${holdings_record_id}&quot;,&#xd;
 	&quot;requesterId&quot;: &quot;${user_id}&quot;,&#xd;
 	&quot;pickupServicePointId&quot;: &quot;${BLS_pickupServicePointId}&quot;,&#xd;
 	&quot;requestLevel&quot;: &quot;Item&quot;,&#xd;
 	&quot;requestDate&quot;: &quot;${__time(yyyy-MM-dd&apos;T&apos;HH:mm:ss.SSS&apos;Z&apos;)}&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">circulation/requests</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="BLS_POST_circulation/requests" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+  &quot;id&quot;: &quot;${__UUID}&quot;,&#xd;
+  &quot;requestLevel&quot;: &quot;Item&quot;,&#xd;
+  &quot;requestType&quot;: &quot;Hold&quot;,&#xd;
+  &quot;status&quot;: &quot;Open - Not yet filled&quot;,&#xd;
+  &quot;requestDate&quot;: &quot;${__time(yyyy-MM-dd&apos;T&apos;HH:mm:ss.SSS&apos;Z&apos;)}&quot;,&#xd;
+  &quot;requestExpirationDate&quot;: &quot;2023-06-23T11:04:25.000+00:00&quot;,&#xd;
+  &quot;requesterId&quot;: &quot;${user_id}&quot;,&#xd;
+  &quot;requester&quot;: {&#xd;
+    &quot;barcode&quot;: &quot;1234&quot;,&#xd;
+    &quot;lastName&quot;: &quot;Lastname&quot;,&#xd;
+    &quot;firstName&quot;: &quot;Firstname&quot;&#xd;
+  },&#xd;
+  &quot;instanceId&quot;: &quot;86c722c3-2f5e-42e1-bd0e-7ffbbd3b4972&quot;,&#xd;
+  &quot;instance&quot;: {&#xd;
+    &quot;title&quot;: &quot;Children of Time&quot;,&#xd;
+    &quot;identifiers&quot;: [&#xd;
+      {&#xd;
+        &quot;value&quot;: &quot;0123456789&quot;,&#xd;
+        &quot;identifierTypeId&quot;: &quot;8261054f-9876-422d-bd51-4ed9f33c7654&quot;&#xd;
+      },&#xd;
+      {&#xd;
+        &quot;value&quot;: &quot;98765432123456&quot;,&#xd;
+        &quot;identifierTypeId&quot;: &quot;8261054f-9876-422d-bd51-4ed9f33c7654&quot;&#xd;
+      }&#xd;
+    ]&#xd;
+  },&#xd;
+  &quot;holdingsRecordId&quot;: &quot;e63273e7-48f5-4c43-ab4e-1751ecacaa21&quot;,&#xd;
+  &quot;itemId&quot;: &quot;195efae1-588f-47bd-a181-13a2eb437701&quot;,&#xd;
+  &quot;item&quot;: {&#xd;
+    &quot;barcode&quot;: &quot;760932543816&quot;&#xd;
+  },&#xd;
+  &quot;position&quot;: 1,&#xd;
+  &quot;fulfilmentPreference&quot;: &quot;Hold Shelf&quot;,&#xd;
+  &quot;pickupServicePointId&quot;: &quot;3a40852d-49fd-4df2-a1f9-6e2641a6e91f&quot;,&#xd;
+  &quot;tags&quot;: {&#xd;
+    &quot;tagList&quot;: [&#xd;
+      &quot;new&quot;,&#xd;
+      &quot;important&quot;&#xd;
+    ]&#xd;
+  },&#xd;
+  &quot;searchIndex&quot;: {&#xd;
+    &quot;shelvingOrder&quot;: &quot;F 416 H37 A2 59001&quot;,&#xd;
+    &quot;callNumberComponents&quot;: {&#xd;
+      &quot;callNumber&quot;: &quot;F16.H37 A2 9001&quot;&#xd;
+    },&#xd;
+    &quot;pickupServicePointName&quot;: &quot;Circ Desk 1&quot;&#xd;
+  }&#xd;
 }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
