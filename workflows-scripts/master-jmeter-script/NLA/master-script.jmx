@@ -52,29 +52,29 @@
           </elementProp>
           <elementProp name="HOSTNAME" elementType="Argument">
             <stringProp name="Argument.name">HOSTNAME</stringProp>
-            <stringProp name="Argument.value">${__P(HOSTNAME,0)}</stringProp>
+            <stringProp name="Argument.value">${__P(HOSTNAME,okapi-ptf-nolana-2.int.aws.folio.org)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">[host-name]</stringProp>
           </elementProp>
           <elementProp name="Origin" elementType="Argument">
             <stringProp name="Argument.name">Origin</stringProp>
-            <stringProp name="Argument.value">${__P(ORIGIN,0)}</stringProp>
+            <stringProp name="Argument.value">${__P(ORIGIN,ptf-nolana-2.int.aws.folio.org)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">[host-name] without &quot;okapi&quot;</stringProp>
           </elementProp>
           <elementProp name="username" elementType="Argument">
             <stringProp name="Argument.name">username</stringProp>
-            <stringProp name="Argument.value">${__P(username,0)}</stringProp>
+            <stringProp name="Argument.value">${__P(username,folio)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="password" elementType="Argument">
             <stringProp name="Argument.name">password</stringProp>
-            <stringProp name="Argument.value">${__P(password,0)}</stringProp>
+            <stringProp name="Argument.value">${__P(password,folio)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="tenant" elementType="Argument">
             <stringProp name="Argument.name">tenant</stringProp>
-            <stringProp name="Argument.value">${__P(tenant,0)}</stringProp>
+            <stringProp name="Argument.value">${__P(tenant,fs09000000)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="new_progress" elementType="Argument">
@@ -352,7 +352,7 @@
           </elementProp>
           <elementProp name="IO_DISTRIBUTION" elementType="Argument">
             <stringProp name="Argument.name">IO_DISTRIBUTION</stringProp>
-            <stringProp name="Argument.value">${__P(IO_DISTRIBUTION, 25-25-25-25)} </stringProp>
+            <stringProp name="Argument.value">${__P(IO_DISTRIBUTION, 0-100-0-0)} </stringProp>
             <stringProp name="Argument.desc">Default 100-0-0-0 create,view,update,delete</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
@@ -19616,7 +19616,7 @@ vars.put(&quot;user_data&quot;,new JsonBuilder(jsonData).toString());</stringPro
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Invoices Operations" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Invoices Operations" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -21237,7 +21237,7 @@ vars.put(&quot;IO_view_flow&quot;, result)
                 <hashTree>
                   <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extract Invoice Id" enabled="true">
                     <stringProp name="JSONPostProcessor.referenceNames">invoice_id</stringProp>
-                    <stringProp name="JSONPostProcessor.jsonPathExprs">invoices.*.id</stringProp>
+                    <stringProp name="JSONPostProcessor.jsonPathExprs">invoices.[?(@.status!=&apos;Approved&apos; &amp;&amp; @.status!=&apos;Paid&apos;)].id</stringProp>
                     <stringProp name="JSONPostProcessor.match_numbers">0</stringProp>
                     <stringProp name="JSONPostProcessor.defaultValues">NOT_FOUND</stringProp>
                   </JSONPostProcessor>
@@ -22053,7 +22053,7 @@ vars.put(&quot;IO_view_flow&quot;, result)
               <hashTree>
                 <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extract Invoice Id" enabled="true">
                   <stringProp name="JSONPostProcessor.referenceNames">invoice_id</stringProp>
-                  <stringProp name="JSONPostProcessor.jsonPathExprs">invoices.*.id</stringProp>
+                  <stringProp name="JSONPostProcessor.jsonPathExprs">invoices.[?(@.status!=&apos;Approved&apos; &amp;&amp; @.status!=&apos;Paid&apos;)].id</stringProp>
                   <stringProp name="JSONPostProcessor.match_numbers">0</stringProp>
                   <stringProp name="JSONPostProcessor.defaultValues">NOT_FOUND</stringProp>
                 </JSONPostProcessor>
@@ -23749,7 +23749,7 @@ vars.put(&quot;edited_invoice&quot;,new JsonBuilder(jsonData).toString());
               <hashTree>
                 <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extract Invoice Id" enabled="true">
                   <stringProp name="JSONPostProcessor.referenceNames">invoice_id</stringProp>
-                  <stringProp name="JSONPostProcessor.jsonPathExprs">invoices.*.id</stringProp>
+                  <stringProp name="JSONPostProcessor.jsonPathExprs">invoices.[?(@.status!=&apos;Approved&apos; &amp;&amp; @.status!=&apos;Paid&apos;)].id</stringProp>
                   <stringProp name="JSONPostProcessor.match_numbers">0</stringProp>
                   <stringProp name="JSONPostProcessor.defaultValues">NOT_FOUND</stringProp>
                 </JSONPostProcessor>
@@ -24317,7 +24317,7 @@ vars.put(&quot;edited_invoice&quot;,new JsonBuilder(jsonData).toString());
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Ledger Operations" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Ledger Operations" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
