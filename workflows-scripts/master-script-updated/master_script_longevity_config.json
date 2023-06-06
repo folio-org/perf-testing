@@ -4,9 +4,8 @@
       "AIE_VUSERS":1,
       "AIE_VIEW_DISTRIBUTION": "50-50",
       "AIE_RAMP_UP":1,
-      "CICO_THINK_OFFSET":0,
       "AIE_Throughput":"25.0",
-      "Global_duration":1800
+      "Global_duration":86400
     },
     "Check-in Checkout": {
       "CICO_VUSERS":1,
@@ -16,18 +15,20 @@
       "CICO_Throughput":"65.0",
     },
     "DE":{
-      "DE_file":"5k_mrc_bib.csv-5k_holdings_record.csv-5k_authority.csv",
-      "DE_VUSERS":1,
-      "DE_RAMP-UP":1,
-      "DE_pause":300000
+      "DE_file":"5k_mrc_bib.csv-5k_holdings_record.csv-5k_authority.csv-50_mrc_bib.csv-50_holdings_record.csv-50_authority.csv-100_mrc_bib.csv-100_holdings_record.csv-100_authority.csv",
+      "DE_VUSERS":3,
+      "DE_RAMP-UP":28000,
+      "DE_pause":300000,
+	  "DE_delay":1200
     },
 
     "DI":{
-      "DI_VUSERS":1,
-      "DI_RAMP_UP":1,
+      "DI_VUSERS":4,
+      "DI_RAMP_UP":21000,
       "DI_pause":300000,
-      "DI_file":"For_LA_edeposit_updates.mrc-For_DISC_HRID_match.mrc-For_DISC_NewNonEdepositRecords.mrc"
-    },
+      "DI_file":"For_LA_edeposit_updates.mrc-For_DISC_HRID_match.mrc-For_DISC_NewNonEdepositRecords.mrc",
+      "DI_delay":60
+	},
     "ETT":{
       "ETT_VUSERS":1,
       "ETT_RAMP_UP":1,
