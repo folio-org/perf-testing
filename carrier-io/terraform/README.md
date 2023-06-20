@@ -1,13 +1,5 @@
 ### Installation
 
-Create variable file with secrets *secrets.auto.tfvars*
-```bash
-key_pair_name   = "<KEY_NAME>"
-redis_password  = "<PASSWORD>"
-influx_password = "<PASSWORD>"
-rabbit_password = "<PASSWORD>"
-```
-
 Initialize project
 
 ```terraform init```
@@ -31,12 +23,17 @@ Destroy infrastructure
 ```terraform destroy --auto-approve```
 
 ### For installing on EBSCO side used next value of vars:
-deploy_load_balancer=true 
-resource_name=carrier 
-aws_region=us-east-1
-root_domain=int.folio.ebsco.com 
-vpc_name=VpcA-Platform-AWSNVirginia-FolioIntegration
-root_domain=int.folio.ebsco.com
-subnet_type_tag_key=aws:cloudformation:logical-id
-subnet_type_tag_value=VpcASubnetPubA*
+
+```bash
+deploy_load_balancer  = false
+resource_name         = "carrier"
+aws_region            = "us-east-1"
+vpc_name              = "VpcA-Platform-AWSNVirginia-FolioIntegration"
+root_domain           = "int.folio.ebsco.com"
+subnet_type_tag_key   = "aws:cloudformation:logical-id"
+subnet_type_tag_value = "VpcASubnetPubA*"
+
+key_pair_name = "carrier-io-2"
+ingress_cidr  = "140.234.0.0/16"
+```
 

@@ -22,6 +22,12 @@ variable "zone_offset" {
   description = "CIDR block bits extension offset to calculate Public subnets, avoiding collisions with Private subnets."
 }
 
+variable "ingress_cidr" {
+  type        = string
+  default     = "0.0.0.0/0"
+  description = "Ingress cidr for sg inbound rules"
+}
+
 variable "root_domain" {
   type    = string
   default = "ci.folio.org"
@@ -48,25 +54,6 @@ variable "root_volume_size" {
 variable "key_pair_name" {
   type        = string
   description = "Name of key pair for SSH access"
-}
-
-# Carrier IO userdata values
-variable "redis_password" {
-  type        = string
-  description = "Password for carrier IO Redis service"
-}
-variable "influx_password" {
-  type        = string
-  description = "Password for carrier IO Influx service"
-}
-variable "influx_username" {
-  type        = string
-  default     = "influx"
-  description = "Username for carrier IO Influx service"
-}
-variable "rabbit_password" {
-  type        = string
-  description = "Password for carrier IO Rabbit service"
 }
 
 variable "tags" {
