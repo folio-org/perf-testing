@@ -16,10 +16,6 @@ pipeline {
         git 'https://github.com/folio-org/perf-testing/'
       }
     }
-    stage ('check ECS cluster - Checkout') {
-     	 checkout([$class: 'GitSCM', branches: [[name: '*/PERF-427']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/folio-org/perf-testing']]])
-    	}
-
     stage('Build Artifact') {
       steps {
         sh '''cd common/ECSResourcesCheck
