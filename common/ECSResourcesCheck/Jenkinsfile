@@ -13,7 +13,7 @@ pipeline {
   stages {
     stage('Checkout Scm') {
       steps {
-        git 'https://github.com/folio-org/perf-testing'
+        git 'https://github.com/folio-org/perf-testing/tree/PERF-427'
       }
     }
 
