@@ -3,16 +3,20 @@
 
 Specify parameters
     
-`     ecs cluster name,
-`     
-`     aws_access_key_id,
-`     
-`     aws_secret_access_key,
-`     
-`     aws region,
-`     
-`     base json with the list of modules
-`    
+     ecs cluster name,
+     
+     aws_access_key_id,
+     
+     aws_secret_access_key,
+     
+     aws region,
+     
+     behavior - get - to get description of services/ null - to compare with base json,  
+                    
+     modules list - coma separated values of modules names,
+     
+     base json - with the list of modules
+
 
 Parameters description 
 
@@ -23,7 +27,7 @@ Cluster name: for example
 
 `gptf-pub`
 
-aws_acces_key_id
+aws_access_key_id
 
 `aws_access_key_id`
 
@@ -34,6 +38,12 @@ aws_secret_access_key
 aws region for example
 
 `us-east-1`
+
+behavior :
+
+get, null
+
+
 
 Input Json in format
 ```

@@ -26,7 +26,7 @@ public class TaskDefinitionParser {
     }
 
     public int getMetaspaceSize(String env) {
-        if (env.contains("MetaspaceSize")) {
+        if (env.contains("-XX:MetaspaceSize")) {
             env = env.substring(env.indexOf("MetaspaceSize="));
             env = env.substring(env.indexOf("=") + 1, env.indexOf(" -XX") - 1);
             return Integer.parseInt(env);
