@@ -22,7 +22,7 @@ public class Main {
        Date date = Calendar.getInstance().getTime();
 
         if (args[4].equals("get")) {
-            Writer writer = new Writer();
+            ServicesConfigHtmlWriter servicesConfigHtmlWriter = new ServicesConfigHtmlWriter();
             JSONObject json = new JSONObject();
             ECSServices ecsServices = new ECSServices(
                     args[0], //ecs cluster name
@@ -33,7 +33,7 @@ public class Main {
             if (args[5].equals("null")) {
                 System.out.println("it's getting cluster info");
                 json = ecsServices.getServiceslist();
-                writer.write(json, date, args[0]);
+                servicesConfigHtmlWriter.write(json, date, args[0]);
             }
 
             else {
@@ -43,7 +43,7 @@ public class Main {
                 for (int i = 0; i < modules.size(); i++) {
                     DescribeTaskDefinitionResult taskDefinitionResult = ecsServices.describeTaskDef(modules.get(i));
                     json.put(modules.get(i), taskDefinitionParser.buildJson(taskDefinitionResult, ecsServices.getDesiredCount(modules.get(i))));
-                    writer.write(json, date, args[0]);
+                    servicesConfigHtmlWriter.write(json, date, args[0]);
                 }
                 System.out.println(json);
 
