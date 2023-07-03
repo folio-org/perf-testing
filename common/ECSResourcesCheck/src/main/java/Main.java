@@ -28,7 +28,7 @@ public class Main {
                     args[0], //ecs cluster name
                     args[1], //aws_access_key_id,
                     args[2], //aws_secret_access_key,
-                    args[3]);  //aws region
+                    args[3]);//aws region
 
             if (args[5].equals("null")) {
                 System.out.println("it's getting cluster info");

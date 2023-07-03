@@ -37,6 +37,9 @@ public class ServicesConfigHtmlWriter {
         BufferedWriter writer = new BufferedWriter(new FileWriter("clusterResources.html"));
         writer.write(Head);
         for (int i = 0; i < json.length(); i++) {
+            if(json==null){
+                break;
+            }
             JSONArray names=json.names();
             JSONObject taskDef= json.getJSONObject(names.get(i).toString());
             String data = "<tr>\n" +
