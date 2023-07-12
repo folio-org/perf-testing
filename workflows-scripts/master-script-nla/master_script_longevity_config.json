@@ -26,7 +26,7 @@
       "DI_VUSERS":1,
       "DI_RAMP_UP":1,
       "DI_pause":300000,
-      "DI_file":"For_LA_edeposit_updates.mrc-For_LA_edeposit_updates2.mrc-For_LA_edeposit_updates3.mrc-For_DISC_HRID_match.mrc-For_DISC_HRID_match2.mrc-For_DISC_HRID_match3.mrc-For_DISC_NewNonEdepositRecords.mrc-NewEDepositRecords10.mrc-NewEDepositRecords9.mrc-NewEDepositRecords8.mrc-NewEDepositRecords7.mrc",
+      "DI_file":"For_LA_edeposit_updates_1k.mrc-For_LA_edeposit_updates_5k.mrc-For_LA_edeposit_updates_10k.mrc-For_DISC_HRID_match_1.mrc-For_DISC_HRID_match_12.mrc-For_DISC_HRID_match_251.mrc-For_DISC_HRID_match_1k.mrc-For_DISC_NewNonEdepositRecords_5.mrc-NewEDepositRecords_13.mrc-NewEDepositRecords_54.mrc-NewEDepositRecords_74.mrc-NewEDepositRecords_77.mrc-NewEDepositRecords_100.mrc-NewEDepositRecords_200.mrc",
       "DI_delay":0
 	},
     "ETT":{
