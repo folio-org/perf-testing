@@ -37,3 +37,6 @@ key_pair_name = "carrier-io-2"
 ingress_cidr  = "140.234.0.0/16"
 ```
 
+### Tips
+By default carrier does not support running under secure period.
+

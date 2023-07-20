@@ -36,8 +36,7 @@ module "security_group" {
 
   ingress_cidr_blocks = [var.ingress_cidr]
   ingress_rules = [
-    "ssh-tcp", "http-80-tcp", "http-8080-tcp", "postgresql-tcp", "mongodb-27017-tcp", "vault-tcp", "redis-tcp",
-    "minio-tcp", "loki-grafana", "rabbitmq-5672-tcp"
+    "ssh-tcp", "http-80-tcp", "loki-grafana", "rabbitmq-5672-tcp"
   ]
   ingress_with_cidr_blocks = [
     {
@@ -66,25 +65,24 @@ locals {
   ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
   yum groupinstall "Development Tools" -y
 
-  git clone https://github.com/carrier-io/centry.git -b beta-1.0 /opt/centry
 
   export CENTRY_HOME=/opt/centry
-  export PRIVATE_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
+  export CURRENT_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
 
+  git clone https://github.com/carrier-io/centry.git -b beta-1.0 $CENTRY_HOME
   cd $CENTRY_HOME
 
-  sed -i -e "s|\#DIRECT_IP=YOUR_IP_HERE|DIRECT_IP=$PRIVATE_IP|g" Makefile
+  sed -i -e "s|\#DIRECT_IP=YOUR_IP_HERE|DIRECT_IP=$CURRENT_IP|g" Makefile
 
-  sed -i -e "s|DEV_IP=|DEV_IP=$PRIVATE_IP|g" .env
+  sed -i -e "s|APP_IP=|APP_IP=$CURRENT_IP|g" .env
   sed -i "s|APP_HOST=.*|APP_HOST=http://${var.resource_name}.${var.root_domain}|g" .env
-  sed -i "s|APP_DOMAIN=|APP_DOMAIN=${var.resource_name}.${var.root_domain}|g" .env
-  sed -i "s|LOKI_HOST=.*|LOKI_HOST=http://${var.resource_name}.${var.root_domain}:3100/loki/api/v1/push|g" .env
+  sed -i "s|APP_DOMAIN=.*|APP_DOMAIN=${var.resource_name}.${var.root_domain}|g" .env
+  sed -i "s|LOKI_HOST=.*|LOKI_HOST=http://$CURRENT_IP|g" .env
 
   sed -i -e "s|CARRIER_PATH=\$PWD|CARRIER_PATH=$CENTRY_HOME|g" .env
   sed -i -e "s|VOLUMES_PATH=\$CARRIER_PATH/volumes|VOLUMES_PATH=$CENTRY_HOME/volumes|g" .env
 
-  make up
-  EOT
+EOT
 }
 
 resource "aws_route53_record" "ec2" {
