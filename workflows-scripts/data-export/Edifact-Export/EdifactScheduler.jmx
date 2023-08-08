@@ -1,0 +1,2127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.2">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="EdifactScheduler" enabled="true">
+      <stringProp name="TestPlan.comments">This test plan was created by the BlazeMeter converter v.3.1.23. Please contact support@blazemeter.com for further support.</stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+    </TestPlan>
+    <hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="protocol" elementType="Argument">
+            <stringProp name="Argument.name">protocol</stringProp>
+            <stringProp name="Argument.value">https</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="port" elementType="Argument">
+            <stringProp name="Argument.name">port</stringProp>
+            <stringProp name="Argument.value">443</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="host" elementType="Argument">
+            <stringProp name="Argument.name">host</stringProp>
+            <stringProp name="Argument.value">${__P(HOSTNAME,[okapiHostname])}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">okapi hostname without https</stringProp>
+          </elementProp>
+          <elementProp name="global_BaseDir" elementType="Argument">
+            <stringProp name="Argument.name">global_BaseDir</stringProp>
+            <stringProp name="Argument.value">${__BeanShell(import org.apache.jmeter.services.FileServer; FileServer.getFileServer().getBaseDir();)}${__BeanShell(File.separator,)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+        <stringProp name="TestPlan.comments">okapi-ptf-rmb.int.aws.folio.org</stringProp>
+      </Arguments>
+      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="enable mod-data-export-spring" enabled="false">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <stringProp name="LoopController.loops">1</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.delayedStart">false</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">X-Okapi-Token</stringProp>
+              <stringProp name="Header.value">${X-Okapi-Token-Header}</stringProp>
+            </elementProp>
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">Accept</stringProp>
+              <stringProp name="Header.value">application/json</stringProp>
+            </elementProp>
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">Content-type</stringProp>
+              <stringProp name="Header.value">application/json</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="disable_mod_data_export_spring" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+    {&#xd;
+        &quot;id&quot; : &quot;mod-data-export-spring-2.0.2&quot;,&#xd;
+        &quot;action&quot; : &quot;disable&quot;&#xd;
+    }&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${host}</stringProp>
+          <stringProp name="HTTPSampler.port">${port}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
+          <stringProp name="HTTPSampler.path">/_/proxy/tenants/${tenantId}/install</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="false">
+            <stringProp name="JSONPostProcessor.referenceNames">orderId</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="enable_mod_data_export_spring" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+    {&#xd;
+        &quot;id&quot; : &quot;mod-data-export-spring-2.0.2&quot;,&#xd;
+        &quot;action&quot; : &quot;enable&quot;&#xd;
+    }&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${host}</stringProp>
+          <stringProp name="HTTPSampler.port">${port}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
+          <stringProp name="HTTPSampler.path">/_/proxy/tenants/${tenantId}/install</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="false">
+            <stringProp name="JSONPostProcessor.referenceNames">orderId</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Enable scheduler" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <stringProp name="LoopController.loops">1</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.delayedStart">false</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Credentials" enabled="true">
+          <stringProp name="delimiter">,</stringProp>
+          <stringProp name="fileEncoding"></stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/credentials.csv</stringProp>
+          <boolProp name="ignoreFirstLine">true</boolProp>
+          <boolProp name="quotedData">false</boolProp>
+          <boolProp name="recycle">true</boolProp>
+          <stringProp name="shareMode">shareMode.all</stringProp>
+          <boolProp name="stopThread">false</boolProp>
+          <stringProp name="variableNames">username,password,tenantId,ftpPassword</stringProp>
+          <stringProp name="TestPlan.comments">[username],[password],[tenantId]</stringProp>
+        </CSVDataSet>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="FOLIO: Login" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&quot;username&quot;:&quot;${username}&quot;,&quot;password&quot;:&quot;${password}&quot;}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.path">/authn/login</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="Content-Type" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+              <elementProp name="Accept" elementType="Header">
+                <stringProp name="Header.name">Accept</stringProp>
+                <stringProp name="Header.value">*/*</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - 201" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49587">201</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor - okapi-token" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">true</stringProp>
+            <stringProp name="RegexExtractor.refname">x-okapi-token</stringProp>
+            <stringProp name="RegexExtractor.regex">x-okapi-token: (.+)</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.match_number">1</stringProp>
+            <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+          </RegexExtractor>
+          <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor - current_userID" enabled="true">
+            <stringProp name="JSONPostProcessor.referenceNames">current_userID</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.user.id</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+        </hashTree>
+        <CacheManager guiclass="CacheManagerGui" testclass="CacheManager" testname="HTTP Cache Manager" enabled="true">
+          <boolProp name="clearEachIteration">true</boolProp>
+          <boolProp name="useExpires">true</boolProp>
+          <boolProp name="CacheManager.controlledByThread">false</boolProp>
+        </CacheManager>
+        <hashTree/>
+        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
+          <collectionProp name="CookieManager.cookies"/>
+          <boolProp name="CookieManager.clearEachIteration">true</boolProp>
+          <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
+        </CookieManager>
+        <hashTree/>
+        <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${host}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
+        </ConfigTestElement>
+        <hashTree/>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="Content-Type" elementType="Header">
+              <stringProp name="Header.name">Content-Type</stringProp>
+              <stringProp name="Header.value">application/json</stringProp>
+            </elementProp>
+            <elementProp name="Accept" elementType="Header">
+              <stringProp name="Header.name">Accept</stringProp>
+              <stringProp name="Header.value">*/*</stringProp>
+            </elementProp>
+            <elementProp name="Accept-Encoding" elementType="Header">
+              <stringProp name="Header.name">Accept-Encoding</stringProp>
+              <stringProp name="Header.value">gzip, deflate, br</stringProp>
+            </elementProp>
+            <elementProp name="Accept-Language" elementType="Header">
+              <stringProp name="Header.name">Accept-Language</stringProp>
+              <stringProp name="Header.value">en-US</stringProp>
+            </elementProp>
+            <elementProp name="Host" elementType="Header">
+              <stringProp name="Header.name">Host</stringProp>
+              <stringProp name="Header.value">${host}</stringProp>
+            </elementProp>
+            <elementProp name="Origin" elementType="Header">
+              <stringProp name="Header.name">Origin</stringProp>
+              <stringProp name="Header.value">https://ptf-ncp5-00.int.aws.folio.org</stringProp>
+            </elementProp>
+            <elementProp name="User-Agent" elementType="Header">
+              <stringProp name="Header.name">User-Agent</stringProp>
+              <stringProp name="Header.value">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.3 Safari/605.1.15</stringProp>
+            </elementProp>
+            <elementProp name="Connection" elementType="Header">
+              <stringProp name="Header.name">Connection</stringProp>
+              <stringProp name="Header.value">keep-alive</stringProp>
+            </elementProp>
+            <elementProp name="Referer" elementType="Header">
+              <stringProp name="Header.name">Referer</stringProp>
+              <stringProp name="Header.value">https://ptf-ncp5-00.int.aws.folio.org/</stringProp>
+            </elementProp>
+            <elementProp name="Content-Length" elementType="Header">
+              <stringProp name="Header.name">Content-Length</stringProp>
+              <stringProp name="Header.value">1220</stringProp>
+            </elementProp>
+            <elementProp name="X-Okapi-Tenant" elementType="Header">
+              <stringProp name="Header.name">X-Okapi-Tenant</stringProp>
+              <stringProp name="Header.value">${tenantId}</stringProp>
+            </elementProp>
+            <elementProp name="X-Okapi-Token" elementType="Header">
+              <stringProp name="Header.name">X-Okapi-Token</stringProp>
+              <stringProp name="Header.value">${x-okapi-token}</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="[put] data-export-spring/configs enable Honey 1" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value"> {&#xd;
+    &quot;id&quot;: &quot;c8cc7080-0b89-4b20-b55e-0a3de73aae4c&quot;,&#xd;
+    &quot;type&quot;: &quot;EDIFACT_ORDERS_EXPORT&quot;,&#xd;
+    &quot;tenant&quot;: &quot;${tenantId},${tenantId}&quot;,&#xd;
+    &quot;exportTypeSpecificParameters&quot;: {&#xd;
+      &quot;vendorEdiOrdersExportConfig&quot;: {&#xd;
+        &quot;exportConfigId&quot;: &quot;c8cc7080-0b89-4b20-b55e-0a3de73aae4c&quot;,&#xd;
+        &quot;vendorId&quot;: &quot;2e6d8468-0620-475b-a092-045e659a0aaa&quot;,&#xd;
+        &quot;configName&quot;: &quot;HONEY1&quot;,&#xd;
+        &quot;configDescription&quot;: &quot;libraryorders@library.tam&quot;,&#xd;
+        &quot;ediConfig&quot;: {&#xd;
+          &quot;accountNoList&quot;: [&#xd;
+            &quot;libraryorders@library.tam&quot;&#xd;
+          ],&#xd;
+          &quot;defaultAcquisitionMethods&quot;: [&#xd;
+            &quot;df26d81b-9d63-4ff8-bf41-49bf75cfa70e&quot;&#xd;
+          ],&#xd;
+          &quot;ediNamingConvention&quot;: &quot;{organizationCode}-{integrationName}-{exportJobEndDate}&quot;,&#xd;
+          &quot;libEdiCode&quot;: &quot;44&quot;,&#xd;
+          &quot;libEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;vendorEdiCode&quot;: &quot;5757&quot;,&#xd;
+          &quot;vendorEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;sendAccountNumber&quot;: true,&#xd;
+          &quot;supportOrder&quot;: true,&#xd;
+          &quot;supportInvoice&quot;: true&#xd;
+        },&#xd;
+        &quot;ediFtp&quot;: {&#xd;
+          &quot;ftpConnMode&quot;: &quot;Active&quot;,&#xd;
+          &quot;ftpFormat&quot;: &quot;FTP&quot;,&#xd;
+          &quot;ftpMode&quot;: &quot;ASCII&quot;,&#xd;
+          &quot;ftpPort&quot;: 22,&#xd;
+          &quot;invoiceDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;orderDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;password&quot;: &quot;${ftpPassword}&quot;,&#xd;
+          &quot;serverAddress&quot;: &quot;ftp://35.174.104.16&quot;,&#xd;
+          &quot;username&quot;: &quot;testuser&quot;&#xd;
+        },&#xd;
+        &quot;ediSchedule&quot;: {&#xd;
+          &quot;enableScheduledExport&quot;: true,&#xd;
+          &quot;scheduleParameters&quot;: {&#xd;
+            &quot;id&quot;: &quot;c8cc7080-0b89-4b20-b55e-0a3de73aae4c&quot;,&#xd;
+            &quot;scheduleFrequency&quot;: 1,&#xd;
+            &quot;schedulePeriod&quot;: &quot;DAY&quot;,&#xd;
+       &quot;schedulingDate&quot;: &quot;${__time(yyyy-MM-dd,)}T${__timeShift(HH,,-PT3H,,)}:${__timeShift(mm,,+PT5m,,)}:00Z&quot;,&#xd;
+            &quot;scheduleTime&quot;: &quot;${__timeShift(HH,,-PT3H,,)}:${__timeShift(mm,,+PT5m,,)}:00&quot;,&#xd;
+            &quot;timeZone&quot;: &quot;UTC&quot;&#xd;
+          }&#xd;
+        },&#xd;
+        &quot;isDefaultConfig&quot;: false&#xd;
+      }&#xd;
+    },&#xd;
+    &quot;schedulePeriod&quot;: &quot;NONE&quot;&#xd;
+  }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${host}</stringProp>
+          <stringProp name="HTTPSampler.path">data-export-spring/configs/c8cc7080-0b89-4b20-b55e-0a3de73aae4c</stringProp>
+          <stringProp name="HTTPSampler.method">PUT</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+          <stringProp name="TestPlan.comments">ftpPassword</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="[put] data-export-spring/configs enable honey2" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;id&quot;: &quot;7f70799a-ae1b-44a8-b17e-d75b4967f1bc&quot;,&#xd;
+    &quot;type&quot;: &quot;EDIFACT_ORDERS_EXPORT&quot;,&#xd;
+    &quot;tenant&quot;: &quot;${tenantId},${tenantId}&quot;,&#xd;
+    &quot;exportTypeSpecificParameters&quot;: {&#xd;
+      &quot;vendorEdiOrdersExportConfig&quot;: {&#xd;
+        &quot;exportConfigId&quot;: &quot;7f70799a-ae1b-44a8-b17e-d75b4967f1bc&quot;,&#xd;
+        &quot;vendorId&quot;: &quot;e02e4507-3c3a-40e5-b2f6-dbb9a15ac950&quot;,&#xd;
+        &quot;configName&quot;: &quot;Honey2&quot;,&#xd;
+        &quot;configDescription&quot;: &quot;852&quot;,&#xd;
+        &quot;ediConfig&quot;: {&#xd;
+          &quot;accountNoList&quot;: [&#xd;
+            &quot;852&quot;&#xd;
+          ],&#xd;
+          &quot;defaultAcquisitionMethods&quot;: [&#xd;
+            &quot;df26d81b-9d63-4ff8-bf41-49bf75cfa70e&quot;&#xd;
+          ],&#xd;
+          &quot;ediNamingConvention&quot;: &quot;{organizationCode}-{integrationName}-{exportJobEndDate}&quot;,&#xd;
+          &quot;libEdiCode&quot;: &quot;157542&quot;,&#xd;
+          &quot;libEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;vendorEdiCode&quot;: &quot;155797&quot;,&#xd;
+          &quot;vendorEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;sendAccountNumber&quot;: true,&#xd;
+          &quot;supportOrder&quot;: true,&#xd;
+          &quot;supportInvoice&quot;: true&#xd;
+        },&#xd;
+        &quot;ediFtp&quot;: {&#xd;
+          &quot;ftpConnMode&quot;: &quot;Active&quot;,&#xd;
+          &quot;ftpFormat&quot;: &quot;FTP&quot;,&#xd;
+          &quot;ftpMode&quot;: &quot;ASCII&quot;,&#xd;
+          &quot;ftpPort&quot;: 22,&#xd;
+          &quot;invoiceDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;orderDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;password&quot;: &quot;${ftpPassword}&quot;,&#xd;
+          &quot;serverAddress&quot;: &quot;ftp://35.174.104.16&quot;,&#xd;
+          &quot;username&quot;: &quot;testuser&quot;&#xd;
+        },&#xd;
+        &quot;ediSchedule&quot;: {&#xd;
+          &quot;enableScheduledExport&quot;: true,&#xd;
+          &quot;scheduleParameters&quot;: {&#xd;
+            &quot;id&quot;: &quot;7f70799a-ae1b-44a8-b17e-d75b4967f1bc&quot;,&#xd;
+            &quot;scheduleFrequency&quot;: 1,&#xd;
+            &quot;schedulePeriod&quot;: &quot;DAY&quot;,&#xd;
+       	  &quot;schedulingDate&quot;: &quot;${__time(yyyy-MM-dd,)}T${__timeShift(HH,,-PT3H,,)}:${__timeShift(mm,,+PT5m,,)}:00Z&quot;,&#xd;
+            &quot;scheduleTime&quot;: &quot;${__timeShift(HH,,-PT3H,,)}:${__timeShift(mm,,+PT5m,,)}:00&quot;,&#xd;
+            &quot;timeZone&quot;: &quot;UTC&quot;&#xd;
+          }&#xd;
+        },&#xd;
+        &quot;isDefaultConfig&quot;: false&#xd;
+      }&#xd;
+    },&#xd;
+    &quot;schedulePeriod&quot;: &quot;NONE&quot;&#xd;
+  }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.path">data-export-spring/configs/7f70799a-ae1b-44a8-b17e-d75b4967f1bc</stringProp>
+          <stringProp name="HTTPSampler.method">PUT</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="[put] data-export-spring/configs enable honey3" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value"> {&#xd;
+    &quot;id&quot;: &quot;2c65379c-fc45-4b58-bb24-cadd68f2177d&quot;,&#xd;
+    &quot;type&quot;: &quot;EDIFACT_ORDERS_EXPORT&quot;,&#xd;
+    &quot;tenant&quot;: &quot;${tenantId},${tenantId}&quot;,&#xd;
+    &quot;exportTypeSpecificParameters&quot;: {&#xd;
+      &quot;vendorEdiOrdersExportConfig&quot;: {&#xd;
+        &quot;exportConfigId&quot;: &quot;2c65379c-fc45-4b58-bb24-cadd68f2177d&quot;,&#xd;
+        &quot;vendorId&quot;: &quot;ede1513a-ea9b-46e5-8f2c-7d93836f9742&quot;,&#xd;
+        &quot;configName&quot;: &quot;Honey3&quot;,&#xd;
+        &quot;configDescription&quot;: &quot;548&quot;,&#xd;
+        &quot;ediConfig&quot;: {&#xd;
+          &quot;accountNoList&quot;: [&#xd;
+            &quot;548&quot;&#xd;
+          ],&#xd;
+          &quot;defaultAcquisitionMethods&quot;: [&#xd;
+            &quot;df26d81b-9d63-4ff8-bf41-49bf75cfa70e&quot;&#xd;
+          ],&#xd;
+          &quot;ediNamingConvention&quot;: &quot;{organizationCode}-{integrationName}-{exportJobEndDate}&quot;,&#xd;
+          &quot;libEdiCode&quot;: &quot;1236578&quot;,&#xd;
+          &quot;libEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;vendorEdiCode&quot;: &quot;21357689&quot;,&#xd;
+          &quot;vendorEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;sendAccountNumber&quot;: true,&#xd;
+          &quot;supportOrder&quot;: true,&#xd;
+          &quot;supportInvoice&quot;: true&#xd;
+        },&#xd;
+        &quot;ediFtp&quot;: {&#xd;
+          &quot;ftpConnMode&quot;: &quot;Active&quot;,&#xd;
+          &quot;ftpFormat&quot;: &quot;FTP&quot;,&#xd;
+          &quot;ftpMode&quot;: &quot;ASCII&quot;,&#xd;
+          &quot;ftpPort&quot;: 22,&#xd;
+          &quot;invoiceDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;orderDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;password&quot;: &quot;${ftpPassword}&quot;,&#xd;
+          &quot;serverAddress&quot;: &quot;ftp://35.174.104.16&quot;,&#xd;
+          &quot;username&quot;: &quot;testuser&quot;&#xd;
+        },&#xd;
+        &quot;ediSchedule&quot;: {&#xd;
+          &quot;enableScheduledExport&quot;: true,&#xd;
+          &quot;scheduleParameters&quot;: {&#xd;
+            &quot;id&quot;: &quot;2c65379c-fc45-4b58-bb24-cadd68f2177d&quot;,&#xd;
+            &quot;scheduleFrequency&quot;: 1,&#xd;
+            &quot;schedulePeriod&quot;: &quot;DAY&quot;,&#xd;
+             &quot;schedulingDate&quot;: &quot;${__time(yyyy-MM-dd,)}T${__timeShift(HH,,-PT3H,,)}:${__timeShift(mm,,+PT5m,,)}:00Z&quot;,&#xd;
+            &quot;scheduleTime&quot;: &quot;${__timeShift(HH,,-PT3H,,)}:${__timeShift(mm,,+PT5m,,)}:00&quot;,&#xd;
+            &quot;timeZone&quot;: &quot;UTC&quot;&#xd;
+          }&#xd;
+        },&#xd;
+        &quot;isDefaultConfig&quot;: false&#xd;
+      }&#xd;
+    },&#xd;
+    &quot;schedulePeriod&quot;: &quot;NONE&quot;&#xd;
+  }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${host}</stringProp>
+          <stringProp name="HTTPSampler.path">data-export-spring/configs/2c65379c-fc45-4b58-bb24-cadd68f2177d</stringProp>
+          <stringProp name="HTTPSampler.method">PUT</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="[put] data-export-spring/configs enable EW1" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;id&quot;: &quot;befaaf4f-87f7-49e0-95b8-e051c19a4c8a&quot;,&#xd;
+    &quot;type&quot;: &quot;EDIFACT_ORDERS_EXPORT&quot;,&#xd;
+    &quot;tenant&quot;: &quot;${tenantId},${tenantId}&quot;,&#xd;
+    &quot;exportTypeSpecificParameters&quot;: {&#xd;
+      &quot;vendorEdiOrdersExportConfig&quot;: {&#xd;
+        &quot;exportConfigId&quot;: &quot;befaaf4f-87f7-49e0-95b8-e051c19a4c8a&quot;,&#xd;
+        &quot;vendorId&quot;: &quot;1a36d83e-526f-48ad-9956-4e341a40fbbb&quot;,&#xd;
+        &quot;configName&quot;: &quot;EW1&quot;,&#xd;
+        &quot;configDescription&quot;: &quot;144295-1&quot;,&#xd;
+        &quot;ediConfig&quot;: {&#xd;
+          &quot;accountNoList&quot;: [&#xd;
+            &quot;144295-1&quot;&#xd;
+          ],&#xd;
+          &quot;defaultAcquisitionMethods&quot;: [&#xd;
+            &quot;df26d81b-9d63-4ff8-bf41-49bf75cfa70e&quot;&#xd;
+          ],&#xd;
+          &quot;ediNamingConvention&quot;: &quot;{organizationCode}-{integrationName}-{exportJobEndDate}&quot;,&#xd;
+          &quot;libEdiCode&quot;: &quot;144295-1&quot;,&#xd;
+          &quot;libEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;vendorEdiCode&quot;: &quot;144295-1&quot;,&#xd;
+          &quot;vendorEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;sendAccountNumber&quot;: true,&#xd;
+          &quot;supportOrder&quot;: true,&#xd;
+          &quot;supportInvoice&quot;: true&#xd;
+        },&#xd;
+        &quot;ediFtp&quot;: {&#xd;
+          &quot;ftpConnMode&quot;: &quot;Active&quot;,&#xd;
+          &quot;ftpFormat&quot;: &quot;FTP&quot;,&#xd;
+          &quot;ftpMode&quot;: &quot;ASCII&quot;,&#xd;
+          &quot;ftpPort&quot;: 22,&#xd;
+          &quot;invoiceDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;orderDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;password&quot;: &quot;${ftpPassword}&quot;,&#xd;
+          &quot;serverAddress&quot;: &quot;ftp://35.174.104.16&quot;,&#xd;
+          &quot;username&quot;: &quot;testuser&quot;&#xd;
+        },&#xd;
+        &quot;ediSchedule&quot;: {&#xd;
+          &quot;enableScheduledExport&quot;: true,&#xd;
+          &quot;scheduleParameters&quot;: {&#xd;
+            &quot;id&quot;: &quot;befaaf4f-87f7-49e0-95b8-e051c19a4c8a&quot;,&#xd;
+            &quot;scheduleFrequency&quot;: 1,&#xd;
+            &quot;schedulePeriod&quot;: &quot;DAY&quot;,&#xd;
+           &quot;schedulingDate&quot;: &quot;${__time(yyyy-MM-dd,)}T${__timeShift(HH,,-PT3H,,)}:${__timeShift(mm,,+PT5m,,)}:00Z&quot;,&#xd;
+            &quot;scheduleTime&quot;: &quot;${__timeShift(HH,,-PT3H,,)}:${__timeShift(mm,,+PT5m,,)}:00&quot;,&#xd;
+            &quot;timeZone&quot;: &quot;UTC&quot;&#xd;
+          }&#xd;
+        },&#xd;
+        &quot;isDefaultConfig&quot;: false&#xd;
+      }&#xd;
+    },&#xd;
+    &quot;schedulePeriod&quot;: &quot;NONE&quot;&#xd;
+  }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${host}</stringProp>
+          <stringProp name="HTTPSampler.path">data-export-spring/configs/befaaf4f-87f7-49e0-95b8-e051c19a4c8a</stringProp>
+          <stringProp name="HTTPSampler.method">PUT</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="[put] data-export-spring/configs enable EqWatch2 " enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value"> {&#xd;
+    &quot;id&quot;: &quot;cda456b8-b34e-408d-98e3-c1410e141ead&quot;,&#xd;
+    &quot;type&quot;: &quot;EDIFACT_ORDERS_EXPORT&quot;,&#xd;
+    &quot;tenant&quot;: &quot;${tenantId},${tenantId}&quot;,&#xd;
+    &quot;exportTypeSpecificParameters&quot;: {&#xd;
+      &quot;vendorEdiOrdersExportConfig&quot;: {&#xd;
+        &quot;exportConfigId&quot;: &quot;cda456b8-b34e-408d-98e3-c1410e141ead&quot;,&#xd;
+        &quot;vendorId&quot;: &quot;6d363fea-c0e3-4c32-8074-4124b0a2307e&quot;,&#xd;
+        &quot;configName&quot;: &quot;EqWatch2&quot;,&#xd;
+        &quot;configDescription&quot;: &quot;144295-2&quot;,&#xd;
+        &quot;ediConfig&quot;: {&#xd;
+          &quot;accountNoList&quot;: [&#xd;
+            &quot;144295-2&quot;&#xd;
+          ],&#xd;
+          &quot;defaultAcquisitionMethods&quot;: [&#xd;
+            &quot;df26d81b-9d63-4ff8-bf41-49bf75cfa70e&quot;&#xd;
+          ],&#xd;
+          &quot;ediNamingConvention&quot;: &quot;{organizationCode}-{integrationName}-{exportJobEndDate}&quot;,&#xd;
+          &quot;libEdiCode&quot;: &quot;144295-2&quot;,&#xd;
+          &quot;libEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;vendorEdiCode&quot;: &quot;144295-2&quot;,&#xd;
+          &quot;vendorEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;sendAccountNumber&quot;: true,&#xd;
+          &quot;supportOrder&quot;: true,&#xd;
+          &quot;supportInvoice&quot;: true&#xd;
+        },&#xd;
+        &quot;ediFtp&quot;: {&#xd;
+          &quot;ftpConnMode&quot;: &quot;Active&quot;,&#xd;
+          &quot;ftpFormat&quot;: &quot;FTP&quot;,&#xd;
+          &quot;ftpMode&quot;: &quot;ASCII&quot;,&#xd;
+          &quot;ftpPort&quot;: 22,&#xd;
+          &quot;invoiceDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;orderDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;password&quot;: &quot;${ftpPassword}&quot;,&#xd;
+          &quot;serverAddress&quot;: &quot;ftp://35.174.104.16&quot;,&#xd;
+          &quot;username&quot;: &quot;testuser&quot;&#xd;
+        },&#xd;
+        &quot;ediSchedule&quot;: {&#xd;
+          &quot;enableScheduledExport&quot;: true,&#xd;
+          &quot;scheduleParameters&quot;: {&#xd;
+            &quot;id&quot;: &quot;cda456b8-b34e-408d-98e3-c1410e141ead&quot;,&#xd;
+            &quot;scheduleFrequency&quot;: 1,&#xd;
+            &quot;schedulePeriod&quot;: &quot;DAY&quot;,&#xd;
+            &quot;schedulingDate&quot;: &quot;${__time(yyyy-MM-dd,)}T${__timeShift(HH,,-PT3H,,)}:${__timeShift(mm,,+PT5m,,)}:00Z&quot;,&#xd;
+            &quot;scheduleTime&quot;: &quot;${__timeShift(HH,,-PT3H,,)}:${__timeShift(mm,,+PT5m,,)}:00&quot;,&#xd;
+            &quot;timeZone&quot;: &quot;UTC&quot;&#xd;
+          }&#xd;
+        },&#xd;
+        &quot;isDefaultConfig&quot;: false&#xd;
+      }&#xd;
+    },&#xd;
+    &quot;schedulePeriod&quot;: &quot;NONE&quot;&#xd;
+  }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${host}</stringProp>
+          <stringProp name="HTTPSampler.path">data-export-spring/configs/cda456b8-b34e-408d-98e3-c1410e141ead</stringProp>
+          <stringProp name="HTTPSampler.method">PUT</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="[put] data-export-spring/configs enable EqWatch3 " enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;id&quot;: &quot;1cdc21d8-8e8f-4ee9-879b-227c0a034807&quot;,&#xd;
+    &quot;type&quot;: &quot;EDIFACT_ORDERS_EXPORT&quot;,&#xd;
+    &quot;tenant&quot;: &quot;${tenantId},${tenantId}&quot;,&#xd;
+    &quot;exportTypeSpecificParameters&quot;: {&#xd;
+      &quot;vendorEdiOrdersExportConfig&quot;: {&#xd;
+        &quot;exportConfigId&quot;: &quot;1cdc21d8-8e8f-4ee9-879b-227c0a034807&quot;,&#xd;
+        &quot;vendorId&quot;: &quot;382831f9-c680-4b7e-a3ab-daa3022fa4cb&quot;,&#xd;
+        &quot;configName&quot;: &quot;EqWatch3&quot;,&#xd;
+        &quot;configDescription&quot;: &quot;300693&quot;,&#xd;
+        &quot;ediConfig&quot;: {&#xd;
+          &quot;accountNoList&quot;: [&#xd;
+            &quot;300693&quot;&#xd;
+          ],&#xd;
+          &quot;defaultAcquisitionMethods&quot;: [&#xd;
+            &quot;df26d81b-9d63-4ff8-bf41-49bf75cfa70e&quot;&#xd;
+          ],&#xd;
+          &quot;ediNamingConvention&quot;: &quot;{organizationCode}-{integrationName}-{exportJobEndDate}&quot;,&#xd;
+          &quot;libEdiCode&quot;: &quot;300693&quot;,&#xd;
+          &quot;libEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;vendorEdiCode&quot;: &quot;300693&quot;,&#xd;
+          &quot;vendorEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;sendAccountNumber&quot;: true,&#xd;
+          &quot;supportOrder&quot;: true,&#xd;
+          &quot;supportInvoice&quot;: true&#xd;
+        },&#xd;
+        &quot;ediFtp&quot;: {&#xd;
+          &quot;ftpConnMode&quot;: &quot;Active&quot;,&#xd;
+          &quot;ftpFormat&quot;: &quot;FTP&quot;,&#xd;
+          &quot;ftpMode&quot;: &quot;ASCII&quot;,&#xd;
+          &quot;ftpPort&quot;: 22,&#xd;
+          &quot;invoiceDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;orderDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;password&quot;: &quot;${ftpPassword}&quot;,&#xd;
+          &quot;serverAddress&quot;: &quot;ftp://35.174.104.16&quot;,&#xd;
+          &quot;username&quot;: &quot;testuser&quot;&#xd;
+        },&#xd;
+        &quot;ediSchedule&quot;: {&#xd;
+          &quot;enableScheduledExport&quot;: true,&#xd;
+          &quot;scheduleParameters&quot;: {&#xd;
+            &quot;id&quot;: &quot;1cdc21d8-8e8f-4ee9-879b-227c0a034807&quot;,&#xd;
+            &quot;scheduleFrequency&quot;: 1,&#xd;
+            &quot;schedulePeriod&quot;: &quot;DAY&quot;,&#xd;
+            &quot;schedulingDate&quot;: &quot;${__time(yyyy-MM-dd,)}T${__timeShift(HH,,-PT3H,,)}:${__timeShift(mm,,+PT5m,,)}:00Z&quot;,&#xd;
+            &quot;scheduleTime&quot;: &quot;${__timeShift(HH,,-PT3H,,)}:${__timeShift(mm,,+PT5m,,)}:00&quot;,&#xd;
+            &quot;timeZone&quot;: &quot;UTC&quot;&#xd;
+          }&#xd;
+        },&#xd;
+        &quot;isDefaultConfig&quot;: false&#xd;
+      }&#xd;
+    },&#xd;
+    &quot;schedulePeriod&quot;: &quot;NONE&quot;&#xd;
+  }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${host}</stringProp>
+          <stringProp name="HTTPSampler.path">data-export-spring/configs/1cdc21d8-8e8f-4ee9-879b-227c0a034807</stringProp>
+          <stringProp name="HTTPSampler.method">PUT</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="[put] data-export-spring/configs enable AWWA1 " enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;id&quot;: &quot;f7029c2a-7176-4ef6-ba28-07390a8dcf06&quot;,&#xd;
+    &quot;type&quot;: &quot;EDIFACT_ORDERS_EXPORT&quot;,&#xd;
+    &quot;tenant&quot;: &quot;${tenantId},${tenantId}&quot;,&#xd;
+    &quot;exportTypeSpecificParameters&quot;: {&#xd;
+      &quot;vendorEdiOrdersExportConfig&quot;: {&#xd;
+        &quot;exportConfigId&quot;: &quot;f7029c2a-7176-4ef6-ba28-07390a8dcf06&quot;,&#xd;
+        &quot;vendorId&quot;: &quot;da29ee41-727a-4372-9472-7818c948f8c7&quot;,&#xd;
+        &quot;configName&quot;: &quot;AWWA1&quot;,&#xd;
+        &quot;configDescription&quot;: &quot;libraryorders@library.tam&quot;,&#xd;
+        &quot;ediConfig&quot;: {&#xd;
+          &quot;accountNoList&quot;: [&#xd;
+            &quot;libraryorders@library.tam&quot;&#xd;
+          ],&#xd;
+          &quot;defaultAcquisitionMethods&quot;: [&#xd;
+            &quot;df26d81b-9d63-4ff8-bf41-49bf75cfa70e&quot;&#xd;
+          ],&#xd;
+          &quot;ediNamingConvention&quot;: &quot;{organizationCode}-{integrationName}-{exportJobEndDate}&quot;,&#xd;
+          &quot;libEdiCode&quot;: &quot;258&quot;,&#xd;
+          &quot;libEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;vendorEdiCode&quot;: &quot;123&quot;,&#xd;
+          &quot;vendorEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;sendAccountNumber&quot;: true,&#xd;
+          &quot;supportOrder&quot;: true,&#xd;
+          &quot;supportInvoice&quot;: true&#xd;
+        },&#xd;
+        &quot;ediFtp&quot;: {&#xd;
+          &quot;ftpConnMode&quot;: &quot;Active&quot;,&#xd;
+          &quot;ftpFormat&quot;: &quot;FTP&quot;,&#xd;
+          &quot;ftpMode&quot;: &quot;ASCII&quot;,&#xd;
+          &quot;ftpPort&quot;: 22,&#xd;
+          &quot;invoiceDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;orderDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;password&quot;: &quot;${ftpPassword}&quot;,&#xd;
+          &quot;serverAddress&quot;: &quot;ftp://35.174.104.16&quot;,&#xd;
+          &quot;username&quot;: &quot;testuser&quot;&#xd;
+        },&#xd;
+        &quot;ediSchedule&quot;: {&#xd;
+          &quot;enableScheduledExport&quot;: true,&#xd;
+          &quot;scheduleParameters&quot;: {&#xd;
+            &quot;id&quot;: &quot;f7029c2a-7176-4ef6-ba28-07390a8dcf06&quot;,&#xd;
+            &quot;scheduleFrequency&quot;: 1,&#xd;
+            &quot;schedulePeriod&quot;: &quot;DAY&quot;,&#xd;
+             &quot;schedulingDate&quot;: &quot;${__time(yyyy-MM-dd,)}T${__timeShift(HH,,-PT3H,,)}:${__timeShift(mm,,+PT5m,,)}:00Z&quot;,&#xd;
+            &quot;scheduleTime&quot;: &quot;${__timeShift(HH,,-PT3H,,)}:${__timeShift(mm,,+PT5m,,)}:00&quot;,&#xd;
+            &quot;timeZone&quot;: &quot;UTC&quot;&#xd;
+          }&#xd;
+        },&#xd;
+        &quot;isDefaultConfig&quot;: false&#xd;
+      }&#xd;
+    },&#xd;
+    &quot;schedulePeriod&quot;: &quot;NONE&quot;&#xd;
+  }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${host}</stringProp>
+          <stringProp name="HTTPSampler.path">data-export-spring/configs/f7029c2a-7176-4ef6-ba28-07390a8dcf06</stringProp>
+          <stringProp name="HTTPSampler.method">PUT</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="[put] data-export-spring/configs enable AmWater2 " enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;id&quot;: &quot;44be204e-93c2-4a45-983e-88f45381a6a6&quot;,&#xd;
+    &quot;type&quot;: &quot;EDIFACT_ORDERS_EXPORT&quot;,&#xd;
+    &quot;tenant&quot;: &quot;${tenantId},${tenantId}&quot;,&#xd;
+    &quot;exportTypeSpecificParameters&quot;: {&#xd;
+      &quot;vendorEdiOrdersExportConfig&quot;: {&#xd;
+        &quot;exportConfigId&quot;: &quot;44be204e-93c2-4a45-983e-88f45381a6a6&quot;,&#xd;
+        &quot;vendorId&quot;: &quot;02c0820c-108c-41c4-ab9c-d289877e8dfa&quot;,&#xd;
+        &quot;configName&quot;: &quot;AmWater2&quot;,&#xd;
+        &quot;configDescription&quot;: &quot;123&quot;,&#xd;
+        &quot;ediConfig&quot;: {&#xd;
+          &quot;accountNoList&quot;: [&#xd;
+            &quot;123&quot;&#xd;
+          ],&#xd;
+          &quot;defaultAcquisitionMethods&quot;: [&#xd;
+            &quot;df26d81b-9d63-4ff8-bf41-49bf75cfa70e&quot;&#xd;
+          ],&#xd;
+          &quot;ediNamingConvention&quot;: &quot;{organizationCode}-{integrationName}-{exportJobEndDate}&quot;,&#xd;
+          &quot;libEdiCode&quot;: &quot;123&quot;,&#xd;
+          &quot;libEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;vendorEdiCode&quot;: &quot;123&quot;,&#xd;
+          &quot;vendorEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;sendAccountNumber&quot;: true,&#xd;
+          &quot;supportOrder&quot;: true,&#xd;
+          &quot;supportInvoice&quot;: true&#xd;
+        },&#xd;
+        &quot;ediFtp&quot;: {&#xd;
+          &quot;ftpConnMode&quot;: &quot;Active&quot;,&#xd;
+          &quot;ftpFormat&quot;: &quot;FTP&quot;,&#xd;
+          &quot;ftpMode&quot;: &quot;ASCII&quot;,&#xd;
+          &quot;ftpPort&quot;: 22,&#xd;
+          &quot;invoiceDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;orderDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;password&quot;: &quot;${ftpPassword}&quot;,&#xd;
+          &quot;serverAddress&quot;: &quot;ftp://35.174.104.16&quot;,&#xd;
+          &quot;username&quot;: &quot;testuser&quot;&#xd;
+        },&#xd;
+        &quot;ediSchedule&quot;: {&#xd;
+          &quot;enableScheduledExport&quot;: true,&#xd;
+          &quot;scheduleParameters&quot;: {&#xd;
+            &quot;id&quot;: &quot;44be204e-93c2-4a45-983e-88f45381a6a6&quot;,&#xd;
+            &quot;scheduleFrequency&quot;: 1,&#xd;
+            &quot;schedulePeriod&quot;: &quot;DAY&quot;,&#xd;
+           &quot;schedulingDate&quot;: &quot;${__time(yyyy-MM-dd,)}T${__timeShift(HH,,-PT3H,,)}:${__timeShift(mm,,+PT5m,,)}:00Z&quot;,&#xd;
+            &quot;scheduleTime&quot;: &quot;${__timeShift(HH,,-PT3H,,)}:${__timeShift(mm,,+PT5m,,)}:00&quot;,&#xd;
+            &quot;timeZone&quot;: &quot;UTC&quot;&#xd;
+          }&#xd;
+        },&#xd;
+        &quot;isDefaultConfig&quot;: false&#xd;
+      }&#xd;
+    },&#xd;
+    &quot;schedulePeriod&quot;: &quot;NONE&quot;&#xd;
+  }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${host}</stringProp>
+          <stringProp name="HTTPSampler.path">data-export-spring/configs/44be204e-93c2-4a45-983e-88f45381a6a6</stringProp>
+          <stringProp name="HTTPSampler.method">PUT</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="[put] data-export-spring/configs enable AmWater3" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value"> {&#xd;
+    &quot;id&quot;: &quot;22409324-355d-4d0a-9010-057e88c7d4ec&quot;,&#xd;
+    &quot;type&quot;: &quot;EDIFACT_ORDERS_EXPORT&quot;,&#xd;
+    &quot;tenant&quot;: &quot;${tenantId},${tenantId}&quot;,&#xd;
+    &quot;exportTypeSpecificParameters&quot;: {&#xd;
+      &quot;vendorEdiOrdersExportConfig&quot;: {&#xd;
+        &quot;exportConfigId&quot;: &quot;22409324-355d-4d0a-9010-057e88c7d4ec&quot;,&#xd;
+        &quot;vendorId&quot;: &quot;2d6f2d47-9664-4794-8cd5-4e168bd57384&quot;,&#xd;
+        &quot;configName&quot;: &quot;AmWater3&quot;,&#xd;
+        &quot;configDescription&quot;: &quot;111111&quot;,&#xd;
+        &quot;ediConfig&quot;: {&#xd;
+          &quot;accountNoList&quot;: [&#xd;
+            &quot;111111&quot;&#xd;
+          ],&#xd;
+          &quot;defaultAcquisitionMethods&quot;: [&#xd;
+            &quot;df26d81b-9d63-4ff8-bf41-49bf75cfa70e&quot;&#xd;
+          ],&#xd;
+          &quot;ediNamingConvention&quot;: &quot;{organizationCode}-{integrationName}-{exportJobEndDate}&quot;,&#xd;
+          &quot;libEdiCode&quot;: &quot;111111&quot;,&#xd;
+          &quot;libEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;vendorEdiCode&quot;: &quot;111111&quot;,&#xd;
+          &quot;vendorEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;sendAccountNumber&quot;: true,&#xd;
+          &quot;supportOrder&quot;: true,&#xd;
+          &quot;supportInvoice&quot;: true&#xd;
+        },&#xd;
+        &quot;ediFtp&quot;: {&#xd;
+          &quot;ftpConnMode&quot;: &quot;Active&quot;,&#xd;
+          &quot;ftpFormat&quot;: &quot;FTP&quot;,&#xd;
+          &quot;ftpMode&quot;: &quot;ASCII&quot;,&#xd;
+          &quot;ftpPort&quot;: 22,&#xd;
+          &quot;invoiceDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;orderDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;password&quot;: &quot;${ftpPassword}&quot;,&#xd;
+          &quot;serverAddress&quot;: &quot;ftp://35.174.104.16&quot;,&#xd;
+          &quot;username&quot;: &quot;testuser&quot;&#xd;
+        },&#xd;
+        &quot;ediSchedule&quot;: {&#xd;
+          &quot;enableScheduledExport&quot;: true,&#xd;
+          &quot;scheduleParameters&quot;: {&#xd;
+            &quot;id&quot;: &quot;22409324-355d-4d0a-9010-057e88c7d4ec&quot;,&#xd;
+            &quot;scheduleFrequency&quot;: 1,&#xd;
+            &quot;schedulePeriod&quot;: &quot;DAY&quot;,&#xd;
+           &quot;schedulingDate&quot;: &quot;${__time(yyyy-MM-dd,)}T${__timeShift(HH,,-PT3H,,)}:${__timeShift(mm,,+PT5m,,)}:00Z&quot;,&#xd;
+            &quot;scheduleTime&quot;: &quot;${__timeShift(HH,,-PT3H,,)}:${__timeShift(mm,,+PT5m,,)}:00&quot;,&#xd;
+            &quot;timeZone&quot;: &quot;UTC&quot;&#xd;
+          }&#xd;
+        },&#xd;
+        &quot;isDefaultConfig&quot;: false&#xd;
+      }&#xd;
+    },&#xd;
+    &quot;schedulePeriod&quot;: &quot;NONE&quot;&#xd;
+  }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${host}</stringProp>
+          <stringProp name="HTTPSampler.path">data-export-spring/configs/22409324-355d-4d0a-9010-057e88c7d4ec</stringProp>
+          <stringProp name="HTTPSampler.method">PUT</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="[put] data-export-spring/configs enable AmWater4" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value"> {&#xd;
+    &quot;id&quot;: &quot;b2570852-0fc0-438c-a30e-a248a66bcbea&quot;,&#xd;
+    &quot;type&quot;: &quot;EDIFACT_ORDERS_EXPORT&quot;,&#xd;
+    &quot;tenant&quot;: &quot;${tenantId},${tenantId}&quot;,&#xd;
+    &quot;exportTypeSpecificParameters&quot;: {&#xd;
+      &quot;vendorEdiOrdersExportConfig&quot;: {&#xd;
+        &quot;exportConfigId&quot;: &quot;b2570852-0fc0-438c-a30e-a248a66bcbea&quot;,&#xd;
+        &quot;vendorId&quot;: &quot;a58a5dcc-7e60-492f-b795-7a791c0970fe&quot;,&#xd;
+        &quot;configName&quot;: &quot;AmWater4&quot;,&#xd;
+        &quot;configDescription&quot;: &quot;22222&quot;,&#xd;
+        &quot;ediConfig&quot;: {&#xd;
+          &quot;accountNoList&quot;: [&#xd;
+            &quot;22222&quot;&#xd;
+          ],&#xd;
+          &quot;defaultAcquisitionMethods&quot;: [&#xd;
+            &quot;df26d81b-9d63-4ff8-bf41-49bf75cfa70e&quot;&#xd;
+          ],&#xd;
+          &quot;ediNamingConvention&quot;: &quot;{organizationCode}-{integrationName}-{exportJobEndDate}&quot;,&#xd;
+          &quot;libEdiCode&quot;: &quot;22222&quot;,&#xd;
+          &quot;libEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;vendorEdiCode&quot;: &quot;22222&quot;,&#xd;
+          &quot;vendorEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;sendAccountNumber&quot;: true,&#xd;
+          &quot;supportOrder&quot;: true,&#xd;
+          &quot;supportInvoice&quot;: true&#xd;
+        },&#xd;
+        &quot;ediFtp&quot;: {&#xd;
+          &quot;ftpConnMode&quot;: &quot;Active&quot;,&#xd;
+          &quot;ftpFormat&quot;: &quot;FTP&quot;,&#xd;
+          &quot;ftpMode&quot;: &quot;ASCII&quot;,&#xd;
+          &quot;ftpPort&quot;: 22,&#xd;
+          &quot;invoiceDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;orderDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;password&quot;: &quot;${ftpPassword}&quot;,&#xd;
+          &quot;serverAddress&quot;: &quot;ftp://35.174.104.16&quot;,&#xd;
+          &quot;username&quot;: &quot;testuser&quot;&#xd;
+        },&#xd;
+        &quot;ediSchedule&quot;: {&#xd;
+          &quot;enableScheduledExport&quot;: true,&#xd;
+          &quot;scheduleParameters&quot;: {&#xd;
+            &quot;id&quot;: &quot;b2570852-0fc0-438c-a30e-a248a66bcbea&quot;,&#xd;
+            &quot;scheduleFrequency&quot;: 1,&#xd;
+            &quot;schedulePeriod&quot;: &quot;DAY&quot;,&#xd;
+           &quot;schedulingDate&quot;: &quot;${__time(yyyy-MM-dd,)}T${__timeShift(HH,,-PT3H,,)}:${__timeShift(mm,,+PT5m,,)}:00Z&quot;,&#xd;
+            &quot;scheduleTime&quot;: &quot;${__timeShift(HH,,-PT3H,,)}:${__timeShift(mm,,+PT5m,,)}:00&quot;,&#xd;
+            &quot;timeZone&quot;: &quot;UTC&quot;&#xd;
+          }&#xd;
+        },&#xd;
+        &quot;isDefaultConfig&quot;: false&#xd;
+      }&#xd;
+    },&#xd;
+    &quot;schedulePeriod&quot;: &quot;NONE&quot;&#xd;
+  }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${host}</stringProp>
+          <stringProp name="HTTPSampler.path">data-export-spring/configs/b2570852-0fc0-438c-a30e-a248a66bcbea</stringProp>
+          <stringProp name="HTTPSampler.method">PUT</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Disable scheduler" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <stringProp name="LoopController.loops">1</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
+        <boolProp name="ThreadGroup.delayedStart">false</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="pause 10 minutes" enabled="true">
+          <intProp name="ActionProcessor.action">1</intProp>
+          <intProp name="ActionProcessor.target">0</intProp>
+          <stringProp name="ActionProcessor.duration">600000</stringProp>
+        </TestAction>
+        <hashTree/>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Credentials" enabled="true">
+          <stringProp name="delimiter">,</stringProp>
+          <stringProp name="fileEncoding"></stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/credentials.csv</stringProp>
+          <boolProp name="ignoreFirstLine">true</boolProp>
+          <boolProp name="quotedData">false</boolProp>
+          <boolProp name="recycle">true</boolProp>
+          <stringProp name="shareMode">shareMode.all</stringProp>
+          <boolProp name="stopThread">false</boolProp>
+          <stringProp name="variableNames">username,password,tenantId</stringProp>
+          <stringProp name="TestPlan.comments">[username],[password],[tenantId]</stringProp>
+        </CSVDataSet>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="FOLIO: Login" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&quot;username&quot;:&quot;${username}&quot;,&quot;password&quot;:&quot;${password}&quot;}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.path">/authn/login</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="Content-Type" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+              <elementProp name="Accept" elementType="Header">
+                <stringProp name="Header.name">Accept</stringProp>
+                <stringProp name="Header.value">*/*</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - 201" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49587">201</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor - okapi-token" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">true</stringProp>
+            <stringProp name="RegexExtractor.refname">x-okapi-token</stringProp>
+            <stringProp name="RegexExtractor.regex">x-okapi-token: (.+)</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.match_number">1</stringProp>
+            <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+          </RegexExtractor>
+          <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor - current_userID" enabled="true">
+            <stringProp name="JSONPostProcessor.referenceNames">current_userID</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.user.id</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+        </hashTree>
+        <CacheManager guiclass="CacheManagerGui" testclass="CacheManager" testname="HTTP Cache Manager" enabled="true">
+          <boolProp name="clearEachIteration">true</boolProp>
+          <boolProp name="useExpires">true</boolProp>
+          <boolProp name="CacheManager.controlledByThread">false</boolProp>
+        </CacheManager>
+        <hashTree/>
+        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
+          <collectionProp name="CookieManager.cookies"/>
+          <boolProp name="CookieManager.clearEachIteration">true</boolProp>
+          <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
+        </CookieManager>
+        <hashTree/>
+        <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${host}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
+        </ConfigTestElement>
+        <hashTree/>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="Content-Type" elementType="Header">
+              <stringProp name="Header.name">Content-Type</stringProp>
+              <stringProp name="Header.value">application/json</stringProp>
+            </elementProp>
+            <elementProp name="Accept" elementType="Header">
+              <stringProp name="Header.name">Accept</stringProp>
+              <stringProp name="Header.value">*/*</stringProp>
+            </elementProp>
+            <elementProp name="Accept-Encoding" elementType="Header">
+              <stringProp name="Header.name">Accept-Encoding</stringProp>
+              <stringProp name="Header.value">gzip, deflate, br</stringProp>
+            </elementProp>
+            <elementProp name="Accept-Language" elementType="Header">
+              <stringProp name="Header.name">Accept-Language</stringProp>
+              <stringProp name="Header.value">en-US</stringProp>
+            </elementProp>
+            <elementProp name="Host" elementType="Header">
+              <stringProp name="Header.name">Host</stringProp>
+              <stringProp name="Header.value">${host}</stringProp>
+            </elementProp>
+            <elementProp name="Origin" elementType="Header">
+              <stringProp name="Header.name">Origin</stringProp>
+              <stringProp name="Header.value">https://ptf-ncp5-00.int.aws.folio.org</stringProp>
+            </elementProp>
+            <elementProp name="User-Agent" elementType="Header">
+              <stringProp name="Header.name">User-Agent</stringProp>
+              <stringProp name="Header.value">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.3 Safari/605.1.15</stringProp>
+            </elementProp>
+            <elementProp name="Connection" elementType="Header">
+              <stringProp name="Header.name">Connection</stringProp>
+              <stringProp name="Header.value">keep-alive</stringProp>
+            </elementProp>
+            <elementProp name="Referer" elementType="Header">
+              <stringProp name="Header.name">Referer</stringProp>
+              <stringProp name="Header.value">https://ptf-ncp5-00.int.aws.folio.org/</stringProp>
+            </elementProp>
+            <elementProp name="Content-Length" elementType="Header">
+              <stringProp name="Header.name">Content-Length</stringProp>
+              <stringProp name="Header.value">1220</stringProp>
+            </elementProp>
+            <elementProp name="X-Okapi-Tenant" elementType="Header">
+              <stringProp name="Header.name">X-Okapi-Tenant</stringProp>
+              <stringProp name="Header.value">${tenantId}</stringProp>
+            </elementProp>
+            <elementProp name="X-Okapi-Token" elementType="Header">
+              <stringProp name="Header.name">X-Okapi-Token</stringProp>
+              <stringProp name="Header.value">${x-okapi-token}</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="[put] data-export-spring/configs bisable Honey 1" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">  {&#xd;
+    &quot;id&quot;: &quot;c8cc7080-0b89-4b20-b55e-0a3de73aae4c&quot;,&#xd;
+    &quot;type&quot;: &quot;EDIFACT_ORDERS_EXPORT&quot;,&#xd;
+    &quot;tenant&quot;: &quot;${tenantId},${tenantId}&quot;,&#xd;
+    &quot;exportTypeSpecificParameters&quot;: {&#xd;
+      &quot;vendorEdiOrdersExportConfig&quot;: {&#xd;
+        &quot;exportConfigId&quot;: &quot;c8cc7080-0b89-4b20-b55e-0a3de73aae4c&quot;,&#xd;
+        &quot;vendorId&quot;: &quot;2e6d8468-0620-475b-a092-045e659a0aaa&quot;,&#xd;
+        &quot;configName&quot;: &quot;HONEY1&quot;,&#xd;
+        &quot;configDescription&quot;: &quot;libraryorders@library.tam&quot;,&#xd;
+        &quot;ediConfig&quot;: {&#xd;
+          &quot;accountNoList&quot;: [&#xd;
+            &quot;libraryorders@library.tam&quot;&#xd;
+          ],&#xd;
+          &quot;defaultAcquisitionMethods&quot;: [&#xd;
+            &quot;df26d81b-9d63-4ff8-bf41-49bf75cfa70e&quot;&#xd;
+          ],&#xd;
+          &quot;ediNamingConvention&quot;: &quot;{organizationCode}-{integrationName}-{exportJobEndDate}&quot;,&#xd;
+          &quot;libEdiCode&quot;: &quot;44&quot;,&#xd;
+          &quot;libEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;vendorEdiCode&quot;: &quot;5757&quot;,&#xd;
+          &quot;vendorEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;sendAccountNumber&quot;: true,&#xd;
+          &quot;supportOrder&quot;: true,&#xd;
+          &quot;supportInvoice&quot;: true&#xd;
+        },&#xd;
+        &quot;ediFtp&quot;: {&#xd;
+          &quot;ftpConnMode&quot;: &quot;Active&quot;,&#xd;
+          &quot;ftpFormat&quot;: &quot;FTP&quot;,&#xd;
+          &quot;ftpMode&quot;: &quot;ASCII&quot;,&#xd;
+          &quot;ftpPort&quot;: 22,&#xd;
+          &quot;invoiceDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;orderDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;password&quot;: &quot;${ftpPassword}&quot;,&#xd;
+          &quot;serverAddress&quot;: &quot;ftp://35.174.104.16&quot;,&#xd;
+          &quot;username&quot;: &quot;testuser&quot;&#xd;
+        },&#xd;
+        &quot;ediSchedule&quot;: {&#xd;
+          &quot;enableScheduledExport&quot;: false,&#xd;
+          &quot;scheduleParameters&quot;: {&#xd;
+            &quot;id&quot;: &quot;c8cc7080-0b89-4b20-b55e-0a3de73aae4c&quot;,&#xd;
+            &quot;scheduleFrequency&quot;: 1,&#xd;
+            &quot;schedulePeriod&quot;: &quot;NONE&quot;,&#xd;
+            &quot;schedulingDate&quot;: &quot;${__time(yyyy-MM-dd,)}T${__timeShift(HH,,-PT2H,,)}:${__timeShift(mm,,+PT5m,,)}:00Z&quot;,&#xd;
+            &quot;scheduleTime&quot;: &quot;${__timeShift(HH,,-PT2H,,)}:${__timeShift(mm,,+PT5m,,)}:00&quot;,&#xd;
+            &quot;timeZone&quot;: &quot;UTC&quot;&#xd;
+          }&#xd;
+        },&#xd;
+        &quot;isDefaultConfig&quot;: false&#xd;
+      }&#xd;
+    },&#xd;
+    &quot;schedulePeriod&quot;: &quot;NONE&quot;&#xd;
+  }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${host}</stringProp>
+          <stringProp name="HTTPSampler.path">data-export-spring/configs/c8cc7080-0b89-4b20-b55e-0a3de73aae4c</stringProp>
+          <stringProp name="HTTPSampler.method">PUT</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="[put] data-export-spring/configs bisable honey2" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;id&quot;: &quot;7f70799a-ae1b-44a8-b17e-d75b4967f1bc&quot;,&#xd;
+    &quot;type&quot;: &quot;EDIFACT_ORDERS_EXPORT&quot;,&#xd;
+    &quot;tenant&quot;: &quot;${tenantId},${tenantId}&quot;,&#xd;
+    &quot;exportTypeSpecificParameters&quot;: {&#xd;
+      &quot;vendorEdiOrdersExportConfig&quot;: {&#xd;
+        &quot;exportConfigId&quot;: &quot;7f70799a-ae1b-44a8-b17e-d75b4967f1bc&quot;,&#xd;
+        &quot;vendorId&quot;: &quot;e02e4507-3c3a-40e5-b2f6-dbb9a15ac950&quot;,&#xd;
+        &quot;configName&quot;: &quot;Honey2&quot;,&#xd;
+        &quot;configDescription&quot;: &quot;852&quot;,&#xd;
+        &quot;ediConfig&quot;: {&#xd;
+          &quot;accountNoList&quot;: [&#xd;
+            &quot;852&quot;&#xd;
+          ],&#xd;
+          &quot;defaultAcquisitionMethods&quot;: [&#xd;
+            &quot;df26d81b-9d63-4ff8-bf41-49bf75cfa70e&quot;&#xd;
+          ],&#xd;
+          &quot;ediNamingConvention&quot;: &quot;{organizationCode}-{integrationName}-{exportJobEndDate}&quot;,&#xd;
+          &quot;libEdiCode&quot;: &quot;157542&quot;,&#xd;
+          &quot;libEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;vendorEdiCode&quot;: &quot;155797&quot;,&#xd;
+          &quot;vendorEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;sendAccountNumber&quot;: true,&#xd;
+          &quot;supportOrder&quot;: true,&#xd;
+          &quot;supportInvoice&quot;: true&#xd;
+        },&#xd;
+        &quot;ediFtp&quot;: {&#xd;
+          &quot;ftpConnMode&quot;: &quot;Active&quot;,&#xd;
+          &quot;ftpFormat&quot;: &quot;FTP&quot;,&#xd;
+          &quot;ftpMode&quot;: &quot;ASCII&quot;,&#xd;
+          &quot;ftpPort&quot;: 22,&#xd;
+          &quot;invoiceDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;orderDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;password&quot;: &quot;${ftpPassword}&quot;,&#xd;
+          &quot;serverAddress&quot;: &quot;ftp://35.174.104.16&quot;,&#xd;
+          &quot;username&quot;: &quot;testuser&quot;&#xd;
+        },&#xd;
+        &quot;ediSchedule&quot;: {&#xd;
+          &quot;enableScheduledExport&quot;: false,&#xd;
+          &quot;scheduleParameters&quot;: {&#xd;
+            &quot;id&quot;: &quot;7f70799a-ae1b-44a8-b17e-d75b4967f1bc&quot;,&#xd;
+            &quot;scheduleFrequency&quot;: 1,&#xd;
+            &quot;schedulePeriod&quot;: &quot;NONE&quot;,&#xd;
+       	  &quot;schedulingDate&quot;: &quot;${__time(yyyy-MM-dd,)}T${__timeShift(HH,,-PT2H,,)}:${__timeShift(mm,,+PT5m,,)}:00Z&quot;,&#xd;
+            &quot;scheduleTime&quot;: &quot;${__timeShift(HH,,-PT2H,,)}:${__timeShift(mm,,+PT5m,,)}:00&quot;,&#xd;
+            &quot;timeZone&quot;: &quot;UTC&quot;&#xd;
+          }&#xd;
+        },&#xd;
+        &quot;isDefaultConfig&quot;: false&#xd;
+      }&#xd;
+    },&#xd;
+    &quot;schedulePeriod&quot;: &quot;NONE&quot;&#xd;
+  }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.path">data-export-spring/configs/7f70799a-ae1b-44a8-b17e-d75b4967f1bc</stringProp>
+          <stringProp name="HTTPSampler.method">PUT</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="[put] data-export-spring/configs bisable honey3" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value"> {&#xd;
+    &quot;id&quot;: &quot;2c65379c-fc45-4b58-bb24-cadd68f2177d&quot;,&#xd;
+    &quot;type&quot;: &quot;EDIFACT_ORDERS_EXPORT&quot;,&#xd;
+    &quot;tenant&quot;: &quot;${tenantId},${tenantId}&quot;,&#xd;
+    &quot;exportTypeSpecificParameters&quot;: {&#xd;
+      &quot;vendorEdiOrdersExportConfig&quot;: {&#xd;
+        &quot;exportConfigId&quot;: &quot;2c65379c-fc45-4b58-bb24-cadd68f2177d&quot;,&#xd;
+        &quot;vendorId&quot;: &quot;ede1513a-ea9b-46e5-8f2c-7d93836f9742&quot;,&#xd;
+        &quot;configName&quot;: &quot;Honey3&quot;,&#xd;
+        &quot;configDescription&quot;: &quot;548&quot;,&#xd;
+        &quot;ediConfig&quot;: {&#xd;
+          &quot;accountNoList&quot;: [&#xd;
+            &quot;548&quot;&#xd;
+          ],&#xd;
+          &quot;defaultAcquisitionMethods&quot;: [&#xd;
+            &quot;df26d81b-9d63-4ff8-bf41-49bf75cfa70e&quot;&#xd;
+          ],&#xd;
+          &quot;ediNamingConvention&quot;: &quot;{organizationCode}-{integrationName}-{exportJobEndDate}&quot;,&#xd;
+          &quot;libEdiCode&quot;: &quot;1236578&quot;,&#xd;
+          &quot;libEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;vendorEdiCode&quot;: &quot;21357689&quot;,&#xd;
+          &quot;vendorEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;sendAccountNumber&quot;: true,&#xd;
+          &quot;supportOrder&quot;: true,&#xd;
+          &quot;supportInvoice&quot;: true&#xd;
+        },&#xd;
+        &quot;ediFtp&quot;: {&#xd;
+          &quot;ftpConnMode&quot;: &quot;Active&quot;,&#xd;
+          &quot;ftpFormat&quot;: &quot;FTP&quot;,&#xd;
+          &quot;ftpMode&quot;: &quot;ASCII&quot;,&#xd;
+          &quot;ftpPort&quot;: 22,&#xd;
+          &quot;invoiceDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;orderDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;password&quot;: &quot;${ftpPassword}&quot;,&#xd;
+          &quot;serverAddress&quot;: &quot;ftp://35.174.104.16&quot;,&#xd;
+          &quot;username&quot;: &quot;testuser&quot;&#xd;
+        },&#xd;
+        &quot;ediSchedule&quot;: {&#xd;
+          &quot;enableScheduledExport&quot;: false,&#xd;
+          &quot;scheduleParameters&quot;: {&#xd;
+            &quot;id&quot;: &quot;2c65379c-fc45-4b58-bb24-cadd68f2177d&quot;,&#xd;
+            &quot;scheduleFrequency&quot;: 1,&#xd;
+            &quot;schedulePeriod&quot;: &quot;NONE&quot;,&#xd;
+             &quot;schedulingDate&quot;: &quot;${__time(yyyy-MM-dd,)}T${__timeShift(HH,,-PT2H,,)}:${__timeShift(mm,,+PT5m,,)}:00Z&quot;,&#xd;
+            &quot;scheduleTime&quot;: &quot;${__timeShift(HH,,-PT2H,,)}:${__timeShift(mm,,+PT5m,,)}:00&quot;,&#xd;
+            &quot;timeZone&quot;: &quot;UTC&quot;&#xd;
+          }&#xd;
+        },&#xd;
+        &quot;isDefaultConfig&quot;: false&#xd;
+      }&#xd;
+    },&#xd;
+    &quot;schedulePeriod&quot;: &quot;NONE&quot;&#xd;
+  }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${host}</stringProp>
+          <stringProp name="HTTPSampler.path">data-export-spring/configs/2c65379c-fc45-4b58-bb24-cadd68f2177d</stringProp>
+          <stringProp name="HTTPSampler.method">PUT</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="[put] data-export-spring/configs bisable EW1" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;id&quot;: &quot;befaaf4f-87f7-49e0-95b8-e051c19a4c8a&quot;,&#xd;
+    &quot;type&quot;: &quot;EDIFACT_ORDERS_EXPORT&quot;,&#xd;
+    &quot;tenant&quot;: &quot;${tenantId},${tenantId}&quot;,&#xd;
+    &quot;exportTypeSpecificParameters&quot;: {&#xd;
+      &quot;vendorEdiOrdersExportConfig&quot;: {&#xd;
+        &quot;exportConfigId&quot;: &quot;befaaf4f-87f7-49e0-95b8-e051c19a4c8a&quot;,&#xd;
+        &quot;vendorId&quot;: &quot;1a36d83e-526f-48ad-9956-4e341a40fbbb&quot;,&#xd;
+        &quot;configName&quot;: &quot;EW1&quot;,&#xd;
+        &quot;configDescription&quot;: &quot;144295-1&quot;,&#xd;
+        &quot;ediConfig&quot;: {&#xd;
+          &quot;accountNoList&quot;: [&#xd;
+            &quot;144295-1&quot;&#xd;
+          ],&#xd;
+          &quot;defaultAcquisitionMethods&quot;: [&#xd;
+            &quot;df26d81b-9d63-4ff8-bf41-49bf75cfa70e&quot;&#xd;
+          ],&#xd;
+          &quot;ediNamingConvention&quot;: &quot;{organizationCode}-{integrationName}-{exportJobEndDate}&quot;,&#xd;
+          &quot;libEdiCode&quot;: &quot;144295-1&quot;,&#xd;
+          &quot;libEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;vendorEdiCode&quot;: &quot;144295-1&quot;,&#xd;
+          &quot;vendorEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;sendAccountNumber&quot;: true,&#xd;
+          &quot;supportOrder&quot;: true,&#xd;
+          &quot;supportInvoice&quot;: true&#xd;
+        },&#xd;
+        &quot;ediFtp&quot;: {&#xd;
+          &quot;ftpConnMode&quot;: &quot;Active&quot;,&#xd;
+          &quot;ftpFormat&quot;: &quot;FTP&quot;,&#xd;
+          &quot;ftpMode&quot;: &quot;ASCII&quot;,&#xd;
+          &quot;ftpPort&quot;: 22,&#xd;
+          &quot;invoiceDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;orderDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;password&quot;: &quot;${ftpPassword}&quot;,&#xd;
+          &quot;serverAddress&quot;: &quot;ftp://35.174.104.16&quot;,&#xd;
+          &quot;username&quot;: &quot;testuser&quot;&#xd;
+        },&#xd;
+        &quot;ediSchedule&quot;: {&#xd;
+          &quot;enableScheduledExport&quot;: false,&#xd;
+          &quot;scheduleParameters&quot;: {&#xd;
+            &quot;id&quot;: &quot;befaaf4f-87f7-49e0-95b8-e051c19a4c8a&quot;,&#xd;
+            &quot;scheduleFrequency&quot;: 1,&#xd;
+            &quot;schedulePeriod&quot;: &quot;NONE&quot;,&#xd;
+           &quot;schedulingDate&quot;: &quot;${__time(yyyy-MM-dd,)}T${__timeShift(HH,,-PT2H,,)}:${__timeShift(mm,,+PT5m,,)}:00Z&quot;,&#xd;
+            &quot;scheduleTime&quot;: &quot;${__timeShift(HH,,-PT2H,,)}:${__timeShift(mm,,+PT5m,,)}:00&quot;,&#xd;
+            &quot;timeZone&quot;: &quot;UTC&quot;&#xd;
+          }&#xd;
+        },&#xd;
+        &quot;isDefaultConfig&quot;: false&#xd;
+      }&#xd;
+    },&#xd;
+    &quot;schedulePeriod&quot;: &quot;NONE&quot;&#xd;
+  }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${host}</stringProp>
+          <stringProp name="HTTPSampler.path">data-export-spring/configs/befaaf4f-87f7-49e0-95b8-e051c19a4c8a</stringProp>
+          <stringProp name="HTTPSampler.method">PUT</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="[put] data-export-spring/configs bisable EqWatch2 " enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value"> {&#xd;
+    &quot;id&quot;: &quot;cda456b8-b34e-408d-98e3-c1410e141ead&quot;,&#xd;
+    &quot;type&quot;: &quot;EDIFACT_ORDERS_EXPORT&quot;,&#xd;
+    &quot;tenant&quot;: &quot;${tenantId},${tenantId}&quot;,&#xd;
+    &quot;exportTypeSpecificParameters&quot;: {&#xd;
+      &quot;vendorEdiOrdersExportConfig&quot;: {&#xd;
+        &quot;exportConfigId&quot;: &quot;cda456b8-b34e-408d-98e3-c1410e141ead&quot;,&#xd;
+        &quot;vendorId&quot;: &quot;6d363fea-c0e3-4c32-8074-4124b0a2307e&quot;,&#xd;
+        &quot;configName&quot;: &quot;EqWatch2&quot;,&#xd;
+        &quot;configDescription&quot;: &quot;144295-2&quot;,&#xd;
+        &quot;ediConfig&quot;: {&#xd;
+          &quot;accountNoList&quot;: [&#xd;
+            &quot;144295-2&quot;&#xd;
+          ],&#xd;
+          &quot;defaultAcquisitionMethods&quot;: [&#xd;
+            &quot;df26d81b-9d63-4ff8-bf41-49bf75cfa70e&quot;&#xd;
+          ],&#xd;
+          &quot;ediNamingConvention&quot;: &quot;{organizationCode}-{integrationName}-{exportJobEndDate}&quot;,&#xd;
+          &quot;libEdiCode&quot;: &quot;144295-2&quot;,&#xd;
+          &quot;libEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;vendorEdiCode&quot;: &quot;144295-2&quot;,&#xd;
+          &quot;vendorEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;sendAccountNumber&quot;: true,&#xd;
+          &quot;supportOrder&quot;: true,&#xd;
+          &quot;supportInvoice&quot;: true&#xd;
+        },&#xd;
+        &quot;ediFtp&quot;: {&#xd;
+          &quot;ftpConnMode&quot;: &quot;Active&quot;,&#xd;
+          &quot;ftpFormat&quot;: &quot;FTP&quot;,&#xd;
+          &quot;ftpMode&quot;: &quot;ASCII&quot;,&#xd;
+          &quot;ftpPort&quot;: 22,&#xd;
+          &quot;invoiceDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;orderDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;password&quot;: &quot;${ftpPassword}&quot;,&#xd;
+          &quot;serverAddress&quot;: &quot;ftp://35.174.104.16&quot;,&#xd;
+          &quot;username&quot;: &quot;testuser&quot;&#xd;
+        },&#xd;
+        &quot;ediSchedule&quot;: {&#xd;
+          &quot;enableScheduledExport&quot;: false,&#xd;
+          &quot;scheduleParameters&quot;: {&#xd;
+            &quot;id&quot;: &quot;cda456b8-b34e-408d-98e3-c1410e141ead&quot;,&#xd;
+            &quot;scheduleFrequency&quot;: 1,&#xd;
+            &quot;schedulePeriod&quot;: &quot;NONE&quot;,&#xd;
+            &quot;schedulingDate&quot;: &quot;${__time(yyyy-MM-dd,)}T${__timeShift(HH,,-PT2H,,)}:${__timeShift(mm,,+PT5m,,)}:00Z&quot;,&#xd;
+            &quot;scheduleTime&quot;: &quot;${__timeShift(HH,,-PT2H,,)}:${__timeShift(mm,,+PT5m,,)}:00&quot;,&#xd;
+            &quot;timeZone&quot;: &quot;UTC&quot;&#xd;
+          }&#xd;
+        },&#xd;
+        &quot;isDefaultConfig&quot;: false&#xd;
+      }&#xd;
+    },&#xd;
+    &quot;schedulePeriod&quot;: &quot;NONE&quot;&#xd;
+  }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${host}</stringProp>
+          <stringProp name="HTTPSampler.path">data-export-spring/configs/cda456b8-b34e-408d-98e3-c1410e141ead</stringProp>
+          <stringProp name="HTTPSampler.method">PUT</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="[put] data-export-spring/configs bisable EqWatch3 " enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;id&quot;: &quot;1cdc21d8-8e8f-4ee9-879b-227c0a034807&quot;,&#xd;
+    &quot;type&quot;: &quot;EDIFACT_ORDERS_EXPORT&quot;,&#xd;
+    &quot;tenant&quot;: &quot;${tenantId},${tenantId}&quot;,&#xd;
+    &quot;exportTypeSpecificParameters&quot;: {&#xd;
+      &quot;vendorEdiOrdersExportConfig&quot;: {&#xd;
+        &quot;exportConfigId&quot;: &quot;1cdc21d8-8e8f-4ee9-879b-227c0a034807&quot;,&#xd;
+        &quot;vendorId&quot;: &quot;382831f9-c680-4b7e-a3ab-daa3022fa4cb&quot;,&#xd;
+        &quot;configName&quot;: &quot;EqWatch3&quot;,&#xd;
+        &quot;configDescription&quot;: &quot;300693&quot;,&#xd;
+        &quot;ediConfig&quot;: {&#xd;
+          &quot;accountNoList&quot;: [&#xd;
+            &quot;300693&quot;&#xd;
+          ],&#xd;
+          &quot;defaultAcquisitionMethods&quot;: [&#xd;
+            &quot;df26d81b-9d63-4ff8-bf41-49bf75cfa70e&quot;&#xd;
+          ],&#xd;
+          &quot;ediNamingConvention&quot;: &quot;{organizationCode}-{integrationName}-{exportJobEndDate}&quot;,&#xd;
+          &quot;libEdiCode&quot;: &quot;300693&quot;,&#xd;
+          &quot;libEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;vendorEdiCode&quot;: &quot;300693&quot;,&#xd;
+          &quot;vendorEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;sendAccountNumber&quot;: true,&#xd;
+          &quot;supportOrder&quot;: true,&#xd;
+          &quot;supportInvoice&quot;: true&#xd;
+        },&#xd;
+        &quot;ediFtp&quot;: {&#xd;
+          &quot;ftpConnMode&quot;: &quot;Active&quot;,&#xd;
+          &quot;ftpFormat&quot;: &quot;FTP&quot;,&#xd;
+          &quot;ftpMode&quot;: &quot;ASCII&quot;,&#xd;
+          &quot;ftpPort&quot;: 22,&#xd;
+          &quot;invoiceDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;orderDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;password&quot;: &quot;${ftpPassword}&quot;,&#xd;
+          &quot;serverAddress&quot;: &quot;ftp://35.174.104.16&quot;,&#xd;
+          &quot;username&quot;: &quot;testuser&quot;&#xd;
+        },&#xd;
+        &quot;ediSchedule&quot;: {&#xd;
+          &quot;enableScheduledExport&quot;: false,&#xd;
+          &quot;scheduleParameters&quot;: {&#xd;
+            &quot;id&quot;: &quot;1cdc21d8-8e8f-4ee9-879b-227c0a034807&quot;,&#xd;
+            &quot;scheduleFrequency&quot;: 1,&#xd;
+            &quot;schedulePeriod&quot;: &quot;NONE&quot;,&#xd;
+            &quot;schedulingDate&quot;: &quot;${__time(yyyy-MM-dd,)}T${__timeShift(HH,,-PT2H,,)}:${__timeShift(mm,,+PT5m,,)}:00Z&quot;,&#xd;
+            &quot;scheduleTime&quot;: &quot;${__timeShift(HH,,-PT2H,,)}:${__timeShift(mm,,+PT5m,,)}:00&quot;,&#xd;
+            &quot;timeZone&quot;: &quot;UTC&quot;&#xd;
+          }&#xd;
+        },&#xd;
+        &quot;isDefaultConfig&quot;: false&#xd;
+      }&#xd;
+    },&#xd;
+    &quot;schedulePeriod&quot;: &quot;NONE&quot;&#xd;
+  }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${host}</stringProp>
+          <stringProp name="HTTPSampler.path">data-export-spring/configs/1cdc21d8-8e8f-4ee9-879b-227c0a034807</stringProp>
+          <stringProp name="HTTPSampler.method">PUT</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="[put] data-export-spring/configs bisable AWWA1 " enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;id&quot;: &quot;f7029c2a-7176-4ef6-ba28-07390a8dcf06&quot;,&#xd;
+    &quot;type&quot;: &quot;EDIFACT_ORDERS_EXPORT&quot;,&#xd;
+    &quot;tenant&quot;: &quot;${tenantId},${tenantId}&quot;,&#xd;
+    &quot;exportTypeSpecificParameters&quot;: {&#xd;
+      &quot;vendorEdiOrdersExportConfig&quot;: {&#xd;
+        &quot;exportConfigId&quot;: &quot;f7029c2a-7176-4ef6-ba28-07390a8dcf06&quot;,&#xd;
+        &quot;vendorId&quot;: &quot;da29ee41-727a-4372-9472-7818c948f8c7&quot;,&#xd;
+        &quot;configName&quot;: &quot;AWWA1&quot;,&#xd;
+        &quot;configDescription&quot;: &quot;libraryorders@library.tam&quot;,&#xd;
+        &quot;ediConfig&quot;: {&#xd;
+          &quot;accountNoList&quot;: [&#xd;
+            &quot;libraryorders@library.tam&quot;&#xd;
+          ],&#xd;
+          &quot;defaultAcquisitionMethods&quot;: [&#xd;
+            &quot;df26d81b-9d63-4ff8-bf41-49bf75cfa70e&quot;&#xd;
+          ],&#xd;
+          &quot;ediNamingConvention&quot;: &quot;{organizationCode}-{integrationName}-{exportJobEndDate}&quot;,&#xd;
+          &quot;libEdiCode&quot;: &quot;258&quot;,&#xd;
+          &quot;libEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;vendorEdiCode&quot;: &quot;123&quot;,&#xd;
+          &quot;vendorEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;sendAccountNumber&quot;: true,&#xd;
+          &quot;supportOrder&quot;: true,&#xd;
+          &quot;supportInvoice&quot;: true&#xd;
+        },&#xd;
+        &quot;ediFtp&quot;: {&#xd;
+          &quot;ftpConnMode&quot;: &quot;Active&quot;,&#xd;
+          &quot;ftpFormat&quot;: &quot;FTP&quot;,&#xd;
+          &quot;ftpMode&quot;: &quot;ASCII&quot;,&#xd;
+          &quot;ftpPort&quot;: 22,&#xd;
+          &quot;invoiceDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;orderDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;password&quot;: &quot;${ftpPassword}&quot;,&#xd;
+          &quot;serverAddress&quot;: &quot;ftp://35.174.104.16&quot;,&#xd;
+          &quot;username&quot;: &quot;testuser&quot;&#xd;
+        },&#xd;
+        &quot;ediSchedule&quot;: {&#xd;
+          &quot;enableScheduledExport&quot;: false,&#xd;
+          &quot;scheduleParameters&quot;: {&#xd;
+            &quot;id&quot;: &quot;f7029c2a-7176-4ef6-ba28-07390a8dcf06&quot;,&#xd;
+            &quot;scheduleFrequency&quot;: 1,&#xd;
+            &quot;schedulePeriod&quot;: &quot;NONE&quot;,&#xd;
+             &quot;schedulingDate&quot;: &quot;${__time(yyyy-MM-dd,)}T${__timeShift(HH,,-PT2H,,)}:${__timeShift(mm,,+PT5m,,)}:00Z&quot;,&#xd;
+            &quot;scheduleTime&quot;: &quot;${__timeShift(HH,,-PT2H,,)}:${__timeShift(mm,,+PT5m,,)}:00&quot;,&#xd;
+            &quot;timeZone&quot;: &quot;UTC&quot;&#xd;
+          }&#xd;
+        },&#xd;
+        &quot;isDefaultConfig&quot;: false&#xd;
+      }&#xd;
+    },&#xd;
+    &quot;schedulePeriod&quot;: &quot;NONE&quot;&#xd;
+  }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${host}</stringProp>
+          <stringProp name="HTTPSampler.path">data-export-spring/configs/f7029c2a-7176-4ef6-ba28-07390a8dcf06</stringProp>
+          <stringProp name="HTTPSampler.method">PUT</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="[put] data-export-spring/configs bisable AmWater2 " enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;id&quot;: &quot;44be204e-93c2-4a45-983e-88f45381a6a6&quot;,&#xd;
+    &quot;type&quot;: &quot;EDIFACT_ORDERS_EXPORT&quot;,&#xd;
+    &quot;tenant&quot;: &quot;${tenantId},${tenantId}&quot;,&#xd;
+    &quot;exportTypeSpecificParameters&quot;: {&#xd;
+      &quot;vendorEdiOrdersExportConfig&quot;: {&#xd;
+        &quot;exportConfigId&quot;: &quot;44be204e-93c2-4a45-983e-88f45381a6a6&quot;,&#xd;
+        &quot;vendorId&quot;: &quot;02c0820c-108c-41c4-ab9c-d289877e8dfa&quot;,&#xd;
+        &quot;configName&quot;: &quot;AmWater2&quot;,&#xd;
+        &quot;configDescription&quot;: &quot;123&quot;,&#xd;
+        &quot;ediConfig&quot;: {&#xd;
+          &quot;accountNoList&quot;: [&#xd;
+            &quot;123&quot;&#xd;
+          ],&#xd;
+          &quot;defaultAcquisitionMethods&quot;: [&#xd;
+            &quot;df26d81b-9d63-4ff8-bf41-49bf75cfa70e&quot;&#xd;
+          ],&#xd;
+          &quot;ediNamingConvention&quot;: &quot;{organizationCode}-{integrationName}-{exportJobEndDate}&quot;,&#xd;
+          &quot;libEdiCode&quot;: &quot;123&quot;,&#xd;
+          &quot;libEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;vendorEdiCode&quot;: &quot;123&quot;,&#xd;
+          &quot;vendorEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;sendAccountNumber&quot;: true,&#xd;
+          &quot;supportOrder&quot;: true,&#xd;
+          &quot;supportInvoice&quot;: true&#xd;
+        },&#xd;
+        &quot;ediFtp&quot;: {&#xd;
+          &quot;ftpConnMode&quot;: &quot;Active&quot;,&#xd;
+          &quot;ftpFormat&quot;: &quot;FTP&quot;,&#xd;
+          &quot;ftpMode&quot;: &quot;ASCII&quot;,&#xd;
+          &quot;ftpPort&quot;: 22,&#xd;
+          &quot;invoiceDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;orderDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;password&quot;: &quot;${ftpPassword}&quot;,&#xd;
+          &quot;serverAddress&quot;: &quot;ftp://35.174.104.16&quot;,&#xd;
+          &quot;username&quot;: &quot;testuser&quot;&#xd;
+        },&#xd;
+        &quot;ediSchedule&quot;: {&#xd;
+          &quot;enableScheduledExport&quot;: false,&#xd;
+          &quot;scheduleParameters&quot;: {&#xd;
+            &quot;id&quot;: &quot;44be204e-93c2-4a45-983e-88f45381a6a6&quot;,&#xd;
+            &quot;scheduleFrequency&quot;: 1,&#xd;
+            &quot;schedulePeriod&quot;: &quot;NONE&quot;,&#xd;
+           &quot;schedulingDate&quot;: &quot;${__time(yyyy-MM-dd,)}T${__timeShift(HH,,-PT2H,,)}:${__timeShift(mm,,+PT5m,,)}:00Z&quot;,&#xd;
+            &quot;scheduleTime&quot;: &quot;${__timeShift(HH,,-PT2H,,)}:${__timeShift(mm,,+PT5m,,)}:00&quot;,&#xd;
+            &quot;timeZone&quot;: &quot;UTC&quot;&#xd;
+          }&#xd;
+        },&#xd;
+        &quot;isDefaultConfig&quot;: false&#xd;
+      }&#xd;
+    },&#xd;
+    &quot;schedulePeriod&quot;: &quot;NONE&quot;&#xd;
+  }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${host}</stringProp>
+          <stringProp name="HTTPSampler.path">data-export-spring/configs/44be204e-93c2-4a45-983e-88f45381a6a6</stringProp>
+          <stringProp name="HTTPSampler.method">PUT</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="[put] data-export-spring/configs bisable AmWater3" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value"> {&#xd;
+    &quot;id&quot;: &quot;22409324-355d-4d0a-9010-057e88c7d4ec&quot;,&#xd;
+    &quot;type&quot;: &quot;EDIFACT_ORDERS_EXPORT&quot;,&#xd;
+    &quot;tenant&quot;: &quot;${tenantId},${tenantId}&quot;,&#xd;
+    &quot;exportTypeSpecificParameters&quot;: {&#xd;
+      &quot;vendorEdiOrdersExportConfig&quot;: {&#xd;
+        &quot;exportConfigId&quot;: &quot;22409324-355d-4d0a-9010-057e88c7d4ec&quot;,&#xd;
+        &quot;vendorId&quot;: &quot;2d6f2d47-9664-4794-8cd5-4e168bd57384&quot;,&#xd;
+        &quot;configName&quot;: &quot;AmWater3&quot;,&#xd;
+        &quot;configDescription&quot;: &quot;111111&quot;,&#xd;
+        &quot;ediConfig&quot;: {&#xd;
+          &quot;accountNoList&quot;: [&#xd;
+            &quot;111111&quot;&#xd;
+          ],&#xd;
+          &quot;defaultAcquisitionMethods&quot;: [&#xd;
+            &quot;df26d81b-9d63-4ff8-bf41-49bf75cfa70e&quot;&#xd;
+          ],&#xd;
+          &quot;ediNamingConvention&quot;: &quot;{organizationCode}-{integrationName}-{exportJobEndDate}&quot;,&#xd;
+          &quot;libEdiCode&quot;: &quot;111111&quot;,&#xd;
+          &quot;libEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;vendorEdiCode&quot;: &quot;111111&quot;,&#xd;
+          &quot;vendorEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;sendAccountNumber&quot;: true,&#xd;
+          &quot;supportOrder&quot;: true,&#xd;
+          &quot;supportInvoice&quot;: true&#xd;
+        },&#xd;
+        &quot;ediFtp&quot;: {&#xd;
+          &quot;ftpConnMode&quot;: &quot;Active&quot;,&#xd;
+          &quot;ftpFormat&quot;: &quot;FTP&quot;,&#xd;
+          &quot;ftpMode&quot;: &quot;ASCII&quot;,&#xd;
+          &quot;ftpPort&quot;: 22,&#xd;
+          &quot;invoiceDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;orderDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;password&quot;: &quot;${ftpPassword}&quot;,&#xd;
+          &quot;serverAddress&quot;: &quot;ftp://35.174.104.16&quot;,&#xd;
+          &quot;username&quot;: &quot;testuser&quot;&#xd;
+        },&#xd;
+        &quot;ediSchedule&quot;: {&#xd;
+          &quot;enableScheduledExport&quot;: false,&#xd;
+          &quot;scheduleParameters&quot;: {&#xd;
+            &quot;id&quot;: &quot;22409324-355d-4d0a-9010-057e88c7d4ec&quot;,&#xd;
+            &quot;scheduleFrequency&quot;: 1,&#xd;
+            &quot;schedulePeriod&quot;: &quot;NONE&quot;,&#xd;
+           &quot;schedulingDate&quot;: &quot;${__time(yyyy-MM-dd,)}T${__timeShift(HH,,-PT2H,,)}:${__timeShift(mm,,+PT5m,,)}:00Z&quot;,&#xd;
+            &quot;scheduleTime&quot;: &quot;${__timeShift(HH,,-PT2H,,)}:${__timeShift(mm,,+PT5m,,)}:00&quot;,&#xd;
+            &quot;timeZone&quot;: &quot;UTC&quot;&#xd;
+          }&#xd;
+        },&#xd;
+        &quot;isDefaultConfig&quot;: false&#xd;
+      }&#xd;
+    },&#xd;
+    &quot;schedulePeriod&quot;: &quot;NONE&quot;&#xd;
+  }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${host}</stringProp>
+          <stringProp name="HTTPSampler.path">data-export-spring/configs/22409324-355d-4d0a-9010-057e88c7d4ec</stringProp>
+          <stringProp name="HTTPSampler.method">PUT</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="[put] data-export-spring/configs bisable AmWater4" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value"> {&#xd;
+    &quot;id&quot;: &quot;b2570852-0fc0-438c-a30e-a248a66bcbea&quot;,&#xd;
+    &quot;type&quot;: &quot;EDIFACT_ORDERS_EXPORT&quot;,&#xd;
+    &quot;tenant&quot;: &quot;${tenantId},${tenantId}&quot;,&#xd;
+    &quot;exportTypeSpecificParameters&quot;: {&#xd;
+      &quot;vendorEdiOrdersExportConfig&quot;: {&#xd;
+        &quot;exportConfigId&quot;: &quot;b2570852-0fc0-438c-a30e-a248a66bcbea&quot;,&#xd;
+        &quot;vendorId&quot;: &quot;a58a5dcc-7e60-492f-b795-7a791c0970fe&quot;,&#xd;
+        &quot;configName&quot;: &quot;AmWater4&quot;,&#xd;
+        &quot;configDescription&quot;: &quot;22222&quot;,&#xd;
+        &quot;ediConfig&quot;: {&#xd;
+          &quot;accountNoList&quot;: [&#xd;
+            &quot;22222&quot;&#xd;
+          ],&#xd;
+          &quot;defaultAcquisitionMethods&quot;: [&#xd;
+            &quot;df26d81b-9d63-4ff8-bf41-49bf75cfa70e&quot;&#xd;
+          ],&#xd;
+          &quot;ediNamingConvention&quot;: &quot;{organizationCode}-{integrationName}-{exportJobEndDate}&quot;,&#xd;
+          &quot;libEdiCode&quot;: &quot;22222&quot;,&#xd;
+          &quot;libEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;vendorEdiCode&quot;: &quot;22222&quot;,&#xd;
+          &quot;vendorEdiType&quot;: &quot;31B/US-SAN&quot;,&#xd;
+          &quot;sendAccountNumber&quot;: true,&#xd;
+          &quot;supportOrder&quot;: true,&#xd;
+          &quot;supportInvoice&quot;: true&#xd;
+        },&#xd;
+        &quot;ediFtp&quot;: {&#xd;
+          &quot;ftpConnMode&quot;: &quot;Active&quot;,&#xd;
+          &quot;ftpFormat&quot;: &quot;FTP&quot;,&#xd;
+          &quot;ftpMode&quot;: &quot;ASCII&quot;,&#xd;
+          &quot;ftpPort&quot;: 22,&#xd;
+          &quot;invoiceDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;orderDirectory&quot;: &quot;/files&quot;,&#xd;
+          &quot;password&quot;: &quot;${ftpPassword}&quot;,&#xd;
+          &quot;serverAddress&quot;: &quot;ftp://35.174.104.16&quot;,&#xd;
+          &quot;username&quot;: &quot;testuser&quot;&#xd;
+        },&#xd;
+        &quot;ediSchedule&quot;: {&#xd;
+          &quot;enableScheduledExport&quot;: false,&#xd;
+          &quot;scheduleParameters&quot;: {&#xd;
+            &quot;id&quot;: &quot;b2570852-0fc0-438c-a30e-a248a66bcbea&quot;,&#xd;
+            &quot;scheduleFrequency&quot;: 1,&#xd;
+            &quot;schedulePeriod&quot;: &quot;NONE&quot;,&#xd;
+           &quot;schedulingDate&quot;: &quot;${__time(yyyy-MM-dd,)}T${__timeShift(HH,,-PT2H,,)}:${__timeShift(mm,,+PT5m,,)}:00Z&quot;,&#xd;
+            &quot;scheduleTime&quot;: &quot;${__timeShift(HH,,-PT2H,,)}:${__timeShift(mm,,+PT5m,,)}:00&quot;,&#xd;
+            &quot;timeZone&quot;: &quot;UTC&quot;&#xd;
+          }&#xd;
+        },&#xd;
+        &quot;isDefaultConfig&quot;: false&#xd;
+      }&#xd;
+    },&#xd;
+    &quot;schedulePeriod&quot;: &quot;NONE&quot;&#xd;
+  }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${host}</stringProp>
+          <stringProp name="HTTPSampler.path">data-export-spring/configs/b2570852-0fc0-438c-a30e-a248a66bcbea</stringProp>
+          <stringProp name="HTTPSampler.method">PUT</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
