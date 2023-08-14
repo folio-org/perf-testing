@@ -2,7 +2,6 @@
 <jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.2">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="EdifactScheduler" enabled="true">
-      <stringProp name="TestPlan.comments">This test plan was created by the BlazeMeter converter v.3.1.23. Please contact support@blazemeter.com for further support.</stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -34,8 +33,12 @@
             <stringProp name="Argument.value">${__BeanShell(import org.apache.jmeter.services.FileServer; FileServer.getFileServer().getBaseDir();)}${__BeanShell(File.separator,)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="Origin" elementType="Argument">
+            <stringProp name="Argument.name">Origin</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.value">${__P(Origin,https://ptf-ncp5-00.int.aws.folio.org)}</stringProp>
+          </elementProp>
         </collectionProp>
-        <stringProp name="TestPlan.comments">okapi-ptf-rmb.int.aws.folio.org</stringProp>
       </Arguments>
       <hashTree/>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="enable mod-data-export-spring" enabled="false">
@@ -55,10 +58,6 @@
       <hashTree>
         <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
           <collectionProp name="HeaderManager.headers">
-            <elementProp name="" elementType="Header">
-              <stringProp name="Header.name">X-Okapi-Token</stringProp>
-              <stringProp name="Header.value">${X-Okapi-Token-Header}</stringProp>
-            </elementProp>
             <elementProp name="" elementType="Header">
               <stringProp name="Header.name">Accept</stringProp>
               <stringProp name="Header.value">application/json</stringProp>
@@ -310,12 +309,6 @@
             <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
           </RegexExtractor>
           <hashTree/>
-          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor - current_userID" enabled="true">
-            <stringProp name="JSONPostProcessor.referenceNames">current_userID</stringProp>
-            <stringProp name="JSONPostProcessor.jsonPathExprs">$.user.id</stringProp>
-            <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
-          </JSONPostProcessor>
-          <hashTree/>
         </hashTree>
         <CacheManager guiclass="CacheManagerGui" testclass="CacheManager" testname="HTTP Cache Manager" enabled="true">
           <boolProp name="clearEachIteration">true</boolProp>
@@ -361,7 +354,7 @@
             </elementProp>
             <elementProp name="Origin" elementType="Header">
               <stringProp name="Header.name">Origin</stringProp>
-              <stringProp name="Header.value">https://ptf-ncp5-00.int.aws.folio.org</stringProp>
+              <stringProp name="Header.value">${Origin}</stringProp>
             </elementProp>
             <elementProp name="User-Agent" elementType="Header">
               <stringProp name="Header.name">User-Agent</stringProp>
@@ -373,7 +366,7 @@
             </elementProp>
             <elementProp name="Referer" elementType="Header">
               <stringProp name="Header.name">Referer</stringProp>
-              <stringProp name="Header.value">https://ptf-ncp5-00.int.aws.folio.org/</stringProp>
+              <stringProp name="Header.value">${Origin}/</stringProp>
             </elementProp>
             <elementProp name="Content-Length" elementType="Header">
               <stringProp name="Header.name">Content-Length</stringProp>
@@ -1201,7 +1194,7 @@
           <boolProp name="recycle">true</boolProp>
           <stringProp name="shareMode">shareMode.all</stringProp>
           <boolProp name="stopThread">false</boolProp>
-          <stringProp name="variableNames">username,password,tenantId</stringProp>
+          <stringProp name="variableNames">username,password,tenantId,ftpPassword</stringProp>
           <stringProp name="TestPlan.comments">[username],[password],[tenantId]</stringProp>
         </CSVDataSet>
         <hashTree/>
@@ -1313,7 +1306,7 @@
             </elementProp>
             <elementProp name="Origin" elementType="Header">
               <stringProp name="Header.name">Origin</stringProp>
-              <stringProp name="Header.value">https://ptf-ncp5-00.int.aws.folio.org</stringProp>
+              <stringProp name="Header.value">${Origin}</stringProp>
             </elementProp>
             <elementProp name="User-Agent" elementType="Header">
               <stringProp name="Header.name">User-Agent</stringProp>
@@ -1325,7 +1318,7 @@
             </elementProp>
             <elementProp name="Referer" elementType="Header">
               <stringProp name="Header.name">Referer</stringProp>
-              <stringProp name="Header.value">https://ptf-ncp5-00.int.aws.folio.org/</stringProp>
+              <stringProp name="Header.value">${Origin}/</stringProp>
             </elementProp>
             <elementProp name="Content-Length" elementType="Header">
               <stringProp name="Header.name">Content-Length</stringProp>
