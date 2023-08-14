@@ -1255,12 +1255,6 @@
             <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
           </RegexExtractor>
           <hashTree/>
-          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor - current_userID" enabled="true">
-            <stringProp name="JSONPostProcessor.referenceNames">current_userID</stringProp>
-            <stringProp name="JSONPostProcessor.jsonPathExprs">$.user.id</stringProp>
-            <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
-          </JSONPostProcessor>
-          <hashTree/>
         </hashTree>
         <CacheManager guiclass="CacheManagerGui" testclass="CacheManager" testname="HTTP Cache Manager" enabled="true">
           <boolProp name="clearEachIteration">true</boolProp>
