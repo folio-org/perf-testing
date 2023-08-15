@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.3">
   <hashTree>
-    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="master-script" enabled="true">
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="multi-tenant-master-script" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
@@ -29,10 +29,10 @@
       <hashTree/>
       <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
         <collectionProp name="Arguments.arguments">
-          <elementProp name="tenant_number" elementType="Argument">
-            <stringProp name="Argument.name">tenant_number</stringProp>
-            <stringProp name="Argument.value">${__P(Tenant_number, 1)}</stringProp>
-            <stringProp name="Argument.desc">Should be eqal to number of tenants (environments) in tenants_credentials.csv file</stringProp>
+          <elementProp name="total_tenants" elementType="Argument">
+            <stringProp name="Argument.name">total_tenants</stringProp>
+            <stringProp name="Argument.value">${__P(total_tenants , 1)}</stringProp>
+            <stringProp name="Argument.desc">Should equals the total number of tenants  (environments) in tenants_credentials.csv file</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="global_BaseDir" elementType="Argument">
@@ -841,7 +841,7 @@
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <stringProp name="LoopController.loops">1</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">${tenant_number}</stringProp>
+        <stringProp name="ThreadGroup.num_threads">${total_tenants}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
@@ -852,7 +852,7 @@
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Credentials" enabled="true">
           <stringProp name="delimiter">,</stringProp>
           <stringProp name="fileEncoding"></stringProp>
-          <stringProp name="filename">${global_BaseDir}/data/tenants_credentials.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/tenants_credentials.csv</stringProp>
           <boolProp name="ignoreFirstLine">true</boolProp>
           <boolProp name="quotedData">false</boolProp>
           <boolProp name="recycle">true</boolProp>
@@ -989,9 +989,9 @@
           <hashTree/>
           <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="true">
             <stringProp name="JSONPostProcessor.referenceNames">current_userID;servicePointId</stringProp>
-            <stringProp name="JSONPostProcessor.jsonPathExprs">$.user.id;$.user.id;$..defaultServicePointId</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.user.id;$..defaultServicePointId</stringProp>
             <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-            <stringProp name="JSONPostProcessor.defaultValues">not_found;not_found;not_found</stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">not_found;not_found</stringProp>
           </JSONPostProcessor>
           <hashTree/>
         </hashTree>
@@ -1008,11 +1008,12 @@ String current_userID = vars.get(&quot;current_userID&quot;);
 String servicePointId = vars.get(&quot;servicePointId&quot;);
 String hostname = vars.get(&quot;HOSTNAME&quot;);
 String tenant = vars.get(&quot;tenant&quot;);
+String Origin = vars.get(&quot;Origin&quot;);
 String separator = &quot;,&quot;;
 
 try {
-    FileWriter writer = new FileWriter(FileServer.getFileServer().getBaseDir() + &quot;/data/UsersInfo.csv&quot;, true);
-    writer.append(xokapitoken + separator + current_userID + separator + servicePointId + separator + hostname + separator + tenant + &quot;\n&quot;);
+    FileWriter writer = new FileWriter(FileServer.getFileServer().getBaseDir() + &quot;/jmeter-supported-data/UsersInfo.csv&quot;, true);
+    writer.append(xokapitoken + separator + current_userID + separator + servicePointId + separator + hostname + separator + tenant + separator + Origin + &quot;\n&quot;);
     writer.close();
 } catch (IOException ex) {
     log.error(&quot;Failed to write to CSV file: &quot; + ex.getMessage());
@@ -1037,7 +1038,7 @@ try {
       </ThreadGroup>
       <hashTree>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
-          <stringProp name="filename">${global_BaseDir}/data/UsersInfo.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">x-okapi-token,current_userID,servicePointId,hostname,tenant</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
@@ -2223,7 +2224,7 @@ vars.put(&quot;edited_invoice&quot;,new JsonBuilder(jsonData).toString());</stri
       </ThreadGroup>
       <hashTree>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
-          <stringProp name="filename">${global_BaseDir}/data/UsersInfo.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">x-okapi-token,current_userID,servicePointId,hostname,tenant</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
@@ -2446,7 +2447,7 @@ vars.put(&quot;goto_check_io&quot;, result)
                 </elementProp>
                 <elementProp name="Origin&#x9;http&#x9;http" elementType="Header">
                   <stringProp name="Header.name">Origin</stringProp>
-                  <stringProp name="Header.value">http://localhost</stringProp>
+                  <stringProp name="Header.value">${Origin}</stringProp>
                 </elementProp>
                 <elementProp name="X-Okapi-Tenant" elementType="Header">
                   <stringProp name="Header.name">X-Okapi-Token</stringProp>
@@ -3320,7 +3321,7 @@ vars.put(&quot;goto_check_io&quot;, result)
                 </elementProp>
                 <elementProp name="Origin&#x9;http&#x9;http" elementType="Header">
                   <stringProp name="Header.name">Origin</stringProp>
-                  <stringProp name="Header.value">http://localhost</stringProp>
+                  <stringProp name="Header.value">${Origin}</stringProp>
                 </elementProp>
                 <elementProp name="X-Okapi-Tenant" elementType="Header">
                   <stringProp name="Header.name">X-Okapi-Token</stringProp>
@@ -4808,7 +4809,7 @@ vars.put(&quot;goto_check_io&quot;, result)
       </ThreadGroup>
       <hashTree>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
-          <stringProp name="filename">${global_BaseDir}/data/UsersInfo.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">x-okapi-token,current_userID,servicePointId,hostname,tenant</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
@@ -5420,7 +5421,7 @@ log.info(&apos;Thread &apos; + (ctx.getThreadNum() + 1) + &apos; filename: &apos
       </ThreadGroup>
       <hashTree>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
-          <stringProp name="filename">${global_BaseDir}/data/UsersInfo.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">x-okapi-token,current_userID,servicePointId,hostname,tenant</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
@@ -6459,7 +6460,7 @@ log.info(&apos;Thread &apos; + (ctx.getThreadNum() + 1) + &apos; filename: &apos
       </ThreadGroup>
       <hashTree>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
-          <stringProp name="filename">${global_BaseDir}/data/UsersInfo.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">x-okapi-token,current_userID,servicePointId,hostname,tenant</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
@@ -8825,7 +8826,7 @@ vars.put(&quot;updatedResponse&quot;, updatedResponse)
       </ThreadGroup>
       <hashTree>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
-          <stringProp name="filename">${global_BaseDir}/data/UsersInfo.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">x-okapi-token,current_userID,servicePointId,hostname,tenant</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
@@ -15153,7 +15154,7 @@ vars.put(&quot;user_data&quot;,new JsonBuilder(jsonData).toString());</stringPro
       </ThreadGroup>
       <hashTree>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
-          <stringProp name="filename">${global_BaseDir}/data/UsersInfo.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">x-okapi-token,current_userID,servicePointId,hostname,tenant</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
@@ -15408,7 +15409,7 @@ vars.put(&quot;user_data&quot;,new JsonBuilder(jsonData).toString());</stringPro
       </ThreadGroup>
       <hashTree>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
-          <stringProp name="filename">${global_BaseDir}/data/UsersInfo.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">x-okapi-token,current_userID,servicePointId,hostname,tenant</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
@@ -20210,7 +20211,7 @@ vars.put(&quot;edited_invoice&quot;,new JsonBuilder(jsonData).toString());
       </ThreadGroup>
       <hashTree>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
-          <stringProp name="filename">${global_BaseDir}/data/UsersInfo.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">x-okapi-token,current_userID,servicePointId,hostname,tenant</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
@@ -22318,7 +22319,7 @@ vars.put(&quot;ledger_code&quot;,jsonData.code);
       </ThreadGroup>
       <hashTree>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
-          <stringProp name="filename">${global_BaseDir}/data/UsersInfo.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">x-okapi-token,current_userID,servicePointId,hostname,tenant</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
@@ -22416,7 +22417,7 @@ vars.put(&quot;ledger_code&quot;,jsonData.code);
       </ThreadGroup>
       <hashTree>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
-          <stringProp name="filename">${global_BaseDir}/data/UsersInfo.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">x-okapi-token,current_userID,servicePointId,hostname,tenant</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
@@ -22498,7 +22499,7 @@ vars.put(&quot;ledger_code&quot;,jsonData.code);
       </ThreadGroup>
       <hashTree>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
-          <stringProp name="filename">${global_BaseDir}/data/UsersInfo.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">x-okapi-token,current_userID,servicePointId,hostname,tenant</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
@@ -22607,7 +22608,7 @@ vars.put(&quot;ledger_code&quot;,jsonData.code);
       </ThreadGroup>
       <hashTree>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
-          <stringProp name="filename">${global_BaseDir}/data/UsersInfo.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">x-okapi-token,current_userID,servicePointId,hostname,tenant</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
@@ -29534,7 +29535,7 @@ vars.put(&quot;order_editData&quot;,new JsonBuilder(jsonData).toString());
       </ThreadGroup>
       <hashTree>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
-          <stringProp name="filename">${global_BaseDir}/data/UsersInfo.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">x-okapi-token,current_userID,servicePointId,hostname,tenant</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
@@ -37070,7 +37071,7 @@ try {
       </ThreadGroup>
       <hashTree>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
-          <stringProp name="filename">${global_BaseDir}/data/UsersInfo.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">x-okapi-token,current_userID,servicePointId,hostname,tenant</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
@@ -37378,7 +37379,7 @@ vars.put(&quot;counter&quot;,Integer.toString(counter));</stringProp>
       </ThreadGroup>
       <hashTree>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
-          <stringProp name="filename">${global_BaseDir}/data/UsersInfo.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">x-okapi-token,current_userID,servicePointId,hostname,tenant</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
@@ -37532,7 +37533,7 @@ vars.put(&quot;counter&quot;,Integer.toString(counter));</stringProp>
       </ThreadGroup>
       <hashTree>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
-          <stringProp name="filename">${global_BaseDir}/data/UsersInfo.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">x-okapi-token,current_userID,servicePointId,hostname,tenant</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
@@ -41204,7 +41205,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
       </ThreadGroup>
       <hashTree>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
-          <stringProp name="filename">${global_BaseDir}/data/UsersInfo.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">x-okapi-token,current_userID,servicePointId,hostname,tenant</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
@@ -42631,7 +42632,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
       </ThreadGroup>
       <hashTree>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
-          <stringProp name="filename">${global_BaseDir}/data/UsersInfo.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">x-okapi-token,current_userID,servicePointId,hostname,tenant</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
@@ -44160,7 +44161,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
       </ThreadGroup>
       <hashTree>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
-          <stringProp name="filename">${global_BaseDir}/data/UsersInfo.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">x-okapi-token,current_userID,servicePointId,hostname,tenant</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
@@ -45900,7 +45901,7 @@ vars.put(&quot;orgs_data&quot;,new JsonBuilder(jsonData).toString());
       </ThreadGroup>
       <hashTree>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
-          <stringProp name="filename">${global_BaseDir}/data/UsersInfo.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">x-okapi-token,current_userID,servicePointId,hostname,tenant</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
@@ -46293,7 +46294,7 @@ vars.put(&quot;marc_id&quot;, randomRecordId);</stringProp>
       </ThreadGroup>
       <hashTree>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
-          <stringProp name="filename">${global_BaseDir}/data/UsersInfo.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">x-okapi-token,current_userID,servicePointId,hostname,tenant</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
@@ -47207,7 +47208,7 @@ vars.put(&quot;marc_id&quot;, randomRecordId);</stringProp>
       </ThreadGroup>
       <hashTree>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
-          <stringProp name="filename">${global_BaseDir}/data/UsersInfo.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">x-okapi-token,current_userID,servicePointId,hostname,tenant</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
@@ -47614,7 +47615,7 @@ vars.put(&quot;edited_item&quot;,new JsonBuilder(jsonData).toString());</stringP
       </ThreadGroup>
       <hashTree>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
-          <stringProp name="filename">${global_BaseDir}/data/UsersInfo.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">x-okapi-token,current_userID,servicePointId,hostname,tenant</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
@@ -47790,7 +47791,7 @@ vars.put(&quot;edited_item&quot;,new JsonBuilder(jsonData).toString());</stringP
       </ThreadGroup>
       <hashTree>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
-          <stringProp name="filename">${global_BaseDir}/data/UsersInfo.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">x-okapi-token,current_userID,servicePointId,hostname,tenant</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
@@ -47981,7 +47982,7 @@ vars.put(&quot;edited_item&quot;,new JsonBuilder(jsonData).toString());</stringP
       </ThreadGroup>
       <hashTree>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
-          <stringProp name="filename">${global_BaseDir}/data/UsersInfo.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">x-okapi-token,current_userID,servicePointId,hostname,tenant</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
