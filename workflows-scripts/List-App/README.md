@@ -9,8 +9,7 @@ Refresh list:
 3. "LA_TC: Refresh List" is a transaction controller which shows total refresh time.
 
 ## Modules required(minimum required version) to be enabled as a pre-requisite to run JMeter script:
-
-Attached in the file: list-app-modules.rtf
+- Attached in the file: list-app-modules.rtf
 
 ## JMeter-supported-data
 ### Runtime Data
