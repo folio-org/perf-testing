@@ -12,20 +12,17 @@
       <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
     </TestPlan>
     <hashTree>
-      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Vars: Data management server" enabled="true">
-        <collectionProp name="Arguments.arguments">
-          <elementProp name="dms" elementType="Argument">
-            <stringProp name="Argument.name">dms</stringProp>
-            <stringProp name="Argument.value">${__P(dms, carrier-io.int.folio.ebsco.com)}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="dms_port" elementType="Argument">
-            <stringProp name="Argument.name">dms_port</stringProp>
-            <stringProp name="Argument.value">${__P(dms_port, 5222)}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-        </collectionProp>
-      </Arguments>
+      <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV DMS" enabled="true">
+        <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/dms_credentials.csv</stringProp>
+        <stringProp name="fileEncoding"></stringProp>
+        <stringProp name="variableNames">dms,dms_port</stringProp>
+        <boolProp name="ignoreFirstLine">true</boolProp>
+        <stringProp name="delimiter">,</stringProp>
+        <boolProp name="quotedData">false</boolProp>
+        <boolProp name="recycle">true</boolProp>
+        <boolProp name="stopThread">false</boolProp>
+        <stringProp name="shareMode">shareMode.all</stringProp>
+      </CSVDataSet>
       <hashTree/>
       <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
         <collectionProp name="Arguments.arguments">
@@ -788,18 +785,6 @@
       <hashTree/>
       <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
         <collectionProp name="HeaderManager.headers">
-          <elementProp name="sec-ch-ua" elementType="Header">
-            <stringProp name="Header.name">sec-ch-ua</stringProp>
-            <stringProp name="Header.value">&quot;Google Chrome&quot;;v=&quot;111&quot;, &quot;Not(A:Brand&quot;;v=&quot;8&quot;, &quot;Chromium&quot;;v=&quot;111&quot;</stringProp>
-          </elementProp>
-          <elementProp name="sec-ch-ua-mobile" elementType="Header">
-            <stringProp name="Header.name">sec-ch-ua-mobile</stringProp>
-            <stringProp name="Header.value">?0</stringProp>
-          </elementProp>
-          <elementProp name="sec-ch-ua-platform" elementType="Header">
-            <stringProp name="Header.name">sec-ch-ua-platform</stringProp>
-            <stringProp name="Header.value">&quot;Windows&quot;</stringProp>
-          </elementProp>
           <elementProp name="User-Agent" elementType="Header">
             <stringProp name="Header.name">User-Agent</stringProp>
             <stringProp name="Header.value">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36</stringProp>
@@ -807,18 +792,6 @@
           <elementProp name="Accept-Language" elementType="Header">
             <stringProp name="Header.name">Accept-Language</stringProp>
             <stringProp name="Header.value">en-US</stringProp>
-          </elementProp>
-          <elementProp name="Sec-Fetch-Site" elementType="Header">
-            <stringProp name="Header.name">Sec-Fetch-Site</stringProp>
-            <stringProp name="Header.value">same-site</stringProp>
-          </elementProp>
-          <elementProp name="Sec-Fetch-Mode" elementType="Header">
-            <stringProp name="Header.name">Sec-Fetch-Mode</stringProp>
-            <stringProp name="Header.value">cors</stringProp>
-          </elementProp>
-          <elementProp name="Sec-Fetch-Dest" elementType="Header">
-            <stringProp name="Header.name">Sec-Fetch-Dest</stringProp>
-            <stringProp name="Header.value">empty</stringProp>
           </elementProp>
           <elementProp name="Accept-Encoding" elementType="Header">
             <stringProp name="Header.name">Accept-Encoding</stringProp>
@@ -2447,7 +2420,7 @@ vars.put(&quot;goto_check_io&quot;, result)
                 </elementProp>
                 <elementProp name="Origin&#x9;http&#x9;http" elementType="Header">
                   <stringProp name="Header.name">Origin</stringProp>
-                  <stringProp name="Header.value">${Origin}</stringProp>
+                  <stringProp name="Header.value">http://localhost</stringProp>
                 </elementProp>
                 <elementProp name="X-Okapi-Tenant" elementType="Header">
                   <stringProp name="Header.name">X-Okapi-Token</stringProp>
@@ -3321,7 +3294,7 @@ vars.put(&quot;goto_check_io&quot;, result)
                 </elementProp>
                 <elementProp name="Origin&#x9;http&#x9;http" elementType="Header">
                   <stringProp name="Header.name">Origin</stringProp>
-                  <stringProp name="Header.value">${Origin}</stringProp>
+                  <stringProp name="Header.value">http://localhost</stringProp>
                 </elementProp>
                 <elementProp name="X-Okapi-Tenant" elementType="Header">
                   <stringProp name="Header.name">X-Okapi-Token</stringProp>
