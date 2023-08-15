@@ -979,14 +979,13 @@ import java.io.IOException;
 String xokapitoken = vars.get(&quot;x-okapi-token&quot;);
 String current_userID = vars.get(&quot;current_userID&quot;);
 String servicePointId = vars.get(&quot;servicePointId&quot;);
-String hostname = vars.get(&quot;HOSTNAME&quot;);
+String hostname = vars.get(&quot;hostName&quot;);
 String tenant = vars.get(&quot;tenant&quot;);
-String Origin = vars.get(&quot;Origin&quot;);
 String separator = &quot;,&quot;;
 
 try {
     FileWriter writer = new FileWriter(FileServer.getFileServer().getBaseDir() + &quot;/jmeter-supported-data/UsersInfo.csv&quot;, true);
-    writer.append(xokapitoken + separator + current_userID + separator + servicePointId + separator + hostname + separator + tenant + separator + Origin + &quot;\n&quot;);
+    writer.append(xokapitoken + separator + current_userID + separator + servicePointId + separator + hostname + separator + tenant + &quot;\n&quot;);
     writer.close();
 } catch (IOException ex) {
     log.error(&quot;Failed to write to CSV file: &quot; + ex.getMessage());
