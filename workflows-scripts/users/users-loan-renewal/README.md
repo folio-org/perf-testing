@@ -5,21 +5,22 @@
 3. Iterate over all open loans
 4. Renew all loans by barcode
 
-##### FOLIO release:
+##### FOLIO releases:
 - Goldenrod
+- Orchid
 
 ## Modules required to be enabled as a pre-requisite to run JMeter script:
 ##### Backend:
-- mod-users-17.1.0
-- mod-users-bl-6.0.0
-- mod-authtoken-2.5.1
-- mod-permissions-5.11.2
-- mod-circulation-19.0.9
-- mod-circulation-storage-12.0.1
-- okapi-3.1.1
+- mod-users
+- mod-users-bl
+- mod-authtoken
+- mod-permissions
+- mod-circulation
+- mod-circulation-storage
+- okapi
 
 ##### Frontend:
-- folio_users-4.0.6
+- folio_users
 
 The script will run against 
 - 10 loans (1, 2 users)
