@@ -2,6 +2,8 @@
         parameters([
       string(name: 'Cluster', defaultValue: 'ncp3-pvt', description: null),
       string(name: 'region', defaultValue: 'us-east-1', description: null),
+      string(name: 'behavior', defaultValue: 'get', description: null),
+      string(name: 'modules', defaultValue: 'null', description: null),
       text(name: 'baseJson', defaultValue: null, description: null)
         ])
 ])
@@ -10,11 +12,10 @@ pipeline {
 
   stages {
     stage('Checkout Scm') {
-      steps {
-        git 'https://github.com/folio-org/perf-testing'
-      }
+         steps {
+    	 checkout([$class: 'GitSCM', branches: [[name: '*/PERF-427']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/folio-org/perf-testing']]])
+         }
     }
-
     stage('Build Artifact') {
       steps {
         sh '''cd common/ECSResourcesCheck
@@ -28,7 +29,7 @@ pipeline {
             script {
                 def profile = 'int'
                 sh '''cd common/ECSResourcesCheck/target
-                java -jar ECSClusterComparison-1.0-SNAPSHOT-jar-with-dependencies.jar ${Cluster} ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY} ${region} "${baseJson}"
+                java -jar ECSClusterComparison-1.0-SNAPSHOT-jar-with-dependencies.jar ${Cluster} ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY} ${region} ${behavior} "${modules}" "${baseJson}"
                 '''
             }
         }
