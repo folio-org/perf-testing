@@ -1,0 +1,28 @@
+[
+  {
+    "User Loan Renewal": {
+      "RENEW_VUSERS": 8,
+      "RENEW_RAMP_UP": 70,
+      "RENEW_DURATION": 2
+    },
+    "Check-in Checkout": {
+      "CICO_DISTRIBUTION": "43-57",
+      "CICO_VUSERS": 8,
+      "CICO_RAMP_UP": 10,
+      "CICO_DURATION": 60,
+      "CICO_THINK_OFFSET": 0
+    },
+    "Bulk Edit": {
+      "BE_VUSERS": 2,
+      "BE_RAMP_UP": "${__Random(1000,3000,)}",
+      "BE_jobs_count": 1,
+      "BE_pause": 0
+    },
+    "Data Import": {
+      "DI_VUSERS": 2,
+      "DI_RAMP_UP": "${__Random(1000,3000,)}",
+      "DI_test_count": 2,
+      "DI_pause": 300000
+    }
+  }
+]
