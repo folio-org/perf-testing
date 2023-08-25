@@ -1,0 +1,1260 @@
+-----------------------------Total---------------------------------
+
+"Honey & wax booksellers" ZHONEWAX$%:
+
+-HW1
+
+"Equipment watch" SRPRIMEDIA:
+1a36d83e-526f-48ad-9956-4e341a40fbbb
+-EW1
+
+"American water works association" ZAWWA$%:
+da29ee41-727a-4372-9472-7818c948f8c7
+-AWWA1
+
+ "id": "e02e4507-3c3a-40e5-b2f6-dbb9a15ac950",
+    "code": "Z50EGGS$%",
+    "name": "50 EGGS, INC.",
+-Honey2
+
+ "id": "ede1513a-ea9b-46e5-8f2c-7d93836f9742",
+    "code": "EBSCO",
+    "name": "EBSCO",
+-Honey3
+
+	"id": "6d363fea-c0e3-4c32-8074-4124b0a2307e",
+    "code": "SRHARR",
+    "name": "HARRASSOWITZ",
+-EqWatch2
+
+    "id": "382831f9-c680-4b7e-a3ab-daa3022fa4cb",
+    "code": "SRD",
+    "name": "VENDOR UNKNOWN",
+-EqWatch3
+
+    "id": "02c0820c-108c-41c4-ab9c-d289877e8dfa",
+    "code": "HRSW",
+    "name": "Harrassowitz",
+-AmWater2
+
+    "id": "2d6f2d47-9664-4794-8cd5-4e168bd57384",
+    "code": "SRWEST",
+    "name": "THOMSON WEST",
+-AmWater3
+
+    "id": "a58a5dcc-7e60-492f-b795-7a791c0970fe",
+    "code": "SRNHM",
+    "name": "SAN DIEGO NTRL HISTORY MUS",
+-AmWater4
+
+-----
+-----------------------------1----------------------------------
+{
+    "id": "e02e4507-3c3a-40e5-b2f6-dbb9a15ac950",
+    "code": "Z50EGGS$%",
+    "name": "50 EGGS, INC.",
+    "urls": [
+        {
+            "value": "https://www.50eggs.com/",
+            "categories": []
+        }
+    ],
+    "emails": [
+        {
+            "value": "office@50eggs.com",
+            "categories": []
+        }
+    ],
+    "status": "Active",
+    "aliases": [
+        {
+            "value": "50EGGS"
+        },
+        {
+            "value": "50 EGGS"
+        },
+        {
+            "value": "50 EGGS FILM"
+        }
+    ],
+    "accounts": [
+        {
+            "name": "libraryorders@library.tam",
+            "accountNo": "libraryorders@library.tam",
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        }
+    ],
+    "contacts": [],
+    "isVendor": true,
+    "language": "en",
+    "metadata": {
+        "createdDate": "2020-04-17T23:18:25.104",
+        "updatedDate": "2020-04-17T23:18:25.104+0000",
+        "createdByUserId": "9eb67301-6f6e-468f-9b1a-6134dc39a684",
+        "updatedByUserId": "9eb67301-6f6e-468f-9b1a-6134dc39a684"
+    },
+    "addresses": [
+        {
+            "city": "BABSON PARK",
+            "country": "USA",
+            "zipCode": "02457",
+            "language": "en",
+            "categories": [
+                "549d6d85-a51a-4cfc-8cfa-e4d46fb33823",
+                "62042758-5266-472a-a3e9-ea1ca0ccf056",
+                "9491fdad-b97b-45df-9783-337d86abc80f",
+                "3c31275e-7ed8-4ec0-9b18-31243461f6ea"
+            ],
+            "stateRegion": "MA",
+            "addressLine1": "231 FOREST STREET",
+            "addressLine2": "WOODLAND HILL - BUILDING 4   "
+        },
+        {
+            "city": "WELLESLEY HILLS",
+            "country": "USA",
+            "zipCode": "02481",
+            "language": "en",
+            "categories": [
+                "71a3e461-1777-4a6f-b1cc-d4a856d141ec"
+            ],
+            "stateRegion": "MA",
+            "addressLine1": "VIDEO PURCHASE"
+        }
+    ],
+    "agreements": [],
+    "changelogs": [],
+    "interfaces": [],
+    "description": "Monographs vendor  marymazzio@aol.com      ",
+    "phoneNumbers": [
+        {
+            "language": "en",
+            "isPrimary": true,
+            "categories": [
+                "549d6d85-a51a-4cfc-8cfa-e4d46fb33823",
+                "62042758-5266-472a-a3e9-ea1ca0ccf056",
+                "9491fdad-b97b-45df-9783-337d86abc80f",
+                "3c31275e-7ed8-4ec0-9b18-31243461f6ea"
+            ],
+            "phoneNumber": "(781) 239-7000"
+        }
+    ],
+    "claimingInterval": 0,
+    "vendorCurrencies": [
+        "USD"
+    ],
+    "exportToAccounting": false
+}
+-----------------------------2----------------------------------
+{
+    "id": "ede1513a-ea9b-46e5-8f2c-7d93836f9742",
+    "code": "EBSCO",
+    "name": "EBSCO",
+    "urls": [],
+    "emails": [],
+    "status": "Active",
+    "aliases": [
+        {
+            "value": "GOBI"
+        }
+    ],
+    "accounts": [],
+    "contacts": [
+        "ebc9210c-63bf-419b-ac37-785b32512849",
+        "fe54dcca-2532-4faf-adbe-bee9694f293c",
+        "9d4c6e29-4065-4b14-b3c1-2db2e3b6c1be",
+        "6bb3110b-80c0-4657-9850-b923b98331bb",
+        "477b90a6-0a9d-42e7-b36a-80921ce7c21f",
+        "ee62757e-605c-46b6-8b1c-388da2406894",
+        "0d0ac6bc-5ee6-478f-9a94-c8c1ed91dd56",
+        "e6358f79-29bb-4e59-a541-b2a5e6bad443",
+        "3f3c6ad0-3b97-43fe-a3b9-23dea094b6fd",
+        "0da1d08a-e95d-4ed3-b440-e0e722347f27",
+        "51eb6b54-9f85-4ef1-9c64-2de1e169999f",
+        "c0a56810-780b-4b90-a97d-84030ff0f631",
+        "b22513e1-cabf-4e65-a86b-d9e1815685d3",
+        "bcd175c0-34d9-4b31-98f9-01f8c70ee100",
+        "fab2d918-ceb5-4810-8c3f-8f3266354a84",
+        "2935883a-c752-4a0d-8c49-5b9561a21e5a",
+        "ba91c54c-30c3-4239-aa1a-354e9c6fb877",
+        "ea855bfa-b807-4255-ab8b-8115fa9bebd9",
+        "12e9023e-f2c4-482d-89bf-83fad7076a90",
+        "9e252748-9d68-4268-a293-7cc1f217561e",
+        "fc3d106e-af18-4ce1-ba04-2ace953267ac",
+        "f6f6cdb8-da63-4c1f-87f4-4a50a0901edb",
+        "3cf68d42-ff37-4b91-bd13-3f4a4818c415",
+        "dc3a3a9e-28fa-4ad5-89a5-fbcf275bca33",
+        "e987995f-a179-4e3a-a478-c663ef1f500d",
+        "a37bc4b2-3678-4953-ab42-67974442c51f",
+        "a90d132f-5b75-4aae-bcb0-e3e86f5fb1fc"
+    ],
+    "isVendor": true,
+    "metadata": {
+        "createdDate": "2021-02-15T21:04:30.565",
+        "updatedDate": "2021-02-15T21:04:30.565+00:00",
+        "createdByUserId": "9eb67301-6f6e-468f-9b1a-6134dc39a684",
+        "updatedByUserId": "9eb67301-6f6e-468f-9b1a-6134dc39a684"
+    },
+    "addresses": [],
+    "acqUnitIds": [],
+    "agreements": [],
+    "changelogs": [],
+    "interfaces": [
+        "ef556f56-1676-4aa6-9fe5-a2ecd9da5d20"
+    ],
+    "phoneNumbers": [],
+    "paymentMethod": "EFT",
+    "vendorCurrencies": [
+        "GBP"
+    ],
+    "exportToAccounting": false,
+    "subscriptionInterval": 365,
+    "expectedActivationInterval": 14
+}
+----------------------------3----------------------------------
+{
+    "id": "6d363fea-c0e3-4c32-8074-4124b0a2307e",
+    "code": "SRHARR",
+    "name": "HARRASSOWITZ",
+    "urls": [
+        {
+            "value": "http://WWW.HARRASSOWITZ.DE",
+            "categories": [
+                "71a3e461-1777-4a6f-b1cc-d4a856d141ec"
+            ]
+        }
+    ],
+    "taxId": "DE (cont.)",
+    "emails": [
+        {
+            "value": "SERVICE@HARRASSOWITZ.DE",
+            "categories": []
+        }
+    ],
+    "status": "Active",
+    "aliases": [],
+    "erpCode": "323637818",
+    "accounts": [
+        {
+            "name": "491 ATEX-SER-SR",
+            "notes": "CUST CODE:ATEX-SER",
+            "accountNo": "491 ATEX-SER",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-SER-IOP/55911-SR",
+            "accountNo": "TAMU-SER-IOP/55911",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-SER-PRINT/491",
+            "accountNo": "TAMU-SER-PRINT/491",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-SER-ONL/55868",
+            "accountNo": "TAMU-SER-ONL/55868",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-SER-UCP/5600",
+            "accountNo": "TAMU-SER-UCP/5600",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-SER-OUP/55874",
+            "accountNo": "TAMU-SER-OUP/55874",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-SER-EUCLD/55998",
+            "accountNo": "TAMU-SER-EUCLD/55998",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-SER-E&Q/56125",
+            "accountNo": "TAMU-SER-E&Q/56125",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-SER-RSC/55991",
+            "accountNo": "TAMU-SER-RSC/55991",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-SER-PO/55867",
+            "accountNo": "TAMU-SER-PO/55867",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-SER-DB/55870",
+            "accountNo": "TAMU-SER-DB/55870",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-SER-WCL/55872",
+            "accountNo": "TAMU-SER-WCL/55872",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-CUSHING/56370",
+            "accountNo": "TAMU-CUSHING/56370",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-SER-ELSO/56029",
+            "accountNo": "TAMU-SER-ELSO/56029",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-SER-ACS/55910",
+            "accountNo": "TAMU-SER-ACS/55910",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-SER-AIP/56080",
+            "accountNo": "TAMU-SER-AIP/56080",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-SER-APS / 56023",
+            "accountNo": "TAMU-SER-APS / 56023",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-SER-EME/55993",
+            "accountNo": "TAMU-SER-EME/55993",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-SER-PSEL/55873",
+            "accountNo": "TAMU-SER-PSEL/55873",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-SER-DBFL/56064",
+            "accountNo": "TAMU-SER-DBFL/56064",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU93-SER",
+            "accountNo": "TAMU93",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-S-SAGE-NP/56008",
+            "accountNo": "TAMU-S-SAGE-NP/56008",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-SER-CUP/56017",
+            "accountNo": "TAMU-SER-CUP/56017",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-SER-BIOON/55999",
+            "accountNo": "TAMU-SER-BIOON/55999",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-SER-WIL/55904",
+            "accountNo": "TAMU-SER-WIL/55904",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-SER-LWW/55996",
+            "accountNo": "TAMU-SER-LWW/55996",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-SER-SAGE/55997",
+            "accountNo": "TAMU-SER-SAGE/55997",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-S-ELS-EB/55903",
+            "accountNo": "TAMU-S-ELS-EB/55903",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-SER-DUKE/55992",
+            "accountNo": "TAMU-SER-DUKE/55992",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-SER-SPR/56007",
+            "accountNo": "TAMU-SER-SPR/56007",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "TAMU-SER-TAF / 56034",
+            "accountNo": "TAMU-SER-TAF / 56034",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        }
+    ],
+    "contacts": [],
+    "isVendor": true,
+    "language": "en",
+    "metadata": {
+        "createdDate": "2020-04-17T23:15:15.995",
+        "updatedDate": "2021-11-02T18:17:36.698+00:00",
+        "createdByUserId": "9eb67301-6f6e-468f-9b1a-6134dc39a684",
+        "updatedByUserId": "9eb67301-6f6e-468f-9b1a-6134dc39a684"
+    },
+    "addresses": [],
+    "acqUnitIds": [],
+    "agreements": [],
+    "changelogs": [],
+    "interfaces": [],
+    "description": "Serials vendor SERVICE@OTTOSVC.COM       ",
+    "phoneNumbers": [
+        {
+            "language": "en",
+            "isPrimary": true,
+            "categories": [
+                "549d6d85-a51a-4cfc-8cfa-e4d46fb33823",
+                "62042758-5266-472a-a3e9-ea1ca0ccf056",
+                "9491fdad-b97b-45df-9783-337d86abc80f"
+            ],
+            "phoneNumber": "9(011)+49-611-5300"
+        },
+        {
+            "language": "en",
+            "isPrimary": true,
+            "categories": [
+                "549d6d85-a51a-4cfc-8cfa-e4d46fb33823",
+                "62042758-5266-472a-a3e9-ea1ca0ccf056",
+                "9491fdad-b97b-45df-9783-337d86abc80f"
+            ],
+            "phoneNumber": "9(800)348-6886"
+        },
+        {
+            "type": "Fax",
+            "language": "en",
+            "isPrimary": false,
+            "categories": [
+                "549d6d85-a51a-4cfc-8cfa-e4d46fb33823",
+                "62042758-5266-472a-a3e9-ea1ca0ccf056",
+                "9491fdad-b97b-45df-9783-337d86abc80f"
+            ],
+            "phoneNumber": "9(011)+49-611-530 560"
+        },
+        {
+            "type": "Fax",
+            "language": "en",
+            "isPrimary": false,
+            "categories": [
+                "549d6d85-a51a-4cfc-8cfa-e4d46fb33823",
+                "62042758-5266-472a-a3e9-ea1ca0ccf056",
+                "9491fdad-b97b-45df-9783-337d86abc80f"
+            ],
+            "phoneNumber": "9(410)964-3013"
+        },
+        {
+            "language": "en",
+            "isPrimary": true,
+            "categories": [
+                "3c31275e-7ed8-4ec0-9b18-31243461f6ea"
+            ],
+            "phoneNumber": "9(251)342-2929"
+        },
+        {
+            "language": "en",
+            "isPrimary": true,
+            "categories": [
+                "3c31275e-7ed8-4ec0-9b18-31243461f6ea"
+            ],
+            "phoneNumber": "9(800)348-6886"
+        },
+        {
+            "type": "Fax",
+            "language": "en",
+            "isPrimary": false,
+            "categories": [
+                "3c31275e-7ed8-4ec0-9b18-31243461f6ea"
+            ],
+            "phoneNumber": "9(251)342-5732"
+        },
+        {
+            "type": "Fax",
+            "language": "en",
+            "isPrimary": false,
+            "categories": [
+                "3c31275e-7ed8-4ec0-9b18-31243461f6ea"
+            ],
+            "phoneNumber": "9(800)574-5732"
+        }
+    ],
+    "claimingInterval": 90,
+    "vendorCurrencies": [
+        "USD"
+    ],
+    "exportToAccounting": false
+}
+-----------------------------4---------------------------------
+{
+    "id": "382831f9-c680-4b7e-a3ab-daa3022fa4cb",
+    "code": "SRD?",
+    "name": "VENDOR UNKNOWN",
+    "urls": [],
+    "emails": [],
+    "status": "Active",
+    "aliases": [],
+    "accounts": [],
+    "contacts": [],
+    "isVendor": true,
+    "language": "en",
+    "metadata": {
+        "createdDate": "2020-04-17T23:15:14.127",
+        "updatedDate": "2020-04-17T23:15:14.127+0000",
+        "createdByUserId": "9eb67301-6f6e-468f-9b1a-6134dc39a684",
+        "updatedByUserId": "9eb67301-6f6e-468f-9b1a-6134dc39a684"
+    },
+    "addresses": [],
+    "agreements": [],
+    "changelogs": [],
+    "interfaces": [],
+    "description": "Serials vendor    ",
+    "phoneNumbers": [],
+    "claimingInterval": 0,
+    "vendorCurrencies": [
+        "USD"
+    ],
+    "exportToAccounting": false
+}
+------------------------------5--------------------------------
+{
+    "id": "02c0820c-108c-41c4-ab9c-d289877e8dfa",
+    "code": "HRSW",
+    "name": "Harrassowitz",
+    "urls": [],
+    "emails": [],
+    "status": "Active",
+    "aliases": [],
+    "erpCode": "352167317",
+    "accounts": [
+        {
+            "name": "Serials",
+            "accountNo": "Serials -MSL",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        }
+    ],
+    "contacts": [],
+    "isVendor": true,
+    "language": "en",
+    "metadata": {
+        "createdDate": "2020-04-17T23:20:55.984",
+        "updatedDate": "2021-11-02T18:17:52.501+00:00",
+        "createdByUserId": "9eb67301-6f6e-468f-9b1a-6134dc39a684",
+        "updatedByUserId": "9eb67301-6f6e-468f-9b1a-6134dc39a684"
+    },
+    "addresses": [],
+    "acqUnitIds": [],
+    "agreements": [],
+    "changelogs": [],
+    "interfaces": [],
+    "description": "Continuations vendor",
+    "phoneNumbers": [],
+    "claimingInterval": 0,
+    "vendorCurrencies": [],
+    "exportToAccounting": false
+}
+----------------------------6----------------------------------
+{
+    "id": "1a36d83e-526f-48ad-9956-4e341a40fbbb",
+    "code": "SRPRIMEDIA",
+    "name": "EQUIPMENT WATCH",
+    "urls": [],
+    "taxId": "48-1071277",
+    "emails": [
+        {
+            "value": "customersupport@informa.com",
+            "categories": []
+        }
+    ],
+    "status": "Active",
+    "aliases": [],
+    "accounts": [
+        {
+            "name": "144295-1 SR",
+            "notes": "Not in system per Sherry Rudkin, kpamplin 20191029. Active 20040113. eluza",
+            "accountNo": "144295-1",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "inactive",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "144295-2 SR",
+            "notes": "Not in system per Sherry Rudkin, kpamplin 20191029. Active 20040113. eluza",
+            "accountNo": "144295-2",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "inactive",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "300693",
+            "notes": "Closed 20040205. eluza",
+            "accountNo": "300693",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "inactive",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "336625 SR",
+            "notes": "Open 20040518 tcoe",
+            "accountNo": "336625",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        }
+    ],
+    "contacts": [],
+    "isVendor": true,
+    "language": "en",
+    "metadata": {
+        "createdDate": "2020-04-17T23:15:19.248Z",
+        "updatedDate": "2022-07-26T08:06:24.332Z",
+        "createdByUserId": "9eb67301-6f6e-468f-9b1a-6134dc39a684",
+        "updatedByUserId": "9eb67301-6f6e-468f-9b1a-6134dc39a684"
+    },
+    "addresses": [
+        {
+            "city": "CHICAGO",
+            "zipCode": "60673-1246",
+            "language": "en",
+            "isPrimary": true,
+            "categories": [
+                "62042758-5266-472a-a3e9-ea1ca0ccf056"
+            ],
+            "stateRegion": "IL",
+            "addressLine1": "24653 NETWORK PLACE"
+        },
+        {
+            "city": "OVERLAND PARK",
+            "zipCode": "66212",
+            "language": "en",
+            "isPrimary": false,
+            "categories": [
+                "549d6d85-a51a-4cfc-8cfa-e4d46fb33823",
+                "9491fdad-b97b-45df-9783-337d86abc80f",
+                "3c31275e-7ed8-4ec0-9b18-31243461f6ea"
+            ],
+            "stateRegion": "KS",
+            "addressLine1": "9800 METCALF AVE"
+        }
+    ],
+    "acqUnitIds": [],
+    "agreements": [],
+    "changelogs": [],
+    "interfaces": [],
+    "description": "Serials vendor Customersupport_invoice@informa.com   ",
+    "phoneNumbers": [
+        {
+            "language": "en",
+            "isPrimary": true,
+            "categories": [
+                "62042758-5266-472a-a3e9-ea1ca0ccf056"
+            ],
+            "phoneNumber": "9(800)262-1954"
+        },
+        {
+            "language": "en",
+            "isPrimary": true,
+            "categories": [
+                "62042758-5266-472a-a3e9-ea1ca0ccf056"
+            ],
+            "phoneNumber": "9(913)967-1719"
+        },
+        {
+            "type": "Fax",
+            "language": "en",
+            "isPrimary": false,
+            "categories": [
+                "62042758-5266-472a-a3e9-ea1ca0ccf056"
+            ],
+            "phoneNumber": "9(800)633-6219"
+        },
+        {
+            "type": "Fax",
+            "language": "en",
+            "isPrimary": false,
+            "categories": [
+                "62042758-5266-472a-a3e9-ea1ca0ccf056"
+            ],
+            "phoneNumber": "9(913)967-1901"
+        }
+    ],
+    "paymentMethod": "EFT",
+    "claimingInterval": 60,
+    "vendorCurrencies": [
+        "USD"
+    ],
+    "organizationTypes": [],
+    "exportToAccounting": true
+}
+------------------------------7--------------------------------
+{
+    "id": "da29ee41-727a-4372-9472-7818c948f8c7",
+    "code": "ZAWWA$%",
+    "name": "AMERICAN WATER WORKS ASSOCIATION",
+    "urls": [
+        {
+            "value": "https://www.awwa.org/",
+            "categories": [
+                "71a3e461-1777-4a6f-b1cc-d4a856d141ec"
+            ]
+        }
+    ],
+    "emails": [
+        {
+            "value": "service@awwa.org",
+            "categories": []
+        }
+    ],
+    "status": "Active",
+    "aliases": [
+        {
+            "value": "AWWA"
+        }
+    ],
+    "accounts": [
+        {
+            "name": "libraryorders@library.tam",
+            "accountNo": "libraryorders@library.tam",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "123",
+            "accountNo": "123",
+            "acqUnitIds": [],
+            "accountStatus": "Active",
+            "paymentMethod": "EFT"
+        },
+        {
+            "name": "test1",
+            "accountNo": "111111",
+            "acqUnitIds": [],
+            "accountStatus": "Active",
+            "paymentMethod": "EFT"
+        },
+        {
+            "name": "test2",
+            "accountNo": "22222",
+            "acqUnitIds": [],
+            "accountStatus": "Active",
+            "paymentMethod": "EFT"
+        }
+    ],
+    "contacts": [],
+    "isVendor": true,
+    "language": "en",
+    "metadata": {
+        "createdDate": "2020-04-17T23:18:14.585Z",
+        "updatedDate": "2022-08-19T05:57:19.237Z",
+        "createdByUserId": "9eb67301-6f6e-468f-9b1a-6134dc39a684",
+        "updatedByUserId": "9eb67301-6f6e-468f-9b1a-6134dc39a684"
+    },
+    "addresses": [
+        {
+            "city": "DENVER",
+            "country": "USA",
+            "zipCode": "80235",
+            "language": "en",
+            "categories": [
+                "549d6d85-a51a-4cfc-8cfa-e4d46fb33823",
+                "62042758-5266-472a-a3e9-ea1ca0ccf056",
+                "9491fdad-b97b-45df-9783-337d86abc80f",
+                "3c31275e-7ed8-4ec0-9b18-31243461f6ea"
+            ],
+            "stateRegion": "CO",
+            "addressLine1": "6666 W. QUINCY AVE."
+        }
+    ],
+    "acqUnitIds": [],
+    "agreements": [],
+    "changelogs": [],
+    "interfaces": [],
+    "description": "Monographs vendor  custsvc@awwa.org      ",
+    "phoneNumbers": [
+        {
+            "language": "en",
+            "isPrimary": true,
+            "categories": [
+                "549d6d85-a51a-4cfc-8cfa-e4d46fb33823",
+                "62042758-5266-472a-a3e9-ea1ca0ccf056",
+                "9491fdad-b97b-45df-9783-337d86abc80f",
+                "3c31275e-7ed8-4ec0-9b18-31243461f6ea"
+            ],
+            "phoneNumber": "(303) 794-7711"
+        },
+        {
+            "language": "en",
+            "isPrimary": false,
+            "categories": [
+                "549d6d85-a51a-4cfc-8cfa-e4d46fb33823",
+                "62042758-5266-472a-a3e9-ea1ca0ccf056",
+                "9491fdad-b97b-45df-9783-337d86abc80f",
+                "3c31275e-7ed8-4ec0-9b18-31243461f6ea"
+            ],
+            "phoneNumber": "(800) 926-7337"
+        },
+        {
+            "type": "Fax",
+            "language": "en",
+            "isPrimary": false,
+            "categories": [
+                "549d6d85-a51a-4cfc-8cfa-e4d46fb33823",
+                "62042758-5266-472a-a3e9-ea1ca0ccf056",
+                "9491fdad-b97b-45df-9783-337d86abc80f",
+                "3c31275e-7ed8-4ec0-9b18-31243461f6ea"
+            ],
+            "phoneNumber": "(303) 347-0804"
+        }
+    ],
+    "paymentMethod": "EFT",
+    "claimingInterval": 0,
+    "vendorCurrencies": [
+        "USD"
+    ],
+    "organizationTypes": [],
+    "exportToAccounting": true
+}
+-------------------------------8------------------------------------
+{
+    "id": "a58a5dcc-7e60-492f-b795-7a791c0970fe",
+    "code": "SRNHM",
+    "name": "SAN DIEGO NTRL HISTORY MUS",
+    "urls": [],
+    "emails": [],
+    "status": "Active",
+    "aliases": [],
+    "accounts": [],
+    "contacts": [
+        "efd00d9b-8c71-4539-a6dc-9e84f87d3882",
+        "64b31b88-0806-4aff-82ee-16b80e62e464"
+    ],
+    "isVendor": true,
+    "language": "en",
+    "metadata": {
+        "createdDate": "2020-04-17T23:15:18.313",
+        "updatedDate": "2020-04-17T23:15:18.313+0000",
+        "createdByUserId": "9eb67301-6f6e-468f-9b1a-6134dc39a684",
+        "updatedByUserId": "9eb67301-6f6e-468f-9b1a-6134dc39a684"
+    },
+    "addresses": [],
+    "agreements": [],
+    "changelogs": [],
+    "interfaces": [],
+    "description": "Serials vendor",
+    "phoneNumbers": [],
+    "claimingInterval": 60,
+    "vendorCurrencies": [
+        "USD"
+    ],
+    "exportToAccounting": false
+}
+------------------------------------------9----------------------
+{
+    "id": "2e6d8468-0620-475b-a092-045e659a0aaa",
+    "code": "ZHONEWAX$%",
+    "name": "HONEY & WAX BOOKSELLERS",
+    "urls": [
+        {
+            "value": "https://www.honeyandwaxbooks.com/",
+            "categories": [
+                "71a3e461-1777-4a6f-b1cc-d4a856d141ec"
+            ]
+        }
+    ],
+    "emails": [
+        {
+            "value": "info@honeyandwaxbooks.com",
+            "categories": []
+        }
+    ],
+    "status": "Active",
+    "aliases": [
+        {
+            "value": "HONEY AND WAX BOOKSELLERS"
+        }
+    ],
+    "accounts": [
+        {
+            "name": "libraryorders@library.tam",
+            "accountNo": "libraryorders@library.tam",
+            "acqUnitIds": [],
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "548",
+            "accountNo": "548",
+            "acqUnitIds": [],
+            "accountStatus": "Active",
+            "paymentMethod": "EFT"
+        },
+        {
+            "name": "852",
+            "accountNo": "852",
+            "acqUnitIds": [],
+            "accountStatus": "Active",
+            "paymentMethod": "EFT"
+        }
+    ],
+    "contacts": [],
+    "isVendor": true,
+    "language": "en",
+    "metadata": {
+        "createdDate": "2020-04-17T23:18:27.847Z",
+        "updatedDate": "2022-08-08T14:21:29.562Z",
+        "createdByUserId": "9eb67301-6f6e-468f-9b1a-6134dc39a684",
+        "updatedByUserId": "9eb67301-6f6e-468f-9b1a-6134dc39a684"
+    },
+    "addresses": [
+        {
+            "city": "BROOKLYN",
+            "country": "USA",
+            "zipCode": "11215",
+            "language": "en",
+            "categories": [
+                "549d6d85-a51a-4cfc-8cfa-e4d46fb33823",
+                "62042758-5266-472a-a3e9-ea1ca0ccf056",
+                "9491fdad-b97b-45df-9783-337d86abc80f",
+                "3c31275e-7ed8-4ec0-9b18-31243461f6ea"
+            ],
+            "stateRegion": "NY",
+            "addressLine1": "540 PRESIDENT STREET, THIRD FLOOR"
+        }
+    ],
+    "acqUnitIds": [],
+    "agreements": [],
+    "changelogs": [],
+    "interfaces": [],
+    "description": "Monographs vendor  rebecca@honeyandwaxbooks.com      ",
+    "phoneNumbers": [
+        {
+            "language": "en",
+            "isPrimary": true,
+            "categories": [
+                "549d6d85-a51a-4cfc-8cfa-e4d46fb33823",
+                "62042758-5266-472a-a3e9-ea1ca0ccf056",
+                "9491fdad-b97b-45df-9783-337d86abc80f",
+                "3c31275e-7ed8-4ec0-9b18-31243461f6ea"
+            ],
+            "phoneNumber": "(917) 974-2420"
+        }
+    ],
+    "paymentMethod": "EFT",
+    "claimingInterval": 0,
+    "vendorCurrencies": [
+        "USD"
+    ],
+    "organizationTypes": [],
+    "exportToAccounting": true
+}
+-------------------------------10----------------------------------
+{
+    "id": "2d6f2d47-9664-4794-8cd5-4e168bd57384",
+    "code": "SRWEST",
+    "name": "THOMSON WEST",
+    "urls": [],
+    "taxId": "41-1426973",
+    "emails": [
+        {
+            "value": "CUSTOMERSERVICE@THOMSONREUTERS.COM",
+            "categories": []
+        }
+    ],
+    "status": "Active",
+    "aliases": [],
+    "accounts": [
+        {
+            "name": "1000297655 - SR",
+            "notes": "Active. Book subscription. Only one open title on this account, International protection of the environment (PO#192027, Bib 1502354). Other two titles cancelled with 2017 selector review (PO# 189804 & 189805).  kpamplin 20191101",
+            "accountNo": "1000297655",
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "1003337486-SR",
+            "notes": "Active. Internal admin account for 1 user. This is for Westlaw Pro, PO# 270840, Bib 5332756. kpamplin 20191101",
+            "accountNo": "1003337486",
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "1003357533",
+            "notes": "Inactive. kpamplin 20191101 This account will be deactivated after paying Inv. 6038522357. tcoe 20060714",
+            "accountNo": "1003357533",
+            "libraryCode": " ",
+            "accountStatus": "inactive",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "860-015-578 SR",
+            "notes": "Closed 20040205 eluza",
+            "accountNo": "860-015-578",
+            "libraryCode": " ",
+            "accountStatus": "inactive",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        },
+        {
+            "name": "1000647849-SR",
+            "notes": "Active. Print agreement (books, newsletters etc.) & Westlaw next campus research. kpamplin 20191101 Active 20040205 eluza",
+            "accountNo": "1000647849",
+            "libraryCode": " ",
+            "accountStatus": "active",
+            "paymentMethod": "EFT",
+            "libraryEdiCode": " "
+        }
+    ],
+    "contacts": [],
+    "isVendor": true,
+    "language": "en",
+    "metadata": {
+        "createdDate": "2020-04-17T23:15:22.153",
+        "updatedDate": "2020-04-17T23:15:22.153+0000",
+        "createdByUserId": "9eb67301-6f6e-468f-9b1a-6134dc39a684",
+        "updatedByUserId": "9eb67301-6f6e-468f-9b1a-6134dc39a684"
+    },
+    "addresses": [
+        {
+            "city": "ST PAUL",
+            "zipCode": "55164-0833",
+            "language": "en",
+            "categories": [
+                "549d6d85-a51a-4cfc-8cfa-e4d46fb33823",
+                "9491fdad-b97b-45df-9783-337d86abc80f"
+            ],
+            "stateRegion": "MN",
+            "addressLine1": "PO BOX 64833"
+        },
+        {
+            "city": "EAGAN",
+            "zipCode": "55123",
+            "language": "en",
+            "categories": [
+                "3c31275e-7ed8-4ec0-9b18-31243461f6ea"
+            ],
+            "stateRegion": "MN",
+            "addressLine1": "RETURNS - BLDG B 525 WESCOTT RD"
+        },
+        {
+            "city": "CAROL STREAM",
+            "zipCode": "60197-6292",
+            "language": "en",
+            "categories": [
+                "62042758-5266-472a-a3e9-ea1ca0ccf056"
+            ],
+            "stateRegion": "IL",
+            "addressLine1": "WEST PAYMENT CTR PO BOX 6292"
+        },
+        {
+            "city": "EAGAN",
+            "zipCode": "55123",
+            "language": "en",
+            "categories": [
+                "71a3e461-1777-4a6f-b1cc-d4a856d141ec"
+            ],
+            "stateRegion": "MN",
+            "addressLine1": "THOMSON REUTERS CUSTOMER SERVICE 610 OPPERMAN DR."
+        }
+    ],
+    "agreements": [],
+    "changelogs": [],
+    "interfaces": [],
+    "description": "Serials vendor    ",
+    "phoneNumbers": [
+        {
+            "language": "en",
+            "isPrimary": true,
+            "categories": [
+                "549d6d85-a51a-4cfc-8cfa-e4d46fb33823",
+                "9491fdad-b97b-45df-9783-337d86abc80f"
+            ],
+            "phoneNumber": "9(800)328-4880"
+        },
+        {
+            "type": "Fax",
+            "language": "en",
+            "isPrimary": false,
+            "categories": [
+                "549d6d85-a51a-4cfc-8cfa-e4d46fb33823",
+                "9491fdad-b97b-45df-9783-337d86abc80f"
+            ],
+            "phoneNumber": "9(800)340-9378"
+        },
+        {
+            "language": "en",
+            "isPrimary": true,
+            "categories": [
+                "62042758-5266-472a-a3e9-ea1ca0ccf056"
+            ],
+            "phoneNumber": "9(800)328-4880"
+        },
+        {
+            "type": "Fax",
+            "language": "en",
+            "isPrimary": false,
+            "categories": [
+                "62042758-5266-472a-a3e9-ea1ca0ccf056"
+            ],
+            "phoneNumber": "9(800)340-9378"
+        }
+    ],
+    "claimingInterval": 60,
+    "vendorCurrencies": [
+        "USD"
+    ],
+    "exportToAccounting": false
+}
