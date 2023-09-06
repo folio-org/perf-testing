@@ -27,3 +27,18 @@ It creates:
 	fiscalYearCode, rolFiscalYearCode - value must start with uppercase letters and end with a four-digit numeric. Example - FY2020. Must be unique among other fiscal years. Should be changed each time when new FY is created. 
 	number of users for ThreadGroup - depends on data quantity.
 - After script stops run fiscal year rollover for the corresponding year in UI.
+- Before each test run data should be deleted. It can be done directly in the database with next commands:
+
+	truncate table fs09000000_mod_finance_storage.budget cascade;
+	truncate table fs09000000_mod_finance_storage.transaction  cascade;
+	truncate table fs09000000_mod_finance_storage.budget_expense_class cascade;
+	truncate table fs09000000_mod_finance_storage.expense_class  cascade;
+	truncate table fs09000000_mod_finance_storage.fund cascade;
+	truncate table fs09000000_mod_finance_storage.fund_type cascade;
+	truncate table fs09000000_mod_finance_storage.fiscal_year cascade;
+	truncate table fs09000000_mod_finance_storage.ledger cascade;
+	truncate table fs09000000_mod_finance_storage.group_fund_fiscal_year cascade;
+	truncate table fs09000000_mod_orders_storage.purchase_order cascade;
+	truncate table fs09000000_mod_orders_storage.po_line cascade;
+	truncate table fs09000000_mod_orders_storage.titles cascade;
+	truncate table fs09000000_mod_notes.note cascade;
