@@ -5991,15 +5991,6 @@ else {
               <hashTree/>
             </hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DI_POST_data-import_fileDefinitions_{uploadDefinitionId}_files_{fileDefinitionId}" enabled="true">
-              <elementProp name="HTTPsampler.Files" elementType="HTTPFileArgs">
-                <collectionProp name="HTTPFileArgs.files">
-                  <elementProp name="${global_BaseDir}/jmeter-supported-data/${DI_file}" elementType="HTTPFileArg">
-                    <stringProp name="File.path">${global_BaseDir}/jmeter-supported-data/${DI_file}</stringProp>
-                    <stringProp name="File.paramname"></stringProp>
-                    <stringProp name="File.mimetype">application/octet-stream</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </elementProp>
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
