@@ -14,6 +14,13 @@ Incremental harvesting by dates range
 4. untilTime
 5. metadataPrefix
 
+##### In loop counter you should enter the number of loops to harvest the required number of records
+10k-98; 
+25k-250; 
+50k-499; 
+500K-5000; 
+1mln-10000;
+One request according to the oai-mph module setting extracrt 100 records.
 
 ## Modules required to be enabled as a pre-requisite to run JMeter script:
 ##### Backend:
