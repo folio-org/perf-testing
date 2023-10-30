@@ -21,29 +21,29 @@
           </elementProp>
           <elementProp name="HOSTNAME" elementType="Argument">
             <stringProp name="Argument.name">HOSTNAME</stringProp>
-            <stringProp name="Argument.value">${__P(HOSTNAME,okapi-ptf-nla.int.aws.folio.org)}</stringProp>
+            <stringProp name="Argument.value">${__P(HOSTNAME,[hostname])}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">[host-name]</stringProp>
           </elementProp>
           <elementProp name="Origin" elementType="Argument">
             <stringProp name="Argument.name">Origin</stringProp>
-            <stringProp name="Argument.value">${__P(ORIGIN,ptf-nla.int.aws.folio.org)}</stringProp>
+            <stringProp name="Argument.value">${__P(ORIGIN,[hostname])}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">[host-name] without &quot;okapi&quot;</stringProp>
           </elementProp>
           <elementProp name="username" elementType="Argument">
             <stringProp name="Argument.name">username</stringProp>
-            <stringProp name="Argument.value">${__P(username,folio)}</stringProp>
+            <stringProp name="Argument.value">${__P(username,[username])}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="password" elementType="Argument">
             <stringProp name="Argument.name">password</stringProp>
-            <stringProp name="Argument.value">${__P(password,folio)}</stringProp>
+            <stringProp name="Argument.value">${__P(password,[password])}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="tenant" elementType="Argument">
             <stringProp name="Argument.name">tenant</stringProp>
-            <stringProp name="Argument.value">${__P(tenant,fs00001069)}</stringProp>
+            <stringProp name="Argument.value">${__P(tenant,[tenant])}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="Global_duration" elementType="Argument">
@@ -78,7 +78,7 @@
           </elementProp>
           <elementProp name="DI_file" elementType="Argument">
             <stringProp name="Argument.name">DI_file</stringProp>
-            <stringProp name="Argument.value">${__P(DI_file,For_LA_edeposit_updates_1k.mrc-For_LA_edeposit_updates_5k.mrc-For_LA_edeposit_updates_10k.mrc-For_DISC_HRID_match_1.mrc-For_DISC_HRID_match_12.mrc-For_DISC_HRID_match_251.mrc-For_DISC_HRID_match_1k.mrc-For_DISC_NewNonEdepositRecords_5.mrc-NewEDepositRecords_13.mrc-NewEDepositRecords_54.mrc-NewEDepositRecords_74.mrc-NewEDepositRecords_77.mrc-NewEDepositRecords_100.mrc-NewEDepositRecords_200.mrc)}</stringProp>
+            <stringProp name="Argument.value">${__P(DI_file,[File1.mrc]-[File2.mrc])}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">For_DISC_HRID_match.mrc-For_DISC_HRID_match2.mrc-For_DISC_HRID_match-3.mrc</stringProp>
           </elementProp>
@@ -272,51 +272,6 @@
           <ResultAction guiclass="ResultActionGui" testclass="ResultAction" testname="Result Status Action Handler" enabled="true">
             <intProp name="OnError.action">2</intProp>
           </ResultAction>
-          <hashTree/>
-        </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET bl-users/_self" enabled="true">
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
-            <collectionProp name="Arguments.arguments"/>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain"></stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.protocol"></stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/bl-users/_self</stringProp>
-          <stringProp name="HTTPSampler.method">GET</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree>
-          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
-            <collectionProp name="HeaderManager.headers">
-              <elementProp name="x-okapi-token" elementType="Header">
-                <stringProp name="Header.name">x-okapi-token</stringProp>
-                <stringProp name="Header.value">${x-okapi-token}</stringProp>
-              </elementProp>
-            </collectionProp>
-          </HeaderManager>
-          <hashTree/>
-          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="true">
-            <stringProp name="JSONPostProcessor.referenceNames">current_userID;servicePointId</stringProp>
-            <stringProp name="JSONPostProcessor.jsonPathExprs">$.user.id;$..defaultServicePointId</stringProp>
-            <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-            <stringProp name="JSONPostProcessor.defaultValues">not_found;not_found</stringProp>
-          </JSONPostProcessor>
-          <hashTree/>
-          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
-            <stringProp name="cacheKey">true</stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="script">props.put(&quot;current_userID&quot;, vars.get(&quot;current_userID&quot;));
-props.put(&quot;servicePointId&quot;, vars.get(&quot;servicePointId&quot;));</stringProp>
-            <stringProp name="scriptLanguage">groovy</stringProp>
-          </JSR223PostProcessor>
           <hashTree/>
         </hashTree>
       </hashTree>
@@ -920,15 +875,6 @@ else {
               <hashTree/>
             </hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DI_POST_data-import_fileDefinitions_{uploadDefinitionId}_files_{fileDefinitionId}" enabled="true">
-              <elementProp name="HTTPsampler.Files" elementType="HTTPFileArgs">
-                <collectionProp name="HTTPFileArgs.files">
-                  <elementProp name="${global_BaseDir}/jmeter-supported-data/${DI_file}" elementType="HTTPFileArg">
-                    <stringProp name="File.path">${global_BaseDir}/jmeter-supported-data/${DI_file}</stringProp>
-                    <stringProp name="File.paramname"></stringProp>
-                    <stringProp name="File.mimetype">application/octet-stream</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </elementProp>
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
