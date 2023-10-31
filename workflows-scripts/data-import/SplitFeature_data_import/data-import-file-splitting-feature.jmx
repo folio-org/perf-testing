@@ -107,12 +107,6 @@
             <stringProp name="Argument.value">0</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="bucket_ARN" elementType="Argument">
-            <stringProp name="Argument.name">bucket_ARN</stringProp>
-            <stringProp name="Argument.value">${__P(bucket_ARN,[bucket_ARN])}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-            <stringProp name="Argument.desc">Bucket ARN here Pattern: data-import-folio-eis-us-east-1-int-tenant.s3.us-east-1.amazonaws.com</stringProp>
-          </elementProp>
         </collectionProp>
       </Arguments>
       <hashTree/>
@@ -647,6 +641,16 @@ else {
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
                 <stringProp name="JSONPostProcessor.defaultValues">uploadUrl_not_found;uploadKey_not_found;uploadId_not_found</stringProp>
               </JSONPostProcessor>
+              <hashTree/>
+              <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="RegEx_bucket_ARN" enabled="true">
+                <stringProp name="RegexExtractor.useHeaders">true</stringProp>
+                <stringProp name="RegexExtractor.refname">bucket_ARN</stringProp>
+                <stringProp name="RegexExtractor.regex">https:\/\/([^\/]+)\/[^&quot;]+</stringProp>
+                <stringProp name="RegexExtractor.template">$1$</stringProp>
+                <stringProp name="RegexExtractor.default">bucket_ARN_NOT_FOUND</stringProp>
+                <stringProp name="RegexExtractor.match_number">1</stringProp>
+                <stringProp name="Sample.scope">all</stringProp>
+              </RegexExtractor>
               <hashTree/>
             </hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DI_GET_ data-import_fileExtensions" enabled="true">
