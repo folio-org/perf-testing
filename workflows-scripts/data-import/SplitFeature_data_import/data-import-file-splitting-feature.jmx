@@ -107,6 +107,12 @@
             <stringProp name="Argument.value">0</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="bucket_ARN" elementType="Argument">
+            <stringProp name="Argument.name">bucket_ARN</stringProp>
+            <stringProp name="Argument.value">${__P(bucket_ARN,[bucket_ARN])}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">Bucket ARN here Pattern: data-import-folio-eis-us-east-1-int-tenant.s3.us-east-1.amazonaws.com</stringProp>
+          </elementProp>
         </collectionProp>
       </Arguments>
       <hashTree/>
@@ -802,7 +808,7 @@ else {
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
-              <stringProp name="HTTPSampler.domain">data-import-folio-eis-us-east-1-int-tenant.s3.us-east-1.amazonaws.com</stringProp>
+              <stringProp name="HTTPSampler.domain">${bucket_ARN}</stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
