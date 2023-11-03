@@ -43,6 +43,7 @@
             <stringProp name="Argument.name">oai_pmh_loops</stringProp>
             <stringProp name="Argument.value">${__P(oai_pmh_loops,[oai_pmh_loops])}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">10k - 98; 50k-499; 500K-5000; 1mln-10000 </stringProp>
           </elementProp>
         </collectionProp>
       </Arguments>
