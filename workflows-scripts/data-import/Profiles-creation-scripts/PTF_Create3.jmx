@@ -1,0 +1,1460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.0 r1840935">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="PTF-Create-2" enabled="true">
+      <stringProp name="TestPlan.comments">This script was created to monitor inventory records</stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">true</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+    </TestPlan>
+    <hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="global_BaseDir" elementType="Argument">
+            <stringProp name="Argument.name">global_BaseDir</stringProp>
+            <stringProp name="Argument.value">${__BeanShell(import org.apache.jmeter.services.FileServer; FileServer.getFileServer().getBaseDir();)}${__BeanShell(File.separator,)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="HOSTNAME" elementType="Argument">
+            <stringProp name="Argument.name">HOSTNAME</stringProp>
+            <stringProp name="Argument.value">${__P(HOSTNAME,[])}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">[host-name]</stringProp>
+          </elementProp>
+          <elementProp name="Origin" elementType="Argument">
+            <stringProp name="Argument.name">Origin</stringProp>
+            <stringProp name="Argument.value">${__P(ORIGIN,[])}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">[host-name] without &quot;okapi&quot;</stringProp>
+          </elementProp>
+          <elementProp name="username" elementType="Argument">
+            <stringProp name="Argument.name">username</stringProp>
+            <stringProp name="Argument.value">${__P(username,[] )}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="password" elementType="Argument">
+            <stringProp name="Argument.name">password</stringProp>
+            <stringProp name="Argument.value">${__P(password,[])}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="tenant" elementType="Argument">
+            <stringProp name="Argument.name">tenant</stringProp>
+            <stringProp name="Argument.value">${__P(tenant,[])}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="Global_duration" elementType="Argument">
+            <stringProp name="Argument.name">Global_duration</stringProp>
+            <stringProp name="Argument.value">${__P(Global_duration, 1800000)}</stringProp>
+            <stringProp name="Argument.desc">Default duration | 1800 sec</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="new_progress" elementType="Argument">
+            <stringProp name="Argument.name">new_progress</stringProp>
+            <stringProp name="Argument.value">0</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="job_progress" elementType="Argument">
+            <stringProp name="Argument.name">job_progress</stringProp>
+            <stringProp name="Argument.value">0</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="noUpdateTime" elementType="Argument">
+            <stringProp name="Argument.name">noUpdateTime</stringProp>
+            <stringProp name="Argument.value">0</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="loops" elementType="Argument">
+            <stringProp name="Argument.name">loops</stringProp>
+            <stringProp name="Argument.value">${__P(loops, 1)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="rampup" elementType="Argument">
+            <stringProp name="Argument.name">rampup</stringProp>
+            <stringProp name="Argument.value">${__P(rampup, 1)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="vusers" elementType="Argument">
+            <stringProp name="Argument.name">vusers</stringProp>
+            <stringProp name="Argument.value">${__P(vusers, 1)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
+        <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+          <collectionProp name="Arguments.arguments"/>
+        </elementProp>
+        <stringProp name="HTTPSampler.domain">${HOSTNAME}</stringProp>
+        <stringProp name="HTTPSampler.port">443</stringProp>
+        <stringProp name="HTTPSampler.protocol">https</stringProp>
+        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+        <stringProp name="HTTPSampler.path"></stringProp>
+        <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+        <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+        <stringProp name="HTTPSampler.response_timeout"></stringProp>
+      </ConfigTestElement>
+      <hashTree/>
+      <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
+        <collectionProp name="CookieManager.cookies"/>
+        <boolProp name="CookieManager.clearEachIteration">true</boolProp>
+      </CookieManager>
+      <hashTree/>
+      <CacheManager guiclass="CacheManagerGui" testclass="CacheManager" testname="HTTP Cache Manager" enabled="true">
+        <boolProp name="clearEachIteration">true</boolProp>
+        <boolProp name="useExpires">false</boolProp>
+        <boolProp name="CacheManager.controlledByThread">false</boolProp>
+      </CacheManager>
+      <hashTree/>
+      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
+        <collectionProp name="HeaderManager.headers">
+          <elementProp name="sec-ch-ua" elementType="Header">
+            <stringProp name="Header.name">sec-ch-ua</stringProp>
+            <stringProp name="Header.value">&quot;Google Chrome&quot;;v=&quot;111&quot;, &quot;Not(A:Brand&quot;;v=&quot;8&quot;, &quot;Chromium&quot;;v=&quot;111&quot;</stringProp>
+          </elementProp>
+          <elementProp name="sec-ch-ua-mobile" elementType="Header">
+            <stringProp name="Header.name">sec-ch-ua-mobile</stringProp>
+            <stringProp name="Header.value">?0</stringProp>
+          </elementProp>
+          <elementProp name="sec-ch-ua-platform" elementType="Header">
+            <stringProp name="Header.name">sec-ch-ua-platform</stringProp>
+            <stringProp name="Header.value">&quot;Windows&quot;</stringProp>
+          </elementProp>
+          <elementProp name="User-Agent" elementType="Header">
+            <stringProp name="Header.name">User-Agent</stringProp>
+            <stringProp name="Header.value">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36</stringProp>
+          </elementProp>
+          <elementProp name="Accept-Language" elementType="Header">
+            <stringProp name="Header.name">Accept-Language</stringProp>
+            <stringProp name="Header.value">en-US</stringProp>
+          </elementProp>
+          <elementProp name="Sec-Fetch-Site" elementType="Header">
+            <stringProp name="Header.name">Sec-Fetch-Site</stringProp>
+            <stringProp name="Header.value">same-site</stringProp>
+          </elementProp>
+          <elementProp name="Sec-Fetch-Mode" elementType="Header">
+            <stringProp name="Header.name">Sec-Fetch-Mode</stringProp>
+            <stringProp name="Header.value">cors</stringProp>
+          </elementProp>
+          <elementProp name="Sec-Fetch-Dest" elementType="Header">
+            <stringProp name="Header.name">Sec-Fetch-Dest</stringProp>
+            <stringProp name="Header.value">empty</stringProp>
+          </elementProp>
+          <elementProp name="Accept-Encoding" elementType="Header">
+            <stringProp name="Header.name">Accept-Encoding</stringProp>
+            <stringProp name="Header.value">gzip, deflate, br</stringProp>
+          </elementProp>
+          <elementProp name="X-Okapi-Tenant" elementType="Header">
+            <stringProp name="Header.name">X-Okapi-Tenant</stringProp>
+            <stringProp name="Header.value">${tenant}</stringProp>
+          </elementProp>
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">Content-Type</stringProp>
+            <stringProp name="Header.value">application/json</stringProp>
+          </elementProp>
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">Accept</stringProp>
+            <stringProp name="Header.value">application/json</stringProp>
+          </elementProp>
+        </collectionProp>
+      </HeaderManager>
+      <hashTree/>
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="Login" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </SetupThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="FOLIO: Login" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&quot;username&quot;:&quot;${username}&quot;,&quot;password&quot;:&quot;${password}&quot;}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/authn/login</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="Content-Type" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+              <elementProp name="Accept" elementType="Header">
+                <stringProp name="Header.name">Accept</stringProp>
+                <stringProp name="Header.value">*/*</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - 201" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49587">201</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor - x-okapi-token" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">true</stringProp>
+            <stringProp name="RegexExtractor.refname">x-okapi-token</stringProp>
+            <stringProp name="RegexExtractor.regex">x-okapi-token: (.+)</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default"></stringProp>
+            <stringProp name="RegexExtractor.match_number">1</stringProp>
+          </RegexExtractor>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Save to properties" enabled="true">
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="script">props.put(&quot;x-okapi-token&quot;, vars.get(&quot;x-okapi-token&quot;));</stringProp>
+            <stringProp name="scriptLanguage">groovy</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET bl-users/_self" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/bl-users/_self</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="x-okapi-token" elementType="Header">
+                <stringProp name="Header.name">x-okapi-token</stringProp>
+                <stringProp name="Header.value">${x-okapi-token}</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="true">
+            <stringProp name="JSONPostProcessor.referenceNames">current_user_id</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.user.id</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="script">props.put(&quot;current_user_id&quot;, vars.get(&quot;current_user_id&quot;));</stringProp>
+            <stringProp name="scriptLanguage">groovy</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="PTF - Create 3 (the same as 2) profile" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">${loops}</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${vusers}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${rampup}</stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">${Global_duration}</stringProp>
+        <stringProp name="ThreadGroup.delay">0</stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="X-Okapi-Token" elementType="Header">
+              <stringProp name="Header.name">X-Okapi-Token</stringProp>
+              <stringProp name="Header.value">${__P(x-okapi-token)}</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree/>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Create instance Field mapping profiles" enabled="true">
+          <boolProp name="TransactionController.includeTimers">false</boolProp>
+          <boolProp name="TransactionController.parent">false</boolProp>
+        </TransactionController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET/instance-statuses" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="limit" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">1000</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">limit</stringProp>
+                </elementProp>
+                <elementProp name="query" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">cql.allRecords=1%20sortby%20name</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">query</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">instance-statuses</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor instanceStatuses_id" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">instanceStatuses_id</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.instanceStatuses.[0].id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor instanceStatuses_name" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">instanceStatuses_name</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.instanceStatuses.[0].name</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON Assertion instanceStatuses_id" enabled="true">
+              <stringProp name="JSON_PATH">$.instanceStatuses.[0].id</stringProp>
+              <stringProp name="EXPECTED_VALUE"></stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON Assertion instanceStatuses_name" enabled="true">
+              <stringProp name="JSON_PATH">$.instanceStatuses.[0].name</stringProp>
+              <stringProp name="EXPECTED_VALUE"></stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET/statistical-codes" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="limit" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">1000</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">limit</stringProp>
+                </elementProp>
+                <elementProp name="query" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">cql.allRecords=1%20sortby%20name</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">query</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">statistical-codes</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor statisticalCodes_name" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">statisticalCodes_name</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.statisticalCodes.[0].name</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor statisticalCodes_id" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">statisticalCodes_id</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.statisticalCodes.[0].id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor statisticalCodeTypeId" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">statisticalCodeTypeId</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.statisticalCodes.[0].statisticalCodeTypeId</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor statisticalCodes_code" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">statisticalCodes_code</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.statisticalCodes.[0].code</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET/statistical-code-types" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="limit" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">1000</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">limit</stringProp>
+                </elementProp>
+                <elementProp name="query" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">cql.allRecords=1%20sortby%20name</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">query</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">statistical-code-types</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor statisticalCodeTypes_name" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">statisticalCodeTypes_name</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.statisticalCodeTypes.[?(@.id == &quot;${statisticalCodeTypeId}&quot;)].name</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST/mappingProfiles" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&quot;profile&quot;:{&quot;name&quot;:&quot;PTF - Create instance 2(test)&quot;,&quot;incomingRecordType&quot;:&quot;MARC_BIBLIOGRAPHIC&quot;,&quot;existingRecordType&quot;:&quot;INSTANCE&quot;,&quot;description&quot;:&quot;&quot;,&quot;mappingDetails&quot;:{&quot;name&quot;:&quot;instance&quot;,&quot;recordType&quot;:&quot;INSTANCE&quot;,&quot;mappingFields&quot;:[{&quot;name&quot;:&quot;discoverySuppress&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;instance.discoverySuppress&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[],&quot;booleanFieldAction&quot;:null},{&quot;name&quot;:&quot;staffSuppress&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;instance.staffSuppress&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;previouslyHeld&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;instance.previouslyHeld&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;hrid&quot;,&quot;enabled&quot;:false,&quot;path&quot;:&quot;instance.hrid&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;source&quot;,&quot;enabled&quot;:false,&quot;path&quot;:&quot;instance.source&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;catalogedDate&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;instance.catalogedDate&quot;,&quot;value&quot;:&quot;###TODAY###&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;statusId&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;instance.statusId&quot;,&quot;value&quot;:&quot;\&quot;${instanceStatuses_name} \&quot;&quot;,&quot;subfields&quot;:[],&quot;acceptedValues&quot;:{&quot;${instanceStatuses_id}&quot;:&quot;${instanceStatuses_name} &quot;}},{&quot;name&quot;:&quot;modeOfIssuanceId&quot;,&quot;enabled&quot;:false,&quot;path&quot;:&quot;instance.modeOfIssuanceId&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;statisticalCodeIds&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;instance.statisticalCodeIds[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[{&quot;order&quot;:0,&quot;path&quot;:&quot;instance.statisticalCodeIds[]&quot;,&quot;fields&quot;:[{&quot;name&quot;:&quot;statisticalCodeId&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;instance.statisticalCodeIds[]&quot;,&quot;value&quot;:&quot;\&quot;${statisticalCodeTypes_name}: ${statisticalCodes_code} - ${statisticalCodes_name}\&quot;&quot;,&quot;acceptedValues&quot;:{&quot;${statisticalCodes_id}&quot;:&quot;${statisticalCodeTypes_name}: ${statisticalCodes_code} - ${statisticalCodes_name}&quot;}}]}],&quot;repeatableFieldAction&quot;:&quot;EXTEND_EXISTING&quot;},{&quot;name&quot;:&quot;administrativeNotes&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;instance.administrativeNotes[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;title&quot;,&quot;enabled&quot;:false,&quot;path&quot;:&quot;instance.title&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;alternativeTitles&quot;,&quot;enabled&quot;:false,&quot;path&quot;:&quot;instance.alternativeTitles[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;indexTitle&quot;,&quot;enabled&quot;:false,&quot;path&quot;:&quot;instance.indexTitle&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;series&quot;,&quot;enabled&quot;:false,&quot;path&quot;:&quot;instance.series[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;precedingTitles&quot;,&quot;enabled&quot;:false,&quot;path&quot;:&quot;instance.precedingTitles[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;succeedingTitles&quot;,&quot;enabled&quot;:false,&quot;path&quot;:&quot;instance.succeedingTitles[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;identifiers&quot;,&quot;enabled&quot;:false,&quot;path&quot;:&quot;instance.identifiers[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;contributors&quot;,&quot;enabled&quot;:false,&quot;path&quot;:&quot;instance.contributors[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;publication&quot;,&quot;enabled&quot;:false,&quot;path&quot;:&quot;instance.publication[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;editions&quot;,&quot;enabled&quot;:false,&quot;path&quot;:&quot;instance.editions[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;physicalDescriptions&quot;,&quot;enabled&quot;:false,&quot;path&quot;:&quot;instance.physicalDescriptions[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;instanceTypeId&quot;,&quot;enabled&quot;:false,&quot;path&quot;:&quot;instance.instanceTypeId&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;natureOfContentTermIds&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;instance.natureOfContentTermIds[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;instanceFormatIds&quot;,&quot;enabled&quot;:false,&quot;path&quot;:&quot;instance.instanceFormatIds[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;languages&quot;,&quot;enabled&quot;:false,&quot;path&quot;:&quot;instance.languages[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;publicationFrequency&quot;,&quot;enabled&quot;:false,&quot;path&quot;:&quot;instance.publicationFrequency[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;publicationRange&quot;,&quot;enabled&quot;:false,&quot;path&quot;:&quot;instance.publicationRange[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;notes&quot;,&quot;enabled&quot;:false,&quot;path&quot;:&quot;instance.notes[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;electronicAccess&quot;,&quot;enabled&quot;:false,&quot;path&quot;:&quot;instance.electronicAccess[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;subjects&quot;,&quot;enabled&quot;:false,&quot;path&quot;:&quot;instance.subjects[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;classifications&quot;,&quot;enabled&quot;:false,&quot;path&quot;:&quot;instance.classifications[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;parentInstances&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;instance.parentInstances[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;childInstances&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;instance.childInstances[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]}]}},&quot;addedRelations&quot;:[],&quot;deletedRelations&quot;:[]}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">data-import-profiles/mappingProfiles</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor instance_mappingProfiles_id" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">instance_mappingProfiles_id</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="script">props.put(&quot;instance_mappingProfiles_id&quot;, vars.get(&quot;instance_mappingProfiles_id&quot;));</stringProp>
+              <stringProp name="scriptLanguage">groovy</stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Create holding Field mapping profiles" enabled="true">
+          <boolProp name="TransactionController.includeTimers">false</boolProp>
+          <boolProp name="TransactionController.parent">false</boolProp>
+        </TransactionController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET/holdings-types" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="limit" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">1000</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">limit</stringProp>
+                </elementProp>
+                <elementProp name="query" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">cql.allRecords=1%20sortby%20name</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">query</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">holdings-types</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor holdingsType_id" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">holdingsType_id</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.holdingsTypes.[0]..id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor holdingsType_name" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">holdingsType_name</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.holdingsTypes.[0]..name</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON Assertion iholdingsType_id" enabled="true">
+              <stringProp name="JSON_PATH">$.holdingsTypes.[0]..id</stringProp>
+              <stringProp name="EXPECTED_VALUE"></stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON Assertion holdingsType_name" enabled="true">
+              <stringProp name="JSON_PATH">$.holdingsTypes.[0]..name</stringProp>
+              <stringProp name="EXPECTED_VALUE"></stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET/locations" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="limit" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">1000</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">limit</stringProp>
+                </elementProp>
+                <elementProp name="query" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">cql.allRecords=1%20sortby%20name</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">query</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">locations</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor locations_id" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">locations_id</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.locations.[0]..id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor locations_name" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">locations_name</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.locations.[0]..name</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor locations_code" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">locations_code</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.locations.[0]..code</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET/call-number-types" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="limit" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">1000</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">limit</stringProp>
+                </elementProp>
+                <elementProp name="query" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">cql.allRecords=1%20sortby%20name</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">query</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">call-number-types</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor callNumberTypes_name" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">callNumberTypes_name</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.callNumberTypes.[0]..name</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor callNumberTypes_id" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">callNumberTypes_id</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.callNumberTypes.[0]..id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET/ill-policies" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="limit" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">1000</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">limit</stringProp>
+                </elementProp>
+                <elementProp name="query" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">cql.allRecords=1%20sortby%20name</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">query</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">ill-policies</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor illPolicies_id" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">illPolicies_id</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.illPolicies.[0]..id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor illPolicies_name" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">illPolicies_name</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.illPolicies.[0]..name</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST/mappingProfiles" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&quot;profile&quot;:{&quot;name&quot;:&quot;PTF - Create holdings 2(test)&quot;,&quot;incomingRecordType&quot;:&quot;MARC_BIBLIOGRAPHIC&quot;,&quot;existingRecordType&quot;:&quot;HOLDINGS&quot;,&quot;description&quot;:&quot;&quot;,&quot;mappingDetails&quot;:{&quot;name&quot;:&quot;holdings&quot;,&quot;recordType&quot;:&quot;HOLDINGS&quot;,&quot;mappingFields&quot;:[{&quot;name&quot;:&quot;discoverySuppress&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;holdings.discoverySuppress&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;hrid&quot;,&quot;enabled&quot;:false,&quot;path&quot;:&quot;holdings.discoverySuppress&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;formerIds&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;holdings.formerIds[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;holdingsTypeId&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;holdings.holdingsTypeId&quot;,&quot;value&quot;:&quot;\&quot;${holdingsType_name}\&quot;&quot;,&quot;subfields&quot;:[],&quot;acceptedValues&quot;:{&quot;${holdingsType_id}&quot;:&quot;${holdingsType_name}&quot;}},{&quot;name&quot;:&quot;statisticalCodeIds&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;holdings.statisticalCodeIds[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;administrativeNotes&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;holdings.administrativeNotes[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;permanentLocationId&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;holdings.permanentLocationId&quot;,&quot;value&quot;:&quot;\&quot;${locations_code}\&quot;&quot;,&quot;subfields&quot;:[],&quot;acceptedValues&quot;:{&quot;${locations_id}&quot;:&quot;${locations_name}&quot;}},{&quot;name&quot;:&quot;temporaryLocationId&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;holdings.temporaryLocationId&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[],&quot;acceptedValues&quot;:{&quot;${locations_id}&quot;:&quot;${locations_name}&quot;}},{&quot;name&quot;:&quot;shelvingOrder&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;holdings.shelvingOrder&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;shelvingTitle&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;holdings.shelvingTitle&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;copyNumber&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;holdings.copyNumber&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;callNumberTypeId&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;holdings.callNumberTypeId&quot;,&quot;value&quot;:&quot;\&quot;${callNumberTypes_name}\&quot;&quot;,&quot;subfields&quot;:[],&quot;acceptedValues&quot;:{&quot;${callNumberTypes_id}&quot;:&quot;${callNumberTypes_name}&quot;}},{&quot;name&quot;:&quot;callNumberPrefix&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;holdings.callNumberPrefix&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;callNumber&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;holdings.callNumber&quot;,&quot;value&quot;:&quot;050$a \&quot; \&quot; 050$b&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;callNumberSuffix&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;holdings.callNumberSuffix&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;numberOfItems&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;holdings.numberOfItems&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;holdingsStatements&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;holdings.holdingsStatements[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;holdingsStatementsForSupplements&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;holdings.holdingsStatementsForSupplements[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;holdingsStatementsForIndexes&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;holdings.holdingsStatementsForIndexes[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;illPolicyId&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;holdings.illPolicyId&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[],&quot;acceptedValues&quot;:{&quot;${illPolicies_id}&quot;:&quot;${illPolicies_name}&quot;}},{&quot;name&quot;:&quot;digitizationPolicy&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;holdings.digitizationPolicy&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;retentionPolicy&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;holdings.retentionPolicy&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;notes&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;holdings.notes[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;electronicAccess&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;holdings.electronicAccess[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;receivingHistory.entries&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;holdings.receivingHistory.entries[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]}]}},&quot;addedRelations&quot;:[],&quot;deletedRelations&quot;:[]}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">data-import-profiles/mappingProfiles</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor holding_mappingProfiles_id" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">holding_mappingProfiles_id</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="script">props.put(&quot;holding_mappingProfiles_id&quot;, vars.get(&quot;holding_mappingProfiles_id&quot;));</stringProp>
+              <stringProp name="scriptLanguage">groovy</stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Create item Field mapping profiles" enabled="true">
+          <boolProp name="TransactionController.includeTimers">false</boolProp>
+          <boolProp name="TransactionController.parent">false</boolProp>
+        </TransactionController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET/material-types" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="limit" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">1000</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">limit</stringProp>
+                </elementProp>
+                <elementProp name="query" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">cql.allRecords=1%20sortby%20name</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">query</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">material-types</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor mtypes_id" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">mtypes_id</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.mtypes.[0]..id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor mtypes_name" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">mtypes_name</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.mtypes.[0]..name</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON Assertion mtypes_id" enabled="true">
+              <stringProp name="JSON_PATH">$.mtypes.[0]..id</stringProp>
+              <stringProp name="EXPECTED_VALUE"></stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON Assertion mtypes_name" enabled="true">
+              <stringProp name="JSON_PATH">$.mtypes.[0]..name</stringProp>
+              <stringProp name="EXPECTED_VALUE"></stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET/locations" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="limit" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">1000</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">limit</stringProp>
+                </elementProp>
+                <elementProp name="query" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">cql.allRecords=1%20sortby%20name</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">query</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">locations</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor locations_id" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">locations_id</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.locations.[0]..id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor locations_name" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">locations_name</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.locations.[0]..name</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor locations_code" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">locations_code</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.locations.[0]..code</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET/call-number-types" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="limit" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">1000</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">limit</stringProp>
+                </elementProp>
+                <elementProp name="query" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">cql.allRecords=1%20sortby%20name</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">query</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">call-number-types</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor callNumberTypes_name" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">callNumberTypes_name</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.callNumberTypes.[0]..name</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor callNumberTypes_id" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">callNumberTypes_id</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.callNumberTypes.[0]..id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET/loan-types" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="limit" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">1000</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">limit</stringProp>
+                </elementProp>
+                <elementProp name="query" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">cql.allRecords=1%20sortby%20name</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">query</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">loan-types</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor loantypes_id" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">loantypes_id</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.loantypes.[0]..id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor loantypes_name" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">loantypes_name</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.loantypes.[0]..name</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET/item-note-types" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="limit" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">1000</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">limit</stringProp>
+                </elementProp>
+                <elementProp name="query" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">cql.allRecords=1%20sortby%20name</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">query</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">item-note-types</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor itemNoteTypes_id" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">itemNoteTypes_id</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.itemNoteTypes.[0]..id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor itemNoteTypes_name" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">itemNoteTypes_name</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.itemNoteTypes.[0]..name</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET/item-damaged-statuses" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="limit" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">1000</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">limit</stringProp>
+                </elementProp>
+                <elementProp name="query" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">cql.allRecords=1%20sortby%20name</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">query</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">item-damaged-statuses</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor itemDamageStatuses_id" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">itemDamageStatuses_id</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.itemDamageStatuses.[0]..id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor itemDamageStatuses_name" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">itemDamageStatuses_name</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.itemDamageStatuses.[0]..name</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST/mappingProfiles" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&quot;profile&quot;:{&quot;name&quot;:&quot;PTF - Create item 2(test)&quot;,&quot;incomingRecordType&quot;:&quot;MARC_BIBLIOGRAPHIC&quot;,&quot;existingRecordType&quot;:&quot;ITEM&quot;,&quot;description&quot;:&quot;&quot;,&quot;mappingDetails&quot;:{&quot;name&quot;:&quot;item&quot;,&quot;recordType&quot;:&quot;ITEM&quot;,&quot;mappingFields&quot;:[{&quot;name&quot;:&quot;discoverySuppress&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.discoverySuppress&quot;,&quot;value&quot;:null,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;hrid&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.hrid&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;barcode&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.barcode&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;accessionNumber&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.accessionNumber&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;itemIdentifier&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.itemIdentifier&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;formerIds&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.formerIds[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;statisticalCodeIds&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.statisticalCodeIds[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;administrativeNotes&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.administrativeNotes[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;materialType.id&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.materialType.id&quot;,&quot;value&quot;:&quot;\&quot;${mtypes_name}\&quot;&quot;,&quot;subfields&quot;:[],&quot;acceptedValues&quot;:{&quot;${mtypes_id}&quot;:&quot;${mtypes_name}&quot;}},{&quot;name&quot;:&quot;copyNumber&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.copyNumber&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;itemLevelCallNumberTypeId&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.itemLevelCallNumberTypeId&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[],&quot;acceptedValues&quot;:{&quot;${callNumberTypes_id}&quot;:&quot;${callNumberTypes_name}&quot;}},{&quot;name&quot;:&quot;itemLevelCallNumberPrefix&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.itemLevelCallNumberPrefix&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;itemLevelCallNumber&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.itemLevelCallNumber&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;itemLevelCallNumberSuffix&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.itemLevelCallNumberSuffix&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;numberOfPieces&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.numberOfPieces&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;descriptionOfPieces&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.descriptionOfPieces&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;enumeration&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.enumeration&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;chronology&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.chronology&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;volume&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.volume&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;yearCaption&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.yearCaption[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;numberOfMissingPieces&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.numberOfMissingPieces&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;missingPieces&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.missingPieces&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;missingPiecesDate&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.missingPiecesDate&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;itemDamagedStatusId&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.itemDamagedStatusId&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[],&quot;acceptedValues&quot;:{&quot;${itemDamageStatuses_id}&quot;:&quot;${itemDamageStatuses_name}&quot;}},{&quot;name&quot;:&quot;itemDamagedStatusDate&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.itemDamagedStatusDate&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;notes&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.notes[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[{&quot;order&quot;:0,&quot;path&quot;:&quot;item.notes[]&quot;,&quot;fields&quot;:[{&quot;name&quot;:&quot;itemNoteTypeId&quot;,&quot;enabled&quot;:true,&quot;required&quot;:true,&quot;path&quot;:&quot;item.notes[].itemNoteTypeId&quot;,&quot;value&quot;:&quot;\&quot;${itemNoteTypes_name}\&quot;&quot;,&quot;acceptedValues&quot;:{&quot;${itemNoteTypes_id}&quot;:&quot;${itemNoteTypes_name}&quot;}},{&quot;name&quot;:&quot;note&quot;,&quot;enabled&quot;:true,&quot;required&quot;:true,&quot;path&quot;:&quot;item.notes[].note&quot;,&quot;value&quot;:&quot;\&quot;Smith Family Foundation\&quot;&quot;},{&quot;name&quot;:&quot;staffOnly&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.notes[].staffOnly&quot;,&quot;value&quot;:null,&quot;booleanFieldAction&quot;:&quot;ALL_TRUE&quot;}]}],&quot;repeatableFieldAction&quot;:&quot;EXTEND_EXISTING&quot;},{&quot;name&quot;:&quot;permanentLoanType.id&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.permanentLoanType.id&quot;,&quot;value&quot;:&quot;\&quot;${loantypes_name}\&quot;&quot;,&quot;subfields&quot;:[],&quot;acceptedValues&quot;:{&quot;${loantypes_id}&quot;:&quot;${loantypes_name}&quot;}},{&quot;name&quot;:&quot;temporaryLoanType.id&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.temporaryLoanType.id&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[],&quot;acceptedValues&quot;:{&quot;${loantypes_id}&quot;:&quot;${loantypes_name}&quot;}},{&quot;name&quot;:&quot;status.name&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.status.name&quot;,&quot;value&quot;:&quot;\&quot;Available\&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;circulationNotes&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.circulationNotes[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]},{&quot;name&quot;:&quot;permanentLocation.id&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.permanentLocation.id&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[],&quot;acceptedValues&quot;:{&quot;${locations_id}&quot;:&quot;${locations_name}&quot;}},{&quot;name&quot;:&quot;temporaryLocation.id&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.temporaryLocation.id&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[],&quot;acceptedValues&quot;:{&quot;${locations_id}&quot;:&quot;${locations_name}&quot;}},{&quot;name&quot;:&quot;electronicAccess&quot;,&quot;enabled&quot;:true,&quot;path&quot;:&quot;item.electronicAccess[]&quot;,&quot;value&quot;:&quot;&quot;,&quot;subfields&quot;:[]}]}},&quot;addedRelations&quot;:[],&quot;deletedRelations&quot;:[]}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">data-import-profiles/mappingProfiles</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor item_mappingProfiles_id" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">item_mappingProfiles_id</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="script">props.put(&quot;item_mappingProfiles_id&quot;, vars.get(&quot;item_mappingProfiles_id&quot;));</stringProp>
+              <stringProp name="scriptLanguage">groovy</stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Create instance Action profiles" enabled="true">
+          <boolProp name="TransactionController.includeTimers">false</boolProp>
+          <boolProp name="TransactionController.parent">false</boolProp>
+        </TransactionController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST/instance actionProfiles" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&quot;profile&quot;:{&quot;name&quot;:&quot;PTF - Create instance 2(test)&quot;,&quot;description&quot;:&quot;&quot;,&quot;action&quot;:&quot;CREATE&quot;,&quot;folioRecord&quot;:&quot;INSTANCE&quot;},&quot;addedRelations&quot;:[{&quot;masterProfileId&quot;:null,&quot;masterProfileType&quot;:&quot;ACTION_PROFILE&quot;,&quot;detailProfileId&quot;:&quot;${__P(instance_mappingProfiles_id)}&quot;,&quot;detailProfileType&quot;:&quot;MAPPING_PROFILE&quot;}],&quot;deletedRelations&quot;:[]}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">data-import-profiles/actionProfiles</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor instance_actionProfiles_id" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">instance_actionProfiles_id</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="script">props.put(&quot;instance_actionProfiles_id&quot;, vars.get(&quot;instance_actionProfiles_id&quot;));</stringProp>
+              <stringProp name="scriptLanguage">groovy</stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Create holding Action profiles" enabled="true">
+          <boolProp name="TransactionController.includeTimers">false</boolProp>
+          <boolProp name="TransactionController.parent">false</boolProp>
+        </TransactionController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST/holding actionProfiles" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&quot;profile&quot;:{&quot;name&quot;:&quot;PTF - Create holdings 2(test)&quot;,&quot;description&quot;:&quot;&quot;,&quot;action&quot;:&quot;CREATE&quot;,&quot;folioRecord&quot;:&quot;HOLDINGS&quot;},&quot;addedRelations&quot;:[{&quot;masterProfileId&quot;:null,&quot;masterProfileType&quot;:&quot;ACTION_PROFILE&quot;,&quot;detailProfileId&quot;:&quot;${__P(holding_mappingProfiles_id)}&quot;,&quot;detailProfileType&quot;:&quot;MAPPING_PROFILE&quot;}],&quot;deletedRelations&quot;:[]}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">data-import-profiles/actionProfiles</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor holding_actionProfiles_id" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">holding_actionProfiles_id</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="script">props.put(&quot;holding_actionProfiles_id&quot;, vars.get(&quot;holding_actionProfiles_id&quot;));</stringProp>
+              <stringProp name="scriptLanguage">groovy</stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Create item Action profiles" enabled="true">
+          <boolProp name="TransactionController.includeTimers">false</boolProp>
+          <boolProp name="TransactionController.parent">false</boolProp>
+        </TransactionController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST/item actionProfiles" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&quot;profile&quot;:{&quot;name&quot;:&quot;PTF - Create item 2(test)&quot;,&quot;description&quot;:&quot;&quot;,&quot;action&quot;:&quot;CREATE&quot;,&quot;folioRecord&quot;:&quot;ITEM&quot;},&quot;addedRelations&quot;:[{&quot;masterProfileId&quot;:null,&quot;masterProfileType&quot;:&quot;ACTION_PROFILE&quot;,&quot;detailProfileId&quot;:&quot;${__P(item_mappingProfiles_id)}&quot;,&quot;detailProfileType&quot;:&quot;MAPPING_PROFILE&quot;}],&quot;deletedRelations&quot;:[]}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">data-import-profiles/actionProfiles</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor item_actionProfiles_id" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">item_actionProfiles_id</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="script">props.put(&quot;item_actionProfiles_id&quot;, vars.get(&quot;item_actionProfiles_id&quot;));</stringProp>
+              <stringProp name="scriptLanguage">groovy</stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Create Job profiles" enabled="true">
+          <boolProp name="TransactionController.includeTimers">false</boolProp>
+          <boolProp name="TransactionController.parent">false</boolProp>
+        </TransactionController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST/jobProfiles" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&quot;profile&quot;:{&quot;name&quot;:&quot;PTF - Create 3&quot;,&quot;description&quot;:&quot;&quot;,&quot;dataType&quot;:&quot;MARC&quot;},&quot;addedRelations&quot;:[{&quot;masterProfileId&quot;:null,&quot;masterWrapperId&quot;:null,&quot;masterProfileType&quot;:&quot;JOB_PROFILE&quot;,&quot;detailProfileId&quot;:&quot;${__P(instance_actionProfiles_id)}&quot;,&quot;detailWrapperId&quot;:null,&quot;detailProfileType&quot;:&quot;ACTION_PROFILE&quot;,&quot;order&quot;:0},{&quot;masterProfileId&quot;:null,&quot;masterWrapperId&quot;:null,&quot;masterProfileType&quot;:&quot;JOB_PROFILE&quot;,&quot;detailProfileId&quot;:&quot;${__P(holding_actionProfiles_id)}&quot;,&quot;detailWrapperId&quot;:null,&quot;detailProfileType&quot;:&quot;ACTION_PROFILE&quot;,&quot;order&quot;:1},{&quot;masterProfileId&quot;:null,&quot;masterWrapperId&quot;:null,&quot;masterProfileType&quot;:&quot;JOB_PROFILE&quot;,&quot;detailProfileId&quot;:&quot;${__P(item_actionProfiles_id)}&quot;,&quot;detailWrapperId&quot;:null,&quot;detailProfileType&quot;:&quot;ACTION_PROFILE&quot;,&quot;order&quot;:2}],&quot;deletedRelations&quot;:[]}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">data-import-profiles/jobProfiles</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="GraphVisualizer" testclass="ResultCollector" testname="Graph Results" enabled="false">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
