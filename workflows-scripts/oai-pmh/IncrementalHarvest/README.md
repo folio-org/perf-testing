@@ -6,6 +6,12 @@ Incremental harvesting by dates range
 1. /oai?verb=ListRecords&metadataPrefix=marc21_withholdings&apikey=<apiKey>&from=<start-date>&until=<end-date>
 2. /oai/records?verb=ListRecords&apikey=${APIKey}&resumptionToken=${resumptionToken}
 
+You should use the following Loop count configuration to harvest number of records 
+10k records - Loop count = 98; 
+50k records - Loop count = 499; 
+500K records- Loop count = 5000; 
+1mln records -Loop count = 10000 
+
 
 ##### oai_pmh_IH.jmx Variables
 1. Hostname

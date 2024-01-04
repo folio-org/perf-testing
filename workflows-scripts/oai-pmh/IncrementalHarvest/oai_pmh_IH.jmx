@@ -31,7 +31,7 @@
           </elementProp>
           <elementProp name="untilTime" elementType="Argument">
             <stringProp name="Argument.name">untilTime</stringProp>
-            <stringProp name="Argument.value">${__P(untilTime,2023-01-15)}</stringProp>
+            <stringProp name="Argument.value">${__P(untilTime,2023-10-18)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="metadataPrefix" elementType="Argument">
@@ -39,10 +39,11 @@
             <stringProp name="Argument.value">${__P(metadataPrefix,marc21_withholdings)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="" elementType="Argument">
-            <stringProp name="Argument.name"></stringProp>
-            <stringProp name="Argument.value">${__P(metadataPrefix,marc21_withholdings)}</stringProp>
+          <elementProp name="oai_pmh_loops" elementType="Argument">
+            <stringProp name="Argument.name">oai_pmh_loops</stringProp>
+            <stringProp name="Argument.value">${__P(oai_pmh_loops,[oai_pmh_loops])}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">10k - 98; 50k-499; 500K-5000; 1mln-10000 </stringProp>
           </elementProp>
         </collectionProp>
       </Arguments>
@@ -199,6 +200,10 @@
             <stringProp name="RegexExtractor.match_number"></stringProp>
           </RegexExtractor>
           <hashTree/>
+          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+            <stringProp name="ConstantTimer.delay">${__Random(400,700)}</stringProp>
+          </ConstantTimer>
+          <hashTree/>
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="/oai/records?verb=ListRecords&amp;apikey=[APIKey]&amp;resumptionToken=[resumptionToken]" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -280,10 +285,14 @@
             <stringProp name="RegexExtractor.match_number"></stringProp>
           </RegexExtractor>
           <hashTree/>
+          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+            <stringProp name="ConstantTimer.delay">${__Random(300,500)}</stringProp>
+          </ConstantTimer>
+          <hashTree/>
         </hashTree>
         <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">true</boolProp>
-          <intProp name="LoopController.loops">-1</intProp>
+          <stringProp name="LoopController.loops">${oai_pmh_loops}</stringProp>
         </LoopController>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="/oai/records?verb=ListRecords&amp;apikey=[APIKey]&amp;resumptionToken=[resumptionToken]" enabled="true">
@@ -355,6 +364,10 @@
               <stringProp name="RegexExtractor.default"></stringProp>
               <stringProp name="RegexExtractor.match_number"></stringProp>
             </RegexExtractor>
+            <hashTree/>
+            <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+              <stringProp name="ConstantTimer.delay">${__Random(200,400)}</stringProp>
+            </ConstantTimer>
             <hashTree/>
           </hashTree>
         </hashTree>
