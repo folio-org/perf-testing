@@ -1,0 +1,7 @@
+According to "[OAI-PMH] JMeter Script updates" ticket to make the JMeter script work more closely with the harvester, was added
+
+To the first request /oai/records?verb=ListRecords&metadataPrefix=marc21_withholdings&apikey=[APIKey], a timer was added which waits from 400 to 700 ms
+
+To the second request /oai/records?verb=ListRecords&apikey=[APIKey]&resumptionToken=[resumptionToken] A timer was added which waits from 300 to 500 ms
+
+And a timer was added to the previous request, which is in a loop, which waits from 200 to 400 ms.
