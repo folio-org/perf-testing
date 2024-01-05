@@ -22,14 +22,14 @@
           <elementProp name="HOSTNAME" elementType="Argument">
             <stringProp name="Argument.name">HOSTNAME</stringProp>
             <stringProp name="Argument.value">${__P(HOSTNAME,[])}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">[host-name]</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="Origin" elementType="Argument">
             <stringProp name="Argument.name">Origin</stringProp>
             <stringProp name="Argument.value">${__P(ORIGIN,[])}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">[host-name] without &quot;okapi&quot;</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="username" elementType="Argument">
             <stringProp name="Argument.name">username</stringProp>
@@ -312,14 +312,6 @@
               <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
               <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
             </JSONPostProcessor>
-            <hashTree/>
-            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
-              <stringProp name="cacheKey">true</stringProp>
-              <stringProp name="filename"></stringProp>
-              <stringProp name="parameters"></stringProp>
-              <stringProp name="script">props.put(&quot;mbib_mappingProfiles_id&quot;, vars.get(&quot;mbib_mappingProfiles_id&quot;));</stringProp>
-              <stringProp name="scriptLanguage">groovy</stringProp>
-            </JSR223PostProcessor>
             <hashTree/>
           </hashTree>
         </hashTree>
@@ -736,14 +728,6 @@
               <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
             </JSONPostProcessor>
             <hashTree/>
-            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
-              <stringProp name="cacheKey">true</stringProp>
-              <stringProp name="filename"></stringProp>
-              <stringProp name="parameters"></stringProp>
-              <stringProp name="script">props.put(&quot;holding_mappingProfiles_id&quot;, vars.get(&quot;holding_mappingProfiles_id&quot;));</stringProp>
-              <stringProp name="scriptLanguage">groovy</stringProp>
-            </JSR223PostProcessor>
-            <hashTree/>
           </hashTree>
         </hashTree>
         <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Update item Field mapping profiles" enabled="true">
@@ -1104,14 +1088,6 @@
               <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
             </JSONPostProcessor>
             <hashTree/>
-            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
-              <stringProp name="cacheKey">true</stringProp>
-              <stringProp name="filename"></stringProp>
-              <stringProp name="parameters"></stringProp>
-              <stringProp name="script">props.put(&quot;item_mappingProfiles_id&quot;, vars.get(&quot;item_mappingProfiles_id&quot;));</stringProp>
-              <stringProp name="scriptLanguage">groovy</stringProp>
-            </JSR223PostProcessor>
-            <hashTree/>
           </hashTree>
         </hashTree>
         <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Create MARC Bib Action profiles" enabled="true">
@@ -1125,7 +1101,7 @@
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&quot;profile&quot;:{&quot;name&quot;:&quot;PTF - Modify MARC Bib(test)&quot;,&quot;description&quot;:&quot;&quot;,&quot;action&quot;:&quot;MODIFY&quot;,&quot;folioRecord&quot;:&quot;MARC_BIBLIOGRAPHIC&quot;},&quot;addedRelations&quot;:[{&quot;masterProfileId&quot;:null,&quot;masterProfileType&quot;:&quot;ACTION_PROFILE&quot;,&quot;detailProfileId&quot;:&quot;${__P(mbib_mappingProfiles_id)}&quot;,&quot;detailProfileType&quot;:&quot;MAPPING_PROFILE&quot;}],&quot;deletedRelations&quot;:[]}</stringProp>
+                  <stringProp name="Argument.value">{&quot;profile&quot;:{&quot;name&quot;:&quot;PTF - Modify MARC Bib(test)&quot;,&quot;description&quot;:&quot;&quot;,&quot;action&quot;:&quot;MODIFY&quot;,&quot;folioRecord&quot;:&quot;MARC_BIBLIOGRAPHIC&quot;},&quot;addedRelations&quot;:[{&quot;masterProfileId&quot;:null,&quot;masterProfileType&quot;:&quot;ACTION_PROFILE&quot;,&quot;detailProfileId&quot;:&quot;${mbib_mappingProfiles_id}&quot;,&quot;detailProfileType&quot;:&quot;MAPPING_PROFILE&quot;}],&quot;deletedRelations&quot;:[]}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
@@ -1152,14 +1128,6 @@
               <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
             </JSONPostProcessor>
             <hashTree/>
-            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
-              <stringProp name="cacheKey">true</stringProp>
-              <stringProp name="filename"></stringProp>
-              <stringProp name="parameters"></stringProp>
-              <stringProp name="script">props.put(&quot;mbib_actionProfiles_id&quot;, vars.get(&quot;mbib_actionProfiles_id&quot;));</stringProp>
-              <stringProp name="scriptLanguage">groovy</stringProp>
-            </JSR223PostProcessor>
-            <hashTree/>
           </hashTree>
         </hashTree>
         <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Create holding Action profiles" enabled="true">
@@ -1173,7 +1141,7 @@
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&quot;profile&quot;:{&quot;name&quot;:&quot;PTF - Update holdings 1(test)&quot;,&quot;description&quot;:&quot;&quot;,&quot;action&quot;:&quot;UPDATE&quot;,&quot;folioRecord&quot;:&quot;HOLDINGS&quot;},&quot;addedRelations&quot;:[{&quot;masterProfileId&quot;:null,&quot;masterProfileType&quot;:&quot;ACTION_PROFILE&quot;,&quot;detailProfileId&quot;:&quot;${__P(holding_mappingProfiles_id)}&quot;,&quot;detailProfileType&quot;:&quot;MAPPING_PROFILE&quot;}],&quot;deletedRelations&quot;:[]}</stringProp>
+                  <stringProp name="Argument.value">{&quot;profile&quot;:{&quot;name&quot;:&quot;PTF - Update holdings 1(test)&quot;,&quot;description&quot;:&quot;&quot;,&quot;action&quot;:&quot;UPDATE&quot;,&quot;folioRecord&quot;:&quot;HOLDINGS&quot;},&quot;addedRelations&quot;:[{&quot;masterProfileId&quot;:null,&quot;masterProfileType&quot;:&quot;ACTION_PROFILE&quot;,&quot;detailProfileId&quot;:&quot;${holding_mappingProfiles_id}&quot;,&quot;detailProfileType&quot;:&quot;MAPPING_PROFILE&quot;}],&quot;deletedRelations&quot;:[]}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
@@ -1200,14 +1168,6 @@
               <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
             </JSONPostProcessor>
             <hashTree/>
-            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
-              <stringProp name="cacheKey">true</stringProp>
-              <stringProp name="filename"></stringProp>
-              <stringProp name="parameters"></stringProp>
-              <stringProp name="script">props.put(&quot;holding_actionProfiles_id&quot;, vars.get(&quot;holding_actionProfiles_id&quot;));</stringProp>
-              <stringProp name="scriptLanguage">groovy</stringProp>
-            </JSR223PostProcessor>
-            <hashTree/>
           </hashTree>
         </hashTree>
         <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Create item Action profiles" enabled="true">
@@ -1221,7 +1181,7 @@
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&quot;profile&quot;:{&quot;name&quot;:&quot;PTF - Update item 1(test)&quot;,&quot;description&quot;:&quot;&quot;,&quot;action&quot;:&quot;UPDATE&quot;,&quot;folioRecord&quot;:&quot;ITEM&quot;},&quot;addedRelations&quot;:[{&quot;masterProfileId&quot;:null,&quot;masterProfileType&quot;:&quot;ACTION_PROFILE&quot;,&quot;detailProfileId&quot;:&quot;${__P(item_mappingProfiles_id)}&quot;,&quot;detailProfileType&quot;:&quot;MAPPING_PROFILE&quot;}],&quot;deletedRelations&quot;:[]}</stringProp>
+                  <stringProp name="Argument.value">{&quot;profile&quot;:{&quot;name&quot;:&quot;PTF - Update item 1(test)&quot;,&quot;description&quot;:&quot;&quot;,&quot;action&quot;:&quot;UPDATE&quot;,&quot;folioRecord&quot;:&quot;ITEM&quot;},&quot;addedRelations&quot;:[{&quot;masterProfileId&quot;:null,&quot;masterProfileType&quot;:&quot;ACTION_PROFILE&quot;,&quot;detailProfileId&quot;:&quot;${item_mappingProfiles_id}&quot;,&quot;detailProfileType&quot;:&quot;MAPPING_PROFILE&quot;}],&quot;deletedRelations&quot;:[]}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
@@ -1247,14 +1207,6 @@
               <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
               <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
             </JSONPostProcessor>
-            <hashTree/>
-            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
-              <stringProp name="cacheKey">true</stringProp>
-              <stringProp name="filename"></stringProp>
-              <stringProp name="parameters"></stringProp>
-              <stringProp name="script">props.put(&quot;item_actionProfiles_id&quot;, vars.get(&quot;item_actionProfiles_id&quot;));</stringProp>
-              <stringProp name="scriptLanguage">groovy</stringProp>
-            </JSR223PostProcessor>
             <hashTree/>
           </hashTree>
         </hashTree>
@@ -1296,14 +1248,6 @@
               <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
             </JSONPostProcessor>
             <hashTree/>
-            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
-              <stringProp name="cacheKey">true</stringProp>
-              <stringProp name="filename"></stringProp>
-              <stringProp name="parameters"></stringProp>
-              <stringProp name="script">props.put(&quot;match001_Profiles_id&quot;, vars.get(&quot;match001_Profiles_id&quot;));</stringProp>
-              <stringProp name="scriptLanguage">groovy</stringProp>
-            </JSR223PostProcessor>
-            <hashTree/>
           </hashTree>
         </hashTree>
         <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Create Match profile: &quot;901a to Holdings HRID&quot; " enabled="true">
@@ -1343,14 +1287,6 @@
               <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
               <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
             </JSONPostProcessor>
-            <hashTree/>
-            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
-              <stringProp name="cacheKey">true</stringProp>
-              <stringProp name="filename"></stringProp>
-              <stringProp name="parameters"></stringProp>
-              <stringProp name="script">props.put(&quot;match901a_Profiles_id&quot;, vars.get(&quot;match901a_Profiles_id&quot;));</stringProp>
-              <stringProp name="scriptLanguage">groovy</stringProp>
-            </JSR223PostProcessor>
             <hashTree/>
           </hashTree>
         </hashTree>
@@ -1392,14 +1328,6 @@
               <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
             </JSONPostProcessor>
             <hashTree/>
-            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
-              <stringProp name="cacheKey">true</stringProp>
-              <stringProp name="filename"></stringProp>
-              <stringProp name="parameters"></stringProp>
-              <stringProp name="script">props.put(&quot;match902a_Profiles_id&quot;, vars.get(&quot;match902a_Profiles_id&quot;));</stringProp>
-              <stringProp name="scriptLanguage">groovy</stringProp>
-            </JSR223PostProcessor>
-            <hashTree/>
           </hashTree>
         </hashTree>
         <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Create Job profiles" enabled="true">
@@ -1413,7 +1341,7 @@
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&quot;profile&quot;:{&quot;name&quot;:&quot;PTF - Updates Success - 1(test)&quot;,&quot;description&quot;:&quot;&quot;,&quot;dataType&quot;:&quot;MARC&quot;},&quot;addedRelations&quot;:[{&quot;masterProfileId&quot;:null,&quot;masterWrapperId&quot;:null,&quot;masterProfileType&quot;:&quot;JOB_PROFILE&quot;,&quot;detailProfileId&quot;:&quot;${__P(match001_Profiles_id)}&quot;,&quot;detailWrapperId&quot;:null,&quot;detailProfileType&quot;:&quot;MATCH_PROFILE&quot;,&quot;order&quot;:0},{&quot;masterProfileId&quot;:&quot;${__P(match001_Profiles_id)}&quot;,&quot;masterWrapperId&quot;:null,&quot;masterProfileType&quot;:&quot;MATCH_PROFILE&quot;,&quot;detailProfileId&quot;:&quot;${__P(mbib_actionProfiles_id)}&quot;,&quot;detailWrapperId&quot;:null,&quot;detailProfileType&quot;:&quot;ACTION_PROFILE&quot;,&quot;order&quot;:0,&quot;reactTo&quot;:&quot;MATCH&quot;},{&quot;masterProfileId&quot;:null,&quot;masterWrapperId&quot;:null,&quot;masterProfileType&quot;:&quot;JOB_PROFILE&quot;,&quot;detailProfileId&quot;:&quot;${__P(match901a_Profiles_id)}&quot;,&quot;detailWrapperId&quot;:null,&quot;detailProfileType&quot;:&quot;MATCH_PROFILE&quot;,&quot;order&quot;:1},{&quot;masterProfileId&quot;:&quot;${__P(match901a_Profiles_id)}&quot;,&quot;masterWrapperId&quot;:null,&quot;masterProfileType&quot;:&quot;MATCH_PROFILE&quot;,&quot;detailProfileId&quot;:&quot;${__P(holding_actionProfiles_id)}&quot;,&quot;detailWrapperId&quot;:null,&quot;detailProfileType&quot;:&quot;ACTION_PROFILE&quot;,&quot;order&quot;:0,&quot;reactTo&quot;:&quot;MATCH&quot;},{&quot;masterProfileId&quot;:null,&quot;masterWrapperId&quot;:null,&quot;masterProfileType&quot;:&quot;JOB_PROFILE&quot;,&quot;detailProfileId&quot;:&quot;${__P(match902a_Profiles_id)}&quot;,&quot;detailWrapperId&quot;:null,&quot;detailProfileType&quot;:&quot;MATCH_PROFILE&quot;,&quot;order&quot;:2},{&quot;masterProfileId&quot;:&quot;${__P(match902a_Profiles_id)}&quot;,&quot;masterWrapperId&quot;:null,&quot;masterProfileType&quot;:&quot;MATCH_PROFILE&quot;,&quot;detailProfileId&quot;:&quot;${__P(item_actionProfiles_id)}&quot;,&quot;detailWrapperId&quot;:null,&quot;detailProfileType&quot;:&quot;ACTION_PROFILE&quot;,&quot;order&quot;:0,&quot;reactTo&quot;:&quot;MATCH&quot;}],&quot;deletedRelations&quot;:[]}</stringProp>
+                  <stringProp name="Argument.value">{&quot;profile&quot;:{&quot;name&quot;:&quot;PTF - Updates Success - 1(test)&quot;,&quot;description&quot;:&quot;&quot;,&quot;dataType&quot;:&quot;MARC&quot;},&quot;addedRelations&quot;:[{&quot;masterProfileId&quot;:null,&quot;masterWrapperId&quot;:null,&quot;masterProfileType&quot;:&quot;JOB_PROFILE&quot;,&quot;detailProfileId&quot;:&quot;${match001_Profiles_id}&quot;,&quot;detailWrapperId&quot;:null,&quot;detailProfileType&quot;:&quot;MATCH_PROFILE&quot;,&quot;order&quot;:0},{&quot;masterProfileId&quot;:&quot;${match001_Profiles_id}&quot;,&quot;masterWrapperId&quot;:null,&quot;masterProfileType&quot;:&quot;MATCH_PROFILE&quot;,&quot;detailProfileId&quot;:&quot;${mbib_actionProfiles_id}&quot;,&quot;detailWrapperId&quot;:null,&quot;detailProfileType&quot;:&quot;ACTION_PROFILE&quot;,&quot;order&quot;:0,&quot;reactTo&quot;:&quot;MATCH&quot;},{&quot;masterProfileId&quot;:null,&quot;masterWrapperId&quot;:null,&quot;masterProfileType&quot;:&quot;JOB_PROFILE&quot;,&quot;detailProfileId&quot;:&quot;${match901a_Profiles_id}&quot;,&quot;detailWrapperId&quot;:null,&quot;detailProfileType&quot;:&quot;MATCH_PROFILE&quot;,&quot;order&quot;:1},{&quot;masterProfileId&quot;:&quot;${match901a_Profiles_id}&quot;,&quot;masterWrapperId&quot;:null,&quot;masterProfileType&quot;:&quot;MATCH_PROFILE&quot;,&quot;detailProfileId&quot;:&quot;${holding_actionProfiles_id}&quot;,&quot;detailWrapperId&quot;:null,&quot;detailProfileType&quot;:&quot;ACTION_PROFILE&quot;,&quot;order&quot;:0,&quot;reactTo&quot;:&quot;MATCH&quot;},{&quot;masterProfileId&quot;:null,&quot;masterWrapperId&quot;:null,&quot;masterProfileType&quot;:&quot;JOB_PROFILE&quot;,&quot;detailProfileId&quot;:&quot;${match902a_Profiles_id}&quot;,&quot;detailWrapperId&quot;:null,&quot;detailProfileType&quot;:&quot;MATCH_PROFILE&quot;,&quot;order&quot;:2},{&quot;masterProfileId&quot;:&quot;${match902a_Profiles_id}&quot;,&quot;masterWrapperId&quot;:null,&quot;masterProfileType&quot;:&quot;MATCH_PROFILE&quot;,&quot;detailProfileId&quot;:&quot;${item_actionProfiles_id}&quot;,&quot;detailWrapperId&quot;:null,&quot;detailProfileType&quot;:&quot;ACTION_PROFILE&quot;,&quot;order&quot;:0,&quot;reactTo&quot;:&quot;MATCH&quot;}],&quot;deletedRelations&quot;:[]}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
