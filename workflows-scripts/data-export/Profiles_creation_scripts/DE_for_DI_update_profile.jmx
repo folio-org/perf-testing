@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jmeterTestPlan version="1.2" properties="5.0" jmeter="5.0 r1840935">
   <hashTree>
-    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="PTF - Updates Success - 1" enabled="true">
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="DE_for_DI_updates" enabled="true">
       <stringProp name="TestPlan.comments">This script was created to monitor inventory records</stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">true</boolProp>
@@ -22,14 +22,14 @@
           <elementProp name="HOSTNAME" elementType="Argument">
             <stringProp name="Argument.name">HOSTNAME</stringProp>
             <stringProp name="Argument.value">${__P(HOSTNAME,[])}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">[host-name]</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="Origin" elementType="Argument">
             <stringProp name="Argument.name">Origin</stringProp>
             <stringProp name="Argument.value">${__P(ORIGIN,[])}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">[host-name] without &quot;okapi&quot;</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="username" elementType="Argument">
             <stringProp name="Argument.name">username</stringProp>
@@ -286,7 +286,7 @@
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&quot;name&quot;:&quot;Copy of MARC Bib with Holdings and Item HRIDs 1&quot;,&quot;default&quot;:false,&quot;recordTypes&quot;:[&quot;SRS&quot;,&quot;HOLDINGS&quot;,&quot;ITEM&quot;],&quot;outputFormat&quot;:&quot;MARC&quot;,&quot;transformations&quot;:[{&quot;fieldId&quot;:&quot;holdings.hrid&quot;,&quot;path&quot;:&quot;$.holdings[*].hrid&quot;,&quot;enabled&quot;:true,&quot;transformation&quot;:&quot;901  $a&quot;,&quot;recordType&quot;:&quot;HOLDINGS&quot;},{&quot;fieldId&quot;:&quot;item.hrid&quot;,&quot;path&quot;:&quot;$.holdings[*].items[*].hrid&quot;,&quot;enabled&quot;:true,&quot;transformation&quot;:&quot;902  $a&quot;,&quot;recordType&quot;:&quot;ITEM&quot;}]}</stringProp>
+                  <stringProp name="Argument.value">{&quot;name&quot;:&quot;MARC Bib with Holdings and Item HRIDs-1&quot;,&quot;default&quot;:false,&quot;recordTypes&quot;:[&quot;SRS&quot;,&quot;HOLDINGS&quot;,&quot;ITEM&quot;],&quot;outputFormat&quot;:&quot;MARC&quot;,&quot;transformations&quot;:[{&quot;fieldId&quot;:&quot;holdings.hrid&quot;,&quot;path&quot;:&quot;$.holdings[*].hrid&quot;,&quot;enabled&quot;:true,&quot;transformation&quot;:&quot;901  $a&quot;,&quot;recordType&quot;:&quot;HOLDINGS&quot;},{&quot;fieldId&quot;:&quot;item.hrid&quot;,&quot;path&quot;:&quot;$.holdings[*].items[*].hrid&quot;,&quot;enabled&quot;:true,&quot;transformation&quot;:&quot;902  $a&quot;,&quot;recordType&quot;:&quot;ITEM&quot;}]}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
@@ -313,14 +313,6 @@
               <stringProp name="JSONPostProcessor.defaultValues">Not_Found</stringProp>
             </JSONPostProcessor>
             <hashTree/>
-            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
-              <stringProp name="cacheKey">true</stringProp>
-              <stringProp name="filename"></stringProp>
-              <stringProp name="parameters"></stringProp>
-              <stringProp name="script">props.put(&quot;mappingProfiles_id&quot;, vars.get(&quot;mappingProfiles_id&quot;));</stringProp>
-              <stringProp name="scriptLanguage">groovy</stringProp>
-            </JSR223PostProcessor>
-            <hashTree/>
           </hashTree>
         </hashTree>
         <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Create Job profiles" enabled="true">
@@ -334,7 +326,7 @@
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&quot;name&quot;:&quot;Export for Data Import updates(test)&quot;,&quot;mappingProfileId&quot;:&quot;${__P(mappingProfiles_id)}&quot;,&quot;description&quot;:&quot;created with script&quot;}</stringProp>
+                  <stringProp name="Argument.value">{&quot;name&quot;:&quot;Export for Data Import updates(test)1&quot;,&quot;mappingProfileId&quot;:&quot;${mappingProfiles_id}&quot;,&quot;description&quot;:&quot;created with script&quot;}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
