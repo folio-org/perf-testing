@@ -596,6 +596,12 @@ manager.add(cookie);</stringProp>
               </HTTPSamplerProxy>
               <hashTree/>
             </hashTree>
+            <TestAction guiclass="TestActionGui" testclass="TestAction" testname="FCA: 400-600 ms" enabled="true">
+              <intProp name="ActionProcessor.action">1</intProp>
+              <intProp name="ActionProcessor.target">0</intProp>
+              <stringProp name="ActionProcessor.duration">${__Random(400,600,)}</stringProp>
+            </TestAction>
+            <hashTree/>
             <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TC: FundWithBudget" enabled="true">
               <boolProp name="TransactionController.includeTimers">false</boolProp>
               <boolProp name="TransactionController.parent">false</boolProp>
@@ -910,6 +916,12 @@ manager.add(cookie);</stringProp>
               </HTTPSamplerProxy>
               <hashTree/>
             </hashTree>
+            <TestAction guiclass="TestActionGui" testclass="TestAction" testname="FCA: 400-600 ms" enabled="true">
+              <intProp name="ActionProcessor.action">1</intProp>
+              <intProp name="ActionProcessor.target">0</intProp>
+              <stringProp name="ActionProcessor.duration">${__Random(400,600,)}</stringProp>
+            </TestAction>
+            <hashTree/>
             <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TC: CurrentBudget" enabled="true">
               <boolProp name="TransactionController.includeTimers">false</boolProp>
               <boolProp name="TransactionController.parent">false</boolProp>
@@ -997,6 +1009,12 @@ manager.add(cookie);</stringProp>
               </HTTPSamplerProxy>
               <hashTree/>
             </hashTree>
+            <TestAction guiclass="TestActionGui" testclass="TestAction" testname="FCA: 400-600 ms" enabled="true">
+              <intProp name="ActionProcessor.action">1</intProp>
+              <intProp name="ActionProcessor.target">0</intProp>
+              <stringProp name="ActionProcessor.duration">${__Random(400,600,)}</stringProp>
+            </TestAction>
+            <hashTree/>
             <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TC: ActionsIncrease" enabled="true">
               <boolProp name="TransactionController.includeTimers">false</boolProp>
               <boolProp name="TransactionController.parent">false</boolProp>
@@ -1388,6 +1406,12 @@ manager.add(cookie);</stringProp>
               </HTTPSamplerProxy>
               <hashTree/>
             </hashTree>
+            <TestAction guiclass="TestActionGui" testclass="TestAction" testname="FCA: 400-600 ms" enabled="true">
+              <intProp name="ActionProcessor.action">1</intProp>
+              <intProp name="ActionProcessor.target">0</intProp>
+              <stringProp name="ActionProcessor.duration">${__Random(400,600,)}</stringProp>
+            </TestAction>
+            <hashTree/>
             <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TC: FundWithBudget" enabled="true">
               <boolProp name="TransactionController.includeTimers">false</boolProp>
               <boolProp name="TransactionController.parent">false</boolProp>
@@ -1702,6 +1726,12 @@ manager.add(cookie);</stringProp>
               </HTTPSamplerProxy>
               <hashTree/>
             </hashTree>
+            <TestAction guiclass="TestActionGui" testclass="TestAction" testname="FCA: 400-600 ms" enabled="true">
+              <intProp name="ActionProcessor.action">1</intProp>
+              <intProp name="ActionProcessor.target">0</intProp>
+              <stringProp name="ActionProcessor.duration">${__Random(400,600,)}</stringProp>
+            </TestAction>
+            <hashTree/>
             <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TC: CurrentBudget" enabled="true">
               <boolProp name="TransactionController.includeTimers">false</boolProp>
               <boolProp name="TransactionController.parent">false</boolProp>
@@ -1789,6 +1819,12 @@ manager.add(cookie);</stringProp>
               </HTTPSamplerProxy>
               <hashTree/>
             </hashTree>
+            <TestAction guiclass="TestActionGui" testclass="TestAction" testname="FCA: 400-600 ms" enabled="true">
+              <intProp name="ActionProcessor.action">1</intProp>
+              <intProp name="ActionProcessor.target">0</intProp>
+              <stringProp name="ActionProcessor.duration">${__Random(400,600,)}</stringProp>
+            </TestAction>
+            <hashTree/>
             <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TC: ActionsDecrease" enabled="true">
               <boolProp name="TransactionController.includeTimers">false</boolProp>
               <boolProp name="TransactionController.parent">false</boolProp>
