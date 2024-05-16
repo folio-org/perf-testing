@@ -91,6 +91,11 @@
             <stringProp name="Argument.value">${__P(allocation_loops,1)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="allocation_loops_pause" elementType="Argument">
+            <stringProp name="Argument.name">allocation_loops_pause</stringProp>
+            <stringProp name="Argument.value">${__P(allocation_loops_pause,5000)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
         </collectionProp>
         <stringProp name="TestPlan.comments">Consortium Login with central tenant. Use sourceTenantId to point needed tenant.</stringProp>
       </Arguments>
@@ -1283,10 +1288,10 @@ manager.add(cookie);</stringProp>
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="FCA: 10 sec" enabled="true">
+          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="FCA: 5  sec" enabled="true">
             <intProp name="ActionProcessor.action">1</intProp>
             <intProp name="ActionProcessor.target">0</intProp>
-            <stringProp name="ActionProcessor.duration">10000</stringProp>
+            <stringProp name="ActionProcessor.duration">${allocation_loops_pause}</stringProp>
           </TestAction>
           <hashTree/>
           <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TC: Finance_Fund_Budget_Decrease_Allocation_${allocated_sum}" enabled="true">
@@ -2075,10 +2080,10 @@ manager.add(cookie);</stringProp>
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="FCA: 10 sec" enabled="true">
+          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="FCA: 5  sec" enabled="true">
             <intProp name="ActionProcessor.action">1</intProp>
             <intProp name="ActionProcessor.target">0</intProp>
-            <stringProp name="ActionProcessor.duration">10000</stringProp>
+            <stringProp name="ActionProcessor.duration">${allocation_loops_pause}</stringProp>
           </TestAction>
           <hashTree/>
         </hashTree>
@@ -2128,7 +2133,7 @@ manager.add(cookie);</stringProp>
           <hashTree/>
         </hashTree>
       </hashTree>
-      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
@@ -2165,7 +2170,7 @@ manager.add(cookie);</stringProp>
         <stringProp name="filename"></stringProp>
       </ResultCollector>
       <hashTree/>
-      <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="false">
+      <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
