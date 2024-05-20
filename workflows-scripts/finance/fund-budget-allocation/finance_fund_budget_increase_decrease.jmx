@@ -255,19 +255,20 @@
             <stringProp name="Assertion.custom_message"></stringProp>
           </ResponseAssertion>
           <hashTree/>
-          <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="MyCookie BeanShell" enabled="true">
-            <stringProp name="filename"></stringProp>
-            <stringProp name="parameters"></stringProp>
-            <boolProp name="resetInterpreter">false</boolProp>
-            <stringProp name="script">props.put(&quot;MyCookie&quot;,&quot;${COOKIE_folioAccessToken}&quot;);</stringProp>
-          </BeanShellPostProcessor>
-          <hashTree/>
           <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor user_id" enabled="true">
             <stringProp name="JSONPostProcessor.referenceNames">user_id</stringProp>
             <stringProp name="JSONPostProcessor.jsonPathExprs">$.user.id</stringProp>
             <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
             <stringProp name="JSONPostProcessor.defaultValues">user_id_id_NOT_FOUND</stringProp>
           </JSONPostProcessor>
+          <hashTree/>
+          <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="MyCookie BeanShell" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">props.put(&quot;MyCookie&quot;,&quot;${COOKIE_folioAccessToken}&quot;);
+props.put(&quot;user_id&quot;,&quot;${user_id}&quot;);</stringProp>
+          </BeanShellPostProcessor>
           <hashTree/>
         </hashTree>
       </hashTree>
@@ -303,7 +304,7 @@
 import org.apache.jmeter.protocol.http.control.Cookie;
 
 CookieManager manager = sampler.getCookieManager();
-Cookie cookie = new Cookie(&quot;folioAccessToken&quot;,props.get(&quot;MyCookie&quot;),&quot;okapi-ptf-q-con.int.aws.folio.org&quot;,&quot;/&quot;,false,0);
+Cookie cookie = new Cookie(&quot;folioAccessToken&quot;,props.get(&quot;MyCookie&quot;),&quot;${HOSTNAME}&quot;,&quot;/&quot;,false,0);
 manager.add(cookie);</stringProp>
           <stringProp name="scriptLanguage">groovy</stringProp>
         </JSR223PreProcessor>
