@@ -305,7 +305,8 @@ import org.apache.jmeter.protocol.http.control.Cookie;
 
 CookieManager manager = sampler.getCookieManager();
 Cookie cookie = new Cookie(&quot;folioAccessToken&quot;,props.get(&quot;MyCookie&quot;),&quot;${HOSTNAME}&quot;,&quot;/&quot;,false,0);
-manager.add(cookie);</stringProp>
+manager.add(cookie);
+</stringProp>
           <stringProp name="scriptLanguage">groovy</stringProp>
         </JSR223PreProcessor>
         <hashTree/>
