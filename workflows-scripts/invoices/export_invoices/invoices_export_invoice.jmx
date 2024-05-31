@@ -1,0 +1,1942 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.5">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="PTF - Export Invoice to CSV" enabled="true">
+      <stringProp name="TestPlan.comments">This script was created to monitor inventory records</stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">true</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+    </TestPlan>
+    <hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="global_BaseDir" elementType="Argument">
+            <stringProp name="Argument.name">global_BaseDir</stringProp>
+            <stringProp name="Argument.value">${__BeanShell(import org.apache.jmeter.services.FileServer; FileServer.getFileServer().getBaseDir();)}${__BeanShell(File.separator,)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="HOSTNAME" elementType="Argument">
+            <stringProp name="Argument.name">HOSTNAME</stringProp>
+            <stringProp name="Argument.value">${__P(HOSTNAME,okapi-[hostname])}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">[host-name]</stringProp>
+          </elementProp>
+          <elementProp name="Origin" elementType="Argument">
+            <stringProp name="Argument.name">Origin</stringProp>
+            <stringProp name="Argument.value">${__P(ORIGIN,[hostname])}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">[host-name] without &quot;okapi&quot;</stringProp>
+          </elementProp>
+          <elementProp name="username" elementType="Argument">
+            <stringProp name="Argument.name">username</stringProp>
+            <stringProp name="Argument.value">${__P(username,[username])}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="password" elementType="Argument">
+            <stringProp name="Argument.name">password</stringProp>
+            <stringProp name="Argument.value">${__P(password,[password])}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="tenant" elementType="Argument">
+            <stringProp name="Argument.name">tenant</stringProp>
+            <stringProp name="Argument.value">${__P(tenant,[tenant])}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">Member tenant</stringProp>
+          </elementProp>
+          <elementProp name="Global_duration" elementType="Argument">
+            <stringProp name="Argument.name">Global_duration</stringProp>
+            <stringProp name="Argument.value">${__P(Global_duration, 1800)}</stringProp>
+            <stringProp name="Argument.desc">Default duration | 1800 sec</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+        <stringProp name="TestPlan.comments">Consortium Login with central tenant. Use sourceTenantId to point needed tenant.</stringProp>
+      </Arguments>
+      <hashTree/>
+      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
+        <collectionProp name="HeaderManager.headers">
+          <elementProp name="sec-ch-ua" elementType="Header">
+            <stringProp name="Header.name">sec-ch-ua</stringProp>
+            <stringProp name="Header.value">&quot;Google Chrome&quot;;v=&quot;111&quot;, &quot;Not(A:Brand&quot;;v=&quot;8&quot;, &quot;Chromium&quot;;v=&quot;111&quot;</stringProp>
+          </elementProp>
+          <elementProp name="sec-ch-ua-mobile" elementType="Header">
+            <stringProp name="Header.name">sec-ch-ua-mobile</stringProp>
+            <stringProp name="Header.value">?0</stringProp>
+          </elementProp>
+          <elementProp name="sec-ch-ua-platform" elementType="Header">
+            <stringProp name="Header.name">sec-ch-ua-platform</stringProp>
+            <stringProp name="Header.value">&quot;Windows&quot;</stringProp>
+          </elementProp>
+          <elementProp name="User-Agent" elementType="Header">
+            <stringProp name="Header.name">User-Agent</stringProp>
+            <stringProp name="Header.value">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36</stringProp>
+          </elementProp>
+          <elementProp name="Accept-Language" elementType="Header">
+            <stringProp name="Header.name">Accept-Language</stringProp>
+            <stringProp name="Header.value">en-US</stringProp>
+          </elementProp>
+          <elementProp name="Sec-Fetch-Site" elementType="Header">
+            <stringProp name="Header.name">Sec-Fetch-Site</stringProp>
+            <stringProp name="Header.value">same-site</stringProp>
+          </elementProp>
+          <elementProp name="Sec-Fetch-Mode" elementType="Header">
+            <stringProp name="Header.name">Sec-Fetch-Mode</stringProp>
+            <stringProp name="Header.value">cors</stringProp>
+          </elementProp>
+          <elementProp name="Sec-Fetch-Dest" elementType="Header">
+            <stringProp name="Header.name">Sec-Fetch-Dest</stringProp>
+            <stringProp name="Header.value">empty</stringProp>
+          </elementProp>
+          <elementProp name="Accept-Encoding" elementType="Header">
+            <stringProp name="Header.name">Accept-Encoding</stringProp>
+            <stringProp name="Header.value">gzip, deflate, br</stringProp>
+          </elementProp>
+          <elementProp name="X-Okapi-Tenant" elementType="Header">
+            <stringProp name="Header.name">X-Okapi-Tenant</stringProp>
+            <stringProp name="Header.value">${tenant}</stringProp>
+          </elementProp>
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">Content-Type</stringProp>
+            <stringProp name="Header.value">application/json</stringProp>
+          </elementProp>
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">Accept</stringProp>
+            <stringProp name="Header.value">application/json</stringProp>
+          </elementProp>
+        </collectionProp>
+      </HeaderManager>
+      <hashTree/>
+      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
+        <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+          <collectionProp name="Arguments.arguments"/>
+        </elementProp>
+        <stringProp name="HTTPSampler.domain">${HOSTNAME}</stringProp>
+        <stringProp name="HTTPSampler.port">443</stringProp>
+        <stringProp name="HTTPSampler.protocol">https</stringProp>
+        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+        <stringProp name="HTTPSampler.path"></stringProp>
+        <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+        <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+        <stringProp name="HTTPSampler.response_timeout"></stringProp>
+      </ConfigTestElement>
+      <hashTree/>
+      <AuthManager guiclass="AuthPanel" testclass="AuthManager" testname="HTTP Authorization Manager" enabled="true">
+        <collectionProp name="AuthManager.auth_list"/>
+        <boolProp name="AuthManager.controlledByThreadGroup">false</boolProp>
+      </AuthManager>
+      <hashTree/>
+      <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
+        <collectionProp name="CookieManager.cookies"/>
+        <boolProp name="CookieManager.clearEachIteration">true</boolProp>
+        <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
+      </CookieManager>
+      <hashTree/>
+      <CacheManager guiclass="CacheManagerGui" testclass="CacheManager" testname="HTTP Cache Manager" enabled="true">
+        <boolProp name="clearEachIteration">true</boolProp>
+        <boolProp name="useExpires">false</boolProp>
+        <boolProp name="CacheManager.controlledByThread">false</boolProp>
+      </CacheManager>
+      <hashTree/>
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="Login" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </SetupThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET bl-users/_self" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&quot;username&quot;:&quot;${username}&quot;,&quot;password&quot;:&quot;${password}&quot;}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/bl-users/login-with-expiry?expandPermissions=true&amp;fullPermissions=true</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="Content-Type" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+              <elementProp name="Accept" elementType="Header">
+                <stringProp name="Header.name">Accept</stringProp>
+                <stringProp name="Header.value">*/*</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ResultAction guiclass="ResultActionGui" testclass="ResultAction" testname="Result Status Action Handler" enabled="true">
+            <intProp name="OnError.action">2</intProp>
+          </ResultAction>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - 201" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49587">201</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="MyCookie BeanShell" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">props.put(&quot;MyCookie&quot;,&quot;${COOKIE_folioAccessToken}&quot;);</stringProp>
+          </BeanShellPostProcessor>
+          <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor user_id" enabled="true">
+            <stringProp name="JSONPostProcessor.referenceNames">current_userID</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.user.id</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">current_userID_NOT_FOUND</stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">props.put(&quot;current_userID&quot;, vars.get(&quot;current_userID&quot;));</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="EI_Export Invoice to CSV" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="X-Okapi-Token" elementType="Header">
+              <stringProp name="Header.name">X-Okapi-Tenant</stringProp>
+              <stringProp name="Header.value">${tenant}</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree/>
+        <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor folioAccessToken" enabled="true">
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
+import org.apache.jmeter.protocol.http.control.Cookie;
+
+CookieManager manager = sampler.getCookieManager();
+Cookie cookie = new Cookie(&quot;folioAccessToken&quot;,props.get(&quot;MyCookie&quot;),&quot;${HOSTNAME}&quot;,&quot;/&quot;,false,0);
+manager.add(cookie);</stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
+        </JSR223PreProcessor>
+        <hashTree/>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="EI_TC: Search Invoice" enabled="true">
+          <boolProp name="TransactionController.includeTimers">false</boolProp>
+          <boolProp name="TransactionController.parent">false</boolProp>
+        </TransactionController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="EI_GET invoice/invoices" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="offset" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.name">offset</stringProp>
+                  <stringProp name="Argument.value">0</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                </elementProp>
+                <elementProp name="query" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.name">query</stringProp>
+                  <stringProp name="Argument.value">(status==(&quot;Open&quot; or &quot;Paid&quot; or &quot;Reviewed&quot; or &quot;Approved&quot;)) sortby invoiceDate/sort.descending</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                </elementProp>
+                <elementProp name="limit" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.name">limit</stringProp>
+                  <stringProp name="Argument.value">5000</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">invoice/invoices</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor get_organizations_ids" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">organizations_id</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.invoices..vendorId</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">organizations_id_not_found</stringProp>
+              <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor Collect  Organizations  ids for GET organizations/organizations url" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">// Create unique variables for each 25 ids by request
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+def organizationsIdAll = vars.get(&quot;organizations_id_ALL&quot;) // get all ids from JSON Extractor
+def unique_organizations_list = organizationsIdAll.split(&apos;,&apos;).toList().toSet() // set unique ids to Set()
+def count_of_organizations_requests = (int) Math.ceil(unique_organizations_list.size()/25) // divided count of unique ids by 25(is possible number of ids in request)
+
+vars.put(&quot;count_of_organizations_requests&quot;, count_of_organizations_requests.toString()) 
+
+
+
+//  Extract subset of first 25 elements
+
+import java.util.stream.Collectors;
+
+        
+for (int i = 1; i &lt;= count_of_organizations_requests; i++) 
+{    def remaining_unique = unique_organizations_list.size();
+if(remaining_unique &gt;= 25){ // check if list of unique ids more than 25 
+	Set&lt;String&gt; subset = unique_organizations_list.stream().limit(25).collect(Collectors.toSet()); // take first 25 ids from unique list ids
+	vars.put(&quot;unique_organizations_list_ids_for_request_&quot; + i, &apos;id==&apos; + subset.join(&apos; or id==&apos;))  // create varible name with i number     
+	unique_organizations_list = unique_organizations_list.stream().skip(25).collect(Collectors.toSet()); // delete first 25 ids from unique list ids 
+}else{ // if list of ids less than 25
+	vars.put(&quot;unique_organizations_list_ids_for_request_&quot; + i, &apos;id==&apos; + unique_organizations_list.join(&apos; or id==&apos;)) // take all ids from unique list ids
+} 		
+}          
+</stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor get_invoices_ids" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">invoices_id</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.invoices..id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">invoices_id_not_found</stringProp>
+              <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor Collect  invoice ids for GET invoice/invoice-lines url" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">// Create unique variables for each 25 ids by request
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+def invoicesIdAll = vars.get(&quot;invoices_id_ALL&quot;) // get all ids from JSON Extractor
+def unique_invoices_list = invoicesIdAll.split(&apos;,&apos;).toList() // set ids to list
+def count_of_invoices_requests = (int) Math.ceil(unique_invoices_list.size()/25) // divided count of ids by 25(is possible number of ids in request)
+
+vars.put(&quot;count_of_invoices_requests&quot;, count_of_invoices_requests.toString()) 
+
+
+
+// Extract subset of first 25 elements
+
+import java.util.stream.Collectors;
+
+        
+for (int i = 1; i &lt;= count_of_invoices_requests; i++)
+{    def remaining_unique = unique_invoices_list.size();
+if(remaining_unique &gt;= 25){ // check if list of ids more than 25 
+	Set&lt;String&gt; subset = unique_invoices_list.stream().limit(25).collect(Collectors.toSet()); // take first 25 ids from list ids
+	vars.put(&quot;unique_invoices_list_ids_for_request_&quot; + i, &apos;invoiceId==&apos; + subset.join(&apos; or invoiceId==&apos;))  // create varible name with i number 
+	unique_invoices_list = unique_invoices_list.stream().skip(25).collect(Collectors.toSet()); // delete first 25 ids from list ids 
+}else{ // if list of ids less than 25
+	vars.put(&quot;unique_invoices_list_ids_for_request_&quot; + i, &apos;invoiceId==&apos; + unique_invoices_list.join(&apos; or invoiceId==&apos;)) // take all ids from list ids
+}
+	
+	
+}               
+</stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor get_batch-groups_ids" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">batchGroupIds</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.invoices..batchGroupId</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">batchGroupIds_not_found</stringProp>
+              <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor Collect batchGroupIds  ids for GET /batch-groups url" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">// Create unique variables for each 25 ids by request
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+def idAll = vars.get(&quot;batchGroupIds_ALL&quot;) // get all ids from JSON Extractor
+def unique_ids_list = idAll.split(&apos;,&apos;).toList().toSet() // set ids to list
+def count_of_requests = (int) Math.ceil(unique_ids_list.size()/25) // divided count of ids by 25(is possible number of ids in request)
+vars.put(&quot;count_batchGroupIds_requests&quot;, count_of_requests.toString()) 
+
+
+// Extract subset of first 25 elements
+
+import java.util.stream.Collectors;
+        
+for (int i = 1; i &lt;= count_of_requests; i++)
+{    def remaining_unique = unique_ids_list.size();
+if(remaining_unique &gt;= 25){ // check if list of ids more than 25 
+	Set&lt;String&gt; subset = unique_ids_list.stream().limit(25).collect(Collectors.toSet()); // take first 25 ids from list ids
+	vars.put(&quot;batchGroupIds_ids_for_request_&quot; + i, &apos;id==&apos; + subset.join(&apos; or id==&apos;))  // create variable name with i number and ids with a separator between and before ids
+	unique_ids_list = unique_ids_list.stream().skip(25).collect(Collectors.toSet()); // delete first 25 ids from list ids 
+}else{ // if list of ids less than 25
+	vars.put(&quot;batchGroupIds_ids_for_request_&quot; + i, &apos;id==&apos; + unique_ids_list.join(&apos; or id==&apos;)) // take all ids from list ids and separator between and before ids
+}	
+}               
+</stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor Collect vouchers  ids for GET voucher/vouchers url" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">// Create unique variables for each 25 ids by request
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+def idAll = vars.get(&quot;invoices_id_ALL&quot;) // get all ids from JSON Extractor
+def unique_ids_list = idAll.split(&apos;,&apos;).toList().toSet() // set ids to list
+def count_of_requests = (int) Math.ceil(unique_ids_list.size()/25) // divided count of ids by 25(is possible number of ids in request)
+vars.put(&quot;count_vouchers_requests&quot;, count_of_requests.toString()) 
+
+
+// Extract subset of first 25 elements
+
+import java.util.stream.Collectors;
+        
+for (int i = 1; i &lt;= count_of_requests; i++)
+{    def remaining_unique = unique_ids_list.size();
+if(remaining_unique &gt;= 25){ // check if list of ids more than 25 
+	Set&lt;String&gt; subset = unique_ids_list.stream().limit(25).collect(Collectors.toSet()); // take first 25 ids from list ids
+	vars.put(&quot;vouchers_ids_for_request_&quot; + i, &apos;invoiceId==&apos; + subset.join(&apos; or invoiceId==&apos;))  // create variable name with i number and ids with a separator between and before ids
+	unique_ids_list = unique_ids_list.stream().skip(25).collect(Collectors.toSet()); // delete first 25 ids from list ids 
+}else{ // if list of ids less than 25
+	vars.put(&quot;vouchers_ids_for_request_&quot; + i, &apos;invoiceId==&apos; + unique_ids_list.join(&apos; or invoiceId==&apos;)) // take all ids from list ids and separator between and before ids
+}	
+}               
+</stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor get_finance/fiscal-years" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">fiscalYearId</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.invoices..fiscalYearId</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">fiscalYearId_not_found</stringProp>
+              <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor Collect  fiscalYearId  ids for GET finance/fiscal-years url" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">// Create unique variables for each 25 ids by request
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+def idAll = vars.get(&quot;fiscalYearId_ALL&quot;) // get all ids from JSON Extractor
+def unique_ids_list = idAll.split(&apos;,&apos;).toList().toSet() // set ids to list
+def count_of_requests = (int) Math.ceil(unique_ids_list.size()/25) // divided count of ids by 25(is possible number of ids in request)
+vars.put(&quot;count_fiscalYearId_requests&quot;, count_of_requests.toString()) 
+
+
+// Extract subset of first 25 elements
+
+import java.util.stream.Collectors;
+        
+for (int i = 1; i &lt;= count_of_requests; i++)
+{    def remaining_unique = unique_ids_list.size();
+if(remaining_unique &gt;= 25){ // check if list of ids more than 25 
+	Set&lt;String&gt; subset = unique_ids_list.stream().limit(25).collect(Collectors.toSet()); // take first 25 ids from list ids
+	vars.put(&quot;fiscalYearId_for_request_&quot; + i, &apos;id==&apos; + subset.join(&apos; or id==&apos;))  // create variable name with i number and ids with a separator between and before ids
+	unique_ids_list = unique_ids_list.stream().skip(25).collect(Collectors.toSet()); // delete first 25 ids from list ids 
+}else{ // if list of ids less than 25
+	vars.put(&quot;fiscalYearId_for_request_&quot; + i, &apos;id==&apos; + unique_ids_list.join(&apos; or id==&apos;)) // take all ids from list ids and separator between and before ids
+}	
+}               
+</stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor GET configurations/entries" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">billTo</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.invoices..billTo</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">billTo_not_found</stringProp>
+              <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor Collect  billTo  ids for GET configurations/entries url" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">// Create unique variables for each 25 ids by request
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+def idAll = vars.get(&quot;billTo_ALL&quot;) // get all ids from JSON Extractor
+def unique_ids_list = idAll.split(&apos;,&apos;).toList().toSet() // set ids to list
+def count_of_requests = (int) Math.ceil(unique_ids_list.size()/25) // divided count of ids by 25(is possible number of ids in request)
+vars.put(&quot;count_billTo_requests&quot;, count_of_requests.toString()) 
+
+// Extract subset of first 25 elements
+
+import java.util.stream.Collectors;
+        
+for (int i = 1; i &lt;= count_of_requests; i++)
+{    def remaining_unique = unique_ids_list.size();
+if(remaining_unique &gt;= 25){ // check if list of ids more than 25 
+	Set&lt;String&gt; subset = unique_ids_list.stream().limit(25).collect(Collectors.toSet()); // take first 25 ids from list ids
+	vars.put(&quot;billTo_for_request_&quot; + i, &apos;id==&apos; + subset.join(&apos; or id==&apos;))  // create variable name with i number and ids with a separator between and before ids
+	unique_ids_list = unique_ids_list.stream().skip(25).collect(Collectors.toSet()); // delete first 25 ids from list ids 
+}else{ // if list of ids less than 25
+	vars.put(&quot;billTo_for_request_&quot; + i, &apos;id==&apos; + unique_ids_list.join(&apos; or id==&apos;)) // take all ids from list ids and separator between and before ids
+}	
+}               
+</stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor GET acquisitions-units/units" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">acqUnitIds</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.invoices..acqUnitIds[*]</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">acqUnitIds_not_found</stringProp>
+              <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor Collect  acqUnitIds  ids for GET acquisitions-units/units url" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">// Create unique variables for each 25 ids by request
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+
+def idAll = vars.get(&quot;acqUnitIds_ALL&quot;) // get all ids from JSON Extractor
+def unique_ids_list = idAll.split(&apos;,&apos;).toList().toSet() // set ids to one list
+def count_of_requests = (int) Math.ceil(unique_ids_list.size()/25) // divided count of ids by 25(is possible number of ids in request)
+vars.put(&quot;count_acqUnitIds_requests&quot;, count_of_requests.toString()) 
+
+
+// Extract subset of first 25 elements
+
+import java.util.stream.Collectors;
+        
+for (int i = 1; i &lt;= count_of_requests; i++)
+{    def remaining_unique = unique_ids_list.size();
+if(remaining_unique &gt;= 25){ // check if list of ids more than 25 
+	Set&lt;String&gt; subset = unique_ids_list.stream().limit(25).collect(Collectors.toSet()); // take first 25 ids from list ids
+	vars.put(&quot;acqUnitIds_for_request_&quot; + i, &apos;id==&apos; + subset.join(&apos; or id==&apos;))  // create variable name with i number and ids with a separator between and before ids
+	unique_ids_list = unique_ids_list.stream().skip(25).collect(Collectors.toSet()); // delete first 25 ids from list ids 
+}else{ // if list of ids less than 25
+	vars.put(&quot;acqUnitIds_for_request_&quot; + i, &apos;id==&apos; + unique_ids_list.join(&apos; or id==&apos;)) // take all ids from list ids and separator between and before ids
+}	
+}               
+</stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+          </hashTree>
+          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler Create i for all cycles" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">// Create variable i for cycle EI_GET organizations/organizations
+def i_for_organizations = 1; // create i like number
+String i_for_organizations_string = i_for_organizations.toString() ; // convert i from number to string
+vars.put(&quot;i_for_organizations_string&quot;, i_for_organizations_string); // export string i 
+
+def i_for_invoices = 1;
+String i_for_invoices_string = i_for_invoices.toString() ;
+vars.put(&quot;i_for_invoices_string&quot;, i_for_invoices_string);
+
+def i_for_batchGroupIds = 1;
+vars.put(&quot;i_for_batchGroupIds_string&quot;, i_for_batchGroupIds.toString());
+
+def i_for_vouchers = 1;
+String i_for_vouchers_string = i_for_vouchers.toString() ;
+vars.put(&quot;i_for_vouchers_string&quot;, i_for_vouchers_string);
+
+def i_for_voucher_lines_id = 1;
+vars.put(&quot;i_for_voucher_lines_id_string&quot;, i_for_voucher_lines_id.toString());
+
+def i_for_fiscalYearId = 1;
+vars.put(&quot;i_for_fiscalYearId_string&quot;, i_for_fiscalYearId.toString());
+
+def i_for_fundId = 1;
+vars.put(&quot;i_for_fundId_string&quot;, i_for_fundId.toString());
+
+def i_for_organizations_exportInv = 1; // create i like number
+String i_for_organizations_exportInv_string = i_for_organizations_exportInv.toString() ; // convert i from number to string
+vars.put(&quot;i_for_organizations_exportInv_string&quot;, i_for_organizations_exportInv_string); // export string i 
+
+def i_for_poLineId = 1;
+vars.put(&quot;i_for_poLineId_string&quot;, i_for_poLineId.toString());
+
+def i_for_billTo = 1;
+vars.put(&quot;i_for_billTo_string&quot;, i_for_billTo.toString());
+
+def i_for_expenseClassId = 1;
+vars.put(&quot;i_for_expenseClassId_string&quot;, i_for_expenseClassId.toString());
+
+def i_for_acqUnitIds = 1;
+vars.put(&quot;i_for_acqUnitIds_string&quot;, i_for_acqUnitIds.toString());
+</stringProp>
+          </JSR223Sampler>
+          <hashTree/>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller for GET organizations/organizations" enabled="true">
+            <stringProp name="IfController.condition">${__groovy(${organizations_id_matchNr} &gt; 0 )}</stringProp>
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+            <boolProp name="IfController.useExpression">true</boolProp>
+          </IfController>
+          <hashTree>
+            <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller for GET organizations/organizations" enabled="true">
+              <boolProp name="LoopController.continue_forever">true</boolProp>
+              <stringProp name="LoopController.loops">${count_of_organizations_requests}</stringProp>
+            </LoopController>
+            <hashTree>
+              <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler Get Organizations  ids for GET_organizations/organizations url" enabled="true">
+                <stringProp name="scriptLanguage">groovy</stringProp>
+                <stringProp name="parameters"></stringProp>
+                <stringProp name="filename"></stringProp>
+                <stringProp name="cacheKey">true</stringProp>
+                <stringProp name="script">def i_string = vars.get(&quot;i_for_organizations_string&quot;); // get i string
+int  i = Integer.parseInt(i_string);  // convert i to int
+def ids_for_get_organizations_url = (vars.get(&quot;unique_organizations_list_ids_for_request_&quot; + i_string)) //get 25 ids for request url
+i = i + 1; // increment i
+i_string = i.toString(); // convert i to string
+//log.info(&quot;ids_for_url = &quot;+ ids_for_url)
+vars.put(&quot;ids_for_get_organizations_url&quot;, ids_for_get_organizations_url); // add global variable with ids for request url
+vars.put(&quot;i_for_organizations_string&quot;,i_string); // update i
+</stringProp>
+              </JSR223Sampler>
+              <hashTree/>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="EI_GET organizations/organizations" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+                  <collectionProp name="Arguments.arguments">
+                    <elementProp name="query" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                      <stringProp name="Argument.name">query</stringProp>
+                      <stringProp name="Argument.value">${ids_for_get_organizations_url}</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                      <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    </elementProp>
+                    <elementProp name="limit" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                      <stringProp name="Argument.name">limit</stringProp>
+                      <stringProp name="Argument.value">1000</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                      <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    </elementProp>
+                  </collectionProp>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain"></stringProp>
+                <stringProp name="HTTPSampler.port"></stringProp>
+                <stringProp name="HTTPSampler.protocol"></stringProp>
+                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                <stringProp name="HTTPSampler.path">organizations/organizations</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              </HTTPSamplerProxy>
+              <hashTree/>
+            </hashTree>
+          </hashTree>
+        </hashTree>
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller for GET /invoice/invoice-lines" enabled="true">
+          <stringProp name="IfController.condition">${__groovy(${invoices_id_matchNr} &gt; 0 )}</stringProp>
+          <boolProp name="IfController.evaluateAll">false</boolProp>
+          <boolProp name="IfController.useExpression">true</boolProp>
+        </IfController>
+        <hashTree>
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="EI_TC: Export Invoice" enabled="true">
+            <boolProp name="TransactionController.includeTimers">false</boolProp>
+            <boolProp name="TransactionController.parent">false</boolProp>
+          </TransactionController>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="EI_GET invoice/invoices" enabled="true">
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="offset" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.name">offset</stringProp>
+                    <stringProp name="Argument.value">0</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  </elementProp>
+                  <elementProp name="query" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                    <stringProp name="Argument.name">query</stringProp>
+                    <stringProp name="Argument.value">(status==(&quot;Open&quot; or &quot;Paid&quot; or &quot;Reviewed&quot; or &quot;Approved&quot;)) sortby invoiceDate/sort.descending</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  </elementProp>
+                  <elementProp name="limit" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.name">limit</stringProp>
+                    <stringProp name="Argument.value">5000</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">invoice/invoices</stringProp>
+              <stringProp name="HTTPSampler.method">GET</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree/>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="EI_GET invoice/invoices" enabled="true">
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="offset" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.name">offset</stringProp>
+                    <stringProp name="Argument.value">1000</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  </elementProp>
+                  <elementProp name="query" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                    <stringProp name="Argument.name">query</stringProp>
+                    <stringProp name="Argument.value">(status==(&quot;Open&quot; or &quot;Paid&quot; or &quot;Reviewed&quot; or &quot;Approved&quot;)) sortby invoiceDate/sort.descending</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  </elementProp>
+                  <elementProp name="limit" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.name">limit</stringProp>
+                    <stringProp name="Argument.value">1000</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">invoice/invoices</stringProp>
+              <stringProp name="HTTPSampler.method">GET</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree/>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="EI_GET invoice/invoices" enabled="true">
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="offset" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.name">offset</stringProp>
+                    <stringProp name="Argument.value">1000</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  </elementProp>
+                  <elementProp name="query" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                    <stringProp name="Argument.name">query</stringProp>
+                    <stringProp name="Argument.value">(status==(&quot;Open&quot; or &quot;Paid&quot; or &quot;Reviewed&quot; or &quot;Approved&quot;)) sortby invoiceDate/sort.descending</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  </elementProp>
+                  <elementProp name="limit" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.name">limit</stringProp>
+                    <stringProp name="Argument.value">2000</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">invoice/invoices</stringProp>
+              <stringProp name="HTTPSampler.method">GET</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree/>
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler for TC_Export Invoice" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">import java.util.ArrayList;
+def vouchers_lines_ids_from_all_requests = new ArrayList(); // collect all vouchers_ids for EI_GET voucher/voucher-lines requests
+vars.putObject(&quot;vouchers_lines_ids_from_all_requests&quot;,vouchers_lines_ids_from_all_requests);
+
+
+def fundId_ids_from_all_requests = new ArrayList(); // collect all fundId_ids for EI_GET finance/funds requests
+vars.putObject(&quot;fundId_ids_from_all_requests&quot;,fundId_ids_from_all_requests);
+
+def poLineId_ids_from_all_requests = new ArrayList(); // collect all poLineId_ids for EI_GET orders/order-lines requests
+vars.putObject(&quot;poLineId_ids_from_all_requests&quot;,poLineId_ids_from_all_requests);
+
+def expenseClassId_ids_from_all_requests = new ArrayList(); // collect all expenseClassId_ids for EI_GET finance/expense-classess requests
+vars.putObject(&quot;expenseClassId_ids_from_all_requests&quot;,expenseClassId_ids_from_all_requests);
+</stringProp>
+            </JSR223Sampler>
+            <hashTree/>
+            <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller for GET /invoice/invoice-lines" enabled="true">
+              <boolProp name="LoopController.continue_forever">true</boolProp>
+              <stringProp name="LoopController.loops">${count_of_invoices_requests}</stringProp>
+            </LoopController>
+            <hashTree>
+              <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler Get Invoices  ids for GET_/invoice/invoice-lines url" enabled="true">
+                <stringProp name="scriptLanguage">groovy</stringProp>
+                <stringProp name="parameters"></stringProp>
+                <stringProp name="filename"></stringProp>
+                <stringProp name="cacheKey">true</stringProp>
+                <stringProp name="script">def i_string = vars.get(&quot;i_for_invoices_string&quot;);
+int  i = Integer.parseInt(i_string);  
+def ids_for_get_invoices_url = (vars.get(&quot;unique_invoices_list_ids_for_request_&quot; + i_string))
+i = i + 1;
+i_string = i.toString();
+//log.info(&quot;ids_for_url = &quot;+ ids_for_url)
+vars.put(&quot;ids_for_get_invoices_url&quot;, ids_for_get_invoices_url);
+vars.put(&quot;i_for_invoices_string&quot;,i_string);
+</stringProp>
+              </JSR223Sampler>
+              <hashTree/>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="EI_GET invoice/invoice-lines" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+                  <collectionProp name="Arguments.arguments">
+                    <elementProp name="query" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                      <stringProp name="Argument.name">query</stringProp>
+                      <stringProp name="Argument.value">${ids_for_get_invoices_url}</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                      <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    </elementProp>
+                    <elementProp name="limit" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                      <stringProp name="Argument.name">limit</stringProp>
+                      <stringProp name="Argument.value">1000</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                      <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    </elementProp>
+                  </collectionProp>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain"></stringProp>
+                <stringProp name="HTTPSampler.port"></stringProp>
+                <stringProp name="HTTPSampler.protocol"></stringProp>
+                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                <stringProp name="HTTPSampler.path">invoice/invoice-lines</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor GET finance/funds" enabled="true">
+                  <stringProp name="JSONPostProcessor.referenceNames">fundId</stringProp>
+                  <stringProp name="JSONPostProcessor.jsonPathExprs">$.invoiceLines..fundDistributions..fundId</stringProp>
+                  <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
+                  <stringProp name="JSONPostProcessor.defaultValues">fundId_not_found</stringProp>
+                  <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
+                </JSONPostProcessor>
+                <hashTree/>
+                <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor for GET finance/funds" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">import java.util.List;
+import java.util.ArrayList;
+
+def ids_from_request = vars.get(&apos;fundId_ALL&apos;)
+def ids_from_all_requests = vars.getObject(&apos;fundId_ids_from_all_requests&apos;)
+def unique_ids = ids_from_request.split(&apos;,&apos;).toList().toSet()
+def unique_ids_string = unique_ids.join(&apos;,&apos;)
+
+ids_from_all_requests.add(unique_ids_string)
+vars.putObject(&apos;fundId_ids_from_all_requests&apos;,ids_from_all_requests)
+vars.putObject(&apos;fundId_ids_from_all_requests_matchNr&apos;,ids_from_all_requests.size())
+vars.put(&quot;fundId_ids_from_all_requests_ALL&quot;, ids_from_all_requests.join(&apos;,&apos;));
+</stringProp>
+                </JSR223PostProcessor>
+                <hashTree/>
+                <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor GET orders/order-lines" enabled="true">
+                  <stringProp name="JSONPostProcessor.referenceNames">poLineId</stringProp>
+                  <stringProp name="JSONPostProcessor.jsonPathExprs">$.invoiceLines..poLineId</stringProp>
+                  <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
+                  <stringProp name="JSONPostProcessor.defaultValues">poLineId_not_found</stringProp>
+                  <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
+                </JSONPostProcessor>
+                <hashTree/>
+                <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor for GET orders/order-lines" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">import java.util.List;
+import java.util.ArrayList;
+
+def ids_from_request = vars.get(&apos;poLineId_ALL&apos;)
+def ids_from_all_requests = vars.getObject(&apos;poLineId_ids_from_all_requests&apos;)
+def unique_ids = ids_from_request.split(&apos;,&apos;).toList().toSet()
+def unique_ids_string = unique_ids.join(&apos;,&apos;)
+
+ids_from_all_requests.add(unique_ids_string)
+
+vars.putObject(&apos;poLineId_ids_from_all_requests_matchNr&apos;,ids_from_all_requests.size())
+vars.putObject(&apos;poLineId_ids_from_all_requests&apos;,ids_from_all_requests)
+
+vars.put(&quot;poLineId_ids_from_all_requests_ALL&quot;, ids_from_all_requests.join(&apos;,&apos;));
+</stringProp>
+                </JSR223PostProcessor>
+                <hashTree/>
+                <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor GET finance/expense-classes" enabled="true">
+                  <stringProp name="JSONPostProcessor.referenceNames">expenseClassId</stringProp>
+                  <stringProp name="JSONPostProcessor.jsonPathExprs">$.invoiceLines..fundDistributions..expenseClassId</stringProp>
+                  <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
+                  <stringProp name="JSONPostProcessor.defaultValues">expenseClassId_not_found</stringProp>
+                  <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
+                </JSONPostProcessor>
+                <hashTree/>
+                <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor for GET finance/expense-classes" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">import java.util.List;
+import java.util.ArrayList;
+
+
+def ids_from_request = vars.get(&apos;expenseClassId_ALL&apos;)
+def ids_from_all_requests = vars.getObject(&apos;expenseClassId_ids_from_all_requests&apos;)
+
+if (ids_from_request != null &amp;&amp; !ids_from_request.isEmpty()) {
+    def unique_ids = ids_from_request.split(&apos;,&apos;).toList().toSet()
+    def unique_ids_string = unique_ids.join(&apos;,&apos;)
+    
+    ids_from_all_requests.add(unique_ids_string)
+    
+    vars.putObject(&apos;expenseClassId_ids_from_all_requests_matchNr&apos;,ids_from_all_requests.size())
+    vars.putObject(&apos;expenseClassId_ids_from_all_requests&apos;,ids_from_all_requests)
+    vars.put(&quot;expenseClassId_ids_from_all_requests_ALL&quot;, ids_from_all_requests.join(&apos;,&apos;))
+}</stringProp>
+                </JSR223PostProcessor>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller for GET organizations/organizations" enabled="true">
+              <stringProp name="IfController.condition">${__groovy(${organizations_id_matchNr} &gt; 0 )}</stringProp>
+              <boolProp name="IfController.evaluateAll">false</boolProp>
+              <boolProp name="IfController.useExpression">true</boolProp>
+            </IfController>
+            <hashTree>
+              <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller for GET organizations/organizations" enabled="true">
+                <boolProp name="LoopController.continue_forever">true</boolProp>
+                <stringProp name="LoopController.loops">${count_of_organizations_requests}</stringProp>
+              </LoopController>
+              <hashTree>
+                <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler Get Organizations  ids for GET_organizations/organizations url" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">def i_string = vars.get(&quot;i_for_organizations_exportInv_string&quot;); // get i string
+int  i = Integer.parseInt(i_string);  // convert i to int
+def ids_for_get_organizations_url = (vars.get(&quot;unique_organizations_list_ids_for_request_&quot; + i_string)) //get 25 ids for request url
+i = i + 1; // increment i
+i_string = i.toString(); // convert i to string
+//log.info(&quot;ids_for_url = &quot;+ ids_for_url)
+vars.put(&quot;ids_for_get_organizations_url&quot;, ids_for_get_organizations_url); // add global variable with ids for request url
+vars.put(&quot;i_for_organizations_exportInv_string&quot;,i_string); // update i
+</stringProp>
+                </JSR223Sampler>
+                <hashTree/>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="EI_GET organizations/organizations" enabled="true">
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+                    <collectionProp name="Arguments.arguments">
+                      <elementProp name="query" elementType="HTTPArgument">
+                        <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                        <stringProp name="Argument.name">query</stringProp>
+                        <stringProp name="Argument.value">${ids_for_get_organizations_url}</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                        <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      </elementProp>
+                      <elementProp name="limit" elementType="HTTPArgument">
+                        <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                        <stringProp name="Argument.name">limit</stringProp>
+                        <stringProp name="Argument.value">1000</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                        <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      </elementProp>
+                    </collectionProp>
+                  </elementProp>
+                  <stringProp name="HTTPSampler.domain"></stringProp>
+                  <stringProp name="HTTPSampler.port"></stringProp>
+                  <stringProp name="HTTPSampler.protocol"></stringProp>
+                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                  <stringProp name="HTTPSampler.path">organizations/organizations</stringProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller for GET acquisitions-units/units" enabled="true">
+              <stringProp name="IfController.condition">${__groovy(${acqUnitIds_matchNr} &gt; 0 )}</stringProp>
+              <boolProp name="IfController.evaluateAll">false</boolProp>
+              <boolProp name="IfController.useExpression">true</boolProp>
+            </IfController>
+            <hashTree>
+              <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller for GET acquisitions-units/units" enabled="true">
+                <boolProp name="LoopController.continue_forever">true</boolProp>
+                <stringProp name="LoopController.loops">${count_acqUnitIds_requests}</stringProp>
+              </LoopController>
+              <hashTree>
+                <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler Get acqUnitIds  ids for GET acquisitions-units/units url" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">def i_string = vars.get(&quot;i_for_acqUnitIds_string&quot;); // get i string
+int  i = Integer.parseInt(i_string);  // convert i to int
+def ids_for_url = (vars.get(&quot;acqUnitIds_for_request_&quot; + i_string)) //get 25 ids for request url
+i = i + 1; // increment i
+i_string = i.toString(); // convert i to string
+//log.info(&quot;ids_for_url = &quot;+ ids_for_url)
+vars.put(&quot;ids_for_acqUnitIds_url&quot;, ids_for_url); // add global variable with ids for request url
+vars.put(&quot;i_for_acqUnitIds_string&quot;,i_string); // update i</stringProp>
+                </JSR223Sampler>
+                <hashTree/>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET acquisitions-units/units" enabled="true">
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+                    <collectionProp name="Arguments.arguments">
+                      <elementProp name="query" elementType="HTTPArgument">
+                        <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                        <stringProp name="Argument.name">query</stringProp>
+                        <stringProp name="Argument.value">${ids_for_acqUnitIds_url}</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                        <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      </elementProp>
+                      <elementProp name="limit" elementType="HTTPArgument">
+                        <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                        <stringProp name="Argument.name">limit</stringProp>
+                        <stringProp name="Argument.value">1000</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                        <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      </elementProp>
+                    </collectionProp>
+                  </elementProp>
+                  <stringProp name="HTTPSampler.domain"></stringProp>
+                  <stringProp name="HTTPSampler.port"></stringProp>
+                  <stringProp name="HTTPSampler.protocol"></stringProp>
+                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                  <stringProp name="HTTPSampler.path">acquisitions-units/units</stringProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="EI_GET users" enabled="true">
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="query" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                    <stringProp name="Argument.name">query</stringProp>
+                    <stringProp name="Argument.value">id==${current_userID} </stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  </elementProp>
+                  <elementProp name="limit" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.name">limit</stringProp>
+                    <stringProp name="Argument.value">1000</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">users</stringProp>
+              <stringProp name="HTTPSampler.method">GET</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree/>
+            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller for GET batch-groups" enabled="true">
+              <stringProp name="IfController.condition">${__groovy(${batchGroupIds_matchNr} &gt; 0 )}</stringProp>
+              <boolProp name="IfController.evaluateAll">false</boolProp>
+              <boolProp name="IfController.useExpression">true</boolProp>
+            </IfController>
+            <hashTree>
+              <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller for GET batch-groups" enabled="true">
+                <boolProp name="LoopController.continue_forever">true</boolProp>
+                <stringProp name="LoopController.loops">${count_batchGroupIds_requests}</stringProp>
+              </LoopController>
+              <hashTree>
+                <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler Get  ids for GET batch-groups url" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">def i_string = vars.get(&quot;i_for_batchGroupIds_string&quot;); // get i string
+int  i = Integer.parseInt(i_string);  // convert i to int
+def ids_for_url = (vars.get(&quot;batchGroupIds_ids_for_request_&quot; + i_string)) //get 25 ids for request url
+i = i + 1; // increment i
+i_string = i.toString(); // convert i to string
+//log.info(&quot;ids_for_url = &quot;+ ids_for_url)
+vars.put(&quot;ids_for_get_batchGroupIds_url&quot;, ids_for_url); // add global variable with ids for request url
+vars.put(&quot;i_for_batchGroupIds_string&quot;,i_string); // update i
+</stringProp>
+                </JSR223Sampler>
+                <hashTree/>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="EI_GET batch-groups" enabled="true">
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+                    <collectionProp name="Arguments.arguments">
+                      <elementProp name="query" elementType="HTTPArgument">
+                        <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                        <stringProp name="Argument.name">query</stringProp>
+                        <stringProp name="Argument.value">${ids_for_get_batchGroupIds_url}</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                        <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      </elementProp>
+                      <elementProp name="limit" elementType="HTTPArgument">
+                        <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                        <stringProp name="Argument.name">limit</stringProp>
+                        <stringProp name="Argument.value">1000</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                        <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      </elementProp>
+                    </collectionProp>
+                  </elementProp>
+                  <stringProp name="HTTPSampler.domain"></stringProp>
+                  <stringProp name="HTTPSampler.port"></stringProp>
+                  <stringProp name="HTTPSampler.protocol"></stringProp>
+                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                  <stringProp name="HTTPSampler.path">batch-groups</stringProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller for orders/order-lines" enabled="true">
+              <stringProp name="IfController.condition">${__groovy(${poLineId_ids_from_all_requests_matchNr} &gt; 0 )}</stringProp>
+              <boolProp name="IfController.evaluateAll">false</boolProp>
+              <boolProp name="IfController.useExpression">true</boolProp>
+            </IfController>
+            <hashTree>
+              <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler GET  orders/order-lines" enabled="true">
+                <stringProp name="scriptLanguage">groovy</stringProp>
+                <stringProp name="parameters"></stringProp>
+                <stringProp name="filename"></stringProp>
+                <stringProp name="cacheKey">true</stringProp>
+                <stringProp name="script">// Create unique variables for each 25 ids by request
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+def idAll = vars.get(&quot;poLineId_ids_from_all_requests_ALL&quot;) // get all ids from JSON Extractor
+def unique_ids_list = idAll.split(&apos;,&apos;).toList().toSet() // set ids to list
+def count_of_requests = (int) Math.ceil(unique_ids_list.size()/25) // divided count of ids by 25(is possible number of ids in request)
+vars.put(&quot;count_poLineId_requests&quot;, count_of_requests.toString()) 
+
+// Extract subset of first 25 elements
+
+import java.util.stream.Collectors;
+        
+for (int i = 1; i &lt;= count_of_requests; i++)
+{    def remaining_unique = unique_ids_list.size();
+if(remaining_unique &gt;= 25){ // check if list of ids more than 25 
+	Set&lt;String&gt; subset = unique_ids_list.stream().limit(25).collect(Collectors.toSet()); // take first 25 ids from list ids
+	vars.put(&quot;poLineId_for_request_&quot; + i, &apos;id==&apos; + subset.join(&apos; or id==&apos;))  // create variable name with i number and ids with a separator between and before ids
+	unique_ids_list = unique_ids_list.stream().skip(25).collect(Collectors.toSet()); // delete first 25 ids from list ids 
+}else{ // if list of ids less than 25
+	vars.put(&quot;poLineId_for_request_&quot; + i, &apos;id==&apos; + unique_ids_list.join(&apos; or id==&apos;)) // take all ids from list ids and separator between and before ids
+}	
+}               </stringProp>
+              </JSR223Sampler>
+              <hashTree/>
+              <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller for orders/order-lines" enabled="true">
+                <boolProp name="LoopController.continue_forever">true</boolProp>
+                <stringProp name="LoopController.loops">${count_poLineId_requests}</stringProp>
+              </LoopController>
+              <hashTree>
+                <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler Get  ids for GET orders/order-lines" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">def i_string = vars.get(&quot;i_for_poLineId_string&quot;); // get i string
+int  i = Integer.parseInt(i_string);  // convert i to int
+def ids_for_url = (vars.get(&quot;poLineId_for_request_&quot; + i_string)) //get 25 ids for request url
+i = i + 1; // increment i
+i_string = i.toString(); // convert i to string
+//log.info(&quot;ids_for_url = &quot;+ ids_for_url)
+vars.put(&quot;ids_for_poLineId_url&quot;, ids_for_url); // add global variable with ids for request url
+vars.put(&quot;i_for_poLineId_string&quot;,i_string); // update i
+
+</stringProp>
+                </JSR223Sampler>
+                <hashTree/>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="EI_GET orders/order-lines" enabled="true">
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+                    <collectionProp name="Arguments.arguments">
+                      <elementProp name="query" elementType="HTTPArgument">
+                        <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                        <stringProp name="Argument.name">query</stringProp>
+                        <stringProp name="Argument.value">${ids_for_poLineId_url}</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                        <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      </elementProp>
+                      <elementProp name="limit" elementType="HTTPArgument">
+                        <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                        <stringProp name="Argument.name">limit</stringProp>
+                        <stringProp name="Argument.value">1000</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                        <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      </elementProp>
+                    </collectionProp>
+                  </elementProp>
+                  <stringProp name="HTTPSampler.domain"></stringProp>
+                  <stringProp name="HTTPSampler.port"></stringProp>
+                  <stringProp name="HTTPSampler.protocol"></stringProp>
+                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                  <stringProp name="HTTPSampler.path">orders/order-lines</stringProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller GET voucher/vouchers" enabled="true">
+              <stringProp name="IfController.condition">${__groovy(${invoices_id_matchNr} &gt; 0 )}</stringProp>
+              <boolProp name="IfController.evaluateAll">false</boolProp>
+              <boolProp name="IfController.useExpression">true</boolProp>
+            </IfController>
+            <hashTree>
+              <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller GET voucher/vouchers" enabled="true">
+                <boolProp name="LoopController.continue_forever">true</boolProp>
+                <stringProp name="LoopController.loops">${count_vouchers_requests}</stringProp>
+              </LoopController>
+              <hashTree>
+                <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler Get  ids for GET voucher/vouchers url" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">def i_string = vars.get(&quot;i_for_vouchers_string&quot;); // get i string
+int  i = Integer.parseInt(i_string);  // convert i to int
+def ids_for_url = (vars.get(&quot;vouchers_ids_for_request_&quot; + i_string)) //get 25 ids for request url
+i = i + 1; // increment i
+i_string = i.toString(); // convert i to string
+//log.info(&quot;ids_for_url = &quot;+ ids_for_url)
+vars.put(&quot;ids_for_get_vouchers_url&quot;, ids_for_url); // add global variable with ids for request url
+vars.put(&quot;i_for_vouchers_string&quot;,i_string); // update i
+
+</stringProp>
+                </JSR223Sampler>
+                <hashTree/>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="EI_GET voucher/vouchers" enabled="true">
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+                    <collectionProp name="Arguments.arguments">
+                      <elementProp name="query" elementType="HTTPArgument">
+                        <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                        <stringProp name="Argument.name">query</stringProp>
+                        <stringProp name="Argument.value">${ids_for_get_vouchers_url}</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                        <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      </elementProp>
+                      <elementProp name="limit" elementType="HTTPArgument">
+                        <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                        <stringProp name="Argument.name">limit</stringProp>
+                        <stringProp name="Argument.value">1000</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                        <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      </elementProp>
+                    </collectionProp>
+                  </elementProp>
+                  <stringProp name="HTTPSampler.domain"></stringProp>
+                  <stringProp name="HTTPSampler.port"></stringProp>
+                  <stringProp name="HTTPSampler.protocol"></stringProp>
+                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                  <stringProp name="HTTPSampler.path">voucher/vouchers</stringProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor voucher_lines_id" enabled="true">
+                    <stringProp name="JSONPostProcessor.referenceNames">voucher_lines_id</stringProp>
+                    <stringProp name="JSONPostProcessor.jsonPathExprs">$.vouchers..id</stringProp>
+                    <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
+                    <stringProp name="JSONPostProcessor.defaultValues">voucher_lines_id_not_found</stringProp>
+                    <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
+                  </JSONPostProcessor>
+                  <hashTree/>
+                  <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor For get voucher_lines_id" enabled="true">
+                    <stringProp name="scriptLanguage">groovy</stringProp>
+                    <stringProp name="parameters"></stringProp>
+                    <stringProp name="filename"></stringProp>
+                    <stringProp name="cacheKey">true</stringProp>
+                    <stringProp name="script">import java.util.List;
+import java.util.ArrayList;
+
+def ids_from_request = vars.get(&apos;voucher_lines_id_ALL&apos;)
+def ids_from_all_requests = vars.getObject(&apos;vouchers_lines_ids_from_all_requests&apos;)
+def unique_ids = ids_from_request.split(&apos;,&apos;).toList().toSet()
+def unique_ids_string = unique_ids.join(&apos;,&apos;)
+
+ids_from_all_requests.add(unique_ids_string)
+vars.putObject(&apos;voucher_lines_ids_from_all_requests&apos;,ids_from_all_requests)
+vars.putObject(&apos;voucher_lines_from_all_requests_matchNr&apos;,ids_from_all_requests.size())
+vars.put(&quot;voucher_lines_ids_from_all_requests_ALL&quot;, ids_from_all_requests.join(&apos;,&apos;));
+
+
+</stringProp>
+                  </JSR223PostProcessor>
+                  <hashTree/>
+                </hashTree>
+              </hashTree>
+            </hashTree>
+            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller for GET voucher/voucher-lines" enabled="true">
+              <stringProp name="IfController.condition">${__groovy(${voucher_lines_from_all_requests_matchNr} &gt; 0 )}</stringProp>
+              <boolProp name="IfController.evaluateAll">false</boolProp>
+              <boolProp name="IfController.useExpression">true</boolProp>
+            </IfController>
+            <hashTree>
+              <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler GET voucher/voucher-lines" enabled="true">
+                <stringProp name="scriptLanguage">groovy</stringProp>
+                <stringProp name="parameters"></stringProp>
+                <stringProp name="filename"></stringProp>
+                <stringProp name="cacheKey">true</stringProp>
+                <stringProp name="script">// Create unique variables for each 25 ids by request
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+def idAll = vars.get(&quot;voucher_lines_ids_from_all_requests_ALL&quot;) // get all ids from JSON Extractor
+def unique_ids_list = idAll.split(&apos;,&apos;).toList().toSet() // set ids to list
+def count_of_requests = (int) Math.ceil(unique_ids_list.size()/25) // divided count of ids by 25(is possible number of ids in request)
+vars.put(&quot;count_voucher_lines_requests&quot;, count_of_requests.toString()) 
+
+// Extract subset of first 25 elements
+
+import java.util.stream.Collectors;
+        
+for (int i = 1; i &lt;= count_of_requests; i++)
+{    def remaining_unique = unique_ids_list.size();
+if(remaining_unique &gt;= 25){ // check if list of ids more than 25 
+	Set&lt;String&gt; subset = unique_ids_list.stream().limit(25).collect(Collectors.toSet()); // take first 25 ids from list ids
+	vars.put(&quot;voucher_lines_for_request_&quot; + i, &apos;voucherId==&apos; + subset.join(&apos; or voucherId==&apos;))  // create variable name with i number and ids with a separator between and before ids
+	unique_ids_list = unique_ids_list.stream().skip(25).collect(Collectors.toSet()); // delete first 25 ids from list ids 
+}else{ // if list of ids less than 25
+	vars.put(&quot;voucher_lines_for_request_&quot; + i, &apos;voucherId==&apos; + unique_ids_list.join(&apos; or voucherId==&apos;)) // take all ids from list ids and separator between and before ids
+}	
+}               </stringProp>
+              </JSR223Sampler>
+              <hashTree/>
+              <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller for GET voucher/voucher-lines" enabled="true">
+                <boolProp name="LoopController.continue_forever">true</boolProp>
+                <stringProp name="LoopController.loops">${count_voucher_lines_requests}</stringProp>
+              </LoopController>
+              <hashTree>
+                <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler Get  ids for GET voucher/voucher-lines url" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">def i_string = vars.get(&quot;i_for_voucher_lines_id_string&quot;); // get i string
+int  i = Integer.parseInt(i_string);  // convert i to int
+def ids_for_url = (vars.get(&quot;voucher_lines_for_request_&quot; + i_string)) //get 25 ids for request url
+i = i + 1; // increment i
+i_string = i.toString(); // convert i to string
+//log.info(&quot;ids_for_url = &quot;+ ids_for_url)
+vars.put(&quot;ids_for_get_voucher_lines_url&quot;, ids_for_url); // add global variable with ids for request url
+vars.put(&quot;i_for_voucher_lines_id_string&quot;,i_string); // update i
+
+</stringProp>
+                </JSR223Sampler>
+                <hashTree/>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="EI_GET voucher/voucher-lines" enabled="true">
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+                    <collectionProp name="Arguments.arguments">
+                      <elementProp name="query" elementType="HTTPArgument">
+                        <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                        <stringProp name="Argument.name">query</stringProp>
+                        <stringProp name="Argument.value">${ids_for_get_voucher_lines_url}</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                        <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      </elementProp>
+                      <elementProp name="limit" elementType="HTTPArgument">
+                        <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                        <stringProp name="Argument.name">limit</stringProp>
+                        <stringProp name="Argument.value">1000</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                        <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      </elementProp>
+                    </collectionProp>
+                  </elementProp>
+                  <stringProp name="HTTPSampler.domain"></stringProp>
+                  <stringProp name="HTTPSampler.port"></stringProp>
+                  <stringProp name="HTTPSampler.protocol"></stringProp>
+                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                  <stringProp name="HTTPSampler.path">voucher/voucher-lines</stringProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller for GET finance/expense-classes" enabled="true">
+              <stringProp name="IfController.condition">${__groovy(${expenseClassId_ids_from_all_requests_matchNr} &gt; 0 )}</stringProp>
+              <boolProp name="IfController.evaluateAll">false</boolProp>
+              <boolProp name="IfController.useExpression">true</boolProp>
+            </IfController>
+            <hashTree>
+              <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler GET finance/expense-classes" enabled="true">
+                <stringProp name="scriptLanguage">groovy</stringProp>
+                <stringProp name="parameters"></stringProp>
+                <stringProp name="filename"></stringProp>
+                <stringProp name="cacheKey">true</stringProp>
+                <stringProp name="script">// Create unique variables for each 25 ids by request
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+def idAll = vars.get(&quot;expenseClassId_ids_from_all_requests_ALL&quot;) // get all ids from JSON Extractor
+def unique_ids_list = idAll.split(&apos;,&apos;).toList().toSet() // set ids to list
+def count_of_requests = (int) Math.ceil(unique_ids_list.size()/25) // divided count of ids by 25(is possible number of ids in request)
+vars.put(&quot;count_expenseClassId_requests&quot;, count_of_requests.toString()) 
+
+// Extract subset of first 25 elements
+
+import java.util.stream.Collectors;
+        
+for (int i = 1; i &lt;= count_of_requests; i++)
+{    def remaining_unique = unique_ids_list.size();
+if(remaining_unique &gt;= 25){ // check if list of ids more than 25 
+	Set&lt;String&gt; subset = unique_ids_list.stream().limit(25).collect(Collectors.toSet()); // take first 25 ids from list ids
+	vars.put(&quot;expenseClassId_for_request_&quot; + i, &apos;id==&apos; + subset.join(&apos; or id==&apos;))  // create variable name with i number and ids with a separator between and before ids
+	unique_ids_list = unique_ids_list.stream().skip(25).collect(Collectors.toSet()); // delete first 25 ids from list ids 
+}else{ // if list of ids less than 25
+	vars.put(&quot;expenseClassId_for_request_&quot; + i, &apos;id==&apos; + unique_ids_list.join(&apos; or id==&apos;)) // take all ids from list ids and separator between and before ids
+}	
+}               </stringProp>
+              </JSR223Sampler>
+              <hashTree/>
+              <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller for GET finance/expense-classes" enabled="true">
+                <boolProp name="LoopController.continue_forever">true</boolProp>
+                <stringProp name="LoopController.loops">${count_expenseClassId_requests}</stringProp>
+              </LoopController>
+              <hashTree>
+                <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler Get  ids for GET finance/expense-classes" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">def i_string = vars.get(&quot;i_for_expenseClassId_string&quot;); // get i string
+int  i = Integer.parseInt(i_string);  // convert i to int
+def ids_for_url = (vars.get(&quot;expenseClassId_for_request_&quot; + i_string)) //get 25 ids for request url
+i = i + 1; // increment i
+i_string = i.toString(); // convert i to string
+//log.info(&quot;ids_for_url = &quot;+ ids_for_url)
+vars.put(&quot;ids_for_expenseClassId_url&quot;, ids_for_url); // add global variable with ids for request url
+vars.put(&quot;i_for_expenseClassId_string&quot;,i_string); // update i
+
+</stringProp>
+                </JSR223Sampler>
+                <hashTree/>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="EI_GET finance/expense-classes" enabled="true">
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+                    <collectionProp name="Arguments.arguments">
+                      <elementProp name="query" elementType="HTTPArgument">
+                        <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                        <stringProp name="Argument.name">query</stringProp>
+                        <stringProp name="Argument.value">${ids_for_expenseClassId_url}</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                        <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      </elementProp>
+                      <elementProp name="limit" elementType="HTTPArgument">
+                        <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                        <stringProp name="Argument.name">limit</stringProp>
+                        <stringProp name="Argument.value">1000</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                        <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      </elementProp>
+                    </collectionProp>
+                  </elementProp>
+                  <stringProp name="HTTPSampler.domain"></stringProp>
+                  <stringProp name="HTTPSampler.port"></stringProp>
+                  <stringProp name="HTTPSampler.protocol"></stringProp>
+                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                  <stringProp name="HTTPSampler.path">finance/expense-classes</stringProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller for GET finance/fiscal-years" enabled="true">
+              <stringProp name="IfController.condition">${__groovy(${fiscalYearId_matchNr} &gt; 0 )}</stringProp>
+              <boolProp name="IfController.evaluateAll">false</boolProp>
+              <boolProp name="IfController.useExpression">true</boolProp>
+            </IfController>
+            <hashTree>
+              <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller for GET finance/fiscal-years" enabled="true">
+                <boolProp name="LoopController.continue_forever">true</boolProp>
+                <stringProp name="LoopController.loops">${count_fiscalYearId_requests}</stringProp>
+              </LoopController>
+              <hashTree>
+                <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler Get  ids for GET finance/fiscal-years" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">def i_string = vars.get(&quot;i_for_fiscalYearId_string&quot;); // get i string
+int  i = Integer.parseInt(i_string);  // convert i to int
+def ids_for_url = (vars.get(&quot;fiscalYearId_for_request_&quot; + i_string)) //get 25 ids for request url
+i = i + 1; // increment i
+i_string = i.toString(); // convert i to string
+//log.info(&quot;ids_for_url = &quot;+ ids_for_url)
+vars.put(&quot;ids_for_fiscalYearId_url&quot;, ids_for_url); // add global variable with ids for request url
+vars.put(&quot;i_for_fiscalYearId_string&quot;,i_string); // update i
+
+</stringProp>
+                </JSR223Sampler>
+                <hashTree/>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="EI_GET finance/fiscal-years" enabled="true">
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+                    <collectionProp name="Arguments.arguments">
+                      <elementProp name="query" elementType="HTTPArgument">
+                        <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                        <stringProp name="Argument.name">query</stringProp>
+                        <stringProp name="Argument.value">${ids_for_fiscalYearId_url}</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                        <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      </elementProp>
+                      <elementProp name="limit" elementType="HTTPArgument">
+                        <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                        <stringProp name="Argument.name">limit</stringProp>
+                        <stringProp name="Argument.value">1000</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                        <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      </elementProp>
+                    </collectionProp>
+                  </elementProp>
+                  <stringProp name="HTTPSampler.domain"></stringProp>
+                  <stringProp name="HTTPSampler.port"></stringProp>
+                  <stringProp name="HTTPSampler.protocol"></stringProp>
+                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                  <stringProp name="HTTPSampler.path">finance/fiscal-years</stringProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller for GET configurations/entries" enabled="true">
+              <stringProp name="IfController.condition">${__groovy(${billTo_matchNr} &gt; 0 )}</stringProp>
+              <boolProp name="IfController.evaluateAll">false</boolProp>
+              <boolProp name="IfController.useExpression">true</boolProp>
+            </IfController>
+            <hashTree>
+              <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller for GET configurations/entries" enabled="true">
+                <boolProp name="LoopController.continue_forever">true</boolProp>
+                <stringProp name="LoopController.loops">${count_billTo_requests}</stringProp>
+              </LoopController>
+              <hashTree>
+                <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler Get  ids for GET finance/fiscal-years" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">def i_string = vars.get(&quot;i_for_billTo_string&quot;); // get i string
+int  i = Integer.parseInt(i_string);  // convert i to int
+def ids_for_url = (vars.get(&quot;billTo_for_request_&quot; + i_string)) //get 25 ids for request url
+i = i + 1; // increment i
+i_string = i.toString(); // convert i to string
+//log.info(&quot;ids_for_url = &quot;+ ids_for_url)
+vars.put(&quot;ids_for_billTo_url&quot;, ids_for_url); // add global variable with ids for request url
+vars.put(&quot;i_for_billTo_string&quot;,i_string); // update i
+
+</stringProp>
+                </JSR223Sampler>
+                <hashTree/>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="EI_GET configurations/entries" enabled="true">
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+                    <collectionProp name="Arguments.arguments">
+                      <elementProp name="query" elementType="HTTPArgument">
+                        <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                        <stringProp name="Argument.name">query</stringProp>
+                        <stringProp name="Argument.value">(module=TENANT and configName=tenant.addresses and (${ids_for_billTo_url}))</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                        <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      </elementProp>
+                      <elementProp name="limit" elementType="HTTPArgument">
+                        <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                        <stringProp name="Argument.name">limit</stringProp>
+                        <stringProp name="Argument.value">1000</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                        <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      </elementProp>
+                    </collectionProp>
+                  </elementProp>
+                  <stringProp name="HTTPSampler.domain"></stringProp>
+                  <stringProp name="HTTPSampler.port"></stringProp>
+                  <stringProp name="HTTPSampler.protocol"></stringProp>
+                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                  <stringProp name="HTTPSampler.path">configurations/entries</stringProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller for GET finance/funds" enabled="true">
+              <stringProp name="IfController.condition">${__groovy(${fundId_ids_from_all_requests_matchNr} &gt; 0 )}</stringProp>
+              <boolProp name="IfController.evaluateAll">false</boolProp>
+              <boolProp name="IfController.useExpression">true</boolProp>
+            </IfController>
+            <hashTree>
+              <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler GET finance/funds" enabled="true">
+                <stringProp name="scriptLanguage">groovy</stringProp>
+                <stringProp name="parameters"></stringProp>
+                <stringProp name="filename"></stringProp>
+                <stringProp name="cacheKey">true</stringProp>
+                <stringProp name="script">// Create unique variables for each 25 ids by request
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+def idAll = vars.get(&quot;fundId_ids_from_all_requests_ALL&quot;) // get all ids from JSON Extractor
+def unique_ids_list = idAll.split(&apos;,&apos;).toList().toSet() // set ids to list
+def count_of_requests = (int) Math.ceil(unique_ids_list.size()/25) // divided count of ids by 25(is possible number of ids in request)
+vars.put(&quot;count_fundId_requests&quot;, count_of_requests.toString()) 
+
+// Extract subset of first 25 elements
+
+import java.util.stream.Collectors;
+        
+for (int i = 1; i &lt;= count_of_requests; i++)
+{    def remaining_unique = unique_ids_list.size();
+if(remaining_unique &gt;= 25){ // check if list of ids more than 25 
+	Set&lt;String&gt; subset = unique_ids_list.stream().limit(25).collect(Collectors.toSet()); // take first 25 ids from list ids
+	vars.put(&quot;fundId_for_request_&quot; + i, &apos;id==&apos; + subset.join(&apos; or id==&apos;))  // create variable name with i number and ids with a separator between and before ids
+	unique_ids_list = unique_ids_list.stream().skip(25).collect(Collectors.toSet()); // delete first 25 ids from list ids 
+}else{ // if list of ids less than 25
+	vars.put(&quot;fundId_for_request_&quot; + i, &apos;id==&apos; + unique_ids_list.join(&apos; or id==&apos;)) // take all ids from list ids and separator between and before ids
+}	
+}               </stringProp>
+              </JSR223Sampler>
+              <hashTree/>
+              <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller for GET finance/funds" enabled="true">
+                <boolProp name="LoopController.continue_forever">true</boolProp>
+                <stringProp name="LoopController.loops">${count_fundId_requests}</stringProp>
+              </LoopController>
+              <hashTree>
+                <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler Get  ids for GET finance/funds" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">def i_string = vars.get(&quot;i_for_fundId_string&quot;); // get i string
+int  i = Integer.parseInt(i_string);  // convert i to int
+def ids_for_url = (vars.get(&quot;fundId_for_request_&quot; + i_string)) //get 25 ids for request url
+i = i + 1; // increment i
+i_string = i.toString(); // convert i to string
+//log.info(&quot;ids_for_url = &quot;+ ids_for_url)
+vars.put(&quot;ids_for_fundId_url&quot;, ids_for_url); // add global variable with ids for request url
+vars.put(&quot;i_for_fundId_string&quot;,i_string); // update i
+
+</stringProp>
+                </JSR223Sampler>
+                <hashTree/>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="EI_GET finance/funds" enabled="true">
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+                    <collectionProp name="Arguments.arguments">
+                      <elementProp name="query" elementType="HTTPArgument">
+                        <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                        <stringProp name="Argument.name">query</stringProp>
+                        <stringProp name="Argument.value">${ids_for_fundId_url}</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                        <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      </elementProp>
+                      <elementProp name="limit" elementType="HTTPArgument">
+                        <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                        <stringProp name="Argument.name">limit</stringProp>
+                        <stringProp name="Argument.value">1000</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                        <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      </elementProp>
+                    </collectionProp>
+                  </elementProp>
+                  <stringProp name="HTTPSampler.domain"></stringProp>
+                  <stringProp name="HTTPSampler.port"></stringProp>
+                  <stringProp name="HTTPSampler.protocol"></stringProp>
+                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                  <stringProp name="HTTPSampler.path">finance/funds</stringProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+          </hashTree>
+        </hashTree>
+      </hashTree>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <JSR223Listener guiclass="TestBeanGUI" testclass="JSR223Listener" testname="JSR223 Listener - Logger" enabled="true">
+        <stringProp name="cacheKey">true</stringProp>
+        <stringProp name="filename"></stringProp>
+        <stringProp name="parameters"></stringProp>
+        <stringProp name="script">// Import necessary libraries
+import org.apache.jmeter.samplers.SampleResult;
+import org.apache.jmeter.assertions.AssertionResult;
+
+// Check if the previous sampler or current sampler result is not successful
+if (!prev.isSuccessful() || !sampleResult.isSuccessful()) {
+    // Get the response body as a string
+    def responseBody = sampleResult.getResponseDataAsString();
+
+    // Get the end time of the sample
+    def endTime = sampleResult.getEndTime();
+
+    // Convert the timestamp to a human-readable format
+    def formattedEndTime = new Date(endTime).toString();
+
+    // Get the sample label HTTP requesr Name
+    def sampleLabel = sampleResult.getSampleLabel();
+
+    // Format the message
+    def message = &quot;Assertion failed for sampler &apos;${sampleLabel}&apos; at ${formattedEndTime}: ${responseBody}&quot;;
+
+    // Log the message to the JMeter log
+    log.info(message);
+
+    // Log the message to the console output
+    println(&quot;Assertion failed: ${message}&quot;);
+}</stringProp>
+        <stringProp name="scriptLanguage">groovy</stringProp>
+      </JSR223Listener>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
