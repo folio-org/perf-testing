@@ -8,7 +8,7 @@ Finance Fond Budget Allocation:
 4. Click on created fund
 5. Click on a current budget
 6. Click Transfer
-7. Fill in anount and select from and to budgets
+7. Fill in amount and select from and to budgets
 8. click Confirm
 
 
@@ -32,7 +32,7 @@ Finance Fond Budget Allocation:
 - HOSTNAME
 - TB_VUSERS		count of concurrent users.
 - TB_RAMP_UP	the amount of time it will take the script to add all test users (threads) to a test execution.
-- TB_TRANSFER_COUNT   count of transfer beetwen budgets
+- TB_TRANSFER_COUNT   count of transfer between budgets
 - DURATION		timespan between start and end of the script
 - DISTRIBUTION  Distribution of flows. By default, 0-100-0-0 probabilities for create-view-update-delete operations
 ## Setup data before running JMeter script:
@@ -40,4 +40,4 @@ Finance Fond Budget Allocation:
 - Point tenant with sourceTenantId variable. The central tenant with targetTenantId variable.
 
 ## Setup data after running JMeter script:
-- Script creates funds and budgets, perform transfer beetwen budgets.
+- Script creates funds and budgets, perform transfer between budgets.
