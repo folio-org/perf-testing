@@ -41,6 +41,9 @@ Once the migration operation is initiated, you need to track the status of the d
 
   The time taken to complete data mapping can be calculated by subtracting `startTimeMapping` from `endTimeMapping`.
 
+While the data mapping is running, files with data will be stored directly in the working mod-marc-migrations container. Further, all files will be deleted from the container and relocated to the S3 bucket (if the S3 bucket is not provided - data mapping fails).
+If the container falls during the data mapping process - all files will be lost and data mapping will hang forever.
+
 ### 3. Initiate Data Saving Step
 
 Once the data mapping has completed successfully, you can proceed to the data saving step.
