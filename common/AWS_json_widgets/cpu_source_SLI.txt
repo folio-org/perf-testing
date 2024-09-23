@@ -1,0 +1,28 @@
+{
+    "view": "timeSeries",
+    "period": 300,
+    "yAxis": {
+        "left": {
+            "min": 0
+        }
+    },
+    "stacked": false,
+    "metrics": [
+        [ "AWS/ECS", "CPUUtilization", "ServiceName", "mod-search-b", "ClusterName", "qcon-pvt", { "period": 60, "region": "us-east-1" } ],
+        [ "...", "mod-consortia-b", ".", ".", { "period": 60, "region": "us-east-1" } ],
+	   [ "...", "mod-organizations-b", ".", ".", { "period": 60, "region": "us-east-1" } ],
+	   [ "...", "mod-tags-b", ".", ".", { "period": 60, "region": "us-east-1" } ],
+	   [ "...", "mod-inventory-storage-b", ".", ".", { "period": 60, "region": "us-east-1" } ],
+	   [ "...", "mod-source-record-storage-b", ".", ".", { "period": 60, "region": "us-east-1" } ],
+	   [ "...", "mod-inventory-b", ".", ".", { "period": 60, "region": "us-east-1" } ],
+	   [ "...", "mod-circulation-b", ".", ".", { "period": 60, "region": "us-east-1" } ],
+	   [ "...", "mod-pubsub-b", ".", ".", { "period": 60, "region": "us-east-1" } ],
+	   [ "...", "mod-di-converter-storage-b", ".", ".", { "period": 60, "region": "us-east-1" } ],
+	   [ "...", "mod-source-record-manager-b", ".", ".", { "period": 60, "region": "us-east-1" } ],
+	   [ "...", "mod-quick-marc-b", ".", ".", { "period": 60, "region": "us-east-1" } ],
+	   [ "...", "okapi-b", ".", ".", { "period": 60, "region": "us-east-1" } ],
+	   [ "...", "nginx-okapi", ".", ".", { "period": 60, "region": "us-east-1" } ]
+    ],
+    "title": "Service CPU Utilization SLI",
+    "region": "us-east-1"
+}
