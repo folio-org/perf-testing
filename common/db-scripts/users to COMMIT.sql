@@ -12,13 +12,13 @@ DECLARE
 BEGIN
     -- Fetch the 'created_by_user' (admin user ID) based on "folio_admin" permission
     SELECT jsonb->>'userId' INTO created_by_user
-    FROM fs09000000_mod_permissions.permissions_users
+    FROM [tenant]_mod_permissions.permissions_users
     WHERE jsonb -> 'permissions' @> '"folio_admin"' 
     LIMIT 1;
 
     -- Fetch the 'patronGroup' of the admin user
     SELECT jsonb->>'patronGroup' INTO patrongroup
-    FROM fs09000000_mod_users.users 
+    FROM [tenant]_mod_users.users 
     WHERE id = created_by_user
     LIMIT 1;
 
@@ -34,7 +34,7 @@ BEGIN
             -- Check if the barcode already exists in the database
             SELECT EXISTS (
                 SELECT 1 
-                FROM fs09000000_mod_users.users 
+                FROM [tenant]_mod_users.users 
                 WHERE jsonb ->> 'barcode' = random_barcode
             ) INTO barcode_exists;
 
@@ -43,7 +43,7 @@ BEGIN
         END LOOP;
 
         -- Insert into [tenant]_mod_users.users
-        INSERT INTO fs09000000_mod_users.users(id, jsonb, creation_date, created_by, patrongroup)
+        INSERT INTO [tenant]_mod_users.users(id, jsonb, creation_date, created_by, patrongroup)
         VALUES (
             user_id,
             jsonb_build_object(
@@ -80,7 +80,7 @@ BEGIN
         permission_id := uuid_generate_v4();
 
         -- Insert into [tenant]mod_permissions.permissions_users
-        INSERT INTO fs09000000_mod_permissions.permissions_users(id, jsonb, creation_date, created_by)
+        INSERT INTO [tenant]_mod_permissions.permissions_users(id, jsonb, creation_date, created_by)
         VALUES (
             permission_id,
             jsonb_build_object(
