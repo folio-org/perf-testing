@@ -9,6 +9,7 @@ DECLARE
     random_barcode TEXT;
     barcode_exists BOOLEAN;
     i INTEGER;
+    
 BEGIN
     -- Fetch the 'created_by_user' (admin user ID) based on "folio_admin" permission
     SELECT jsonb->>'userId' INTO created_by_user
