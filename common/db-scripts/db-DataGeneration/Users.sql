@@ -4,22 +4,22 @@ DECLARE
     user_id UUID;
     permission_id UUID;
     creation_time TIMESTAMP := NOW();
-    created_by_user UUID; 
-    patrongroup UUID;
+    created_by_user_id UUID; 
+    patron_group_id UUID;
     random_barcode TEXT;
     barcode_exists BOOLEAN;
     i INTEGER;
 BEGIN
-    -- Fetch the 'created_by_user' (admin user ID) based on "folio_admin" permission
-    SELECT jsonb->>'userId' INTO created_by_user
+    -- Fetch the 'created_by_user_id' (admin user ID) based on "folio_admin" permission
+    SELECT jsonb->>'userId' INTO created_by_user_id
     FROM [tenant]_mod_permissions.permissions_users
     WHERE jsonb -> 'permissions' @> '"folio_admin"' 
     LIMIT 1;
 
-    -- Fetch the 'patronGroup' of the admin user
-    SELECT jsonb->>'patronGroup' INTO patrongroup
+    -- Fetch the 'patron_group_id' of the admin user
+    SELECT patrongroup INTO patron_group_id
     FROM [tenant]_mod_users.users 
-    WHERE id = created_by_user
+    WHERE id = created_by_user_id
     LIMIT 1;
 
     -- Loop to create the specified number of records
@@ -54,11 +54,11 @@ BEGIN
                 'metadata', jsonb_build_object(
                     'createdDate', to_jsonb(creation_time),
                     'updatedDate', to_jsonb(creation_time),
-                    'createdByUserId', created_by_user, 
-                    'updatedByUserId', created_by_user   
+                    'createdByUserId', created_by_user_id, 
+                    'updatedByUserId', created_by_user_id   
                 ),
                 'personal', jsonb_build_object(
-                    'email', 'some' || i::text || '@ebsco.com',
+                    'email', 'some' || i::text || '@folio.org',
                     'lastName', 'LastName' || i::text,
                     'addresses', jsonb_build_array(),
                     'firstName', 'FirstName' || i::text,
@@ -67,13 +67,12 @@ BEGIN
                 'proxyFor', jsonb_build_array(),
                 'createdDate', to_jsonb(creation_time),
                 'departments', jsonb_build_array(),
-                'patronGroup', patrongroup,
-                'updatedDate', to_jsonb(creation_time),
-                'preferredEmailCommunication', jsonb_build_array()
+                'patronGroup', patron_group_id,
+                'updatedDate', to_jsonb(creation_time)
             ),
             creation_time,
-            created_by_user, 
-            patrongroup
+            created_by_user_id, 
+            patron_group_id
         );
 
         -- Generate a unique permission ID
@@ -89,13 +88,13 @@ BEGIN
                 'metadata', jsonb_build_object(
                     'createdDate', to_jsonb(creation_time),
                     'updatedDate', to_jsonb(creation_time),
-                    'createdByUserId', created_by_user,  
-                    'updatedByUserId', created_by_user   
+                    'createdByUserId', created_by_user_id,  
+                    'updatedByUserId', created_by_user_id   
                 ),
                 'permissions', jsonb_build_array()
             ),
             creation_time,
-            created_by_user 
+            created_by_user_id 
         );
 
     END LOOP;
