@@ -22,7 +22,7 @@
           </elementProp>
           <elementProp name="Global_duration" elementType="Argument">
             <stringProp name="Argument.name">Global_duration</stringProp>
-            <stringProp name="Argument.value">${__P(Global_duration,1800)}</stringProp>
+            <stringProp name="Argument.value">${__P(Global_duration,84000)}</stringProp>
             <stringProp name="Argument.desc">Default duration | 1800 sec</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
@@ -76,7 +76,7 @@
           </elementProp>
           <elementProp name="DI_file" elementType="Argument">
             <stringProp name="Argument.name">DI_file</stringProp>
-            <stringProp name="Argument.value">${__P(DI_file,1_bib_Create.mrc)}</stringProp>
+            <stringProp name="Argument.value">${__P(DI_file,1_bib_Create.mrc-1k_bib_Create.mrc-10k_bib_Create.mrc)}</stringProp>
             <stringProp name="Argument.desc">For_DISC_HRID_match.mrc-For_DISC_HRID_match2.mrc-For_DISC_HRID_match-3.mrc</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
@@ -547,40 +547,6 @@ vars.get(&apos;DI_file&apos;).trim().split(&apos;-&apos;).eachWithIndex { DI_fil
             <boolProp name="TransactionController.parent">false</boolProp>
           </TransactionController>
           <hashTree>
-            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="DI_JSR223 Sampler- start" enabled="true">
-              <stringProp name="cacheKey">true</stringProp>
-              <stringProp name="filename"></stringProp>
-              <stringProp name="parameters"></stringProp>
-              <stringProp name="script">SampleResult.setIgnore()
-vars.putObject(&apos;startTime&apos;, System.currentTimeMillis())
-vars.putObject(&apos;lastUpdateTime&apos;, System.currentTimeMillis())
-
-def DI_file = vars.getObject(&apos;DI_file&apos;);
-def profile_name = vars.getObject(&apos;DI_profile_name&apos;);
-if (new String(DI_file).contains(&quot;bib_Create&quot;)) {
-    vars.putObject(&quot;DI_profile_name&quot;,&quot;PTF - Create 2&quot;);
-}
-else {
-	if (new String(DI_file).contains(&quot;bib_Update&quot;)) {
-    		vars.putObject(&quot;DIU_profile_name&quot;,&quot;PTF - Updates Success - 1(test)&quot;);
-	}
-	else{
-		if (new String(DI_file).contains(&quot;NewEDepositRecords&quot;)) {
-    			vars.putObject(&quot;DI_profile_name&quot;,&quot;DISC New edeposit records&quot;)
-		}
-		else{
-			if (new String(DI_file).contains(&quot;DISC_NewNonEdepositRecords&quot;)) {
-    				vars.putObject(&quot;DI_profile_name&quot;,&quot;DISC New NON edeposit records&quot;)
-			}
-			else {
-    			vars.putObject(&quot;DI_profile_name&quot;,&quot;Not found&quot;);
-			}
-		}
-	}
-};</stringProp>
-              <stringProp name="scriptLanguage">groovy</stringProp>
-            </JSR223Sampler>
-            <hashTree/>
             <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor folioAccessToken" enabled="true">
               <stringProp name="cacheKey">true</stringProp>
               <stringProp name="filename"></stringProp>
@@ -598,6 +564,40 @@ cookieManager.add(cookie);
 </stringProp>
               <stringProp name="scriptLanguage">groovy</stringProp>
             </JSR223PreProcessor>
+            <hashTree/>
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="DI_JSR223 Sampler- start" enabled="true">
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="script">SampleResult.setIgnore()
+vars.putObject(&apos;startTime&apos;, System.currentTimeMillis())
+vars.putObject(&apos;lastUpdateTime&apos;, System.currentTimeMillis())
+
+def DI_file = vars.getObject(&apos;DI_file&apos;);
+def profile_name = vars.getObject(&apos;DI_profile_name&apos;);
+if (new String(DI_file).contains(&quot;bib_Create&quot;)) {
+    vars.putObject(&quot;DI_profile_name&quot;,&quot;PTF - Create 2&quot;);
+}
+else {
+	if (new String(DI_file).contains(&quot;bib_Update&quot;)) {
+    		vars.putObject(&quot;DIU_profile_name&quot;,&quot;PTF - Updates Success - 6&quot;);
+	}
+	else{
+		if (new String(DI_file).contains(&quot;NewEDepositRecords&quot;)) {
+    			vars.putObject(&quot;DI_profile_name&quot;,&quot;DISC New edeposit records&quot;)
+		}
+		else{
+			if (new String(DI_file).contains(&quot;DISC_NewNonEdepositRecords&quot;)) {
+    				vars.putObject(&quot;DI_profile_name&quot;,&quot;DISC New NON edeposit records&quot;)
+			}
+			else {
+    			vars.putObject(&quot;DI_profile_name&quot;,&quot;Not found&quot;);
+			}
+		}
+	}
+};</stringProp>
+              <stringProp name="scriptLanguage">groovy</stringProp>
+            </JSR223Sampler>
             <hashTree/>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DI_GET_ data-import_splitStatus" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
@@ -1689,6 +1689,24 @@ cookieManager.add(cookie);
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
             </HTTPSamplerProxy>
             <hashTree>
+              <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor folioAccessToken" enabled="true">
+                <stringProp name="cacheKey">true</stringProp>
+                <stringProp name="filename"></stringProp>
+                <stringProp name="parameters"></stringProp>
+                <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
+import org.apache.jmeter.protocol.http.control.Cookie;
+import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
+
+def this_tenant = vars.get(&quot;tenant&quot;);
+CookieManager cookieManager = sampler.getCookieManager()
+
+Cookie cookie = new Cookie(&quot;folioAccessToken&quot;,props.get(this_tenant + &quot;MyCookie&quot;),&quot;${hostname}&quot;,&quot;/&quot;,false,0);
+cookieManager.add(cookie);
+
+</stringProp>
+                <stringProp name="scriptLanguage">groovy</stringProp>
+              </JSR223PreProcessor>
+              <hashTree/>
               <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
                 <collectionProp name="HeaderManager.headers">
                   <elementProp name="" elementType="Header">
@@ -1698,87 +1716,8 @@ cookieManager.add(cookie);
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="49586">200</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">8</intProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-              </ResponseAssertion>
-              <hashTree/>
-            </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DI_GET_metadata-provider/jobExecutions?statusNot=DISCARDED" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">metadata-provider/jobExecutions?statusNot=DISCARDED&amp;uiStatusAny=PREPARING_FOR_PREVIEW&amp;uiStatusAny=READY_FOR_PREVIEW&amp;uiStatusAny=RUNNING&amp;limit=50&amp;sortBy=completed_date,desc</stringProp>
-              <stringProp name="HTTPSampler.method">GET</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              <stringProp name="TestPlan.comments">The first response is usually empty that&apos;s why we need at least 2 of these in our tests</stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
-                <collectionProp name="HeaderManager.headers">
-                  <elementProp name="" elementType="Header">
-                    <stringProp name="Header.name">content-type</stringProp>
-                    <stringProp name="Header.value">application/json</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </HeaderManager>
-              <hashTree/>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="49586">200</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">8</intProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-              </ResponseAssertion>
-              <hashTree/>
-            </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DI_GET_metadata-provider/jobExecutions?statusAny=COMMITTED" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">metadata-provider/jobExecutions?statusAny=COMMITTED&amp;statusAny=ERROR&amp;statusAny=CANCELLED&amp;limit=25&amp;sortBy=completed_date,desc</stringProp>
-              <stringProp name="HTTPSampler.method">GET</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
-                <collectionProp name="HeaderManager.headers">
-                  <elementProp name="" elementType="Header">
-                    <stringProp name="Header.name">content-type</stringProp>
-                    <stringProp name="Header.value">application/json</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </HeaderManager>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor job_status" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">job_status</stringProp>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor completed_status" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">completed_status</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.jobExecutions[?(@.id== &apos;${jobExecutionId}&apos;)].status</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
                 <stringProp name="JSONPostProcessor.defaultValues">NOT_FOUND_OR_NOT_COMPLETED</stringProp>
@@ -1794,11 +1733,6 @@ cookieManager.add(cookie);
                 <stringProp name="Assertion.custom_message"></stringProp>
               </ResponseAssertion>
               <hashTree/>
-              <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
-                <stringProp name="TestPlan.comments">Add constant timer of 3 seconds to mimics UI behavior</stringProp>
-                <stringProp name="ConstantTimer.delay">5000</stringProp>
-              </ConstantTimer>
-              <hashTree/>
             </hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DI_GET_metadata-provider/jobExecutions?statusNot=DISCARDED" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
@@ -1817,9 +1751,26 @@ cookieManager.add(cookie);
               <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
               <stringProp name="HTTPSampler.connect_timeout"></stringProp>
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              <stringProp name="TestPlan.comments">The first response is usually empty that&apos;s why we need at least 2 of these in our tests</stringProp>
             </HTTPSamplerProxy>
             <hashTree>
+              <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor folioAccessToken" enabled="true">
+                <stringProp name="cacheKey">true</stringProp>
+                <stringProp name="filename"></stringProp>
+                <stringProp name="parameters"></stringProp>
+                <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
+import org.apache.jmeter.protocol.http.control.Cookie;
+import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
+
+def this_tenant = vars.get(&quot;tenant&quot;);
+CookieManager cookieManager = sampler.getCookieManager()
+
+Cookie cookie = new Cookie(&quot;folioAccessToken&quot;,props.get(this_tenant + &quot;MyCookie&quot;),&quot;${hostname}&quot;,&quot;/&quot;,false,0);
+cookieManager.add(cookie);
+
+</stringProp>
+                <stringProp name="scriptLanguage">groovy</stringProp>
+              </JSR223PreProcessor>
+              <hashTree/>
               <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
                 <collectionProp name="HeaderManager.headers">
                   <elementProp name="" elementType="Header">
@@ -1829,13 +1780,6 @@ cookieManager.add(cookie);
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor job_uistatus" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">job_uistatus</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$..uiStatus</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">NOT_FOUND</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor job_status" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">job_status</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$..status</stringProp>
@@ -1843,7 +1787,14 @@ cookieManager.add(cookie);
                 <stringProp name="JSONPostProcessor.defaultValues">NOT_FOUND</stringProp>
               </JSONPostProcessor>
               <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor job_progress" enabled="true">
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor uiStatus" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">uiStatus</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$..uiStatus</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+                <stringProp name="JSONPostProcessor.defaultValues">NOT_FOUND</stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor job_progress" enabled="false">
                 <stringProp name="JSONPostProcessor.referenceNames">job_progress</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$..progress.current</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
@@ -1861,11 +1812,17 @@ cookieManager.add(cookie);
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <WhileController guiclass="WhileControllerGui" testclass="WhileController" testname="DI_While Controller job is not completed" enabled="true">
-              <stringProp name="WhileController.condition">${__jexl3((&quot;${uiStatus}&quot; == &quot;RUNNING&quot;),)}</stringProp>
+            <WhileController guiclass="WhileControllerGui" testclass="WhileController" testname="DI_While Controller job is not started" enabled="true">
+              <stringProp name="WhileController.condition">${__jexl3((&quot;${job_status}&quot; == &quot;NOT_FOUND&quot; &amp;&amp; &quot;${completed_status}&quot; != &quot;RUNNING_COMPLETE&quot;),)}</stringProp>
             </WhileController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DI_While_GET_metadata-provider/jobExecutions?statusAny=COMMITTED" enabled="true">
+              <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Flow Control Action Pause" enabled="true">
+                <intProp name="ActionProcessor.action">1</intProp>
+                <intProp name="ActionProcessor.target">0</intProp>
+                <stringProp name="ActionProcessor.duration">5000</stringProp>
+              </TestAction>
+              <hashTree/>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DI_While1_GET_metadata-provider/jobExecutions?statusAny=COMMITTED" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -1884,6 +1841,24 @@ cookieManager.add(cookie);
                 <stringProp name="HTTPSampler.response_timeout"></stringProp>
               </HTTPSamplerProxy>
               <hashTree>
+                <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor folioAccessToken" enabled="true">
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
+import org.apache.jmeter.protocol.http.control.Cookie;
+import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
+
+def this_tenant = vars.get(&quot;tenant&quot;);
+CookieManager cookieManager = sampler.getCookieManager()
+
+Cookie cookie = new Cookie(&quot;folioAccessToken&quot;,props.get(this_tenant + &quot;MyCookie&quot;),&quot;${hostname}&quot;,&quot;/&quot;,false,0);
+cookieManager.add(cookie);
+
+</stringProp>
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                </JSR223PreProcessor>
+                <hashTree/>
                 <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
                   <collectionProp name="HeaderManager.headers">
                     <elementProp name="" elementType="Header">
@@ -1893,8 +1868,8 @@ cookieManager.add(cookie);
                   </collectionProp>
                 </HeaderManager>
                 <hashTree/>
-                <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor job_status" enabled="true">
-                  <stringProp name="JSONPostProcessor.referenceNames">job_status</stringProp>
+                <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor completed_status" enabled="true">
+                  <stringProp name="JSONPostProcessor.referenceNames">completed_status</stringProp>
                   <stringProp name="JSONPostProcessor.jsonPathExprs">$.jobExecutions[?(@.id== &apos;${jobExecutionId}&apos;)].status</stringProp>
                   <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
                   <stringProp name="JSONPostProcessor.defaultValues">NOT_FOUND_OR_NOT_COMPLETED</stringProp>
@@ -1910,13 +1885,8 @@ cookieManager.add(cookie);
                   <stringProp name="Assertion.custom_message"></stringProp>
                 </ResponseAssertion>
                 <hashTree/>
-                <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
-                  <stringProp name="TestPlan.comments">Add constant timer of 3 seconds to mimics UI behavior</stringProp>
-                  <stringProp name="ConstantTimer.delay">5000</stringProp>
-                </ConstantTimer>
-                <hashTree/>
               </hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DI_While_GET_metadata-provider/jobExecutions?statusNot=DISCARDED" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DI-While1_GET_metadata-provider/jobExecutions?statusNot=DISCARDED" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -1935,6 +1905,24 @@ cookieManager.add(cookie);
                 <stringProp name="HTTPSampler.response_timeout"></stringProp>
               </HTTPSamplerProxy>
               <hashTree>
+                <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor folioAccessToken" enabled="true">
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
+import org.apache.jmeter.protocol.http.control.Cookie;
+import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
+
+def this_tenant = vars.get(&quot;tenant&quot;);
+CookieManager cookieManager = sampler.getCookieManager()
+
+Cookie cookie = new Cookie(&quot;folioAccessToken&quot;,props.get(this_tenant + &quot;MyCookie&quot;),&quot;${hostname}&quot;,&quot;/&quot;,false,0);
+cookieManager.add(cookie);
+
+</stringProp>
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                </JSR223PreProcessor>
+                <hashTree/>
                 <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
                   <collectionProp name="HeaderManager.headers">
                     <elementProp name="" elementType="Header">
@@ -1953,7 +1941,7 @@ cookieManager.add(cookie);
                 <hashTree/>
                 <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor uiStatus" enabled="true">
                   <stringProp name="JSONPostProcessor.referenceNames">uiStatus</stringProp>
-                  <stringProp name="JSONPostProcessor.jsonPathExprs">$.jobExecutions[?(@.id== &apos;${jobExecutionId}&apos;)].uiStatus</stringProp>
+                  <stringProp name="JSONPostProcessor.jsonPathExprs">$..uiStatus</stringProp>
                   <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
                   <stringProp name="JSONPostProcessor.defaultValues">NOT_FOUND</stringProp>
                 </JSONPostProcessor>
@@ -1977,6 +1965,166 @@ cookieManager.add(cookie);
                 <hashTree/>
               </hashTree>
             </hashTree>
+            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller" enabled="true">
+              <stringProp name="IfController.condition">${__jexl3((&quot;${uiStatus}&quot; == &quot;RUNNING&quot; || &quot;${uiStatus}&quot; == &quot;PREPARING_FOR_PREVIEW&quot;),)}</stringProp>
+              <boolProp name="IfController.evaluateAll">false</boolProp>
+              <boolProp name="IfController.useExpression">true</boolProp>
+            </IfController>
+            <hashTree>
+              <WhileController guiclass="WhileControllerGui" testclass="WhileController" testname="DI_While Controller job is not completed" enabled="true">
+                <stringProp name="WhileController.condition">${__jexl3((&quot;${job_status}&quot; != &quot;NOT_FOUND&quot;),)}</stringProp>
+              </WhileController>
+              <hashTree>
+                <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Flow Control Action Pause" enabled="true">
+                  <intProp name="ActionProcessor.action">1</intProp>
+                  <intProp name="ActionProcessor.target">0</intProp>
+                  <stringProp name="ActionProcessor.duration">5000</stringProp>
+                </TestAction>
+                <hashTree/>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DI_While2_GET_metadata-provider/jobExecutions?statusAny=COMMITTED" enabled="true">
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+                    <collectionProp name="Arguments.arguments"/>
+                  </elementProp>
+                  <stringProp name="HTTPSampler.domain"></stringProp>
+                  <stringProp name="HTTPSampler.port"></stringProp>
+                  <stringProp name="HTTPSampler.protocol"></stringProp>
+                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                  <stringProp name="HTTPSampler.path">metadata-provider/jobExecutions?statusAny=COMMITTED&amp;statusAny=ERROR&amp;statusAny=CANCELLED&amp;limit=25&amp;sortBy=completed_date,desc</stringProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor folioAccessToken" enabled="true">
+                    <stringProp name="cacheKey">true</stringProp>
+                    <stringProp name="filename"></stringProp>
+                    <stringProp name="parameters"></stringProp>
+                    <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
+import org.apache.jmeter.protocol.http.control.Cookie;
+import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
+
+def this_tenant = vars.get(&quot;tenant&quot;);
+CookieManager cookieManager = sampler.getCookieManager()
+
+Cookie cookie = new Cookie(&quot;folioAccessToken&quot;,props.get(this_tenant + &quot;MyCookie&quot;),&quot;${hostname}&quot;,&quot;/&quot;,false,0);
+cookieManager.add(cookie);
+
+</stringProp>
+                    <stringProp name="scriptLanguage">groovy</stringProp>
+                  </JSR223PreProcessor>
+                  <hashTree/>
+                  <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+                    <collectionProp name="HeaderManager.headers">
+                      <elementProp name="" elementType="Header">
+                        <stringProp name="Header.name">content-type</stringProp>
+                        <stringProp name="Header.value">application/json</stringProp>
+                      </elementProp>
+                    </collectionProp>
+                  </HeaderManager>
+                  <hashTree/>
+                  <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor completed_status" enabled="true">
+                    <stringProp name="JSONPostProcessor.referenceNames">completed_status</stringProp>
+                    <stringProp name="JSONPostProcessor.jsonPathExprs">$.jobExecutions[?(@.id== &apos;${jobExecutionId}&apos;)].status</stringProp>
+                    <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+                    <stringProp name="JSONPostProcessor.defaultValues">NOT_FOUND_OR_NOT_COMPLETED</stringProp>
+                  </JSONPostProcessor>
+                  <hashTree/>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="49586">200</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">8</intProp>
+                    <stringProp name="Assertion.custom_message"></stringProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                </hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DI-While2_GET_metadata-provider/jobExecutions?statusNot=DISCARDED" enabled="true">
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+                    <collectionProp name="Arguments.arguments"/>
+                  </elementProp>
+                  <stringProp name="HTTPSampler.domain"></stringProp>
+                  <stringProp name="HTTPSampler.port"></stringProp>
+                  <stringProp name="HTTPSampler.protocol"></stringProp>
+                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                  <stringProp name="HTTPSampler.path">metadata-provider/jobExecutions?statusNot=DISCARDED&amp;uiStatusAny=PREPARING_FOR_PREVIEW&amp;uiStatusAny=READY_FOR_PREVIEW&amp;uiStatusAny=RUNNING&amp;limit=50&amp;sortBy=completed_date,desc</stringProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor folioAccessToken" enabled="true">
+                    <stringProp name="cacheKey">true</stringProp>
+                    <stringProp name="filename"></stringProp>
+                    <stringProp name="parameters"></stringProp>
+                    <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
+import org.apache.jmeter.protocol.http.control.Cookie;
+import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
+
+def this_tenant = vars.get(&quot;tenant&quot;);
+CookieManager cookieManager = sampler.getCookieManager()
+
+Cookie cookie = new Cookie(&quot;folioAccessToken&quot;,props.get(this_tenant + &quot;MyCookie&quot;),&quot;${hostname}&quot;,&quot;/&quot;,false,0);
+cookieManager.add(cookie);
+
+</stringProp>
+                    <stringProp name="scriptLanguage">groovy</stringProp>
+                  </JSR223PreProcessor>
+                  <hashTree/>
+                  <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+                    <collectionProp name="HeaderManager.headers">
+                      <elementProp name="" elementType="Header">
+                        <stringProp name="Header.name">content-type</stringProp>
+                        <stringProp name="Header.value">application/json</stringProp>
+                      </elementProp>
+                    </collectionProp>
+                  </HeaderManager>
+                  <hashTree/>
+                  <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor job_status" enabled="true">
+                    <stringProp name="JSONPostProcessor.referenceNames">job_status</stringProp>
+                    <stringProp name="JSONPostProcessor.jsonPathExprs">$..status</stringProp>
+                    <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+                    <stringProp name="JSONPostProcessor.defaultValues">NOT_FOUND</stringProp>
+                  </JSONPostProcessor>
+                  <hashTree/>
+                  <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor uiStatus" enabled="true">
+                    <stringProp name="JSONPostProcessor.referenceNames">uiStatus</stringProp>
+                    <stringProp name="JSONPostProcessor.jsonPathExprs">$..uiStatus</stringProp>
+                    <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+                    <stringProp name="JSONPostProcessor.defaultValues">NOT_FOUND</stringProp>
+                  </JSONPostProcessor>
+                  <hashTree/>
+                  <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor job_progress" enabled="false">
+                    <stringProp name="JSONPostProcessor.referenceNames">job_progress</stringProp>
+                    <stringProp name="JSONPostProcessor.jsonPathExprs">$..progress.current</stringProp>
+                    <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+                    <stringProp name="JSONPostProcessor.defaultValues">null</stringProp>
+                  </JSONPostProcessor>
+                  <hashTree/>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="49586">200</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">8</intProp>
+                    <stringProp name="Assertion.custom_message"></stringProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                </hashTree>
+              </hashTree>
+            </hashTree>
             <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="DI_JSR223 Sampler- End-total time" enabled="true">
               <stringProp name="cacheKey">true</stringProp>
               <stringProp name="filename"></stringProp>
@@ -1997,6 +2145,13 @@ log.info(&apos;Thread &apos; + (ctx.getThreadNum() + 1) + &apos; filename: &apos
           </TestAction>
           <hashTree/>
         </hashTree>
+        <DebugPostProcessor guiclass="TestBeanGUI" testclass="DebugPostProcessor" testname="Debug PostProcessor" enabled="true">
+          <boolProp name="displayJMeterProperties">false</boolProp>
+          <boolProp name="displayJMeterVariables">true</boolProp>
+          <boolProp name="displaySamplerProperties">true</boolProp>
+          <boolProp name="displaySystemProperties">false</boolProp>
+        </DebugPostProcessor>
+        <hashTree/>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Data Import with splitting feature Updates" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
