@@ -22,7 +22,7 @@
           </elementProp>
           <elementProp name="HOSTNAME" elementType="Argument">
             <stringProp name="Argument.name">HOSTNAME</stringProp>
-            <stringProp name="Argument.value">${__P(HOSTNAME, [hostname]])}</stringProp>
+            <stringProp name="Argument.value">${__P(HOSTNAME, [hostname])}</stringProp>
             <stringProp name="Argument.desc">[host-name]</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
