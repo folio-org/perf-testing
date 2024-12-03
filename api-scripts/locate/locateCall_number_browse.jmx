@@ -22,18 +22,18 @@
           </elementProp>
           <elementProp name="HOSTNAME" elementType="Argument">
             <stringProp name="Argument.name">HOSTNAME</stringProp>
-            <stringProp name="Argument.value">${__P(HOSTNAME, okapi-sglt0001.int.locate.ebsco.com)}</stringProp>
+            <stringProp name="Argument.value">${__P(HOSTNAME, [hostname]])}</stringProp>
             <stringProp name="Argument.desc">[host-name]</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="origin" elementType="Argument">
             <stringProp name="Argument.name">origin</stringProp>
-            <stringProp name="Argument.value">${__P(origin,sglt0001.int.locate.ebsco.com)}</stringProp>
+            <stringProp name="Argument.value">${__P(origin,[origin])}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="tenant" elementType="Argument">
             <stringProp name="Argument.name">tenant</stringProp>
-            <stringProp name="Argument.value">${__P(tenant,sglt0001)}</stringProp>
+            <stringProp name="Argument.value">${__P(tenant,[tenant])}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="CNB //--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//" elementType="Argument">
