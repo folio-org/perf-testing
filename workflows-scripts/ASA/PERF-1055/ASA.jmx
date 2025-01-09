@@ -776,7 +776,7 @@ try {
             </elementProp>
             <elementProp name="" elementType="Header">
               <stringProp name="Header.name">Authorization</stringProp>
-              <stringProp name="Header.value">Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnb3BhY19ndWVzdCIsInR5cGUiOiJsZWdhY3ktYWNjZXNzIiwidXNlcl9pZCI6IjMxMDJjYWFjLWQ1MTEtNGI1Zi1iNzQ1LTNmNjgxMWMzNGRlNyIsImlhdCI6MTczMzc0MjAyMCwidGVuYW50IjoiYXNhMDAxIn0.k_2vXlhYlqwgCaT-YgSqwZiIJ4LyyHb04Ax6twcZbxg</stringProp>
+              <stringProp name="Header.value">Bearer </stringProp>
             </elementProp>
           </collectionProp>
         </HeaderManager>
