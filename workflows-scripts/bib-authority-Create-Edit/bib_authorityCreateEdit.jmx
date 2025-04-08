@@ -546,7 +546,7 @@ try {
           <boolProp name="TransactionController.includeTimers">false</boolProp>
         </TransactionController>
         <hashTree>
-          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager (check_in)" enabled="true">
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
             <collectionProp name="HeaderManager.headers">
               <elementProp name="Access-Control-Request-Method" elementType="Header">
                 <stringProp name="Header.name">Access-Control-Request-Method</stringProp>
@@ -2857,7 +2857,7 @@ vars.put(&quot;title_uuid&quot;, UUID.randomUUID().toString());</stringProp>
           <boolProp name="TransactionController.includeTimers">false</boolProp>
         </TransactionController>
         <hashTree>
-          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header  (Check-Out)" enabled="true">
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
             <collectionProp name="HeaderManager.headers">
               <elementProp name="Access-Control-Request-Method" elementType="Header">
                 <stringProp name="Header.name">Access-Control-Request-Method</stringProp>
@@ -2928,7 +2928,7 @@ cookieManager.add(cookie);
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
             </HTTPSamplerProxy>
             <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /search/authorities/facets" enabled="false">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /search/authorities/facets" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="query" elementType="HTTPArgument">
@@ -3161,9 +3161,16 @@ cookieManager.add(cookie);
               </JSR223PostProcessor>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST /records-editor/validate" enabled="false">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST /records-editor/validate" enabled="true">
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&quot;leader&quot;:&quot;00000nz\\\\\\\\a2200000o\\\\\\\\4500&quot;,&quot;fields&quot;:[{&quot;tag&quot;:&quot;001&quot;,&quot;content&quot;:&quot;${hrid}&quot;},{&quot;tag&quot;:&quot;008&quot;,&quot;content&quot;:{&quot;Undef_18&quot;:&quot;\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&quot;,&quot;Undef_30&quot;:&quot;\\\\&quot;,&quot;Undef_34&quot;:&quot;\\\\\\\\\\\\\\\\&quot;,&quot;Geo Subd&quot;:&quot;\\\\&quot;,&quot;Roman&quot;:&quot;\\\\&quot;,&quot;Lang&quot;:&quot;\\\\&quot;,&quot;Kind rec&quot;:&quot;\\\\&quot;,&quot;Cat Rules&quot;:&quot;\\\\&quot;,&quot;SH Sys&quot;:&quot;\\\\&quot;,&quot;Series&quot;:&quot;\\\\&quot;,&quot;Numb Series&quot;:&quot;\\\\&quot;,&quot;Main use&quot;:&quot;\\\\&quot;,&quot;Subj use&quot;:&quot;\\\\&quot;,&quot;Series use&quot;:&quot;\\\\&quot;,&quot;Type Subd&quot;:&quot;\\\\&quot;,&quot;Govt Ag&quot;:&quot;\\\\&quot;,&quot;RefEval&quot;:&quot;\\\\&quot;,&quot;RecUpd&quot;:&quot;\\\\&quot;,&quot;Pers Name&quot;:&quot;\\\\&quot;,&quot;Level Est&quot;:&quot;\\\\&quot;,&quot;Mod Rec Est&quot;:&quot;\\\\&quot;,&quot;Source&quot;:&quot;\\\\&quot;}},{&quot;tag&quot;:&quot;110&quot;,&quot;content&quot;:&quot;$a KenyanEconomicAssociation&quot;,&quot;indicators&quot;:[&quot;1&quot;,&quot;\\\\&quot;]}],&quot;marcFormat&quot;:&quot;AUTHORITY&quot;}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
               </elementProp>
               <stringProp name="HTTPSampler.domain"></stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
@@ -3181,6 +3188,7 @@ cookieManager.add(cookie);
             </HTTPSamplerProxy>
             <hashTree/>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST /records-editor/records" enabled="true">
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
@@ -3190,7 +3198,6 @@ cookieManager.add(cookie);
                   </elementProp>
                 </collectionProp>
               </elementProp>
-              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <stringProp name="HTTPSampler.domain"></stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
@@ -3325,7 +3332,7 @@ cookieManager.add(cookie);
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
             </HTTPSamplerProxy>
             <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /search/authorities/facets" enabled="false">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /search/authorities/facets" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="query" elementType="HTTPArgument">
@@ -3471,7 +3478,7 @@ cookieManager.add(cookie);
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
             </HTTPSamplerProxy>
             <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /search/authorities/facets" enabled="false">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /search/authorities/facets" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="query" elementType="HTTPArgument">
@@ -3511,7 +3518,7 @@ cookieManager.add(cookie);
             <boolProp name="TransactionController.parent">false</boolProp>
           </TransactionController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /search/authorities/facets" enabled="false">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /search/authorities/facets" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="query" elementType="HTTPArgument">
@@ -3946,24 +3953,51 @@ cookieManager.add(cookie);
                   <stringProp name="JSONPostProcessor.defaultValues">not_found</stringProp>
                 </JSONPostProcessor>
                 <hashTree/>
-                <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
+                <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor Edit" enabled="true">
                   <stringProp name="cacheKey">true</stringProp>
                   <stringProp name="filename"></stringProp>
                   <stringProp name="parameters"></stringProp>
                   <stringProp name="script">import groovy.json.JsonSlurper;
 import groovy.json.JsonBuilder;
 
+//Getting response
 def jsonData = new JsonSlurper().parseText(prev.getResponseDataAsString());
+//Here we rewrite the key: _actionType from whatever to value: edit
 jsonData._actionType = &quot;edit&quot;;
 
+//Here the same - we rewrite values by key from whatever it was to extracted vars by name
 jsonData.parsedRecordId = vars.get(&quot;parsed_recordId&quot;);
 jsonData.parsedRecordDtoId = vars.get(&quot;parsed_recordDtoId&quot;);
 jsonData.relatedRecordVersion = vars.get(&quot;related_recordVersion&quot;);
 
+//Here we rewrite variable to value of some field (3) with appendix _edit - the only change we need to do in the flow
 vars.put(&quot;content_fieldEdit&quot;, jsonData.fields[3].content + &quot;_edit&quot;);
 jsonData.fields[3].content = vars.get(&quot;content_fieldEdit&quot;);
 
+//Repacking all response as a string to variable to use it in body of POST request
 vars.put(&quot;auth_editData&quot;,new JsonBuilder(jsonData).toString());</stringProp>
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                </JSR223PostProcessor>
+                <hashTree/>
+                <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor Validate" enabled="true">
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="script">import groovy.json.JsonSlurper;
+import groovy.json.JsonBuilder;
+
+//Getting response
+def originalJson = new JsonSlurper().parseText(prev.getResponseDataAsString());
+
+//Here we rewrite original json to cutted one for validate POST request
+def jsonData = [
+    fields      : originalJson.fields,
+    leader      : originalJson.leader,
+    marcFormat  : originalJson.marcFormat
+]
+
+//Repacking all response as a string to variable to use it in body of POST request
+vars.put(&quot;auth_validateData&quot;,new JsonBuilder(jsonData).toString());</stringProp>
                   <stringProp name="scriptLanguage">groovy</stringProp>
                 </JSR223PostProcessor>
                 <hashTree/>
@@ -4153,9 +4187,16 @@ vars.put(&quot;auth_editData&quot;,new JsonBuilder(jsonData).toString());</strin
                 <stringProp name="HTTPSampler.response_timeout"></stringProp>
               </HTTPSamplerProxy>
               <hashTree/>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST /records-editor/validate" enabled="false">
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST /records-editor/validate" enabled="true">
+                <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                  <collectionProp name="Arguments.arguments">
+                    <elementProp name="" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                      <stringProp name="Argument.value">${auth_validateData}</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                    </elementProp>
+                  </collectionProp>
                 </elementProp>
                 <stringProp name="HTTPSampler.domain"></stringProp>
                 <stringProp name="HTTPSampler.port"></stringProp>
@@ -4200,6 +4241,7 @@ vars.put(&quot;auth_editData&quot;,new JsonBuilder(jsonData).toString());</strin
               </HTTPSamplerProxy>
               <hashTree/>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PUT /records-editor/records/{srsId}" enabled="true">
+                <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="" elementType="HTTPArgument">
@@ -4209,7 +4251,6 @@ vars.put(&quot;auth_editData&quot;,new JsonBuilder(jsonData).toString());</strin
                     </elementProp>
                   </collectionProp>
                 </elementProp>
-                <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
                 <stringProp name="HTTPSampler.domain"></stringProp>
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
@@ -4355,7 +4396,7 @@ vars.put(&quot;auth_editData&quot;,new JsonBuilder(jsonData).toString());</strin
                 <stringProp name="HTTPSampler.response_timeout"></stringProp>
               </HTTPSamplerProxy>
               <hashTree/>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /search/authorities/facets" enabled="false">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /search/authorities/facets" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="query" elementType="HTTPArgument">
@@ -4946,7 +4987,7 @@ props.put(this_tenant + &quot;MyCookie2&quot;, vars.get(&quot;folioRefreshToken_
             </elementProp>
             <elementProp name="application" elementType="Argument">
               <stringProp name="Argument.name">application</stringProp>
-              <stringProp name="Argument.value">RELC_CICO</stringProp>
+              <stringProp name="Argument.value">RELC_BIB_AUTHORITY_CREATE</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="measurement" elementType="Argument">
