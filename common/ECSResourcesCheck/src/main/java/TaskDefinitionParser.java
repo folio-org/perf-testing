@@ -1,27 +1,50 @@
 import com.amazonaws.services.ecs.model.ContainerDefinition;
 import com.amazonaws.services.ecs.model.DescribeTaskDefinitionResult;
+import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.List;
 
 public class TaskDefinitionParser {
 
     public JSONObject buildJson(DescribeTaskDefinitionResult service, int desiredCount) {
         JSONObject jsonObject = new JSONObject();
-        ContainerDefinition containerDefinition = service.getTaskDefinition().getContainerDefinitions().get(0);
-        String f = service.getTaskDefinition().getContainerDefinitions().get(0).getEnvironment().toString();
-        boolean rw = false;
-        if (f.contains("DB_HOST_READER")) {
-            rw = true;
-        }
-        jsonObject.put("CPUUnits", containerDefinition.getCpu())
-                .put("HardLimit", containerDefinition.getMemory())
-                .put("SoftLimit", containerDefinition.getMemoryReservation())
+        List<ContainerDefinition> containerDefinitions = service.getTaskDefinition().getContainerDefinitions();
+
+        // Main container
+        ContainerDefinition mainContainer = containerDefinitions.get(0);
+        String f = mainContainer.getEnvironment().toString();
+        boolean rw = f.contains("DB_HOST_READER");
+
+        jsonObject.put("CPUUnits", mainContainer.getCpu())
+                .put("HardLimit", mainContainer.getMemory())
+                .put("SoftLimit", mainContainer.getMemoryReservation())
                 .put("Revision", service.getTaskDefinition().getRevision())
-                .put("Version", containerDefinition.getImage())
+                .put("Version", mainContainer.getImage())
                 .put("desiredCount", desiredCount)
                 .put("RWSplitEnabled", rw)
                 .put("Metaspace", getMetaspaceSize(f))
                 .put("MaxMetaspaceSize", getMaxMetaspaceSize(f))
                 .put("XMX", getXMX(f));
+
+        // Sidecars
+        JSONArray sidecars = new JSONArray();
+        for (int i = 1; i < containerDefinitions.size(); i++) {
+            ContainerDefinition sidecar = containerDefinitions.get(i);
+            JSONObject sidecarJson = new JSONObject();
+            String sidecarEnv = sidecar.getEnvironment().toString();
+            sidecarJson.put("CPUUnits", sidecar.getCpu())
+                    .put("HardLimit", sidecar.getMemory())
+                    .put("SoftLimit", sidecar.getMemoryReservation())
+                    .put("Version", sidecar.getImage())
+                    .put("RWSplitEnabled", sidecarEnv.contains("DB_HOST_READER"))
+                    .put("Metaspace", getMetaspaceSize(sidecarEnv))
+                    .put("MaxMetaspaceSize", getMaxMetaspaceSize(sidecarEnv))
+                    .put("XMX", getXMX(sidecarEnv));
+            sidecars.put(sidecarJson);
+        }
+        jsonObject.put("sidecars", sidecars);
+
         return jsonObject;
     }
 
@@ -46,7 +69,7 @@ public class TaskDefinitionParser {
         return 0;
     }
 
-     public int getXMX(String env) {
+    public int getXMX(String env) {
         if (env.contains("-Xmx")) {
             env = env.substring(env.indexOf("-Xmx") + 4);
             env = env.substring(0, env.indexOf("m"));
