@@ -83,7 +83,4 @@ def update_dashboard():
     # Placeholder
     return JSONResponse(content={"message": "Dashboard updated (placeholder)"})
 
-@app.get("/", response_class=FileResponse)
-def serve_ui():
-    return "dashboard.html"
 
