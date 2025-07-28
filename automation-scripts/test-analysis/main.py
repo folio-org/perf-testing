@@ -1,9 +1,12 @@
-from fastapi import FastAPI, Request  # Import FastAPI framework and Request object
+from fastapi import FastAPI, Request, Query, HTTPException  # Import FastAPI framework and Request object
 from fastapi.middleware.cors import CORSMiddleware  # Middleware to handle CORS
 from fastapi.responses import HTMLResponse, JSONResponse, FileResponse  # Response types
 from fastapi.templating import Jinja2Templates  # For HTML templating with Jinja2
 from fastapi.staticfiles import StaticFiles  # To serve static files
 from pydantic import BaseModel  # For request body validation
+import os # For output 
+import json # For output type
+import zipfile # For outputting json data as a zipfile
 import boto3  # AWS SDK for Python
 import pandas as pd  # Data analysis library
 from aws_utils import get_all_service_names, get_cpu_data_for_service  # Custom functions to get ECS and CloudWatch data
@@ -27,9 +30,9 @@ templates = Jinja2Templates(directory="templates")  # Folder containing HTML tem
 app.mount("/static", StaticFiles(directory="static"), name="static")  # Mount static file path
 
 # Route: Home page
-@app.get("/", response_class=HTMLResponse)
-def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})  # Render index.html with request context
+# @app.get("/", response_class=HTMLResponse)
+# def index(request: Request):
+#    return templates.TemplateResponse("index.html", {"request": request})  # Render index.html with request context
 
 # Define request model using Pydantic
 class TestRequest(BaseModel):
@@ -106,6 +109,77 @@ def export_raw_data(start_time: str, end_time: str, cluster_name: str):
     csv_data = df.to_csv()
 
     return HTMLResponse(content=csv_data, media_type="text/csv")
+
+
+# main.py (partial)
+
+@app.get("/export-tests-zip")
+def export_tests_zip(
+    start_time: str = Query(..., description="Start time in ISO format (e.g., 2025-07-28T17:00:00Z)"),
+    end_time: str = Query(..., description="End time in ISO format (e.g., 2025-07-28T18:40:00Z)"),
+    cluster_name: str = Query(..., description="Name of the ECS cluster")
+):
+    try:
+        from aws_utils import get_all_service_names, get_cpu_data_for_service
+        from model_utils import detect_test_windows
+
+        region = 'us-east-1'
+        period = 300
+
+        # Convert to datetime objects
+        start_dt = datetime.fromisoformat(start_time.replace("Z", "+00:00"))
+        end_dt = datetime.fromisoformat(end_time.replace("Z", "+00:00"))
+
+        # Create CloudWatch client
+        session = boto3.Session()
+        cloudwatch = session.client('cloudwatch', region_name=region)
+
+        # Collect all services and CPU data
+        services = get_all_service_names(cluster_name, region)
+        valid_services = {}
+        for service in services:
+            df = get_cpu_data_for_service(cloudwatch, cluster_name, service, start_time, end_time, period)
+            if df is not None and not df.empty:
+                valid_services[service] = df
+
+        if not valid_services:
+            raise HTTPException(status_code=404, detail="No valid CPU data found.")
+
+        cpu_df = pd.DataFrame(valid_services)
+        cpu_df.sort_index(inplace=True)
+        test_results = detect_test_windows(cpu_df)
+        if test_results is None or test_results.empty:
+            raise HTTPException(status_code=404, detail="No test windows detected.")
+
+
+       # Fix: Move this to the top of the file
+
+        # Save to JSON
+        output_dir = "temp_exports"
+        os.makedirs(output_dir, exist_ok=True)
+        json_path = os.path.join(output_dir, "test_results.json")
+
+        # Fix: Define this OUTSIDE the 'with' block so it's recognized
+
+        def serialize_datetime(obj):
+            if isinstance(obj, datetime):
+                return obj.isoformat()
+            raise TypeError(f"Type {type(obj)} not serializable")
+
+        with open(json_path, "w") as f:
+            json.dump(test_results.to_dict(orient="records"), f, indent=2, default=serialize_datetime)
+
+        # Create a ZIP archive
+        zip_path = os.path.join(output_dir, "test_results.zip")
+        with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zipf:
+            zipf.write(json_path, arcname="test_results.json")
+
+        return FileResponse(zip_path, filename="test_results.zip", media_type="application/zip")
+
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 
 # Route: Placeholder for dashboard updates
 @app.post("/update-dashboard")
