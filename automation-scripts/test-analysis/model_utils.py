@@ -187,6 +187,9 @@ def detect_test_windows(
             elif 7 <= rounded_pre <= 10:
                 if during_max >= 20:
                     active_services.append(service)
+            elif 20 <= rounded_pre <= 25 :
+                if during_max >= 30:
+                    active_services.append(service)
             else:
                 if during_max >= pre_max:
                     active_services.append(service)
