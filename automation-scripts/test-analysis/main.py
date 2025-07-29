@@ -44,47 +44,43 @@ class TestRequest(BaseModel):
 # Route: Detect test windows and active services
 @app.post("/detect-tests")
 def detect_services(request_data: TestRequest):
-    # Extract values from the request JSON
+    # 1. Unpack request
     start_time = request_data.start_time
     end_time = request_data.end_time
     cluster_name = request_data.cluster_name
     account_name = request_data.account_name
 
-    region = 'us-east-1'  # AWS region
-    period = 300  # CloudWatch datapoint resolution in seconds (5 mins)
-
-    # Create CloudWatch client
+    # 2. AWS CloudWatch client setup
+    region = 'us-east-1'
+    period = 300  # 5‑minute granularity
     session = boto3.Session()
     cloudwatch = session.client('cloudwatch', region_name=region)
 
-    # Get all ECS services for the cluster
+    # 3. Fetch CPU data for every ECS service
     services = get_all_service_names(cluster_name, region)
-    valid_services = {}  # Dict to hold valid CPU data per service
-
-    # Get CPU data for each service
+    valid_services = {}
     for service in services:
         data = get_cpu_data_for_service(cloudwatch, cluster_name, service, start_time, end_time, period)
         if data is not None and not data.empty:
             valid_services[service] = data
 
-    # Return error if no service had valid data
+    # 4. Error if nothing found
     if not valid_services:
-        return JSONResponse(content={"error": "No valid service data found."}, status_code=404)
+        return JSONResponse({"error": "No valid service data found."}, status_code=404)
 
-    # Combine all CPU data into a single DataFrame
+    # 5. Build DataFrame and run ML model
     cpu_df = pd.DataFrame(valid_services)
-
-    # Run test detection ML model
     test_results = detect_test_windows(cpu_df)
 
-    # Return results as JSON
-    return JSONResponse(content={
+    # 6. Return JSON with detected windows
+    return JSONResponse({
         "account": account_name,
         "cluster": cluster_name,
         "start_time": start_time,
         "end_time": end_time,
         "test_windows": test_results.to_dict(orient="records")
     })
+
 
 # Route: Export raw CPU data (no model applied)
 @app.get("/export-raw-data")
@@ -110,8 +106,6 @@ def export_raw_data(start_time: str, end_time: str, cluster_name: str):
 
     return HTMLResponse(content=csv_data, media_type="text/csv")
 
-
-# main.py (partial)
 
 @app.get("/export-tests-zip")
 def export_tests_zip(
@@ -145,21 +139,17 @@ def export_tests_zip(
         if not valid_services:
             raise HTTPException(status_code=404, detail="No valid CPU data found.")
 
+        # Run the Model
         cpu_df = pd.DataFrame(valid_services)
         cpu_df.sort_index(inplace=True)
         test_results = detect_test_windows(cpu_df)
         if test_results is None or test_results.empty:
             raise HTTPException(status_code=404, detail="No test windows detected.")
 
-
-       # Fix: Move this to the top of the file
-
         # Save to JSON
         output_dir = "temp_exports"
         os.makedirs(output_dir, exist_ok=True)
         json_path = os.path.join(output_dir, "test_results.json")
-
-        # Fix: Define this OUTSIDE the 'with' block so it's recognized
 
         def serialize_datetime(obj):
             if isinstance(obj, datetime):
