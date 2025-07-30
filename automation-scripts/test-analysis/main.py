@@ -42,7 +42,7 @@ class TestRequest(BaseModel):
     account_name: str  # AWS account identifier
 
 # Route: Detect test windows and active services
-@app.post("/detect-tests")
+@app.get("/detect-tests")
 def detect_services(request_data: TestRequest):
     # 1. Unpack request
     start_time = request_data.start_time
