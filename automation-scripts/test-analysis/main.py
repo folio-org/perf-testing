@@ -41,22 +41,18 @@ class TestRequest(BaseModel):
     cluster_name: str  # ECS cluster name
     account_name: str  # AWS account identifier
 
-# Route: Detect test windows and active services
 @app.get("/detect-tests")
-def detect_services(request_data: TestRequest):
-    # 1. Unpack request
-    start_time = request_data.start_time
-    end_time = request_data.end_time
-    cluster_name = request_data.cluster_name
-    account_name = request_data.account_name
-
-    # 2. AWS CloudWatch client setup
+def detect_services(
+    start_time: str = Query(...),
+    end_time: str = Query(...),
+    cluster_name: str = Query(...)
+):
+    account_name = "default-user"
     region = 'us-east-1'
     period = 300  # 5‑minute granularity
     session = boto3.Session()
     cloudwatch = session.client('cloudwatch', region_name=region)
 
-    # 3. Fetch CPU data for every ECS service
     services = get_all_service_names(cluster_name, region)
     valid_services = {}
     for service in services:
@@ -64,22 +60,30 @@ def detect_services(request_data: TestRequest):
         if data is not None and not data.empty:
             valid_services[service] = data
 
-    # 4. Error if nothing found
     if not valid_services:
         return JSONResponse({"error": "No valid service data found."}, status_code=404)
 
-    # 5. Build DataFrame and run ML model
     cpu_df = pd.DataFrame(valid_services)
     test_results = detect_test_windows(cpu_df)
 
-    # 6. Return JSON with detected windows
+    # Convert Timestamps to strings
+    def serialize_timestamps(record):
+        for key in record:
+            if isinstance(record[key], pd.Timestamp):
+                record[key] = record[key].isoformat()
+        return record
+
+    serialized = [serialize_timestamps(rec) for rec in test_results.to_dict(orient="records")]
+
     return JSONResponse({
         "account": account_name,
         "cluster": cluster_name,
         "start_time": start_time,
         "end_time": end_time,
-        "test_windows": test_results.to_dict(orient="records")
+        "test_windows": serialized
     })
+
+
 
 
 # Route: Export raw CPU data (no model applied)
