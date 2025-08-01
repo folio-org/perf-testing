@@ -1,0 +1,671 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.2">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="GET_item-storage_items" enabled="true">
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+    </TestPlan>
+    <hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="hostname" elementType="Argument">
+            <stringProp name="Argument.name">hostname</stringProp>
+            <stringProp name="Argument.value">${__P(HOSTNAME,localhost)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="global_BaseDir" elementType="Argument">
+            <stringProp name="Argument.name">global_BaseDir</stringProp>
+            <stringProp name="Argument.value">${__BeanShell(import org.apache.jmeter.services.FileServer; FileServer.getFileServer().getBaseDir();)}${__BeanShell(File.separator,)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="global_vusers" elementType="Argument">
+            <stringProp name="Argument.name">global_vusers</stringProp>
+            <stringProp name="Argument.value">${__P(VUSERS,8)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="global_rampup" elementType="Argument">
+            <stringProp name="Argument.name">global_rampup</stringProp>
+            <stringProp name="Argument.value">${__P(RAMP_UP,80)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="duration" elementType="Argument">
+            <stringProp name="Argument.name">duration</stringProp>
+            <stringProp name="Argument.value">${__P(DURATION,180)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="port" elementType="Argument">
+            <stringProp name="Argument.name">port</stringProp>
+            <stringProp name="Argument.value">${__P(PORT,6443)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="charset" elementType="Argument">
+            <stringProp name="Argument.name">charset</stringProp>
+            <stringProp name="Argument.value">${__P(CHARSET,UTF-8)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="messageDelimiter" elementType="Argument">
+            <stringProp name="Argument.name">messageDelimiter</stringProp>
+            <stringProp name="Argument.value">|</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="errorDetectionEnabled" elementType="Argument">
+            <stringProp name="Argument.name">errorDetectionEnabled</stringProp>
+            <stringProp name="Argument.value">true</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="serverTimezone" elementType="Argument">
+            <stringProp name="Argument.name">serverTimezone</stringProp>
+            <stringProp name="Argument.value">${__P(SERVER_TIMEZONE,Europe/Vilnius)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config - credentials" enabled="true">
+        <stringProp name="delimiter">,</stringProp>
+        <stringProp name="fileEncoding"></stringProp>
+        <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/credentials.csv</stringProp>
+        <boolProp name="ignoreFirstLine">false</boolProp>
+        <boolProp name="quotedData">false</boolProp>
+        <boolProp name="recycle">true</boolProp>
+        <stringProp name="shareMode">shareMode.all</stringProp>
+        <boolProp name="stopThread">false</boolProp>
+        <stringProp name="variableNames">username,password,servicePoint</stringProp>
+      </CSVDataSet>
+      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Sorting Kiosk" enabled="true">
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <stringProp name="ThreadGroup.duration">${duration}</stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <stringProp name="LoopController.loops">1</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+        <boolProp name="ThreadGroup.delayedStart">false</boolProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config - IDs" enabled="true">
+          <stringProp name="delimiter">,</stringProp>
+          <stringProp name="fileEncoding">UTF-8</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/item-barcodes.csv</stringProp>
+          <boolProp name="ignoreFirstLine">false</boolProp>
+          <boolProp name="quotedData">true</boolProp>
+          <boolProp name="recycle">true</boolProp>
+          <stringProp name="shareMode">shareMode.all</stringProp>
+          <boolProp name="stopThread">false</boolProp>
+          <stringProp name="variableNames">itemBarcode</stringProp>
+        </CSVDataSet>
+        <hashTree/>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Init connection" enabled="true">
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="script">SampleResult.setSamplerData(&quot;Init SIP2 connection&quot;)
+  
+try {
+  def hostname = vars.get(&quot;hostname&quot;)
+  def port = vars.get(&quot;port&quot;).toInteger()
+
+  Socket socket = new Socket(hostname, port)
+  socket.setSoTimeout(10000)
+  socket.setTcpNoDelay(true)
+
+  vars.putObject(&quot;sip2_socket&quot;, socket);
+  vars.putObject(&quot;sip2_in&quot;, socket.getInputStream())
+  vars.putObject(&quot;sip2_out&quot;, socket.getOutputStream())
+
+  log.info(&quot;SIP2 Connection is open: {}:{}&quot;, hostname, port)
+  def msg = &quot;SUCCESS: Connection Initialized&quot;
+  SampleResult.setResponseData(msg)
+} catch (Exception e) {
+  log.error(&quot;Failed to create socket: &quot; + e.getMessage(), e)
+  SampleResult.setSuccessful(false)
+  SampleResult.setResponseMessage(&quot;Socket connection failed: &quot; + e.getMessage())
+
+  def failMsg = &quot;FAILED: Socket connection failed - &quot; + e.getMessage()
+  SampleResult.setResponseData(failMsg)
+  Thread.currentThread().stop()
+}
+
+def writeSip2Message = { String message -&gt;
+  {
+    def resultMessage = message + &quot;\r&quot;
+    log.debug(&quot;SIP2 Request command: &apos;{}&apos;&quot;, resultMessage)
+    def charset = vars.get(&quot;charset&quot;) ?: &quot;UTF-8&quot;
+    def outStream = vars.getObject(&quot;sip2_out&quot;)
+    outStream.write(resultMessage.getBytes(charset))
+    outStream.flush()
+  }
+}
+
+def readSip2Message = {
+  def inStream = vars.getObject(&quot;sip2_in&quot;)
+  def charset = vars.get(&quot;charset&quot;) ?: &quot;UTF-8&quot;
+  def buffer = new byte[2048]
+  def bytesRead = inStream.read(buffer)
+  def response = &quot;&quot;
+
+  if (bytesRead &gt; 0) {
+    response = new String(buffer, 0, bytesRead, charset)
+    response = response.trim()
+  } 
+  
+  log.debug(&quot;SIP2 Response Message: &apos;{}&apos;&quot;, response)
+  return response.trim()
+}
+
+log.info(&quot;Setting socket functions: sip2_readMessage and sip2_writeMessage...&quot;)
+vars.putObject(&quot;sip2_readMessage&quot;, readSip2Message)
+vars.putObject(&quot;sip2_writeMessage&quot;, writeSip2Message)
+vars.putObject(&quot;sip2_connectionSuccess&quot;, &quot;true&quot;)</stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
+        </JSR223Sampler>
+        <hashTree>
+          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="Define Format Date func" enabled="true">
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="script">import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+
+def getFormattedDateTime = { 
+	def delimiter = vars.get(&quot;messageDelimiter&quot;)
+	def serverZone = ZoneId.of(vars.get(&quot;serverTimezone&quot;))
+	def formatter = DateTimeFormatter.ofPattern(&quot;yyyyMMdd    HHmmss&quot;)
+	def currentDateTime = LocalDateTime.now(serverZone).format(formatter)
+	return currentDateTime
+}
+
+vars.putObject(&quot;sip2_getFormattedDateTimeFunc&quot;, getFormattedDateTime)</stringProp>
+            <stringProp name="scriptLanguage">groovy</stringProp>
+          </JSR223PreProcessor>
+          <hashTree/>
+          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="Define calculate checksum func" enabled="true">
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="script">import java.nio.charset.Charset
+
+def calculateChecksum = { String message -&gt;
+  {
+    def charsetName = vars.get(&quot;charset&quot;) ?: &quot;UTF-8&quot;
+    def bytes = message.getBytes(Charset.forName(charsetName))
+    int checksum = 0
+
+    bytes.each { byte b -&gt;
+      checksum += b &amp; 0xff
+    }
+
+    checksum = -checksum &amp; 0xffff
+    return String.format(&quot;%04X&quot;, checksum)
+  }
+}
+
+vars.putObject(&quot;sip2_calculateChecksum&quot;, calculateChecksum)</stringProp>
+            <stringProp name="scriptLanguage">groovy</stringProp>
+          </JSR223PreProcessor>
+          <hashTree/>
+          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="Define format message func" enabled="true">
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="script">def prepareMessage = { String message -&gt;
+  {
+    def delimiter = vars.get(&quot;messageDelimiter&quot;) ?: &quot;|&quot;
+    def calculateChecksumFunc = vars.getObject(&quot;sip2_calculateChecksum&quot;)
+    def seqNumber = vars.get(&quot;seqNumber&quot;) ?: &quot;1&quot;
+    def newMessage = message + &quot;${delimiter}AY${seqNumber}&quot;
+    def errorDetectionEnabled = vars.get(&quot;errorDetectionEnabled&quot;)?.toBoolean() ?: false
+
+    return errorDetectionEnabled
+      ? newMessage + &quot;AZ${calculateChecksumFunc(newMessage + &quot;AZ&quot;)}&quot;
+      : newMessage
+  }
+}
+
+vars.putObject(&quot;sip2_prepareMessage&quot;, prepareMessage)</stringProp>
+            <stringProp name="scriptLanguage">groovy</stringProp>
+          </JSR223PreProcessor>
+          <hashTree/>
+          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="Define validate checksum func" enabled="true">
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="script">import java.nio.charset.Charset
+
+def validateChecksum = { String message -&gt;
+  {
+    def result = [
+      isValid: false,
+      receivedChecksum: &quot;&quot;,
+      messageWithoutChecksum: &quot;&quot;,
+      errorMessage: &quot;&quot;
+    ]
+
+    def charsetName = vars.get(&quot;charset&quot;) ?: &quot;UTF-8&quot;
+    def charset = Charset.forName(charsetName)
+    try {
+      if (!message.contains(&quot;AZ&quot;)) {
+        result.errorMessage = &quot;Message does not contain checksum identifier &apos;AZ&apos;&quot;
+        return result
+      }
+
+      def azIndex = message.lastIndexOf(&quot;AZ&quot;)
+      if (azIndex &lt; 0 || azIndex + 6 &gt; message.length()) {
+        result.errorMessage = &quot;Invalid checksum format or message too short&quot;
+        return result
+      }
+
+      def messageWithoutChecksum = message.substring(0, azIndex + 2)
+      def receivedChecksum = message.substring(azIndex + 2, azIndex + 6)
+      result.messageWithoutChecksum = messageWithoutChecksum.substring(0, azIndex)
+      result.receivedChecksum = receivedChecksum
+
+      if (!receivedChecksum.matches(/^[0-9A-Fa-f]{4}$/)) {
+        result.errorMessage = &quot;Invalid checksum format: ${receivedChecksum}&quot;
+        return result
+      }
+
+      def bytes = messageWithoutChecksum.getBytes(Charset.forName(charsetName))
+      int calculatedSum = 0
+
+      bytes.each { byte b -&gt;
+        calculatedSum += b &amp; 0xff
+      }
+
+      calculatedSum += Integer.parseUnsignedInt(receivedChecksum, 16)
+      calculatedSum &amp;= 0xffff
+      result.isValid = (calculatedSum == 0)
+      if (!result.isValid) {
+        result.errorMessage = &quot;Checksum validation failed. Sum: ${calculatedSum}, Expected: 0&quot;
+      }
+
+    } catch (Exception e) {
+      result.errorMessage = &quot;Exception during checksum validation: ${e.message}&quot;
+    }
+
+    return result
+  }
+}
+
+vars.putObject(&quot;sip2_validateChecksum&quot;, validateChecksum)</stringProp>
+            <stringProp name="scriptLanguage">groovy</stringProp>
+          </JSR223PreProcessor>
+          <hashTree/>
+        </hashTree>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Login" enabled="true">
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="script">def readMessage = vars.getObject(&quot;sip2_readMessage&quot;)
+def writeMessage = vars.getObject(&quot;sip2_writeMessage&quot;)
+def prepareMessage = vars.getObject(&quot;sip2_prepareMessage&quot;)
+
+log.debug(&quot;Performing login request...&quot;)
+def getLoginCommand() {
+	def username = vars.get(&quot;username&quot;)
+	def password = vars.get(&quot;password&quot;)
+	def delimiter = vars.get(&quot;messageDelimiter&quot;)
+	def locationCode = vars.get(&quot;locationCode&quot;)
+     return locationCode
+       ? &quot;9300CN${username}${delimiter}CO${password}${delimeter}CP${locationCode}&quot;
+       : &quot;9300CN${username}${delimiter}CO${password}&quot;
+}
+
+def formatResult(String requestMessage, String responseMessage) {
+	SampleResult.setSamplerData(requestMessage)
+	SampleResult.setResponseCodeOK()
+	SampleResult.setDataEncoding(vars.get(&quot;charset&quot;))
+	SampleResult.setContentType(&quot;text&quot;)
+	SampleResult.setResponseData(responseMessage)
+}
+
+// read and write SIP2 command
+def loginMessage = prepareMessage(getLoginCommand())
+if (vars.get(&quot;sip2_connectionSuccess&quot;)?.toBoolean() ?: false) {
+	writeMessage(loginMessage)
+	formatResult(loginMessage, readMessage())
+	vars.put(&quot;sip2_loginSuccess&quot;, &quot;true&quot;)
+
+} else {
+	def errorMsg = &quot;FAILED: Failed to open connection before&quot;
+	SampleResult.setSamplerData(loginMessage)
+	SampleResult.setSuccessful(false)
+	SampleResult.setDataEncoding(vars.get(&quot;charset&quot;))
+	SampleResult.setContentType(&quot;text&quot;)
+	SampleResult.setResponseData(errorMsg)
+	vars.put(&quot;sip2_loginSuccess&quot;, &quot;false&quot;)
+}
+
+
+</stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
+        </JSR223Sampler>
+        <hashTree>
+          <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Checksum Validation" enabled="true">
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="script">def errorDetectionEnabled = vars.get(&quot;errorDetectionEnabled&quot;)?.toBoolean() ?: false
+
+if (errorDetectionEnabled) {
+	def responseMsg = prev.getResponseDataAsString()
+	def validateChecksum = vars.getObject(&quot;sip2_validateChecksum&quot;)
+	def result = validateChecksum(responseMsg)
+	
+	AssertionResult.setFailure(!result.isValid)
+	AssertionResult.setFailureMessage(result.errorMessage)
+	if (!result.isValid) {
+		vars.put(&quot;sip2_loginSuccess&quot;, &quot;false&quot;)		
+	}
+}
+</stringProp>
+            <stringProp name="scriptLanguage">groovy</stringProp>
+          </JSR223Assertion>
+          <hashTree/>
+          <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Message Validation" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">def responseMsg = prev.getResponseDataAsString()
+
+if (!responseMsg.startsWith(&quot;94&quot;)) {
+	AssertionResult.setFailure(true)
+	AssertionResult.setFailureMessage(&quot;Must be a valid login response, expect to start with 94&quot;)
+	vars.put(&quot;sip2_loginSuccess&quot;, &quot;false&quot;)
+}
+
+
+if (responseMsg.charAt(2) != &apos;1&apos;) {
+	AssertionResult.setFailure(true)
+	AssertionResult.setFailureMessage(&quot;Login failed, expected status 1, received 0 (char position: 2)&quot;)
+	vars.put(&quot;sip2_loginSuccess&quot;, &quot;false&quot;)
+}</stringProp>
+          </JSR223Assertion>
+          <hashTree/>
+        </hashTree>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Item Information Request" enabled="true">
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="script">log.debug(&quot;Performing item information request...&quot;)
+
+def getItemInformationCommand() {
+	def delimiter = vars.get(&quot;messageDelimiter&quot;)
+	def currentDateTime = vars.getObject(&quot;sip2_getFormattedDateTimeFunc&quot;)()
+	def itemBarcode = vars.get(&quot;itemBarcode&quot;).trim()
+	def commandCode = &quot;17&quot;
+	def institutionId = &quot;&quot;
+	def terminalPassword = &quot;&quot;
+
+     return new StringBuilder()
+		.append(commandCode).append(currentDateTime)
+		.append(&quot;AO&quot;).append(institutionId)
+		.append(delimiter)
+		.append(&quot;AB&quot;).append(itemBarcode)
+		.append(delimiter)
+		.append(&quot;AC&quot;).append(terminalPassword)
+		.toString()
+}
+
+def formatResult(String requestMessage, String responseMessage) {
+	SampleResult.setSamplerData(requestMessage)
+	SampleResult.setResponseCodeOK()
+	SampleResult.setDataEncoding(vars.get(&quot;charset&quot;))
+	SampleResult.setContentType(&quot;text&quot;)
+	SampleResult.setResponseData(responseMessage)
+}
+
+// read and write SIP2 command
+def itemInformationMessage = vars.getObject(&quot;sip2_prepareMessage&quot;)(getItemInformationCommand())
+
+log.info(&quot;Login success: {}&quot;, vars.get(&quot;sip2_loginSuccess&quot;)?.toBoolean() ?: false)
+if (vars.get(&quot;sip2_loginSuccess&quot;)?.toBoolean() ?: false) {
+	vars.getObject(&quot;sip2_writeMessage&quot;)(itemInformationMessage)
+	formatResult(itemInformationMessage, vars.getObject(&quot;sip2_readMessage&quot;)())
+	vars.put(&quot;sip2_itemInfoSuccess&quot;, &quot;true&quot;)
+} else {
+	def errorMsg = &quot;FAILED: Login failed before&quot;
+	SampleResult.setSamplerData(itemInformationMessage)
+	SampleResult.setSuccessful(false)
+	SampleResult.setDataEncoding(vars.get(&quot;charset&quot;))
+	SampleResult.setContentType(&quot;text&quot;)
+	SampleResult.setResponseData(&quot;&quot;)
+	log.info(&quot;Setting item info false: 1&quot;)
+	vars.put(&quot;sip2_itemInfoSuccess&quot;, &quot;false&quot;)
+}
+
+
+</stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
+        </JSR223Sampler>
+        <hashTree>
+          <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Checksum Validation" enabled="true">
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="script">def errorDetectionEnabled = vars.get(&quot;errorDetectionEnabled&quot;)?.toBoolean() ?: false
+
+if (errorDetectionEnabled) {
+	def responseMsg = prev.getResponseDataAsString()
+	def validateChecksum = vars.getObject(&quot;sip2_validateChecksum&quot;)
+	def result = validateChecksum(responseMsg)
+	
+	AssertionResult.setFailure(!result.isValid)
+	AssertionResult.setFailureMessage(result.errorMessage)
+	if (!result.isValid) {
+		vars.put(&quot;sip2_itemInfoSuccess&quot;, &quot;false&quot;)		
+	}
+}
+</stringProp>
+            <stringProp name="scriptLanguage">groovy</stringProp>
+          </JSR223Assertion>
+          <hashTree/>
+          <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Message Validation" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">def responseMsg = prev.getResponseDataAsString()
+
+if (!responseMsg.startsWith(&quot;18&quot;)) {
+	AssertionResult.setFailure(true)
+	AssertionResult.setFailureMessage(&quot;Must be a valid item information response, expect to start with 18&quot;)
+	log.info(&quot;Setting item info false: 3&quot;)
+}
+
+if (responseMsg.contains(&quot;|AJUnknown|&quot;) &amp;&amp; responseMsg.contains(&quot;|AFItem does not exist&quot;)) {
+	AssertionResult.setFailure(true)
+	AssertionResult.setFailureMessage(&quot;Nessage must not contain &apos;|AJUnknown|&apos; and &apos;|AFItem does not exist&apos;&quot;)
+	vars.put(&quot;sip2_itemInfoSuccess&quot;, &quot;false&quot;)
+}
+</stringProp>
+          </JSR223Assertion>
+          <hashTree/>
+        </hashTree>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Item Checkin Request" enabled="true">
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="script">log.debug(&quot;Performing item information request...&quot;)
+def getItemCheckinCommand() {
+	def delimiter = vars.get(&quot;messageDelimiter&quot;)
+	def transactionDateTime = vars.getObject(&quot;sip2_getFormattedDateTimeFunc&quot;)()
+	def returnDateTime = transactionDateTime
+	def itemBarcode = vars.get(&quot;itemBarcode&quot;).trim()
+	def noBlock = &quot;N&quot;
+	def currentLocation = &quot;&quot;
+	def commandCode = &quot;09&quot;
+	def institutionId = &quot;&quot;
+	def terminalPassword = &quot;&quot;
+
+     return new StringBuilder()
+		.append(commandCode)
+		.append(noBlock)
+		.append(transactionDateTime)
+		.append(returnDateTime)
+		.append(&quot;AP&quot;).append(currentLocation).append(delimiter)
+		.append(&quot;AO&quot;).append(institutionId).append(delimiter)
+		.append(&quot;AB&quot;).append(itemBarcode).append(delimiter)
+		.append(&quot;AC&quot;).append(terminalPassword)
+		.toString()
+}
+
+def formatResult(String requestMessage, String responseMessage) {
+	SampleResult.setSamplerData(requestMessage)
+	SampleResult.setResponseCodeOK()
+	SampleResult.setDataEncoding(vars.get(&quot;charset&quot;))
+	SampleResult.setContentType(&quot;text&quot;)
+	SampleResult.setResponseData(responseMessage)
+}
+
+// read and write SIP2 command
+log.info(&quot;Item inso success: {}&quot;, vars.get(&quot;sip2_itemInfoSuccess&quot;)?.toBoolean() ?: false)
+def itemCheckinMessage = vars.getObject(&quot;sip2_prepareMessage&quot;)(getItemCheckinCommand())
+if (vars.get(&quot;sip2_itemInfoSuccess&quot;)?.toBoolean() ?: false) {
+	vars.getObject(&quot;sip2_writeMessage&quot;)(itemCheckinMessage)
+	formatResult(itemCheckinMessage, vars.getObject(&quot;sip2_readMessage&quot;)())
+	vars.put(&quot;sip2_itemCheckinSuccess&quot;, &quot;true&quot;)
+} else {
+	def errorMsg = &quot;FAILED: Item information request failed before&quot;	
+	SampleResult.setSamplerData(itemCheckinMessage)
+	SampleResult.setSuccessful(false)
+	SampleResult.setDataEncoding(vars.get(&quot;charset&quot;))
+	SampleResult.setContentType(&quot;text&quot;)
+	SampleResult.setResponseData(errorMsg)
+	vars.put(&quot;sip2_itemCheckinSuccess&quot;, &quot;false&quot;)
+}
+
+</stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
+        </JSR223Sampler>
+        <hashTree>
+          <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Checksum Validation" enabled="true">
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="script">def errorDetectionEnabled = vars.get(&quot;errorDetectionEnabled&quot;)?.toBoolean() ?: false
+
+if (errorDetectionEnabled) {
+	def responseMsg = prev.getResponseDataAsString()
+	def validateChecksum = vars.getObject(&quot;sip2_validateChecksum&quot;)
+	def result = validateChecksum(responseMsg)
+	
+	AssertionResult.setFailure(!result.isValid)
+	AssertionResult.setFailureMessage(result.errorMessage)
+	if (!result.isValid) {
+		vars.put(&quot;sip2_itemCheckinSuccess&quot;, &quot;false&quot;)		
+	}
+}
+</stringProp>
+            <stringProp name="scriptLanguage">groovy</stringProp>
+          </JSR223Assertion>
+          <hashTree/>
+          <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Message Validation" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">def responseMsg = prev.getResponseDataAsString()
+
+
+if (!responseMsg.startsWith(&quot;10&quot;)) {
+	AssertionResult.setFailure(true)
+	AssertionResult.setFailureMessage(&quot;Invalid check-in response message, must start with 10&quot;)
+	vars.put(&quot;sip2_itemCheckinSuccess&quot;, &quot;true&quot;)
+}
+
+if (responseMsg.charAt(2) != &apos;1&apos;) {
+	AssertionResult.setFailure(true)
+	AssertionResult.setFailureMessage(&quot;Check-in request failed, expected 1, reseived 0 for response status (char position: 2)&quot;)
+	vars.put(&quot;sip2_itemCheckinSuccess&quot;, &quot;true&quot;)
+}
+</stringProp>
+          </JSR223Assertion>
+          <hashTree/>
+        </hashTree>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Close connection" enabled="true">
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="script">import java.net.Socket;
+
+SampleResult.setSamplerData(&quot;Close SIP2 connection&quot;)
+
+try {
+  def socket = vars.getObject(&quot;sip2_socket&quot;);
+  if (socket != null &amp;&amp; !socket.isClosed()) {
+    socket.close();
+    def msg = &quot;SIP Connection Closed&quot;
+    log.debug(msg);
+    SampleResult.setResponseData(msg)
+    return msg
+  } else {
+    def msg = &quot;SIP Connection Alredy Closed&quot;
+    log.warn(msg);
+    SampleResult.setResponseData(msg)
+    return msg;
+  }
+} catch (Exception e) {
+  def failMsg = &quot;Error closing connection: &quot; + e.getMessage()
+  log.error(failMsg, e);
+  return failMsg;
+} finally {
+  props.remove(&quot;sip2_socket&quot;);
+  props.remove(&quot;sip2_in&quot;);
+  props.remove(&quot;sip2_out&quot;);
+}</stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+      </hashTree>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
