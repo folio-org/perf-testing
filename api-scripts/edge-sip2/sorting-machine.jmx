@@ -62,6 +62,31 @@
             <stringProp name="Argument.value">${__P(SERVER_TIMEZONE,Europe/Vilnius)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="useSsl" elementType="Argument">
+            <stringProp name="Argument.name">useSsl</stringProp>
+            <stringProp name="Argument.value">${__P(USE_SSL:false)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Sunflower BF #2" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="hostname" elementType="Argument">
+            <stringProp name="Argument.name">hostname</stringProp>
+            <stringProp name="Argument.value">sip2-bugfest-sunflower.int.aws.folio.org</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="port" elementType="Argument">
+            <stringProp name="Argument.name">port</stringProp>
+            <stringProp name="Argument.value">443</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="useSsl" elementType="Argument">
+            <stringProp name="Argument.name">useSsl</stringProp>
+            <stringProp name="Argument.value">true</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
         </collectionProp>
       </Arguments>
       <hashTree/>
@@ -111,20 +136,36 @@
           <stringProp name="script">SampleResult.setSamplerData(&quot;Init SIP2 connection&quot;)
   
 try {
-  def hostname = vars.get(&quot;hostname&quot;)
-  def port = vars.get(&quot;port&quot;).toInteger()
+	def hostname = vars.get(&quot;hostname&quot;)
+	def port = vars.get(&quot;port&quot;).toInteger()
+	def useSSL = vars.get(&quot;useSsl&quot;)?.toBoolean() ?: false
+	log.info(&quot;Creating socket connection {}:{}&quot;, hostname, port);
+	socket = new Socket(hostname, port)
+	socket.setSoTimeout(10000)
+	socket.setTcpNoDelay(true)
 
-  Socket socket = new Socket(hostname, port)
-  socket.setSoTimeout(10000)
-  socket.setTcpNoDelay(true)
-
-  vars.putObject(&quot;sip2_socket&quot;, socket);
-  vars.putObject(&quot;sip2_in&quot;, socket.getInputStream())
-  vars.putObject(&quot;sip2_out&quot;, socket.getOutputStream())
-
-  log.info(&quot;SIP2 Connection is open: {}:{}&quot;, hostname, port)
-  def msg = &quot;SUCCESS: Connection Initialized&quot;
-  SampleResult.setResponseData(msg)
+	if (useSSL) {
+		// Initialize SSL Socket
+		def sslContext = javax.net.ssl.SSLContext.getInstance(&quot;TLS&quot;)
+		sslContext.init(null, null, null)
+		def sslSocketFactory = sslContext.getSocketFactory()
+		
+		socket = sslSocketFactory.createSocket(socket, hostname, port, true)
+		if (socket instanceof javax.net.ssl.SSLSocket) {
+			def sslSocket = (javax.net.ssl.SSLSocket) socket
+			sslSocket.setUseClientMode(true)
+			sslSocket.startHandshake()
+			log.info(&quot;SSL handshake completed successfully&quot;)
+		}
+	}
+	
+	vars.putObject(&quot;sip2_socket&quot;, socket);
+	vars.putObject(&quot;sip2_in&quot;, socket.getInputStream())
+	vars.putObject(&quot;sip2_out&quot;, socket.getOutputStream())
+	
+	log.info(&quot;SIP2 Connection is open&quot;)
+	def msg = &quot;SUCCESS: Connection Initialized&quot;
+	SampleResult.setResponseData(msg)
 } catch (Exception e) {
   log.error(&quot;Failed to create socket: &quot; + e.getMessage(), e)
   SampleResult.setSuccessful(false)
