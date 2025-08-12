@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.2">
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
   <hashTree>
-    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="GET_item-storage_items" enabled="true">
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="GET_item-storage_items">
       <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
-      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
         <collectionProp name="Arguments.arguments"/>
       </elementProp>
-      <boolProp name="TestPlan.functional_mode">false</boolProp>
-      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
     </TestPlan>
     <hashTree>
-      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
         <collectionProp name="Arguments.arguments">
           <elementProp name="hostname" elementType="Argument">
             <stringProp name="Argument.name">hostname</stringProp>
@@ -67,10 +65,25 @@
             <stringProp name="Argument.value">${__P(USE_SSL:false)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="credentialsSrc" elementType="Argument">
+            <stringProp name="Argument.name">credentialsSrc</stringProp>
+            <stringProp name="Argument.value">credentials.csv</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="itemBarcodesSrc" elementType="Argument">
+            <stringProp name="Argument.name">itemBarcodesSrc</stringProp>
+            <stringProp name="Argument.value">item-barcodes.csv</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="socketTimeout" elementType="Argument">
+            <stringProp name="Argument.name">socketTimeout</stringProp>
+            <stringProp name="Argument.value">${__P(SOCKET_TIMEOUT:60000)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
         </collectionProp>
       </Arguments>
       <hashTree/>
-      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Sunflower BF #2" enabled="true">
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Sunflower BF">
         <collectionProp name="Arguments.arguments">
           <elementProp name="hostname" elementType="Argument">
             <stringProp name="Argument.name">hostname</stringProp>
@@ -87,40 +100,124 @@
             <stringProp name="Argument.value">true</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="credentialsSrc" elementType="Argument">
+            <stringProp name="Argument.name">credentialsSrc</stringProp>
+            <stringProp name="Argument.value">credentials-sebf.csv</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="itemBarcodesSrc" elementType="Argument">
+            <stringProp name="Argument.name">itemBarcodesSrc</stringProp>
+            <stringProp name="Argument.value">item-barcodes-sebf.csv</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="duration" elementType="Argument">
+            <stringProp name="Argument.name">duration</stringProp>
+            <stringProp name="Argument.value">30</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
         </collectionProp>
       </Arguments>
       <hashTree/>
-      <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config - credentials" enabled="true">
+      <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config - credentials">
         <stringProp name="delimiter">,</stringProp>
         <stringProp name="fileEncoding"></stringProp>
-        <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/credentials.csv</stringProp>
+        <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/${credentialsSrc}</stringProp>
         <boolProp name="ignoreFirstLine">false</boolProp>
         <boolProp name="quotedData">false</boolProp>
         <boolProp name="recycle">true</boolProp>
         <stringProp name="shareMode">shareMode.all</stringProp>
         <boolProp name="stopThread">false</boolProp>
-        <stringProp name="variableNames">username,password,servicePoint</stringProp>
+        <stringProp name="variableNames">username,password,servicePointId</stringProp>
       </CSVDataSet>
       <hashTree/>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Sorting Kiosk" enabled="true">
-        <stringProp name="ThreadGroup.num_threads">1</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="setUp">
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <stringProp name="LoopController.loops">1</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </SetupThreadGroup>
+      <hashTree>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Setup SIP2">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">import java.util.concurrent.ConcurrentHashMap;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+
+class SIP2ConnectionManager {
+
+	private static final Logger log = LoggerFactory.getLogger(SIP2ConnectionManager.class)
+	private static final Map&lt;String, Socket&gt; connections = new ConcurrentHashMap&lt;&gt;()
+	private static final Map&lt;String, InputStream&gt; inputStreams = new ConcurrentHashMap&lt;&gt;()
+	private static final Map&lt;String, OutputStream&gt; outputStreams = new ConcurrentHashMap&lt;&gt;()
+	
+	static void registerConnection(String threadName, Socket socket, InputStream inStream, OutputStream outStream) {
+		connections.put(threadName, socket);
+		inputStreams.put(threadName, inStream);
+		outputStreams.put(threadName, outStream);
+		log.info(&quot;Registered connection for thread: {}&quot;, threadName);
+	}
+	
+	static void closeConnection(String threadName) {
+		log.info(&quot;Closing connection for: {}&quot;, threadName)
+		try {
+			def outStream = outputStreams.remove(threadName)?.close()
+			def inStream = inputStreams.remove(threadName)?.close()
+		  
+			Socket socket = connections.remove(threadName)
+			if (socket != null &amp;&amp; !socket.isClosed()) {
+				socket.close()
+				log.info(&quot;Connection closed: {}&quot;, threadName)
+			} else {
+				log.info(&quot;Socket already closed: {}&quot;, threadName)
+			}
+		} catch (Exception e) {
+		  log.error(&quot;Error closing connection for thread: {}&quot;, threadName, e)
+		}
+	}
+	
+	static void closeAllConnections() {
+		log.info(&quot;Closing all connection...&quot;)
+		connections.keySet().each { threadName -&gt;
+			log.info(&quot;Closing connection for: {}&quot;, threadName)	
+			closeConnection(threadName)
+		}
+	}
+	
+	static boolean hasConnection(String threadName) {
+	   Socket socket = connections.get(threadName);
+	   return socket != null &amp;&amp; !socket.isClosed();
+	}
+}
+
+props.put(&quot;SIP2ConnectionManager&quot;, SIP2ConnectionManager.class)
+log.info(&quot;SIP2ConnectionManager class defined and stored in props&quot;)</stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Sorting Kiosk">
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
         <stringProp name="ThreadGroup.duration">${duration}</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <stringProp name="LoopController.loops">1</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <intProp name="LoopController.loops">-1</intProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
-        <boolProp name="ThreadGroup.delayedStart">false</boolProp>
-        <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
-        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config - IDs" enabled="true">
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config - IDs">
           <stringProp name="delimiter">,</stringProp>
           <stringProp name="fileEncoding">UTF-8</stringProp>
-          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/item-barcodes.csv</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/${itemBarcodesSrc}</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
           <boolProp name="quotedData">true</boolProp>
           <boolProp name="recycle">true</boolProp>
@@ -129,19 +226,21 @@
           <stringProp name="variableNames">itemBarcode</stringProp>
         </CSVDataSet>
         <hashTree/>
-        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Init connection" enabled="true">
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Init connection">
           <stringProp name="cacheKey">true</stringProp>
           <stringProp name="filename"></stringProp>
           <stringProp name="parameters"></stringProp>
           <stringProp name="script">SampleResult.setSamplerData(&quot;Init SIP2 connection&quot;)
-  
+def manager = props.get(&quot;SIP2ConnectionManager&quot;)
+
 try {
 	def hostname = vars.get(&quot;hostname&quot;)
 	def port = vars.get(&quot;port&quot;).toInteger()
 	def useSSL = vars.get(&quot;useSsl&quot;)?.toBoolean() ?: false
-	log.info(&quot;Creating socket connection {}:{}&quot;, hostname, port);
+	log.info(&quot;Creating socket connection {}:{}&quot;, hostname, port)
+	def timeput = vars.get(&quot;socketTimeout&quot;).toInteger() ?: 60000
 	socket = new Socket(hostname, port)
-	socket.setSoTimeout(10000)
+	socket.setSoTimeout(60000)
 	socket.setTcpNoDelay(true)
 
 	if (useSSL) {
@@ -158,22 +257,26 @@ try {
 			log.info(&quot;SSL handshake completed successfully&quot;)
 		}
 	}
-	
+	def threadName = Thread.currentThread().getName()
+	def inStream = socket.getInputStream()
+	def outStream = socket.getOutputStream()
+	manager.registerConnection(threadName, socket, inStream, outStream)
+
 	vars.putObject(&quot;sip2_socket&quot;, socket);
-	vars.putObject(&quot;sip2_in&quot;, socket.getInputStream())
-	vars.putObject(&quot;sip2_out&quot;, socket.getOutputStream())
+	vars.putObject(&quot;sip2_in&quot;, inStream)
+	vars.putObject(&quot;sip2_out&quot;, outStream)
 	
 	log.info(&quot;SIP2 Connection is open&quot;)
 	def msg = &quot;SUCCESS: Connection Initialized&quot;
 	SampleResult.setResponseData(msg)
 } catch (Exception e) {
-  log.error(&quot;Failed to create socket: &quot; + e.getMessage(), e)
-  SampleResult.setSuccessful(false)
-  SampleResult.setResponseMessage(&quot;Socket connection failed: &quot; + e.getMessage())
-
-  def failMsg = &quot;FAILED: Socket connection failed - &quot; + e.getMessage()
-  SampleResult.setResponseData(failMsg)
-  Thread.currentThread().stop()
+	log.error(&quot;Failed to create socket: &quot; + e.getMessage(), e)
+	SampleResult.setSuccessful(false)
+	SampleResult.setResponseMessage(&quot;Socket connection failed: &quot; + e.getMessage())
+	
+	def failMsg = &quot;FAILED: Socket connection failed - &quot; + e.getMessage()
+	SampleResult.setResponseData(failMsg)
+	Thread.currentThread().stop()
 }
 
 def writeSip2Message = { String message -&gt;
@@ -277,7 +380,7 @@ vars.putObject(&quot;sip2_prepareMessage&quot;, prepareMessage)</stringProp>
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223PreProcessor>
           <hashTree/>
-          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="Define validate checksum func" enabled="true">
+          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="Define validate checksum func">
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters"></stringProp>
@@ -343,7 +446,7 @@ vars.putObject(&quot;sip2_validateChecksum&quot;, validateChecksum)</stringProp>
           </JSR223PreProcessor>
           <hashTree/>
         </hashTree>
-        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Login" enabled="true">
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Login">
           <stringProp name="cacheKey">true</stringProp>
           <stringProp name="filename"></stringProp>
           <stringProp name="parameters"></stringProp>
@@ -356,9 +459,10 @@ def getLoginCommand() {
 	def username = vars.get(&quot;username&quot;)
 	def password = vars.get(&quot;password&quot;)
 	def delimiter = vars.get(&quot;messageDelimiter&quot;)
-	def locationCode = vars.get(&quot;locationCode&quot;)
-     return locationCode
-       ? &quot;9300CN${username}${delimiter}CO${password}${delimeter}CP${locationCode}&quot;
+	def servicePointId = vars.get(&quot;servicePointId&quot;)?.trim()
+	log.info(&quot;Service Point Id: {}&quot;, servicePointId);
+     return servicePointId
+       ? &quot;9300CN${username}${delimiter}CO${password}${delimiter}CP${servicePointId}&quot;
        : &quot;9300CN${username}${delimiter}CO${password}&quot;
 }
 
@@ -371,7 +475,9 @@ def formatResult(String requestMessage, String responseMessage) {
 }
 
 // read and write SIP2 command
-def loginMessage = prepareMessage(getLoginCommand())
+def rawLoginCommand = getLoginCommand();
+log.info(&quot;Login message: {}&quot;, rawLoginCommand);
+def loginMessage = prepareMessage(rawLoginCommand);
 if (vars.get(&quot;sip2_connectionSuccess&quot;)?.toBoolean() ?: false) {
 	writeMessage(loginMessage)
 	formatResult(loginMessage, readMessage())
@@ -386,7 +492,6 @@ if (vars.get(&quot;sip2_connectionSuccess&quot;)?.toBoolean() ?: false) {
 	SampleResult.setResponseData(errorMsg)
 	vars.put(&quot;sip2_loginSuccess&quot;, &quot;false&quot;)
 }
-
 
 </stringProp>
           <stringProp name="scriptLanguage">groovy</stringProp>
@@ -435,7 +540,7 @@ if (responseMsg.charAt(2) != &apos;1&apos;) {
           </JSR223Assertion>
           <hashTree/>
         </hashTree>
-        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Item Information Request" enabled="true">
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Item Information Request">
           <stringProp name="cacheKey">true</stringProp>
           <stringProp name="filename"></stringProp>
           <stringProp name="parameters"></stringProp>
@@ -534,7 +639,7 @@ if (responseMsg.contains(&quot;|AJUnknown|&quot;) &amp;&amp; responseMsg.contain
           </JSR223Assertion>
           <hashTree/>
         </hashTree>
-        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Item Checkin Request" enabled="true">
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Item Checkin Request">
           <stringProp name="cacheKey">true</stringProp>
           <stringProp name="filename"></stringProp>
           <stringProp name="parameters"></stringProp>
@@ -591,7 +696,7 @@ if (vars.get(&quot;sip2_itemInfoSuccess&quot;)?.toBoolean() ?: false) {
           <stringProp name="scriptLanguage">groovy</stringProp>
         </JSR223Sampler>
         <hashTree>
-          <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Checksum Validation" enabled="true">
+          <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Checksum Validation">
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters"></stringProp>
@@ -612,7 +717,7 @@ if (errorDetectionEnabled) {
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223Assertion>
           <hashTree/>
-          <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Message Validation" enabled="true">
+          <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Message Validation">
             <stringProp name="scriptLanguage">groovy</stringProp>
             <stringProp name="parameters"></stringProp>
             <stringProp name="filename"></stringProp>
@@ -635,42 +740,85 @@ if (responseMsg.charAt(2) != &apos;1&apos;) {
           </JSR223Assertion>
           <hashTree/>
         </hashTree>
-        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Close connection" enabled="true">
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Close connection">
           <stringProp name="cacheKey">true</stringProp>
           <stringProp name="filename"></stringProp>
           <stringProp name="parameters"></stringProp>
           <stringProp name="script">import java.net.Socket;
 
-SampleResult.setSamplerData(&quot;Close SIP2 connection&quot;)
+SampleResult.setSamplerData(&quot;Close SIP2 connection&quot;);
 
 try {
-  def socket = vars.getObject(&quot;sip2_socket&quot;);
-  if (socket != null &amp;&amp; !socket.isClosed()) {
-    socket.close();
-    def msg = &quot;SIP Connection Closed&quot;
-    log.debug(msg);
-    SampleResult.setResponseData(msg)
-    return msg
-  } else {
-    def msg = &quot;SIP Connection Alredy Closed&quot;
-    log.warn(msg);
-    SampleResult.setResponseData(msg)
-    return msg;
-  }
-} catch (Exception e) {
-  def failMsg = &quot;Error closing connection: &quot; + e.getMessage()
-  log.error(failMsg, e);
-  return failMsg;
+	def threadName = Thread.currentThread().getName()
+	def manager = props.get(&quot;SIP2ConnectionManager&quot;)?.closeConnection(threadName)
 } finally {
-  props.remove(&quot;sip2_socket&quot;);
-  props.remove(&quot;sip2_in&quot;);
-  props.remove(&quot;sip2_out&quot;);
+	props.get(&quot;SIP2ConnectionManager&quot;)?.closeConnection(threadName)
+	vars.remove(&quot;sip2_socket&quot;)
+	vars.remove(&quot;sip2_in&quot;)
+	vars.remove(&quot;sip2_out&quot;)
 }</stringProp>
           <stringProp name="scriptLanguage">groovy</stringProp>
         </JSR223Sampler>
         <hashTree/>
       </hashTree>
-      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+      <PostThreadGroup guiclass="PostThreadGroupGui" testclass="PostThreadGroup" testname="tearDown">
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <stringProp name="LoopController.loops">1</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </PostThreadGroup>
+      <hashTree>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Destroy Remaining connections">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">def manager = props.get(&quot;SIP2ConnectionManager&quot;)?.closeAllConnections()</stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+      </hashTree>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
