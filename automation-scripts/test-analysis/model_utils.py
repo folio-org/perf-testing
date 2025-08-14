@@ -182,7 +182,7 @@ def detect_test_windows(
 
             # Apply custom threshold rules
             if rounded_pre <= 3:
-                if during_max >= 15:
+                if during_max >= 5:
                     active_services.append(service)
             elif 7 <= rounded_pre <= 10:
                 if during_max >= 20:

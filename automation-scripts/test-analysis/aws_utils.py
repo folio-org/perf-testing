@@ -121,6 +121,61 @@ def get_cpu_data_for_service(
         logger.error(f"Failed to retrieve CPU data for service '{service_name}': {e}", exc_info=True)
         return None
 
+def get_memory_data_for_service(
+    cloudwatch_client,
+    cluster_name: str,
+    service_name: str,
+    start_time,
+    end_time,
+    period: int = 300
+) -> Optional[pd.Series]:
+    """
+    Fetch Memory utilization statistics for a given ECS service from CloudWatch.
+
+    Args:
+        cloudwatch_client: boto3 CloudWatch client instance.
+        cluster_name (str): Name of the ECS cluster.
+        service_name (str): Name of the ECS service.
+        start_time (datetime): Start time for the metric query.
+        end_time (datetime): End time for the metric query.
+        period (int): Granularity of the datapoints in seconds. Defaults to 300s.
+
+    Returns:
+        pd.Series: Time-indexed series of Memory utilization averages, or None if no data.
+    """
+    try:
+        response = cloudwatch_client.get_metric_statistics(
+            Namespace='AWS/ECS',
+            MetricName='MemoryUtilization',
+            Dimensions=[
+                {'Name': 'ClusterName', 'Value': cluster_name},
+                {'Name': 'ServiceName', 'Value': service_name}
+            ],
+            StartTime=start_time,
+            EndTime=end_time,
+            Period=period,
+            Statistics=['Average'],
+            Unit='Percent'
+        )
+
+        datapoints = response.get('Datapoints', [])
+        if not datapoints:
+            logger.warning(f"No Memory datapoints found for service '{service_name}' between {start_time} and {end_time}.")
+            return None
+
+        # Sort and format as pandas Series
+        sorted_data = sorted(datapoints, key=lambda x: x['Timestamp'])
+        time_index = [point['Timestamp'] for point in sorted_data]
+        values = [point['Average'] for point in sorted_data]
+
+        series = pd.Series(data=values, index=time_index, name=service_name)
+        logger.info(f"Fetched {len(series)} Memory datapoints for service '{service_name}'.")
+        return series
+
+    except Exception as e:
+        logger.error(f"Failed to retrieve Memory data for service '{service_name}': {e}", exc_info=True)
+        return None
+
 
 if __name__ == '__main__':
     # Example usage when running this module directly
