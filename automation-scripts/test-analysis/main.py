@@ -12,6 +12,8 @@ import pandas as pd  # Data analysis library
 from aws_utils import get_all_service_names, get_cpu_data_for_service  # Custom functions to get ECS and CloudWatch data
 from model_utils import detect_test_windows  # ML model for detecting test windows
 from datetime import datetime  # For datetime operations
+from memory_model import detect_memory_leaks
+from aws_utils import get_all_service_names, get_memory_data_for_service
 
 # Create FastAPI application
 app = FastAPI()
@@ -173,6 +175,34 @@ def export_tests_zip(
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/detect-memory-leaks")
+def detect_leaks_endpoint(
+    cluster: str = Query(...),
+    start_time: str = Query(...),  # ISO format
+    end_time: str = Query(...),
+    region: str = Query("us-east-1")
+):
+    from datetime import datetime
+
+    cw = boto3.client("cloudwatch", region_name=region)
+    start = datetime.fromisoformat(start_time)
+    end = datetime.fromisoformat(end_time)
+
+    service_names = get_all_service_names(cluster, region)
+    all_data = {}
+
+    for svc in service_names:
+        series = get_memory_data_for_service(cw, cluster, svc, start, end)
+        if series is not None:
+            all_data[svc] = series
+
+    df = pd.DataFrame(all_data)
+    if df.empty:
+        raise HTTPException(status_code=404, detail="No memory data found.")
+
+    leaks = detect_memory_leaks(df)
+    return {"leaks": leaks}
 
 
 # Route: Placeholder for dashboard updates
