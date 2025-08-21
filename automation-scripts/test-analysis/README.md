@@ -10,7 +10,9 @@ This guide explains how to use Postman to call two detection models via FastAPI:
 ## ⚙️ Prerequisites
 
 - FastAPI backend is running (locally or deployed)
-- AWS credentials configured
+    - Open Windows Powershell and get into the directory by typing this command: cd perf-testing\automation-scripts\test-analysis
+    - Then configure your AWS account by pasting the access key, secret access key, and session token into Powershell
+    - Then start the API by typing this command: uvicorn main:app --reload --port 8000
 - ECS Cluster name, AWS account name, and UTC ISO timeframe
 
 ---
