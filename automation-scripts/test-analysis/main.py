@@ -177,32 +177,30 @@ def export_tests_zip(
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/detect-memory-leaks")
-def detect_leaks_endpoint(
-    cluster: str = Query(...),
-    start_time: str = Query(...),  # ISO format
+def detect_memory_leaks_endpoint(
+    start_time: str = Query(...),
     end_time: str = Query(...),
-    region: str = Query("us-east-1")
+    cluster: str = Query(...)
 ):
-    from datetime import datetime
+    start_dt = datetime.fromisoformat(start_time.replace("Z", "+00:00"))
+    end_dt = datetime.fromisoformat(end_time.replace("Z", "+00:00"))
+    cloudwatch_client = boto3.client("cloudwatch")
 
-    cw = boto3.client("cloudwatch", region_name=region)
-    start = datetime.fromisoformat(start_time)
-    end = datetime.fromisoformat(end_time)
-
-    service_names = get_all_service_names(cluster, region)
-    all_data = {}
+    service_names = get_all_service_names(cluster)
+    all_memory_data = {}
 
     for svc in service_names:
-        series = get_memory_data_for_service(cw, cluster, svc, start, end)
+        series = get_memory_data_for_service(cloudwatch_client, cluster, svc, start_dt, end_dt)
         if series is not None:
-            all_data[svc] = series
+            all_memory_data[svc] = series
 
-    df = pd.DataFrame(all_data)
-    if df.empty:
-        raise HTTPException(status_code=404, detail="No memory data found.")
+    if not all_memory_data:
+        return {"message": "No memory data found for services in the given timeframe."}
 
-    leaks = detect_memory_leaks(df)
-    return {"leaks": leaks}
+    memory_df = pd.DataFrame(all_memory_data)
+    results = detect_memory_leaks(memory_df)
+
+    return {"leak_suspects": results}
 
 
 # Route: Placeholder for dashboard updates
