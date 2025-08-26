@@ -155,7 +155,7 @@
         </collectionProp>
       </Arguments>
       <hashTree/>
-      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="volaris-1st" enabled="true">
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="volaris-1st" enabled="false">
         <collectionProp name="Arguments.arguments">
           <elementProp name="hostname" elementType="Argument">
             <stringProp name="Argument.name">hostname</stringProp>
@@ -211,7 +211,7 @@
         <stringProp name="ThreadGroup.num_threads">1</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
-        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <stringProp name="ThreadGroup.on_sample_error">stoptest</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <stringProp name="LoopController.loops">1</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -221,7 +221,7 @@
         <stringProp name="ThreadGroup.delay"></stringProp>
       </SetupThreadGroup>
       <hashTree>
-        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Create support classes" enabled="true">
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Create SIP2 Session class" enabled="true">
           <stringProp name="scriptLanguage">groovy</stringProp>
           <stringProp name="parameters"></stringProp>
           <stringProp name="filename"></stringProp>
@@ -565,57 +565,6 @@ props.put(&quot;sip2_helper&quot;, new Sip2Helper(vars))
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223PreProcessor>
           <hashTree/>
-          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="Define Sip2SessionManager" enabled="true">
-            <stringProp name="cacheKey">true</stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="script">import org.slf4j.Logger
-import org.slf4j.LoggerFactory
-
-import java.util.concurrent.ConcurrentHashMap
-
-class SIP2SessionManager {
-
-  private static final Logger log = LoggerFactory.getLogger(SIP2SessionManager.class)
-  private static final Map&lt;String, Object&gt; sip2Sessions = new ConcurrentHashMap&lt;&gt;()
-
-  static Object get(String name) {
-    return sip2Sessions.get(name)
-  }
-
-  static void register(String name, Object sip2Session) {
-    sip2Sessions.put(name, sip2Session)
-    log.info(&quot;Registered session for name: {}&quot;, name)
-  }
-
-  static void closeConnection(String name) {
-    log.info(&quot;Closing connection for: {}&quot;, name)
-    try {
-
-      def sip2Session = sip2Sessions.remove(name)
-      if (sip2Session != null &amp;&amp; sip2Session.hasConnection()) {
-        sip2Session.close()
-        log.info(&quot;Connection closed: {}&quot;, name)
-      } else {
-        log.info(&quot;Socket already closed: {}&quot;, name)
-      }
-    } catch (Exception e) {
-      log.error(&quot;Error closing connection for thread: {}&quot;, name, e)
-    }
-  }
-
-  static void closeAllConnections() {
-    log.info(&quot;Closing all connection...&quot;)
-    sip2Sessions.keySet().each { name -&gt; closeConnection(name) }
-  }
-}
-
-props.put(&quot;sip2_sessionManager&quot;, SIP2SessionManager.class)
-log.info(&quot;SIP2ConnectionManager class defined and stored in props&quot;)
-</stringProp>
-            <stringProp name="scriptLanguage">groovy</stringProp>
-          </JSR223PreProcessor>
-          <hashTree/>
           <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="Define MessageProvider" enabled="true">
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="filename"></stringProp>
@@ -728,41 +677,12 @@ props.put(&quot;sip2_messageProvider&quot;, messageProvider)
           </JSR223PreProcessor>
           <hashTree/>
         </hashTree>
-      </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Sorting Kiosk" enabled="true">
-        <stringProp name="ThreadGroup.num_threads">1</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
-        <stringProp name="ThreadGroup.duration">${duration}</stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
-        <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <stringProp name="ThreadGroup.on_sample_error">stoptest</stringProp>
-        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <intProp name="LoopController.loops">-1</intProp>
-          <boolProp name="LoopController.continue_forever">false</boolProp>
-        </elementProp>
-        <boolProp name="ThreadGroup.delayedStart">false</boolProp>
-        <stringProp name="ThreadGroup.delay"></stringProp>
-      </ThreadGroup>
-      <hashTree>
-        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config - IDs" enabled="true">
-          <stringProp name="delimiter">,</stringProp>
-          <stringProp name="fileEncoding">UTF-8</stringProp>
-          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/${itemBarcodesSrc}</stringProp>
-          <boolProp name="ignoreFirstLine">false</boolProp>
-          <boolProp name="quotedData">true</boolProp>
-          <boolProp name="recycle">true</boolProp>
-          <stringProp name="shareMode">shareMode.all</stringProp>
-          <boolProp name="stopThread">false</boolProp>
-          <stringProp name="variableNames">itemBarcode</stringProp>
-        </CSVDataSet>
-        <hashTree/>
         <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Init connection" enabled="true">
           <stringProp name="cacheKey">true</stringProp>
           <stringProp name="filename"></stringProp>
           <stringProp name="parameters"></stringProp>
           <stringProp name="script">SampleResult.setSamplerData(&quot;Initializing SIP2 connection&quot;)
 def Sip2Session = props.get(&quot;sip2_sessionClass&quot;)
-def sip2SessionManager = props.get(&quot;sip2_sessionManager&quot;)
 
 def port = vars.get(&quot;port&quot;)?.toInteger() ?: 80
 def hostname = vars.get(&quot;hostname&quot;) ?: &quot;localhost&quot;
@@ -779,10 +699,7 @@ SampleResult.setSuccessful(result?.successful ?: false)
 SampleResult.setResponseData(result?.responseData ?: &quot;FAILED: Unknown failure&quot;)
 SampleResult.setResponseMessage(result?.responseMessage ?: &quot;FAILED: Unknown responseMessage&quot;)
 
-vars.putObject(&quot;sip2_session&quot;, sip2Session)
-
-def threadName = Thread.currentThread().getName()
-sip2SessionManager.register(threadName, sip2Session)</stringProp>
+props.put(&quot;sip2_session&quot;, sip2Session)</stringProp>
           <stringProp name="scriptLanguage">groovy</stringProp>
         </JSR223Sampler>
         <hashTree/>
@@ -790,7 +707,7 @@ sip2SessionManager.register(threadName, sip2Session)</stringProp>
           <stringProp name="cacheKey">true</stringProp>
           <stringProp name="filename"></stringProp>
           <stringProp name="parameters"></stringProp>
-          <stringProp name="script">def sip2Session = vars.getObject(&quot;sip2_session&quot;)
+          <stringProp name="script">def sip2Session = props.get(&quot;sip2_session&quot;)
 def messageProvider = props.get(&quot;sip2_messageProvider&quot;)
 def username = vars.get(&quot;username&quot;)?.trim()
 def password = vars.get(&quot;password&quot;)?.trim()
@@ -809,8 +726,7 @@ SampleResult.setSamplerData(command)
 SampleResult.setLatency((int) (result.writeStartTime ?: 0- result.readEndTime ?: 0))
 SampleResult.setSuccessful(result?.successful ?: false)
 SampleResult.setResponseData(result?.responseData ?: &quot;FAILED: Unknown failure&quot;)
-SampleResult.setResponseMessage(result?.responseMessage ?: &quot;FAILED: Unknown responseMessage&quot;)
-vars.put(&quot;seqNumber&quot;, &quot;${seqNumber}&quot;)</stringProp>
+SampleResult.setResponseMessage(result?.responseMessage ?: &quot;FAILED: Unknown responseMessage&quot;)</stringProp>
           <stringProp name="scriptLanguage">groovy</stringProp>
         </JSR223Sampler>
         <hashTree>
@@ -866,6 +782,34 @@ if (responseMsg.charAt(2) != &apos;1&apos;) {
           </JSR223Assertion>
           <hashTree/>
         </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Main" enabled="true">
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <stringProp name="ThreadGroup.duration">${duration}</stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">stoptest</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <intProp name="LoopController.loops">-1</intProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+        <boolProp name="ThreadGroup.delayedStart">false</boolProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config - IDs" enabled="true">
+          <stringProp name="delimiter">,</stringProp>
+          <stringProp name="fileEncoding">UTF-8</stringProp>
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/${itemBarcodesSrc}</stringProp>
+          <boolProp name="ignoreFirstLine">false</boolProp>
+          <boolProp name="quotedData">true</boolProp>
+          <boolProp name="recycle">true</boolProp>
+          <stringProp name="shareMode">shareMode.all</stringProp>
+          <boolProp name="stopThread">false</boolProp>
+          <stringProp name="variableNames">itemBarcode</stringProp>
+        </CSVDataSet>
+        <hashTree/>
         <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Item Information Request" enabled="true">
           <stringProp name="cacheKey">true</stringProp>
           <stringProp name="filename"></stringProp>
@@ -873,7 +817,7 @@ if (responseMsg.charAt(2) != &apos;1&apos;) {
           <stringProp name="script">def itemBarcode = vars.get(&quot;itemBarcode&quot;).trim()
 log.debug(&quot;Performing item information request: {} ...&quot;, itemBarcode)
 
-def sip2Session = vars.getObject(&quot;sip2_session&quot;)
+def sip2Session = props.get(&quot;sip2_session&quot;)
 def messageProvider = props.get(&quot;sip2_messageProvider&quot;)
 
 def seqNumber = vars.get(&quot;seqNumber&quot;).toInteger()
@@ -921,27 +865,35 @@ if (errorDetectionEnabled) {
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="script">def responseMsg = prev.getResponseDataAsString()
 
+if (responseMsg == null || responseMsg.isBlank()  || responseMsg.size() &lt; 2) {
+  AssertionResult.setFailure(true)
+  AssertionResult.setFailureMessage(&quot;Must not be empty&quot;)
+  vars.put(&quot;sip2_itemInfoSuccess&quot;, &quot;false&quot;)
+  return
+}
+
 if (!responseMsg.startsWith(&quot;18&quot;)) {
-	AssertionResult.setFailure(true)
-	AssertionResult.setFailureMessage(&quot;Must be a valid item information response, expect to start with 18&quot;)
-	log.info(&quot;Setting item info false: 3&quot;)
+  AssertionResult.setFailure(true)
+  AssertionResult.setFailureMessage(&quot;Must be a valid item information response, expect to start with 18&quot;)
+  vars.put(&quot;sip2_itemInfoSuccess&quot;, &quot;false&quot;)
+  return
 }
 
 if (responseMsg.contains(&quot;|AJUnknown|&quot;) &amp;&amp; responseMsg.contains(&quot;|AFItem does not exist&quot;)) {
-	AssertionResult.setFailure(true)
-	AssertionResult.setFailureMessage(&quot;Nessage must not contain &apos;|AJUnknown|&apos; and &apos;|AFItem does not exist&apos;&quot;)
-	vars.put(&quot;sip2_itemInfoSuccess&quot;, &quot;false&quot;)
+  AssertionResult.setFailure(true)
+  AssertionResult.setFailureMessage(&quot;Nessage must not contain &apos;|AJUnknown|&apos; and &apos;|AFItem does not exist&apos;&quot;)
+  vars.put(&quot;sip2_itemInfoSuccess&quot;, &quot;false&quot;)
+  return
 }
 </stringProp>
           </JSR223Assertion>
           <hashTree/>
-          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="SeqNum++" enabled="true">
+          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
             <stringProp name="scriptLanguage">groovy</stringProp>
             <stringProp name="parameters"></stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="cacheKey">true</stringProp>
-            <stringProp name="script">def seqNumber = vars.get(&quot;seqNumber&quot;).toInteger()
-vars.put(&quot;seqNumber&quot;, &quot;${seqNumber + 1}&quot;)</stringProp>
+            <stringProp name="script">vars.put(&quot;seqNumber&quot;, &quot;2&quot;)</stringProp>
           </JSR223PreProcessor>
           <hashTree/>
         </hashTree>
@@ -952,7 +904,7 @@ vars.put(&quot;seqNumber&quot;, &quot;${seqNumber + 1}&quot;)</stringProp>
           <stringProp name="script">def itemBarcode = vars.get(&quot;itemBarcode&quot;).trim()
 log.debug(&quot;Performing item checking request: {} ...&quot;, itemBarcode)
 
-def sip2Session = vars.getObject(&quot;sip2_session&quot;)
+def sip2Session = props.get(&quot;sip2_session&quot;)
 def messageProvider = props.get(&quot;sip2_messageProvider&quot;)
 
 def seqNumber = vars.get(&quot;seqNumber&quot;).toInteger()
@@ -1000,51 +952,39 @@ if (errorDetectionEnabled) {
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="script">def responseMsg = prev.getResponseDataAsString()
 
+if (responseMsg == null || responseMsg.isBlank()  || responseMsg.size() &lt; 2) {
+  AssertionResult.setFailure(true)
+  AssertionResult.setFailureMessage(&quot;Must not be empty&quot;)
+  vars.put(&quot;sip2_itemCheckinSuccess&quot;, &quot;false&quot;)
+  return
+}
 
 if (!responseMsg.startsWith(&quot;10&quot;)) {
 	AssertionResult.setFailure(true)
 	AssertionResult.setFailureMessage(&quot;Invalid check-in response message, must start with 10&quot;)
-	vars.put(&quot;sip2_itemCheckinSuccess&quot;, &quot;true&quot;)
+	vars.put(&quot;sip2_itemCheckinSuccess&quot;, &quot;false&quot;)
+	return
 }
 
 if (responseMsg.charAt(2) != &apos;1&apos;) {
 	AssertionResult.setFailure(true)
 	AssertionResult.setFailureMessage(&quot;Check-in request failed, expected 1, reseived 0 for response status (char position: 2)&quot;)
-	vars.put(&quot;sip2_itemCheckinSuccess&quot;, &quot;true&quot;)
+	vars.put(&quot;sip2_itemCheckinSuccess&quot;, &quot;false&quot;)
+	return
 }
 </stringProp>
           </JSR223Assertion>
           <hashTree/>
-          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="SeqNum++" enabled="true">
-            <stringProp name="scriptLanguage">groovy</stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="filename"></stringProp>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="SeqNumber PostProcessor" enabled="true">
             <stringProp name="cacheKey">true</stringProp>
-            <stringProp name="script">def seqNumber = vars.get(&quot;seqNumber&quot;).toInteger()
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="script">def seqNumber = vars.get(&quot;seqNumber&quot;)?.toInteger() ?: 1
 vars.put(&quot;seqNumber&quot;, &quot;${seqNumber + 1}&quot;)</stringProp>
-          </JSR223PreProcessor>
+            <stringProp name="scriptLanguage">groovy</stringProp>
+          </JSR223PostProcessor>
           <hashTree/>
         </hashTree>
-        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Close connection" enabled="true">
-          <stringProp name="cacheKey">true</stringProp>
-          <stringProp name="filename"></stringProp>
-          <stringProp name="parameters"></stringProp>
-          <stringProp name="script">def sip2Session = vars.getObject(&quot;sip2_session&quot;).close()
-
-SampleResult.setSamplerData(&quot;Close SIP2 connection&quot;);
-
-try {
-	def threadName = Thread.currentThread().getName()
-	def manager = props.get(&quot;SIP2ConnectionManager&quot;)?.closeConnection(threadName)
-} finally {
-	props.get(&quot;SIP2ConnectionManager&quot;)?.closeConnection(threadName)
-	vars.remove(&quot;sip2_socket&quot;)
-	vars.remove(&quot;sip2_in&quot;)
-	vars.remove(&quot;sip2_out&quot;)
-}</stringProp>
-          <stringProp name="scriptLanguage">groovy</stringProp>
-        </JSR223Sampler>
-        <hashTree/>
       </hashTree>
       <PostThreadGroup guiclass="PostThreadGroupGui" testclass="PostThreadGroup" testname="tearDown" enabled="true">
         <stringProp name="ThreadGroup.num_threads">1</stringProp>
@@ -1060,19 +1000,24 @@ try {
         <stringProp name="ThreadGroup.delay"></stringProp>
       </PostThreadGroup>
       <hashTree>
-        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Destroy remaining connections" enabled="true">
-          <stringProp name="scriptLanguage">groovy</stringProp>
-          <stringProp name="parameters"></stringProp>
-          <stringProp name="filename"></stringProp>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Close connection" enabled="true">
           <stringProp name="cacheKey">true</stringProp>
-          <stringProp name="script">def sip2SessionManager = props.get(&quot;sip2_sessionManager&quot;)
-log.info(&quot;Closing remaining connections...&quot;)
-sip2SessionManager.closeAllConnections()
+          <stringProp name="filename"></stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="script">import java.net.Socket;
 
-SampleResult.setSuccessful(true)
-SampleResult.setSamplerData(&quot;Destroy Remaining Connections&quot;)
-SampleResult.setResponseData(&quot;SUCCESS: All remaining SIP2 connection closed&quot;)
-SampleResult.setResponseMessage(&quot;SUCCESS: All remaining SIP2 connection closed&quot;)</stringProp>
+def sip2Session = props.get(&quot;sip2_session&quot;)
+SampleResult.setSamplerData(&quot;Close SIP2 connection: &quot; + rootThreadName)
+
+try {
+	def manager = sip2Session.close()
+} finally {
+	sip2Session.close()
+	vars.remove(&quot;sip2_socket&quot;)
+	vars.remove(&quot;sip2_in&quot;)
+	vars.remove(&quot;sip2_out&quot;)
+}</stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
         </JSR223Sampler>
         <hashTree/>
       </hashTree>
