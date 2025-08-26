@@ -155,7 +155,7 @@
         </collectionProp>
       </Arguments>
       <hashTree/>
-      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="volaris-1st" enabled="true">
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="volaris-1st" enabled="false">
         <collectionProp name="Arguments.arguments">
           <elementProp name="hostname" elementType="Argument">
             <stringProp name="Argument.name">hostname</stringProp>
