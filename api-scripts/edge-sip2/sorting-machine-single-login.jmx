@@ -1007,15 +1007,12 @@ vars.put(&quot;seqNumber&quot;, &quot;${seqNumber + 1}&quot;)</stringProp>
           <stringProp name="script">import java.net.Socket;
 
 def sip2Session = props.get(&quot;sip2_session&quot;)
-SampleResult.setSamplerData(&quot;Close SIP2 connection: &quot; + rootThreadName)
+SampleResult.setSamplerData(&quot;Closing SIP2 connection&quot;)
 
 try {
 	def manager = sip2Session.close()
 } finally {
 	sip2Session.close()
-	vars.remove(&quot;sip2_socket&quot;)
-	vars.remove(&quot;sip2_in&quot;)
-	vars.remove(&quot;sip2_out&quot;)
 }</stringProp>
           <stringProp name="scriptLanguage">groovy</stringProp>
         </JSR223Sampler>
