@@ -888,12 +888,13 @@ if (responseMsg.contains(&quot;|AJUnknown|&quot;) &amp;&amp; responseMsg.contain
 </stringProp>
           </JSR223Assertion>
           <hashTree/>
-          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
+          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="SeqNum++" enabled="true">
             <stringProp name="scriptLanguage">groovy</stringProp>
             <stringProp name="parameters"></stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="cacheKey">true</stringProp>
-            <stringProp name="script">vars.put(&quot;seqNumber&quot;, &quot;2&quot;)</stringProp>
+            <stringProp name="script">def seqNumber = vars.get(&quot;seqNumber&quot;)?.toInteger() ?: 2
+vars.put(&quot;seqNumber&quot;, &quot;${seqNumber + 1}&quot;)</stringProp>
           </JSR223PreProcessor>
           <hashTree/>
         </hashTree>
@@ -975,14 +976,14 @@ if (responseMsg.charAt(2) != &apos;1&apos;) {
 </stringProp>
           </JSR223Assertion>
           <hashTree/>
-          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="SeqNumber PostProcessor" enabled="true">
-            <stringProp name="cacheKey">true</stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="script">def seqNumber = vars.get(&quot;seqNumber&quot;)?.toInteger() ?: 1
-vars.put(&quot;seqNumber&quot;, &quot;${seqNumber + 1}&quot;)</stringProp>
+          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="SeqNum++" enabled="true">
             <stringProp name="scriptLanguage">groovy</stringProp>
-          </JSR223PostProcessor>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">def seqNumber = vars.get(&quot;seqNumber&quot;).toInteger()
+vars.put(&quot;seqNumber&quot;, &quot;${seqNumber + 1}&quot;)</stringProp>
+          </JSR223PreProcessor>
           <hashTree/>
         </hashTree>
       </hashTree>
