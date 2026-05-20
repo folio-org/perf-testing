@@ -53,6 +53,11 @@
             <stringProp name="Argument.value">${__P(central_tenant,[tenant])}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="batchSize" elementType="Argument">
+            <stringProp name="Argument.name">batchSize</stringProp>
+            <stringProp name="Argument.value">500</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
         </collectionProp>
       </Arguments>
       <hashTree/>
@@ -62,13 +67,13 @@
         <boolProp name="CacheManager.controlledByThread">false</boolProp>
       </CacheManager>
       <hashTree/>
-      <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager">
+      <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
         <collectionProp name="CookieManager.cookies"/>
         <boolProp name="CookieManager.clearEachIteration">true</boolProp>
         <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
       </CookieManager>
       <hashTree/>
-      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager">
+      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
         <collectionProp name="HeaderManager.headers">
           <elementProp name="sec-ch-ua" elementType="Header">
             <stringProp name="Header.name">sec-ch-ua</stringProp>
@@ -117,7 +122,7 @@
         </collectionProp>
       </HeaderManager>
       <hashTree/>
-      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="Login_Clear_Userinfo files">
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="Login_Clear_Userinfo files" enabled="true">
         <intProp name="ThreadGroup.num_threads">1</intProp>
         <intProp name="ThreadGroup.ramp_time">1</intProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
@@ -155,7 +160,7 @@ try {
         </JSR223Sampler>
         <hashTree/>
       </hashTree>
-      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="Login with Cookies">
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="Login with Cookies" enabled="true">
         <intProp name="ThreadGroup.num_threads">1</intProp>
         <intProp name="ThreadGroup.ramp_time">1</intProp>
         <longProp name="ThreadGroup.duration">30</longProp>
@@ -168,7 +173,7 @@ try {
         </elementProp>
       </SetupThreadGroup>
       <hashTree>
-        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config">
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
           <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/tenants_credentials.csv</stringProp>
           <stringProp name="fileEncoding">UTF-8</stringProp>
           <stringProp name="variableNames">username,password,tenant,hostName,origin</stringProp>
@@ -180,7 +185,7 @@ try {
           <stringProp name="shareMode">shareMode.group</stringProp>
         </CSVDataSet>
         <hashTree/>
-        <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults">
+        <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
           <stringProp name="HTTPSampler.domain">${hostName}</stringProp>
           <stringProp name="HTTPSampler.port">443</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
@@ -190,13 +195,13 @@ try {
           <stringProp name="HTTPSampler.implementation"></stringProp>
         </ConfigTestElement>
         <hashTree/>
-        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Flow Control Action">
+        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Flow Control Action" enabled="true">
           <intProp name="ActionProcessor.action">1</intProp>
           <intProp name="ActionProcessor.target">0</intProp>
           <stringProp name="ActionProcessor.duration">5000</stringProp>
         </TestAction>
         <hashTree/>
-        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler tenants">
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler tenants" enabled="true">
           <stringProp name="scriptLanguage">groovy</stringProp>
           <stringProp name="parameters"></stringProp>
           <stringProp name="filename"></stringProp>
@@ -229,7 +234,7 @@ vars.get(&apos;tenants&apos;).trim().split(&apos;-&apos;).eachWithIndex { tenant
               </elementProp>
             </HTTPSamplerProxy>
             <hashTree>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor">
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">username;password;tenant;hostName;origin;API_KEY</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.username;$.password;$.tenant;$.hostName;$.origin;$.API_KEY</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
@@ -237,7 +242,7 @@ vars.get(&apos;tenants&apos;).trim().split(&apos;-&apos;).eachWithIndex { tenant
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="FOLIO: Login ${tenant}">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="FOLIO: Login ${tenant}" enabled="true">
               <stringProp name="HTTPSampler.path">/authn/login-with-expiry</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -329,7 +334,7 @@ props.put(this_tenant + &quot;MyCookie2&quot;, vars.get(&quot;folioRefreshToken_
               </JSR223PostProcessor>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET bl-users/_self">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET bl-users/_self" enabled="true">
               <stringProp name="HTTPSampler.path">/bl-users/_self</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -357,7 +362,7 @@ props.put(this_tenant + &quot;MyCookie2&quot;, vars.get(&quot;folioRefreshToken_
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler User info extractor">
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler User info extractor" enabled="true">
               <stringProp name="cacheKey">true</stringProp>
               <stringProp name="filename"></stringProp>
               <stringProp name="parameters"></stringProp>
@@ -386,7 +391,7 @@ try {
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="New_index_created_test">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Single_instance_create_New_index_created_test">
         <stringProp name="TestPlan.comments">Test after adding new indexes in mod_inventory_storage.instance table</stringProp>
         <stringProp name="ThreadGroup.num_threads">${Index_vusers}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${Index_rampup}</stringProp>
@@ -398,7 +403,7 @@ try {
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
           <collectionProp name="Arguments.arguments">
             <elementProp name="Index_vusers" elementType="Argument">
               <stringProp name="Argument.name">Index_vusers</stringProp>
@@ -426,7 +431,7 @@ try {
           <stringProp name="TestPlan.comments">Use the config for UUID instances to delete</stringProp>
         </CSVDataSet>
         <hashTree/>
-        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo">
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
           <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">current_userID,servicePointId,hostname,origin,tenant</stringProp>
@@ -579,7 +584,7 @@ vars.put(&quot;perf_1271&quot;, UUID.randomUUID().toString())
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PUT_Edit instance">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PUT_Edit instance" enabled="true">
               <stringProp name="HTTPSampler.path">inventory/instances/${generatedInstanceUUID}</stringProp>
               <boolProp name="HTTPSampler.auto_redirects">true</boolProp>
               <stringProp name="HTTPSampler.method">PUT</stringProp>
@@ -635,7 +640,7 @@ vars.put(&quot;perf_1271&quot;, UUID.randomUUID().toString())
               </elementProp>
             </HTTPSamplerProxy>
             <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="49590">204</stringProp>
                 </collectionProp>
@@ -647,11 +652,11 @@ vars.put(&quot;perf_1271&quot;, UUID.randomUUID().toString())
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TC: Delete instance">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TC: Delete instance" enabled="true">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Delete_Delete instance">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Delete_Delete instance" enabled="true">
               <stringProp name="HTTPSampler.path">inventory/instances/${generatedInstanceUUID}</stringProp>
               <boolProp name="HTTPSampler.auto_redirects">true</boolProp>
               <stringProp name="HTTPSampler.method">DELETE</stringProp>
@@ -662,7 +667,7 @@ vars.put(&quot;perf_1271&quot;, UUID.randomUUID().toString())
               </elementProp>
             </HTTPSamplerProxy>
             <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="49590">204</stringProp>
                 </collectionProp>
@@ -676,117 +681,415 @@ vars.put(&quot;perf_1271&quot;, UUID.randomUUID().toString())
           </hashTree>
         </hashTree>
       </hashTree>
-      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
-        <boolProp name="ResultCollector.error_logging">false</boolProp>
-        <objProp>
-          <name>saveConfig</name>
-          <value class="SampleSaveConfiguration">
-            <time>true</time>
-            <latency>true</latency>
-            <timestamp>true</timestamp>
-            <success>true</success>
-            <label>true</label>
-            <code>true</code>
-            <message>true</message>
-            <threadName>true</threadName>
-            <dataType>true</dataType>
-            <encoding>false</encoding>
-            <assertions>true</assertions>
-            <subresults>true</subresults>
-            <responseData>false</responseData>
-            <samplerData>false</samplerData>
-            <xml>false</xml>
-            <fieldNames>true</fieldNames>
-            <responseHeaders>false</responseHeaders>
-            <requestHeaders>false</requestHeaders>
-            <responseDataOnError>false</responseDataOnError>
-            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-            <assertionsResultsToSave>0</assertionsResultsToSave>
-            <bytes>true</bytes>
-            <sentBytes>true</sentBytes>
-            <url>true</url>
-            <threadCounts>true</threadCounts>
-            <idleTime>true</idleTime>
-            <connectTime>true</connectTime>
-          </value>
-        </objProp>
-        <stringProp name="filename"></stringProp>
-      </ResultCollector>
-      <hashTree/>
-      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
-        <boolProp name="ResultCollector.error_logging">true</boolProp>
-        <objProp>
-          <name>saveConfig</name>
-          <value class="SampleSaveConfiguration">
-            <time>true</time>
-            <latency>true</latency>
-            <timestamp>true</timestamp>
-            <success>true</success>
-            <label>true</label>
-            <code>true</code>
-            <message>true</message>
-            <threadName>true</threadName>
-            <dataType>true</dataType>
-            <encoding>false</encoding>
-            <assertions>true</assertions>
-            <subresults>true</subresults>
-            <responseData>false</responseData>
-            <samplerData>false</samplerData>
-            <xml>false</xml>
-            <fieldNames>true</fieldNames>
-            <responseHeaders>false</responseHeaders>
-            <requestHeaders>false</requestHeaders>
-            <responseDataOnError>false</responseDataOnError>
-            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-            <assertionsResultsToSave>0</assertionsResultsToSave>
-            <bytes>true</bytes>
-            <sentBytes>true</sentBytes>
-            <url>true</url>
-            <threadCounts>true</threadCounts>
-            <idleTime>true</idleTime>
-            <connectTime>true</connectTime>
-          </value>
-        </objProp>
-        <stringProp name="filename"></stringProp>
-      </ResultCollector>
-      <hashTree/>
-      <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report" enabled="false">
-        <boolProp name="ResultCollector.error_logging">false</boolProp>
-        <objProp>
-          <name>saveConfig</name>
-          <value class="SampleSaveConfiguration">
-            <time>true</time>
-            <latency>true</latency>
-            <timestamp>true</timestamp>
-            <success>true</success>
-            <label>true</label>
-            <code>true</code>
-            <message>true</message>
-            <threadName>true</threadName>
-            <dataType>true</dataType>
-            <encoding>false</encoding>
-            <assertions>false</assertions>
-            <subresults>true</subresults>
-            <responseData>false</responseData>
-            <samplerData>false</samplerData>
-            <xml>false</xml>
-            <fieldNames>true</fieldNames>
-            <responseHeaders>false</responseHeaders>
-            <requestHeaders>false</requestHeaders>
-            <responseDataOnError>false</responseDataOnError>
-            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-            <assertionsResultsToSave>0</assertionsResultsToSave>
-            <bytes>true</bytes>
-            <sentBytes>true</sentBytes>
-            <url>true</url>
-            <threadCounts>true</threadCounts>
-            <idleTime>true</idleTime>
-            <connectTime>true</connectTime>
-          </value>
-        </objProp>
-        <stringProp name="filename"></stringProp>
-      </ResultCollector>
-      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Batch_instance_create_New_index_created_test">
+        <stringProp name="TestPlan.comments">Test after adding new indexes in mod_inventory_storage.instance table</stringProp>
+        <stringProp name="ThreadGroup.num_threads">${Index_vusers}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${Index_rampup}</stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController">
+          <stringProp name="LoopController.loops">5</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+          <collectionProp name="Arguments.arguments">
+            <elementProp name="Index_vusers" elementType="Argument">
+              <stringProp name="Argument.name">Index_vusers</stringProp>
+              <stringProp name="Argument.value">${__P(index_vusers,20)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="Index_rampup" elementType="Argument">
+              <stringProp name="Argument.name">Index_rampup</stringProp>
+              <stringProp name="Argument.value">${__P(index_rampup,10)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+          </collectionProp>
+        </Arguments>
+        <hashTree/>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV instances to delete" enabled="false">
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UUID_delete.csv</stringProp>
+          <stringProp name="fileEncoding"></stringProp>
+          <stringProp name="variableNames">generatedInstanceUUID</stringProp>
+          <boolProp name="ignoreFirstLine">false</boolProp>
+          <stringProp name="delimiter">,</stringProp>
+          <boolProp name="quotedData">false</boolProp>
+          <boolProp name="recycle">false</boolProp>
+          <boolProp name="stopThread">true</boolProp>
+          <stringProp name="shareMode">shareMode.all</stringProp>
+          <stringProp name="TestPlan.comments">Use the config for UUID instances to delete</stringProp>
+        </CSVDataSet>
+        <hashTree/>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV UsersInfo" enabled="true">
+          <stringProp name="filename">${global_BaseDir}/jmeter-supported-data/UsersInfo.csv</stringProp>
+          <stringProp name="fileEncoding"></stringProp>
+          <stringProp name="variableNames">current_userID,servicePointId,hostname,origin,tenant</stringProp>
+          <boolProp name="ignoreFirstLine">false</boolProp>
+          <stringProp name="delimiter">,</stringProp>
+          <boolProp name="quotedData">false</boolProp>
+          <boolProp name="recycle">true</boolProp>
+          <boolProp name="stopThread">false</boolProp>
+          <stringProp name="shareMode">shareMode.group</stringProp>
+        </CSVDataSet>
+        <hashTree/>
+        <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
+          <stringProp name="HTTPSampler.domain">${hostname}</stringProp>
+          <stringProp name="HTTPSampler.port">443</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation"></stringProp>
+        </ConfigTestElement>
+        <hashTree/>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="X-Okapi-Token" elementType="Header">
+              <stringProp name="Header.name">X-Okapi-Tenant</stringProp>
+              <stringProp name="Header.value">${tenant}</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree/>
+        <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor folioAccessToken NEW">
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager
+import org.apache.jmeter.protocol.http.control.Cookie
+import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
+ 
+def this_tenant = vars.get(&quot;tenant&quot;)
+def hostname = vars.get(&quot;hostname&quot;) ?: &quot;localhost&quot;
+ 
+def sampler = ctx.getCurrentSampler()
+ 
+if (sampler instanceof HTTPSamplerBase) {
+    CookieManager cookieManager = sampler.getCookieManager()
+    if (cookieManager != null) {
+        Cookie cookie = new Cookie(&quot;folioAccessToken&quot;, props.get(this_tenant + &quot;MyCookie&quot;), hostname, &quot;/&quot;, false, 0)
+        cookieManager.add(cookie)
+    }
+}
+</stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
+        </JSR223PreProcessor>
+        <hashTree/>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TC: Create instance" enabled="true">
+          <boolProp name="TransactionController.includeTimers">false</boolProp>
+        </TransactionController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST_Create instance" enabled="true">
+            <stringProp name="HTTPSampler.path">/instance-storage/batch/synchronous?upsert=false</stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${bulkCreateInstancesBody}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="49587">201</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">import groovy.json.JsonOutput
+import java.util.UUID
+import java.util.concurrent.atomic.AtomicLong
+
+int batchSize = (vars.get(&apos;batchSize&apos;) ?: &apos;100&apos;) as int
+
+String counterName = &apos;perf_1271_counter&apos;
+if (props.get(counterName) == null) {
+    props.put(counterName, new AtomicLong(0))
+}
+AtomicLong counter = props.get(counterName) as AtomicLong
+
+def instances = []
+
+for (int i = 0; i &lt; batchSize; i++) {
+    long n = counter.incrementAndGet()
+
+    String generatedInstanceUUID = UUID.randomUUID().toString()
+    String perf_1271 = UUID.randomUUID().toString()
+    String title = &quot;PERF_1271_${perf_1271}&quot;
+
+    instances &lt;&lt; [
+        discoverySuppress: false,
+        staffSuppress    : false,
+        previouslyHeld   : false,
+        source           : &apos;FOLIO&apos;,
+        catalogedDate    : &apos;2025-09-02&apos;,
+        title            : title,
+        instanceTypeId   : &apos;6312d172-f0cf-40f6-b27d-9fa8feaf332f&apos;,
+        id               : generatedInstanceUUID,
+        indexTitle       : title,
+
+        contributors     : [
+            [
+                name                 : &apos;JMeter Contributor&apos;,
+                contributorNameTypeId: &apos;2e48e713-17f3-4c13-a9f8-23845bb210aa&apos;,
+                primary              : true
+            ]
+        ],
+
+        identifiers      : [
+            [
+                value           : &quot;cis2004162687_${n}&quot;,
+                identifierTypeId: &apos;7e591197-f335-4afb-bc6d-a6d76ca3bace&apos;
+            ],
+            [
+                value           : &quot;(amdb)4323127_${n}&quot;,
+                identifierTypeId: &apos;7e591197-f335-4afb-bc6d-a6d76ca3bace&apos;
+            ]
+        ],
+
+        tags             : [
+            tagList: [&apos;jmeter&apos;]
+        ]
+    ]
+}
+
+def body = [
+    instances: instances
+]
+
+vars.put(&apos;bulkCreateInstancesBody&apos;, JsonOutput.toJson(body))
+</stringProp>
+            </JSR223PreProcessor>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">import groovy.json.JsonSlurper
+import groovy.json.JsonOutput
+
+def samplerData = prev.getSamplerData()
+
+if (!samplerData) {
+    throw new IllegalStateException(&quot;Sampler data is empty. Cannot extract bulk create POST body.&quot;)
+}
+
+def marker = &quot;POST data:&quot;
+def idx = samplerData.indexOf(marker)
+
+if (idx &lt; 0) {
+    throw new IllegalStateException(&quot;Cannot find &apos;POST data:&apos; in sampler data. First 1000 chars: &quot; + samplerData.take(1000))
+}
+
+def postBody = samplerData.substring(idx + marker.length()).trim()
+
+if (!postBody.startsWith(&quot;{&quot;)) {
+    throw new IllegalStateException(&quot;Extracted POST body is not JSON. First 1000 chars: &quot; + postBody.take(1000))
+}
+
+def createBody = new JsonSlurper().parseText(postBody)
+def createdInstances = createBody.instances ?: []
+
+if (createdInstances.isEmpty()) {
+    throw new IllegalStateException(&quot;No instances found in bulk create POST body.&quot;)
+}
+
+vars.put(&quot;createdInstancesJson&quot;, JsonOutput.toJson(createdInstances))
+vars.put(&quot;createdInstancesCount&quot;, createdInstances.size().toString())
+
+log.info(&quot;Saved created instances from create request body. Count: &quot; + createdInstances.size())
+log.info(&quot;First created instance: &quot; + JsonOutput.toJson(createdInstances[0]))</stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="false">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">import groovy.json.JsonSlurper
+import groovy.json.JsonOutput
+
+def response = prev.getResponseDataAsString()
+def json = new JsonSlurper().parseText(response)
+
+def instances = json.instances ?: []
+
+if (instances.isEmpty()) {
+    throw new IllegalStateException(&quot;No instances found in bulk create response&quot;)
+}
+
+// Store whole created instances list for next request
+vars.put(&quot;createdInstancesJson&quot;, JsonOutput.toJson(instances))
+
+// Optional debug/count
+vars.put(&quot;createdInstancesCount&quot;, instances.size().toString())
+
+// Store first record fields if needed
+vars.put(&quot;createdInstanceId_1&quot;, instances[0].id?.toString())
+vars.put(&quot;createdInstanceHrid_1&quot;, instances[0].hrid?.toString())
+vars.put(&quot;createdInstanceVersion_1&quot;, instances[0]._version?.toString())</stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Accept</stringProp>
+                  <stringProp name="Header.value">application/json</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Content-type</stringProp>
+                  <stringProp name="Header.value">application/json</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TC: Edit  instance" enabled="true">
+          <boolProp name="TransactionController.includeTimers">false</boolProp>
+        </TransactionController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST_Edit instance" enabled="true">
+            <stringProp name="HTTPSampler.path">/instance-storage/batch/synchronous?upsert=true</stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${bulkEditInstancesBody}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="false">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="49590">204</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">import groovy.json.JsonSlurper
+import groovy.json.JsonOutput
+
+def createdInstancesJson = vars.get(&quot;createdInstancesJson&quot;)
+
+if (!createdInstancesJson) {
+    throw new IllegalStateException(&quot;createdInstancesJson is empty. Bulk create body was not extracted.&quot;)
+}
+
+def createdInstances = new JsonSlurper().parseText(createdInstancesJson)
+
+def updatedInstances = []
+
+createdInstances.eachWithIndex { inst, idx -&gt;
+
+    if (!inst.id) {
+        throw new IllegalStateException(&quot;Missing id for instance index ${idx}&quot;)
+    }
+
+    def existingNotes = inst.notes ?: []
+
+    def updatedNotes = []
+    updatedNotes.addAll(existingNotes)
+
+    updatedNotes &lt;&lt; [
+        instanceNoteTypeId: &apos;1c017b8d-c783-4f63-b620-079f7a5b9c07&apos;,
+        note              : &quot;bulk_edit_note_${idx + 1}&quot;,
+        staffOnly         : false
+    ]
+
+    updatedInstances &lt;&lt; [
+        discoverySuppress: inst.discoverySuppress == null ? false : inst.discoverySuppress,
+        staffSuppress    : inst.staffSuppress == null ? false : inst.staffSuppress,
+        previouslyHeld   : inst.previouslyHeld == null ? false : inst.previouslyHeld,
+
+        id               : inst.id,
+        _version         : 1,
+
+        source           : inst.source ?: &apos;FOLIO&apos;,
+        catalogedDate    : inst.catalogedDate,
+        title            : inst.title,
+        indexTitle       : inst.indexTitle,
+        instanceTypeId   : inst.instanceTypeId,
+
+        notes            : updatedNotes,
+
+        contributors     : inst.contributors ?: [],
+        identifiers      : inst.identifiers ?: [],
+        tags             : inst.tags ?: [tagList: [&apos;jmeter&apos;]]
+    ]
+}
+
+def body = [
+    instances: updatedInstances
+]
+
+def jsonBody = JsonOutput.toJson(body)
+
+vars.put(&quot;bulkEditInstancesBody&quot;, jsonBody)
+vars.put(&quot;bulkEditInstancesCount&quot;, updatedInstances.size().toString())
+
+sampler.setMethod(&apos;POST&apos;)
+sampler.getArguments().removeAllArguments()
+sampler.addNonEncodedArgument(&quot;&quot;, jsonBody, &quot;&quot;)
+sampler.setPostBodyRaw(true)
+
+log.info(&quot;Bulk edit instances count: &quot; + updatedInstances.size())
+log.info(&quot;Bulk edit body first 1000 chars: &quot; + jsonBody.take(1000))
+
+// Extract UUIDs from the Editing POST request body for later deletion
+def editedInstanceIds = updatedInstances.collect { it.id }.findAll { it }
+
+vars.put(&quot;deleteInstanceIdsJson&quot;, JsonOutput.toJson(editedInstanceIds))
+vars.put(&quot;deleteInstanceCount&quot;, editedInstanceIds.size().toString())</stringProp>
+            </JSR223PreProcessor>
+            <hashTree/>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Accept</stringProp>
+                  <stringProp name="Header.value">application/json</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Content-type</stringProp>
+                  <stringProp name="Header.value">application/json</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+      </hashTree>
       <BackendListener guiclass="BackendListenerGui" testclass="BackendListener" testname="Backend Listener">
         <elementProp name="arguments" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments">
           <collectionProp name="Arguments.arguments">
@@ -839,99 +1142,6 @@ vars.put(&quot;perf_1271&quot;, UUID.randomUUID().toString())
         </elementProp>
         <stringProp name="classname">org.apache.jmeter.visualizers.backend.influxdb.InfluxdbBackendListenerClient</stringProp>
       </BackendListener>
-      <hashTree/>
-      <JSR223Listener guiclass="TestBeanGUI" testclass="JSR223Listener" testname="JSR223 Listener - Logger OLD" enabled="false">
-        <stringProp name="cacheKey">true</stringProp>
-        <stringProp name="filename"></stringProp>
-        <stringProp name="parameters"></stringProp>
-        <stringProp name="script">// Import necessary libraries
-import org.apache.jmeter.samplers.SampleResult;
-import org.apache.jmeter.assertions.AssertionResult;
-
-// Check if the previous sampler or current sampler result is not successful
-if (!prev.isSuccessful() || !sampleResult.isSuccessful()) {
-    // Get the response body as a string
-    def responseBody = sampleResult.getResponseDataAsString();
-
-    // Get the end time of the sample
-    def endTime = sampleResult.getEndTime();
-
-    // Convert the timestamp to a human-readable format
-    def formattedEndTime = new Date(endTime).toString();
-
-    // Get the sample label HTTP requesr Name
-    def sampleLabel = sampleResult.getSampleLabel();
-
-    // Format the message
-    def message = &quot;Assertion failed for sampler &apos;${sampleLabel}&apos; at ${formattedEndTime}: ${responseBody}&quot;;
-
-    // Log the message to the JMeter log
-    log.info(message);
-
-    // Log the message to the console output
-    println(&quot;Assertion failed: ${message}&quot;);
-}</stringProp>
-        <stringProp name="scriptLanguage">groovy</stringProp>
-      </JSR223Listener>
-      <hashTree/>
-      <JSR223Listener guiclass="TestBeanGUI" testclass="JSR223Listener" testname="JSR223 Listener - Logger">
-        <stringProp name="cacheKey">true</stringProp>
-        <stringProp name="filename"></stringProp>
-        <stringProp name="parameters"></stringProp>
-        <stringProp name="script">// Import necessary libraries
-import org.apache.jmeter.samplers.SampleResult;
-import org.apache.jmeter.assertions.AssertionResult;
-import org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy;
-
-// Check if the previous or current sampler failed
-if (!prev.isSuccessful() || !sampleResult.isSuccessful()) {
-    // Get the response body as a string
-    def responseBody = sampleResult.getResponseDataAsString() ?: &quot;No response body&quot;;
-
-    // Get the end time of the sample
-    def endTime = sampleResult.getEndTime();
-
-    // Convert the timestamp to a human-readable format
-    def formattedEndTime = new Date(endTime).toString();
-
-    // Get the sample label (HTTP request name)
-    def sampleLabel = sampleResult.getSampleLabel();
-
-    // Get the real URL of the request
-    def requestUrl = sampleResult.getURL()?.toString() ?: &quot;URL not available&quot;;
-
-    // Initialize the message variable
-    def message =  &quot;==================================================================\n&quot; +
-                  &quot;Assertion failed for sampler &apos;${sampleLabel}&apos; at ${formattedEndTime}\n&quot; +
-                  &quot;------------------------------------------\n&quot; +
-                  &quot;Request URL: ${requestUrl}\n&quot;;
-
-    // Check if the sampler is an HTTP request
-    if (sampler instanceof HTTPSamplerProxy) {
-        // Get the request body (if available)
-        def samplerData = sampleResult.getSamplerData() ?: &quot;&quot;;
-        def requestBody = samplerData.contains(&apos;\n&apos;) ? samplerData.substring(samplerData.indexOf(&apos;\n&apos;) + 1).trim() : &quot;No request body&quot;;
-        if (requestBody.contains(&quot;Cookie Data:&quot;)) {
-            requestBody = requestBody.substring(0, requestBody.indexOf(&quot;Cookie Data:&quot;)).trim() ?: &quot;No request body&quot;;
-        }
-        // Add the request body to the message
-        message += &quot;------------------------------------------\n&quot; +
-                  &quot;Request Body: ${requestBody}\n&quot;;
-    }
-
-    // Complete the message with the response body
-    message += &quot;------------------------------------------\n&quot; +
-              &quot;Response: ${responseBody}\n&quot; +
-              &quot;==================================================================&quot;;
-
-    // Log the message to the JMeter log
-    log.info(message);
-
-    // Log the message to the console
-    println(&quot;Assertion failed: ${message}&quot;);
-}</stringProp>
-        <stringProp name="scriptLanguage">groovy</stringProp>
-      </JSR223Listener>
       <hashTree/>
     </hashTree>
   </hashTree>
