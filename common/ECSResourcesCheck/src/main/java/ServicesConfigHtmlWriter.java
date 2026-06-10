@@ -52,7 +52,7 @@ public class ServicesConfigHtmlWriter {
             sb.append("<td class=\"tg-73oq\">").append(moduleData.optInt("XMX")).append("</td>\n");
             sb.append("<td class=\"tg-73oq\">").append(moduleData.optInt("Metaspace")).append("</td>\n");
             sb.append("<td class=\"tg-73oq\">").append(moduleData.optInt("MaxMetaspaceSize")).append("</td>\n");
-            sb.append("<td class=\"tg-73oq\">").append(moduleData.getBoolean("RWSplitEnabled")).append("</td>\n");
+            sb.append("<td class=\"tg-73oq\">").append(moduleData.optBoolean("RWSplitEnabled")).append("</td>\n");
             sb.append("</tr>\n");
 
             // Add sidecars
@@ -65,13 +65,13 @@ public class ServicesConfigHtmlWriter {
                     sb.append("<td class=\"tg-73oq\">").append("N/A").append("</td>\n");
                     sb.append("<td class=\"tg-73oq\">").append(sidecar.getString("Version")).append("</td>\n");
                     sb.append("<td class=\"tg-73oq\">").append("N/A").append("</td>\n");
-                    sb.append("<td class=\"tg-73oq\">").append(sidecar.getInt("HardLimit")).append("</td>\n");
-                    sb.append("<td class=\"tg-73oq\">").append(sidecar.getInt("SoftLimit")).append("</td>\n");
-                    sb.append("<td class=\"tg-73oq\">").append(sidecar.getInt("CPUUnits")).append("</td>\n");
-                    sb.append("<td class=\"tg-73oq\">").append(sidecar.getInt("XMX")).append("</td>\n");
-                    sb.append("<td class=\"tg-73oq\">").append(sidecar.getInt("Metaspace")).append("</td>\n");
-                    sb.append("<td class=\"tg-73oq\">").append(sidecar.getInt("MaxMetaspaceSize")).append("</td>\n");
-                    sb.append("<td class=\"tg-73oq\">").append(sidecar.getBoolean("RWSplitEnabled")).append("</td>\n");
+                    sb.append("<td class=\"tg-73oq\">").append(sidecar.optInt("HardLimit")).append("</td>\n");
+                    sb.append("<td class=\"tg-73oq\">").append(sidecar.optInt("SoftLimit")).append("</td>\n");
+                    sb.append("<td class=\"tg-73oq\">").append(sidecar.optInt("CPUUnits")).append("</td>\n");
+                    sb.append("<td class=\"tg-73oq\">").append(sidecar.optInt("XMX")).append("</td>\n");
+                    sb.append("<td class=\"tg-73oq\">").append(sidecar.optInt("Metaspace")).append("</td>\n");
+                    sb.append("<td class=\"tg-73oq\">").append(sidecar.optInt("MaxMetaspaceSize")).append("</td>\n");
+                    sb.append("<td class=\"tg-73oq\">").append(sidecar.optBoolean("RWSplitEnabled")).append("</td>\n");
                     sb.append("</tr>\n");
                 }
             }
