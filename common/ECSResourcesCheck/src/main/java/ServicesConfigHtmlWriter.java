@@ -46,12 +46,12 @@ public class ServicesConfigHtmlWriter {
             sb.append("<td class=\"tg-73oq\">").append(moduleData.getInt("Revision")).append("</td>\n");
             sb.append("<td class=\"tg-73oq\">").append(moduleData.getString("Version")).append("</td>\n");
             sb.append("<td class=\"tg-73oq\">").append(moduleData.getInt("desiredCount")).append("</td>\n");
-            sb.append("<td class=\"tg-73oq\">").append(moduleData.getInt("HardLimit")).append("</td>\n");
-            sb.append("<td class=\"tg-73oq\">").append(moduleData.getInt("SoftLimit")).append("</td>\n");
-            sb.append("<td class=\"tg-73oq\">").append(moduleData.getInt("CPUUnits")).append("</td>\n");
-            sb.append("<td class=\"tg-73oq\">").append(moduleData.getInt("XMX")).append("</td>\n");
-            sb.append("<td class=\"tg-73oq\">").append(moduleData.getInt("Metaspace")).append("</td>\n");
-            sb.append("<td class=\"tg-73oq\">").append(moduleData.getInt("MaxMetaspaceSize")).append("</td>\n");
+            sb.append("<td class=\"tg-73oq\">").append(moduleData.optInt("HardLimit")).append("</td>\n");
+            sb.append("<td class=\"tg-73oq\">").append(moduleData.optInt("SoftLimit")).append("</td>\n");
+            sb.append("<td class=\"tg-73oq\">").append(moduleData.optInt("CPUUnits")).append("</td>\n");
+            sb.append("<td class=\"tg-73oq\">").append(moduleData.optInt("XMX")).append("</td>\n");
+            sb.append("<td class=\"tg-73oq\">").append(moduleData.optInt("Metaspace")).append("</td>\n");
+            sb.append("<td class=\"tg-73oq\">").append(moduleData.optInt("MaxMetaspaceSize")).append("</td>\n");
             sb.append("<td class=\"tg-73oq\">").append(moduleData.getBoolean("RWSplitEnabled")).append("</td>\n");
             sb.append("</tr>\n");
 
