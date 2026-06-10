@@ -46,7 +46,7 @@ public class ServicesConfigHtmlWriter {
             sb.append("<td class=\"tg-73oq\">").append(moduleData.getInt("Revision")).append("</td>\n");
             sb.append("<td class=\"tg-73oq\">").append(moduleData.getString("Version")).append("</td>\n");
             sb.append("<td class=\"tg-73oq\">").append(moduleData.getInt("desiredCount")).append("</td>\n");
-            sb.append("<td class=\"tg-73oq\">").append(moduleData.getInt("HardLimit")).append("</td>\n");
+            sb.append("<td class=\"tg-73oq\">").append(moduleData.optInt("HardLimit", 0)).append("</td>\n");
             sb.append("<td class=\"tg-73oq\">").append(moduleData.getInt("SoftLimit")).append("</td>\n");
             sb.append("<td class=\"tg-73oq\">").append(moduleData.getInt("CPUUnits")).append("</td>\n");
             sb.append("<td class=\"tg-73oq\">").append(moduleData.getInt("XMX")).append("</td>\n");
