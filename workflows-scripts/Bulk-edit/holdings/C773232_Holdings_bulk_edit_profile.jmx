@@ -1,0 +1,1685 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="C773232 - Load testing (100.000) using Holdings bulk edit profile">
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+    </TestPlan>
+    <hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Global User Defined Variables">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="hostName" elementType="Argument">
+            <stringProp name="Argument.name">hostName</stringProp>
+            <stringProp name="Argument.value">kong-bugfest-sunflower.int.aws.folio.org</stringProp>
+            <stringProp name="Argument.desc">Target host</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="tenant" elementType="Argument">
+            <stringProp name="Argument.name">tenant</stringProp>
+            <stringProp name="Argument.value">fs09000000</stringProp>
+            <stringProp name="Argument.desc">Tenant ID</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="username" elementType="Argument">
+            <stringProp name="Argument.name">username</stringProp>
+            <stringProp name="Argument.value">folio</stringProp>
+            <stringProp name="Argument.desc">Login username</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="password" elementType="Argument">
+            <stringProp name="Argument.name">password</stringProp>
+            <stringProp name="Argument.value">folio</stringProp>
+            <stringProp name="Argument.desc">Login password</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="BE_Items_profile_name" elementType="Argument">
+            <stringProp name="Argument.name">BE_Items_profile_name</stringProp>
+            <stringProp name="Argument.value">Items bulk edit profile</stringProp>
+            <stringProp name="Argument.desc">Name of the items bulk edit profile to use</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="identifiers_csv_path" elementType="Argument">
+            <stringProp name="Argument.name">identifiers_csv_path</stringProp>
+            <stringProp name="Argument.value">/Users/siarhei/holdings-uuids-100k.csv</stringProp>
+            <stringProp name="Argument.desc">Absolute path to the CSV file with ~100k holdings UUIDs</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="BE_Items_pause" elementType="Argument">
+            <stringProp name="Argument.name">BE_Items_pause</stringProp>
+            <stringProp name="Argument.value">${__P(BE_Items_pause,60000)}</stringProp>
+            <stringProp name="Argument.desc">Pause between iterations in ms</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="Global_duration" elementType="Argument">
+            <stringProp name="Argument.name">Global_duration</stringProp>
+            <stringProp name="Argument.value">${__P(Global_duration,3600)}</stringProp>
+            <stringProp name="Argument.desc">Test duration in seconds</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="BE_Items_VU" elementType="Argument">
+            <stringProp name="Argument.name">BE_Items_VU</stringProp>
+            <stringProp name="Argument.value">${__P(BE_Items_VU,1)}</stringProp>
+            <stringProp name="Argument.desc">Number of virtual users</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <CacheManager guiclass="CacheManagerGui" testclass="CacheManager" testname="HTTP Cache Manager">
+        <boolProp name="clearEachIteration">true</boolProp>
+        <boolProp name="useExpires">true</boolProp>
+        <boolProp name="CacheManager.controlledByThread">false</boolProp>
+      </CacheManager>
+      <hashTree/>
+      <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager">
+        <collectionProp name="CookieManager.cookies"/>
+        <boolProp name="CookieManager.clearEachIteration">true</boolProp>
+        <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
+      </CookieManager>
+      <hashTree/>
+      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager - Global">
+        <collectionProp name="HeaderManager.headers">
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">Accept</stringProp>
+            <stringProp name="Header.value">application/json</stringProp>
+          </elementProp>
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">User-Agent</stringProp>
+            <stringProp name="Header.value">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36</stringProp>
+          </elementProp>
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">Accept-Language</stringProp>
+            <stringProp name="Header.value">en-US</stringProp>
+          </elementProp>
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">Sec-Fetch-Site</stringProp>
+            <stringProp name="Header.value">same-site</stringProp>
+          </elementProp>
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">Sec-Fetch-Mode</stringProp>
+            <stringProp name="Header.value">cors</stringProp>
+          </elementProp>
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">Sec-Fetch-Dest</stringProp>
+            <stringProp name="Header.value">empty</stringProp>
+          </elementProp>
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">Accept-Encoding</stringProp>
+            <stringProp name="Header.value">gzip, deflate, br</stringProp>
+          </elementProp>
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">Referer</stringProp>
+            <stringProp name="Header.value">https://${hostName}/</stringProp>
+          </elementProp>
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">Origin</stringProp>
+            <stringProp name="Header.value">https://${hostName}</stringProp>
+          </elementProp>
+        </collectionProp>
+      </HeaderManager>
+      <hashTree/>
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="Setup - Login and Get User ID">
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">stoptest</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <stringProp name="LoopController.loops">1</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </SetupThreadGroup>
+      <hashTree>
+        <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults - Setup">
+          <stringProp name="HTTPSampler.domain">${hostName}</stringProp>
+          <stringProp name="HTTPSampler.port">443</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation"></stringProp>
+        </ConfigTestElement>
+        <hashTree/>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager - Tenant">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">X-Okapi-Tenant</stringProp>
+              <stringProp name="Header.value">${tenant}</stringProp>
+            </elementProp>
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">content-type</stringProp>
+              <stringProp name="Header.value">application/json</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST /authn/login-with-expiry">
+          <stringProp name="HTTPSampler.path">/authn/login-with-expiry</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&quot;username&quot;:&quot;${username}&quot;,&quot;password&quot;:&quot;${password}&quot;}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - 201">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49587">201</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message">Login failed! Expected 201.</stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">16</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Debug - Log login response headers">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">
+log.info(&quot;LOGIN response code: &quot; + prev.getResponseCode())
+log.info(&quot;LOGIN response headers: &quot; + prev.getResponseHeaders().substring(0, Math.min(500, prev.getResponseHeaders().length())))
+            </stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Extract folioAccessToken - all occurrences, pick longest (real JWT)">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">
+def headers = prev.getResponseHeaders()
+log.info(&quot;=== FULL LOGIN RESPONSE HEADERS ===\n&quot; + headers)
+
+// Find ALL folioAccessToken values (there may be &gt;1 Set-Cookie header)
+def matches = []
+def m = headers =~ /(?i)folioAccessToken=([^;,\r\n]+)/
+while (m.find()) {
+    def val = m.group(1).trim()
+    if (val &amp;&amp; val != &quot;&quot;) {
+        matches &lt;&lt; val
+    }
+}
+log.info(&quot;All folioAccessToken values found: &quot; + matches)
+
+// Pick the longest value - that is the real JWT (not a sentinel &quot;1&quot; flag)
+def token = matches ? matches.max { it.length() } : &quot;&quot;
+
+if (token &amp;&amp; token.length() &gt; 5) {
+    vars.put(&quot;folioAccessToken&quot;, token)
+    props.put(&quot;folioAccessToken&quot;, token)
+    log.info(&quot;Token stored in props. length=&quot; + token.length() + &quot;, first30=&quot; + token.substring(0, Math.min(30, token.length())))
+} else {
+    // Fallback: try X-Okapi-Token header
+    def okapiMatcher = headers =~ /(?i)X-Okapi-Token:\s*([^\r\n]+)/
+    if (okapiMatcher.find()) {
+        def okapiToken = okapiMatcher.group(1).trim()
+        vars.put(&quot;folioAccessToken&quot;, okapiToken)
+        props.put(&quot;folioAccessToken&quot;, okapiToken)
+        log.info(&quot;Fallback: X-Okapi-Token stored. length=&quot; + okapiToken.length())
+    } else {
+        log.error(&quot;ERROR: Could not extract any valid auth token from login response!&quot;)
+        vars.put(&quot;folioAccessToken&quot;, &quot;TOKEN_NOT_FOUND&quot;)
+        props.put(&quot;folioAccessToken&quot;, &quot;TOKEN_NOT_FOUND&quot;)
+    }
+}
+            </stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+          <ResultAction guiclass="ResultActionGui" testclass="ResultAction" testname="Stop test on login failure">
+            <intProp name="OnError.action">0</intProp>
+          </ResultAction>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /bl-users/_self">
+          <stringProp name="HTTPSampler.path">/bl-users/_self</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager - Cookie Auth" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Cookie</stringProp>
+                <stringProp name="Header.value">folioAccessToken=${folioAccessToken}</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - 200" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">16</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract userId" enabled="true">
+            <stringProp name="JSONPostProcessor.referenceNames">current_userID</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.user.id</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">userId_not_found</stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Store userId in props" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">
+props.put(&quot;current_userID&quot;, vars.get(&quot;current_userID&quot;))
+props.put(&quot;lastTokenRefreshTime&quot;, System.currentTimeMillis())
+log.info(&quot;Current userId: &quot; + vars.get(&quot;current_userID&quot;) + &quot;, token refresh timer started&quot;)
+              </stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="BE_Bulk-edit-Holdings-Profile">
+        <stringProp name="TestPlan.comments">C770420 - Load testing (100.000) using Holdings bulk edit profile</stringProp>
+        <stringProp name="ThreadGroup.num_threads">${BE_Items_VU}</stringProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <stringProp name="ThreadGroup.duration">${Global_duration}</stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <stringProp name="LoopController.loops">1</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Thread User Defined Variables">
+          <collectionProp name="Arguments.arguments">
+            <elementProp name="entityType" elementType="Argument">
+              <stringProp name="Argument.name">entityType</stringProp>
+              <stringProp name="Argument.value">HOLDINGS_RECORD</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="identifierType" elementType="Argument">
+              <stringProp name="Argument.name">identifierType</stringProp>
+              <stringProp name="Argument.value">ID</stringProp>
+              <stringProp name="Argument.desc">Identifier type for holdings upload</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+          </collectionProp>
+        </Arguments>
+        <hashTree/>
+        <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults">
+          <stringProp name="HTTPSampler.domain">${hostName}</stringProp>
+          <stringProp name="HTTPSampler.port">443</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation"></stringProp>
+        </ConfigTestElement>
+        <hashTree/>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager - Tenant + Auth">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">X-Okapi-Tenant</stringProp>
+              <stringProp name="Header.value">${tenant}</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree/>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Init - Load auth from props into vars">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">
+SampleResult.setIgnore()
+def token = props.get(&quot;folioAccessToken&quot;) ?: &quot;&quot;
+def userId = props.get(&quot;current_userID&quot;) ?: &quot;&quot;
+vars.put(&quot;folioAccessToken&quot;, token)
+vars.put(&quot;current_userID&quot;, userId)
+log.info(&quot;Auth loaded: userId=&quot; + userId + &quot;, tokenLength=&quot; + token.length())
+if (token.length() &lt;= 5) {
+    log.error(&quot;FATAL: Invalid auth token (length=&quot; + token.length() + &quot;). Login must have failed. Stopping thread.&quot;)
+    ctx.getThread().stop()
+}
+          </stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager - Cookie folioAccessToken">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">Cookie</stringProp>
+              <stringProp name="Header.value">folioAccessToken=${folioAccessToken}</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree/>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Init - Record start time">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">
+SampleResult.setIgnore()
+vars.putObject(&quot;startTime&quot;, System.currentTimeMillis())
+vars.putObject(&quot;lastUpdateTime&quot;, System.currentTimeMillis())
+log.info(&quot;=== Starting C773232 Load testing (100.000) using Holdings bulk edit profile ===&quot;)
+          </stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TC_Precondition5: Upload CSV file with holdings UUIDs">
+          <boolProp name="TransactionController.includeTimers">true</boolProp>
+        </TransactionController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST /bulk-operations/upload - Upload CSV file with holdings UUIDs">
+            <stringProp name="TestPlan.comments">Precondition 5: Upload .csv file with valid Item barcodes - entityType=HOLDINGS_RECORD, identifierType=ID</stringProp>
+            <stringProp name="HTTPSampler.path">/bulk-operations/upload?entityType=${entityType}&amp;identifierType=${identifierType}&amp;manual=false</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager - multipart">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">X-Okapi-User-Id</stringProp>
+                  <stringProp name="Header.value">${current_userID}</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+            <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="Attach CSV file for upload" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">
+// Set multipart file upload - attach the CSV file
+def csvPath = vars.get(&quot;identifiers_csv_path&quot;)
+sampler.setHTTPFiles([
+    new org.apache.jmeter.protocol.http.util.HTTPFileArg(csvPath, &quot;file&quot;, &quot;text/csv&quot;)
+] as org.apache.jmeter.protocol.http.util.HTTPFileArg[])
+log.info(&quot;Uploading CSV file: &quot; + csvPath)
+              </stringProp>
+            </JSR223PreProcessor>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - 201 on upload" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="49587">201</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message">Expected 201 on POST /bulk-operations/upload</stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract jobId">
+              <stringProp name="JSONPostProcessor.referenceNames">jobId</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">jobId_not_found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract initial job_status" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">job_status</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.status</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract entityType">
+              <stringProp name="JSONPostProcessor.referenceNames">entityType</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.entityType</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">entityType_not_found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Log upload response">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">
+log.info(&quot;POST /bulk-operations/upload: id=&quot; + vars.get(&quot;jobId&quot;) + &quot;, status=&quot; + vars.get(&quot;job_status&quot;) + &quot;, entityType=&quot; + vars.get(&quot;entityType&quot;))
+              </stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+            <ResultAction guiclass="ResultActionGui" testclass="ResultAction" testname="Continue on error" enabled="true">
+              <intProp name="OnError.action">0</intProp>
+            </ResultAction>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST /bulk-operations/${jobId}/start - step=UPLOAD (Trigger retrieval)">
+          <stringProp name="TestPlan.comments">After upload: trigger the UPLOAD step to start record retrieval</stringProp>
+          <stringProp name="HTTPSampler.path">/bulk-operations/${jobId}/start</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&quot;step&quot;:&quot;UPLOAD&quot;}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">content-type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - 200">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message">Expected 200 on POST start UPLOAD</stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">16</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract totalNumOfRecords (start)">
+            <stringProp name="JSONPostProcessor.referenceNames">totalNumOfRecords</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.totalNumOfRecords</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract hrId">
+            <stringProp name="JSONPostProcessor.referenceNames">hrId</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.hrId</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">hrId_not_found</stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract entityType (start)">
+            <stringProp name="JSONPostProcessor.referenceNames">entityType</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.entityType</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">entityType_not_found</stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Log start UPLOAD response">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">
+log.info(&quot;POST /bulk-operations/&quot; + vars.get(&quot;jobId&quot;) + &quot;/start (UPLOAD): id=&quot; + vars.get(&quot;jobId&quot;) + &quot;, hrId=&quot; + vars.get(&quot;hrId&quot;) + &quot;, entityType=&quot; + vars.get(&quot;entityType&quot;) + &quot;, total=&quot; + vars.get(&quot;totalNumOfRecords&quot;))
+            </stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Pause 5 seconds - wait for job to start">
+          <intProp name="ActionProcessor.action">1</intProp>
+          <intProp name="ActionProcessor.target">0</intProp>
+          <stringProp name="ActionProcessor.duration">5000</stringProp>
+        </TestAction>
+        <hashTree/>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Guard - Abort if jobId not found">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">
+SampleResult.setIgnore()
+if (vars.get(&quot;jobId&quot;) == null || vars.get(&quot;jobId&quot;) == &quot;jobId_not_found&quot;) {
+    log.error(&quot;FATAL: jobId was not created (POST /bulk-operations upload failed or returned no id). Stopping thread.&quot;)
+    ctx.getThread().stop()
+} else {
+    log.info(&quot;Guard passed. jobId=&quot; + vars.get(&quot;jobId&quot;))
+}
+          </stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /bulk-operations/${jobId} - Initial status check (RETRIEVING)">
+          <stringProp name="HTTPSampler.path">/bulk-operations/${jobId}</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - 200">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">16</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract job_status">
+            <stringProp name="JSONPostProcessor.referenceNames">job_status</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.status</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">Not_found</stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract job_progress">
+            <stringProp name="JSONPostProcessor.referenceNames">job_progress</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.processedNumOfRecords</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract matchedNumOfRecords">
+            <stringProp name="JSONPostProcessor.referenceNames">matchedNumOfRecords</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.matchedNumOfRecords</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract totalNumOfRecords">
+            <stringProp name="JSONPostProcessor.referenceNames">totalNumOfRecords</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.totalNumOfRecords</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Log initial status check response">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">
+log.info(&quot;GET /bulk-operations/&quot; + vars.get(&quot;jobId&quot;) + &quot; (initial status check) status=&quot; + vars.get(&quot;job_status&quot;) + &quot;, matched=&quot; + vars.get(&quot;matchedNumOfRecords&quot;) + &quot;, processed=&quot; + vars.get(&quot;job_progress&quot;) + &quot;, total=&quot; + vars.get(&quot;totalNumOfRecords&quot;))
+            </stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <WhileController guiclass="WhileControllerGui" testclass="WhileController" testname="While - Wait for RETRIEVING_RECORDS to complete">
+          <stringProp name="WhileController.condition">${__groovy(vars.get(&quot;jobId&quot;) != &quot;jobId_not_found&quot; &amp;&amp; vars.get(&quot;job_status&quot;) != &quot;DATA_MODIFICATION&quot; &amp;&amp; vars.get(&quot;job_status&quot;) != &quot;COMPLETED&quot; &amp;&amp; vars.get(&quot;job_status&quot;) != &quot;FAILED&quot;)}</stringProp>
+        </WhileController>
+        <hashTree>
+          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Refresh token if 8 min elapsed">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">
+SampleResult.setIgnore()
+def now = System.currentTimeMillis()
+def lastRefresh = props.get(&quot;lastTokenRefreshTime&quot;)
+if (lastRefresh == null || (now - (lastRefresh as long)) &gt;= 480000) {
+    log.info(&quot;Token refresh: 8 min elapsed - re-authenticating...&quot;)
+    def url = new URL(&quot;https://&quot; + vars.get(&quot;hostName&quot;) + &quot;/authn/login-with-expiry&quot;)
+    def conn = (javax.net.ssl.HttpsURLConnection) url.openConnection()
+    conn.setRequestMethod(&quot;POST&quot;)
+    conn.setDoOutput(true)
+    conn.setRequestProperty(&quot;Content-Type&quot;, &quot;application/json&quot;)
+    conn.setRequestProperty(&quot;X-Okapi-Tenant&quot;, vars.get(&quot;tenant&quot;))
+    conn.setConnectTimeout(30000)
+    conn.setReadTimeout(30000)
+    def body = &apos;{&quot;username&quot;:&quot;&apos; + vars.get(&quot;username&quot;) + &apos;&quot;,&quot;password&quot;:&quot;&apos; + vars.get(&quot;password&quot;) + &apos;&quot;}&apos;
+    conn.outputStream.withWriter(&quot;UTF-8&quot;) { it.write(body) }
+    def code = conn.responseCode
+    if (code == 201) {
+        def hdrs = conn.headerFields.findAll { k, v -&gt; k != null }.collect { k, v -&gt; k + &quot;: &quot; + v.join(&quot;,&quot;) }.join(&quot;\n&quot;)
+        def matches = []
+        def m = hdrs =~ /(?i)folioAccessToken=([^;,\r\n]+)/
+        while (m.find()) { matches &lt;&lt; m.group(1).trim() }
+        def token = matches ? matches.max { it.length() } : &quot;&quot;
+        if (token &amp;&amp; token.length() &gt; 5) {
+            vars.put(&quot;folioAccessToken&quot;, token)
+            props.put(&quot;folioAccessToken&quot;, token)
+            props.put(&quot;lastTokenRefreshTime&quot;, now)
+            log.info(&quot;Token refreshed successfully. length=&quot; + token.length())
+        } else {
+            log.error(&quot;Token refresh: could not extract folioAccessToken from response headers&quot;)
+        }
+    } else {
+        log.error(&quot;Token refresh failed! HTTP &quot; + code)
+    }
+    conn.disconnect()
+}
+            </stringProp>
+          </JSR223Sampler>
+          <hashTree/>
+          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Wait 5s between status polls">
+            <stringProp name="ConstantTimer.delay">5000</stringProp>
+          </ConstantTimer>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /bulk-operations/${jobId} - Poll RETRIEVING status">
+            <stringProp name="HTTPSampler.path">/bulk-operations/${jobId}</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Content-type</stringProp>
+                  <stringProp name="Header.value">application/json</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - 200" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="49586">200</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract job_status" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">job_status</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.status</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract job_progress" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">job_progress</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.processedNumOfRecords</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract matchedNumOfRecords" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">matchedNumOfRecords</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.matchedNumOfRecords</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract totalNumOfRecords" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">totalNumOfRecords</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.totalNumOfRecords</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Log retrieval progress" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">
+def status = vars.get(&quot;job_status&quot;)
+def progress = vars.get(&quot;job_progress&quot;)
+def matched = vars.get(&quot;matchedNumOfRecords&quot;)
+def total = vars.get(&quot;totalNumOfRecords&quot;)
+log.info(&quot;RETRIEVING poll: status=${status}, matched=${matched}, processed=${progress}, total=${total}&quot;)
+
+// Track update time to detect stalls
+if (progress != vars.get(&quot;last_progress&quot;)) {
+    vars.putObject(&quot;lastUpdateTime&quot;, System.currentTimeMillis())
+    vars.put(&quot;last_progress&quot;, progress)
+}
+// Check for stall &gt; 1 hour
+def noUpdateMs = System.currentTimeMillis() - (vars.getObject(&quot;lastUpdateTime&quot;) ?: System.currentTimeMillis())
+if (noUpdateMs &gt; 3600000) {
+    log.error(&quot;Job ${vars.get(&apos;jobId&apos;)} has not progressed for 1 hour! Aborting.&quot;)
+    ctx.getThread().stop()
+}
+              </stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TC_Step1: Open Actions Menu - Preview Matched Records (UPLOAD step)">
+          <boolProp name="TransactionController.includeTimers">true</boolProp>
+        </TransactionController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /bulk-operations/${jobId}/preview?limit=10&amp;step=UPLOAD">
+            <stringProp name="TestPlan.comments">Step 1 Expected: Verify Actions menu with Download matched records (CSV), Start bulk edit, Select holdings bulk edit profile options</stringProp>
+            <stringProp name="HTTPSampler.path">/bulk-operations/${jobId}/preview?limit=10&amp;step=UPLOAD</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Content-type</stringProp>
+                  <stringProp name="Header.value">application/json</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - 200">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="49586">200</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /bulk-operations/${jobId}/errors?limit=10 - Check upload errors">
+          <stringProp name="TestPlan.comments">Step 2: Uncheck columns that are going to be edited (Administrative note, Action note, Copy note, Check in note, Check out note, Item permanent location, Item temporary location)</stringProp>
+          <stringProp name="HTTPSampler.path">/bulk-operations/${jobId}/errors?limit=10</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - 200">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">16</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TC_Step4: Apply rules (Holdings bulk edit profile actions) and show preview of changes">
+          <boolProp name="TransactionController.includeTimers">true</boolProp>
+        </TransactionController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST /bulk-operations/${jobId}/content-update - Apply Items bulk edit profile rules">
+            <stringProp name="TestPlan.comments">Step 4: Apply items bulk edit profile rules: Administrative note ADD_NOTE; Action note CHANGE_NOTE_TYPE to Copy note; Check in note ADD_NOTE; Check out note REMOVE_ALL; Permanent item location CLEAR_FIELD; Temporary item location REPLACE_WITH</stringProp>
+            <stringProp name="HTTPSampler.path">/bulk-operations/${jobId}/content-update</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${content_update_body}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="Build content-update body for Items bulk edit profile">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">
+def jobId = vars.get(&quot;jobId&quot;)
+// Items bulk edit profile rules:
+// 1. Administrative note - Add note
+// 2. Action note (Item note) - Change note type to Copy note
+// 3. Check in note - Add note
+// 4. Check out note - Remove all
+// 5. Permanent item location - Clear field
+// 6. Temporary item location - Replace with
+def body = &quot;{\&quot;bulkOperationRules\&quot;:[&quot; +
+    &quot;{\&quot;bulkOperationId\&quot;:\&quot;&quot; + jobId + &quot;\&quot;,\&quot;rule_details\&quot;:{\&quot;option\&quot;:\&quot;ADMINISTRATIVE_NOTE\&quot;,\&quot;tenants\&quot;:[],\&quot;actions\&quot;:[{\&quot;type\&quot;:\&quot;ADD_TO_EXISTING\&quot;,\&quot;initial\&quot;:null,\&quot;updated\&quot;:\&quot;Administrative note added by bulk edit\&quot;,\&quot;tenants\&quot;:[],\&quot;updated_tenants\&quot;:[],\&quot;parameters\&quot;:[]}]}},&quot; +
+    &quot;{\&quot;bulkOperationId\&quot;:\&quot;&quot; + jobId + &quot;\&quot;,\&quot;rule_details\&quot;:{\&quot;option\&quot;:\&quot;HOLDINGS_NOTE\&quot;,\&quot;tenants\&quot;:[],\&quot;actions\&quot;:[{\&quot;type\&quot;:\&quot;CHANGE_TYPE\&quot;,\&quot;initial\&quot;:\&quot;Action note\&quot;,\&quot;updated\&quot;:\&quot;Copy note\&quot;,\&quot;tenants\&quot;:[],\&quot;updated_tenants\&quot;:[],\&quot;parameters\&quot;:[]}]}},&quot; +
+    &quot;{\&quot;bulkOperationId\&quot;:\&quot;&quot; + jobId + &quot;\&quot;,\&quot;rule_details\&quot;:{\&quot;option\&quot;:\&quot;PERMANENT_LOCATION\&quot;,\&quot;tenants\&quot;:[],\&quot;actions\&quot;:[{\&quot;type\&quot;:\&quot;REPLACE_WITH\&quot;,\&quot;initial\&quot;:null,\&quot;updated\&quot;:\&quot;ca73826b-ec95-4e62-9266-7c97dc17b816\&quot;,\&quot;tenants\&quot;:[],\&quot;updated_tenants\&quot;:[],\&quot;parameters\&quot;:[]}]}},&quot; +
+    &quot;{\&quot;bulkOperationId\&quot;:\&quot;&quot; + jobId + &quot;\&quot;,\&quot;rule_details\&quot;:{\&quot;option\&quot;:\&quot;TEMPORARY_LOCATION\&quot;,\&quot;tenants\&quot;:[],\&quot;actions\&quot;:[{\&quot;type\&quot;:\&quot;REPLACE_WITH\&quot;,\&quot;initial\&quot;:null,\&quot;updated\&quot;:\&quot;ca73826b-ec95-4e62-9266-7c97dc17b816\&quot;,\&quot;tenants\&quot;:[],\&quot;updated_tenants\&quot;:[],\&quot;parameters\&quot;:[]}]}}&quot; +
+    &quot;],\&quot;totalRecords\&quot;:1}&quot;
+vars.put(&quot;content_update_body&quot;, body)
+log.info(&quot;content-update body: &quot; + body)
+              </stringProp>
+            </JSR223PreProcessor>
+            <hashTree/>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">content-type</stringProp>
+                  <stringProp name="Header.value">application/json</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Log content-update response">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">
+log.info(&quot;content-update response code: &quot; + prev.getResponseCode())
+if (prev.getResponseCode() != &quot;200&quot;) { log.error(&quot;content-update FAILED: &quot; + prev.getResponseDataAsString()) }
+              </stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - 200">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="49586">200</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message">Expected 200 on POST content-update</stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST /bulk-operations/${jobId}/start - step=EDIT (Apply profile)">
+            <stringProp name="TestPlan.comments">Step 4: Triggers preview of records to be changed based on selected items bulk edit profile</stringProp>
+            <stringProp name="HTTPSampler.path">/bulk-operations/${jobId}/start</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&quot;step&quot;:&quot;EDIT&quot;,&quot;approach&quot;:&quot;IN_APP&quot;}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">content-type</stringProp>
+                  <stringProp name="Header.value">application/json</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - 200">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="49586">200</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message">Expected 200 on POST start EDIT</stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Pause 5 seconds - wait for EDIT step to begin" enabled="true">
+          <intProp name="ActionProcessor.action">1</intProp>
+          <intProp name="ActionProcessor.target">0</intProp>
+          <stringProp name="ActionProcessor.duration">5000</stringProp>
+        </TestAction>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /bulk-operations/${jobId} - Initial EDIT step status">
+          <stringProp name="HTTPSampler.path">/bulk-operations/${jobId}</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - 200" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">16</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract job_status" enabled="true">
+            <stringProp name="JSONPostProcessor.referenceNames">job_status</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.status</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">Not_found</stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract job_progress" enabled="true">
+            <stringProp name="JSONPostProcessor.referenceNames">job_progress</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.processedNumOfRecords</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+        </hashTree>
+        <WhileController guiclass="WhileControllerGui" testclass="WhileController" testname="While - Wait for EDIT step preview to be ready">
+          <stringProp name="WhileController.condition">${__groovy(vars.get(&quot;jobId&quot;) != &quot;jobId_not_found&quot; &amp;&amp; vars.get(&quot;job_status&quot;) != &quot;REVIEW_CHANGES&quot; &amp;&amp; vars.get(&quot;job_status&quot;) != &quot;COMPLETED&quot; &amp;&amp; vars.get(&quot;job_status&quot;) != &quot;FAILED&quot;)}</stringProp>
+        </WhileController>
+        <hashTree>
+          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Refresh token if 8 min elapsed">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">
+SampleResult.setIgnore()
+def now = System.currentTimeMillis()
+def lastRefresh = props.get(&quot;lastTokenRefreshTime&quot;)
+if (lastRefresh == null || (now - (lastRefresh as long)) &gt;= 480000) {
+    log.info(&quot;Token refresh: 8 min elapsed - re-authenticating...&quot;)
+    def url = new URL(&quot;https://&quot; + vars.get(&quot;hostName&quot;) + &quot;/authn/login-with-expiry&quot;)
+    def conn = (javax.net.ssl.HttpsURLConnection) url.openConnection()
+    conn.setRequestMethod(&quot;POST&quot;)
+    conn.setDoOutput(true)
+    conn.setRequestProperty(&quot;Content-Type&quot;, &quot;application/json&quot;)
+    conn.setRequestProperty(&quot;X-Okapi-Tenant&quot;, vars.get(&quot;tenant&quot;))
+    conn.setConnectTimeout(30000)
+    conn.setReadTimeout(30000)
+    def body = &apos;{&quot;username&quot;:&quot;&apos; + vars.get(&quot;username&quot;) + &apos;&quot;,&quot;password&quot;:&quot;&apos; + vars.get(&quot;password&quot;) + &apos;&quot;}&apos;
+    conn.outputStream.withWriter(&quot;UTF-8&quot;) { it.write(body) }
+    def code = conn.responseCode
+    if (code == 201) {
+        def hdrs = conn.headerFields.findAll { k, v -&gt; k != null }.collect { k, v -&gt; k + &quot;: &quot; + v.join(&quot;,&quot;) }.join(&quot;\n&quot;)
+        def matches = []
+        def m = hdrs =~ /(?i)folioAccessToken=([^;,\r\n]+)/
+        while (m.find()) { matches &lt;&lt; m.group(1).trim() }
+        def token = matches ? matches.max { it.length() } : &quot;&quot;
+        if (token &amp;&amp; token.length() &gt; 5) {
+            vars.put(&quot;folioAccessToken&quot;, token)
+            props.put(&quot;folioAccessToken&quot;, token)
+            props.put(&quot;lastTokenRefreshTime&quot;, now)
+            log.info(&quot;Token refreshed successfully. length=&quot; + token.length())
+        } else {
+            log.error(&quot;Token refresh: could not extract folioAccessToken from response headers&quot;)
+        }
+    } else {
+        log.error(&quot;Token refresh failed! HTTP &quot; + code)
+    }
+    conn.disconnect()
+}
+            </stringProp>
+          </JSR223Sampler>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /bulk-operations/${jobId} - Poll EDIT preview progress">
+            <stringProp name="HTTPSampler.path">/bulk-operations/${jobId}</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Content-type</stringProp>
+                  <stringProp name="Header.value">application/json</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - 200" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="49586">200</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract job_status" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">job_status</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.status</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract job_progress" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">job_progress</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.processedNumOfRecords</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract matchedNumOfRecords" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">matchedNumOfRecords</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.matchedNumOfRecords</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Log EDIT progress" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">
+log.info(&quot;EDIT step poll: status=${vars.get(&apos;job_status&apos;)}, progress=${vars.get(&apos;job_progress&apos;)}&quot;)
+if (vars.get(&quot;job_progress&quot;) != vars.get(&quot;last_edit_progress&quot;)) {
+    vars.putObject(&quot;lastUpdateTime&quot;, System.currentTimeMillis())
+    vars.put(&quot;last_edit_progress&quot;, vars.get(&quot;job_progress&quot;))
+}
+def noUpdateMs = System.currentTimeMillis() - (vars.getObject(&quot;lastUpdateTime&quot;) ?: System.currentTimeMillis())
+if (noUpdateMs &gt; 3600000) {
+    log.error(&quot;EDIT step stalled for 1 hour! Aborting.&quot;)
+    ctx.getThread().stop()
+}
+              </stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+            <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Wait 5s between status polls" enabled="true">
+              <stringProp name="ConstantTimer.delay">5000</stringProp>
+            </ConstantTimer>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TC_Step4 Expected: Are you sure? + Preview of records to be changed (EDIT step)" enabled="true">
+          <boolProp name="TransactionController.includeTimers">true</boolProp>
+        </TransactionController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /bulk-operations/${jobId}/preview?limit=10&amp;step=EDIT" enabled="true">
+            <stringProp name="TestPlan.comments">Step 4 Expected: Preview of records to be changed - Administrative note added, Action note changed to Copy note, Check in note added, Check out note removed, Permanent location cleared, Temporary location replaced</stringProp>
+            <stringProp name="HTTPSampler.path">/bulk-operations/${jobId}/preview?limit=10&amp;step=EDIT</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Content-type</stringProp>
+                  <stringProp name="Header.value">application/json</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - 200" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="49586">200</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TC_Step5: Download preview in CSV format" enabled="true">
+          <boolProp name="TransactionController.includeTimers">true</boolProp>
+        </TransactionController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /bulk-operations/${jobId}/download?fileContentType=PROPOSED_CHANGES_FILE (CSV)" enabled="true">
+            <stringProp name="TestPlan.comments">Step 5: Download preview CSV - yyyy-mm-dd-Updates-Preview-CSV-&lt;filename&gt;.csv</stringProp>
+            <stringProp name="HTTPSampler.path">/bulk-operations/${jobId}/download?fileContentType=PROPOSED_CHANGES_FILE</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Accept</stringProp>
+                  <stringProp name="Header.value">text/plain, application/octet-stream, */*</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - 200" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="49586">200</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message">Expected 200 on download preview CSV</stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Log download response - PROPOSED_CHANGES_FILE" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">log.info(&quot;GET /download?fileContentType=PROPOSED_CHANGES_FILE response code: &quot; + prev.getResponseCode())</stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TC_Step6: Commit changes" enabled="true">
+          <boolProp name="TransactionController.includeTimers">true</boolProp>
+        </TransactionController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST /bulk-operations/${jobId}/start - step=COMMIT" enabled="true">
+            <stringProp name="TestPlan.comments">Step 6: Click Commit changes - applies bulk edit to all matched Item records</stringProp>
+            <stringProp name="HTTPSampler.path">/bulk-operations/${jobId}/start</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&quot;step&quot;:&quot;COMMIT&quot;,&quot;approach&quot;:&quot;IN_APP&quot;}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">content-type</stringProp>
+                  <stringProp name="Header.value">application/json</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - 200" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="49586">200</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message">Expected 200 on POST start COMMIT</stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Pause 5 seconds - wait for COMMIT to begin" enabled="true">
+          <intProp name="ActionProcessor.action">1</intProp>
+          <intProp name="ActionProcessor.target">0</intProp>
+          <stringProp name="ActionProcessor.duration">5000</stringProp>
+        </TestAction>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /bulk-operations/${jobId} - Initial COMMIT status check">
+          <stringProp name="HTTPSampler.path">/bulk-operations/${jobId}</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - 200" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">16</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract job_status" enabled="true">
+            <stringProp name="JSONPostProcessor.referenceNames">job_status</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.status</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">Not_found</stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract job_progress" enabled="true">
+            <stringProp name="JSONPostProcessor.referenceNames">job_progress</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.processedNumOfRecords</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+        </hashTree>
+        <WhileController guiclass="WhileControllerGui" testclass="WhileController" testname="While - Wait for COMMIT to complete">
+          <stringProp name="WhileController.condition">${__groovy(vars.get(&quot;jobId&quot;) != &quot;jobId_not_found&quot; &amp;&amp; vars.get(&quot;job_status&quot;) != &quot;COMPLETED&quot; &amp;&amp; vars.get(&quot;job_status&quot;) != &quot;COMPLETED_WITH_ERRORS&quot; &amp;&amp; vars.get(&quot;job_status&quot;) != &quot;FAILED&quot;)}</stringProp>
+        </WhileController>
+        <hashTree>
+          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Refresh token if 8 min elapsed" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">
+SampleResult.setIgnore()
+def now = System.currentTimeMillis()
+def lastRefresh = props.get(&quot;lastTokenRefreshTime&quot;)
+if (lastRefresh == null || (now - (lastRefresh as long)) &gt;= 480000) {
+    log.info(&quot;Token refresh: 8 min elapsed - re-authenticating...&quot;)
+    def url = new URL(&quot;https://&quot; + vars.get(&quot;hostName&quot;) + &quot;/authn/login-with-expiry&quot;)
+    def conn = (javax.net.ssl.HttpsURLConnection) url.openConnection()
+    conn.setRequestMethod(&quot;POST&quot;)
+    conn.setDoOutput(true)
+    conn.setRequestProperty(&quot;Content-Type&quot;, &quot;application/json&quot;)
+    conn.setRequestProperty(&quot;X-Okapi-Tenant&quot;, vars.get(&quot;tenant&quot;))
+    conn.setConnectTimeout(30000)
+    conn.setReadTimeout(30000)
+    def body = &apos;{&quot;username&quot;:&quot;&apos; + vars.get(&quot;username&quot;) + &apos;&quot;,&quot;password&quot;:&quot;&apos; + vars.get(&quot;password&quot;) + &apos;&quot;}&apos;
+    conn.outputStream.withWriter(&quot;UTF-8&quot;) { it.write(body) }
+    def code = conn.responseCode
+    if (code == 201) {
+        def hdrs = conn.headerFields.findAll { k, v -&gt; k != null }.collect { k, v -&gt; k + &quot;: &quot; + v.join(&quot;,&quot;) }.join(&quot;\n&quot;)
+        def matches = []
+        def m = hdrs =~ /(?i)folioAccessToken=([^;,\r\n]+)/
+        while (m.find()) { matches &lt;&lt; m.group(1).trim() }
+        def token = matches ? matches.max { it.length() } : &quot;&quot;
+        if (token &amp;&amp; token.length() &gt; 5) {
+            vars.put(&quot;folioAccessToken&quot;, token)
+            props.put(&quot;folioAccessToken&quot;, token)
+            props.put(&quot;lastTokenRefreshTime&quot;, now)
+            log.info(&quot;Token refreshed successfully. length=&quot; + token.length())
+        } else {
+            log.error(&quot;Token refresh: could not extract folioAccessToken from response headers&quot;)
+        }
+    } else {
+        log.error(&quot;Token refresh failed! HTTP &quot; + code)
+    }
+    conn.disconnect()
+}
+            </stringProp>
+          </JSR223Sampler>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /bulk-operations/${jobId} - Poll COMMIT progress" enabled="true">
+            <stringProp name="HTTPSampler.path">/bulk-operations/${jobId}</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Content-type</stringProp>
+                  <stringProp name="Header.value">application/json</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - 200" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="49586">200</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract job_status" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">job_status</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.status</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">Not_found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract job_progress" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">job_progress</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.processedNumOfRecords</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Log COMMIT progress" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">
+log.info(&quot;COMMIT step poll: status=${vars.get(&apos;job_status&apos;)}, progress=${vars.get(&apos;job_progress&apos;)}&quot;)
+if (vars.get(&quot;job_progress&quot;) != vars.get(&quot;last_commit_progress&quot;)) {
+    vars.putObject(&quot;lastUpdateTime&quot;, System.currentTimeMillis())
+    vars.put(&quot;last_commit_progress&quot;, vars.get(&quot;job_progress&quot;))
+}
+def noUpdateMs = System.currentTimeMillis() - (vars.getObject(&quot;lastUpdateTime&quot;) ?: System.currentTimeMillis())
+if (noUpdateMs &gt; 7200000) {
+    log.error(&quot;COMMIT step stalled for 2 hours! Aborting.&quot;)
+    ctx.getThread().stop()
+}
+              </stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+            <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Wait 5s between status polls">
+              <stringProp name="ConstantTimer.delay">5000</stringProp>
+            </ConstantTimer>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TC_Step6 Expected: Preview of records changed (COMMIT step)">
+          <boolProp name="TransactionController.includeTimers">true</boolProp>
+        </TransactionController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /bulk-operations/${jobId}/preview?limit=10&amp;step=COMMIT">
+            <stringProp name="TestPlan.comments">Step 6 Expected: Preview of records changed - Admin note added, Action note changed to Copy note, Check in note added, Check out note removed, Permanent location cleared, Temporary location replaced</stringProp>
+            <stringProp name="HTTPSampler.path">/bulk-operations/${jobId}/preview?limit=10&amp;step=COMMIT</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Content-type</stringProp>
+                  <stringProp name="Header.value">application/json</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - 200" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="49586">200</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TC_Step7: Download changed records (CSV)">
+          <boolProp name="TransactionController.includeTimers">true</boolProp>
+        </TransactionController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /bulk-operations/${jobId}/download?fileContentType=CHANGED_RECORDS_FILE (CSV)">
+            <stringProp name="TestPlan.comments">Step 7: Download changed records CSV - yyyy-mm-dd-Changed-Records-CSV-&lt;filename&gt;.csv</stringProp>
+            <stringProp name="HTTPSampler.path">/bulk-operations/${jobId}/download?fileContentType=COMMITTED_RECORDS_FILE</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Accept</stringProp>
+                  <stringProp name="Header.value">text/plain, application/octet-stream, */*</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - 200" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="49586">200</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message">Expected 200 on download changed records CSV</stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Log download response - COMMITTED_RECORDS_FILE" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">log.info(&quot;GET /download?fileContentType=COMMITTED_RECORDS_FILE response code: &quot; + prev.getResponseCode())</stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TC_Step8: Verify changes in Inventory - Search for edited Items">
+          <boolProp name="TransactionController.includeTimers">true</boolProp>
+        </TransactionController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /bulk-operations/${jobId}/errors?limit=10 - Post-commit errors">
+            <stringProp name="TestPlan.comments">Step 8: Check errors and warnings after commit</stringProp>
+            <stringProp name="HTTPSampler.path">/bulk-operations/${jobId}/errors?limit=10</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Content-type</stringProp>
+                  <stringProp name="Header.value">application/json</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - 200" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="49586">200</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Log errors count" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">log.info(&quot;Errors after commit: &quot; + prev.getResponseDataAsString())</stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /inventory/items - Search edited Items (verify changes applied)">
+            <stringProp name="TestPlan.comments">Step 8 Expected: Changes applied - Admin note added, Action note type changed to Copy note, Check in note added, Check out note removed, Permanent location cleared, Temporary location replaced</stringProp>
+            <stringProp name="HTTPSampler.path">/inventory/items?query=(barcode=&quot;*&quot;)&amp;limit=10</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Content-type</stringProp>
+                  <stringProp name="Header.value">application/json</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - 200">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="49586">200</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract first item ID for verification">
+              <stringProp name="JSONPostProcessor.referenceNames">firstItemId</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.items[0].id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">itemId_not_found</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Final - Log total elapsed time">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">
+SampleResult.setIgnore()
+def end = System.currentTimeMillis()
+def start = vars.getObject(&quot;startTime&quot;) ?: end
+def elapsedSec = (end - start) / 1000
+log.info(&quot;=== C773232 Load testing (100.000) using Holdings bulk edit profile COMPLETED === jobId=${vars.get(&apos;jobId&apos;)}, finalStatus=${vars.get(&apos;job_status&apos;)}, totalTime=${elapsedSec}s&quot;)
+          </stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Pause between iterations">
+          <intProp name="ActionProcessor.action">1</intProp>
+          <intProp name="ActionProcessor.target">0</intProp>
+          <stringProp name="ActionProcessor.duration">${BE_Items_pause}</stringProp>
+        </TestAction>
+        <hashTree/>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename">C770420_summary.jtl</stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
