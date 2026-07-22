@@ -1,0 +1,12 @@
+#!/bin/bash
+tmp=$(wc -l < Tenant.txt) #Reading tenant IDs from Tenant.txt file 
+export PGPASSWORD='[DBPassword]' #Exporting Password to provide it automatically into SQL script
+
+while read p; do # read file untill there is tenant ID's and call SQL script to cleanup the data
+  echo doing this for tenant "$p"
+sed -i 's/tenant/'$p'/g' checkin-checkout-db-restore.sql
+psql -f checkin-checkout-db-restore.sql -a --echo-all -h [DBHOSTNAME] -U folio
+sed -i 's/'$p'/tenant/g' checkin-checkout-db-restore.sql
+echo "$1"
+
+done <Tenant.txt
